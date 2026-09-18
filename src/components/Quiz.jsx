@@ -4,7 +4,7 @@ import { shuffle, shuffleOptions } from '../lib/shuffle.js'
 import { domainById } from '../data/exam.js'
 import ScoreRing from './ScoreRing.jsx'
 
-const KEYS = ['A', 'B', 'C', 'D', 'E']
+export const KEYS = ['A', 'B', 'C', 'D', 'E']
 
 /**
  * Two modes:
@@ -273,7 +273,7 @@ export default function Quiz({
   )
 }
 
-function Explanation({ q }) {
+export function Explanation({ q }) {
   return (
     <div className="explain">
       <h4 style={{ color: 'var(--ok)' }}>Why {KEYS[q.a]} is correct</h4>

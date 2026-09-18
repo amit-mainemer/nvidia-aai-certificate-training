@@ -41,11 +41,14 @@ export default function Module() {
       <div style={{ display: 'grid', gap: 8, marginBottom: 30 }}>
         {mod.lessons.map((l, i) => {
           const isDone = !!progress.lessons[`${mod.id}/${l.id}`]
+          const check = progress.checks?.[`${mod.id}/${l.id}`]
           return (
             <Link key={l.id} to={`/module/${mod.id}/${l.id}`} className={`lesson-item ${isDone ? 'done' : ''}`}>
               <span className="li-idx">{isDone ? '✓' : i + 1}</span>
               <span className="li-t">{l.title}</span>
-              <span className="li-time">{l.minutes} min</span>
+              <span className="li-time">
+                {check ? <span className={check.score / check.total >= 0.7 ? 'ok' : 'warn'}>{check.score}/{check.total}</span> : `${l.minutes} min`}
+              </span>
             </Link>
           )
         })}

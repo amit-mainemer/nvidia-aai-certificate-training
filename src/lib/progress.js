@@ -5,6 +5,7 @@ const KEY = 'ncp-aai-progress-v1'
 const empty = {
   lessons: {},   // "moduleId/lessonId" -> true
   quizzes: {},   // moduleId -> { score, total, at }
+  checks: {},    // "moduleId/lessonId" -> best end-of-lesson check { score, total, at }
   exams: [],     // [{ score, total, pct, at, byDomain }]
   bookmarks: {}, // "moduleId/lessonId" -> true
   lastSeen: null,
@@ -77,13 +78,26 @@ export function useProgress() {
     })
   }, [])
 
+  /* End-of-lesson check: keep the best attempt; passing marks the lesson complete. */
+  const saveCheck = useCallback((moduleId, lessonId, score, total, passed) => {
+    set((s) => {
+      const k = `${moduleId}/${lessonId}`
+      const prev = s.checks?.[k]
+      const checks = !prev || score / total > prev.score / prev.total
+        ? { ...s.checks, [k]: { score, total, at: Date.now() } }
+        : s.checks
+      const lessons = passed ? { ...s.lessons, [k]: true } : s.lessons
+      return { ...s, checks, lessons }
+    })
+  }, [])
+
   const saveExam = useCallback((result) => {
     set((s) => ({ ...s, exams: [...s.exams, { ...result, at: Date.now() }].slice(-25) }))
   }, [])
 
   const reset = useCallback(() => set({ ...empty }), [])
 
-  return { ...local, markLesson, touchLesson, toggleBookmark, saveQuiz, saveExam, reset }
+  return { ...local, markLesson, touchLesson, toggleBookmark, saveQuiz, saveCheck, saveExam, reset }
 }
 
 export function isLessonDone(progress, moduleId, lessonId) {

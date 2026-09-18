@@ -1,0 +1,231 @@
+// End-of-lesson comprehension checks for Module 9: Safety, Ethics, and Compliance. Keyed by lesson id.
+export default {
+  'guardrails': [
+    {
+      q: 'An internal RAG assistant indexes HR documents that include salary figures. You want those figures stripped from passages before the model ever sees them. Which rail is the best primary placement?',
+      opts: ['Output rail', 'Retrieval rail', 'Input rail', 'Dialog rail'],
+      a: 1,
+      why: 'Retrieval rails run on retrieved chunks **before they enter the prompt**, so sensitive passages can be removed at the source. An output rail is a useful backstop, but by then the model has already seen the data.',
+      distract: 'The **input rail** screens the user message, not retrieved content, and the **dialog rail** governs conversation flow.',
+    },
+    {
+      q: 'A bank wants every cancellation conversation to follow an approved path: confirm identity, offer a retention option, then process the request. Which rail enforces this?',
+      opts: ['Execution rail', 'Input rail', 'Dialog rail', 'Output rail'],
+      a: 2,
+      why: 'Dialog rails act on the conversation flow, enforcing approved conversational paths defined as canonical forms and flows in Colang.',
+      distract: 'Execution rails guard tool calls, and input/output rails screen individual messages rather than the shape of the conversation.',
+    },
+    {
+      q: 'Which requirement belongs on the **output rail**?',
+      opts: [
+        'Block incoming user messages that try to discuss competitors',
+        'Require approval before the refund tool runs over $500',
+        'Screen retrieved chunks for injected instructions',
+        'Check the final answer for groundedness and toxic language',
+      ],
+      a: 3,
+      why: 'Output rails run before the response reaches the user and handle toxicity and PII filtering, groundedness or fact checking, and format enforcement.',
+      distract: 'Competitor topics are an input-rail concern, refund limits are an execution-rail concern, and screening retrieved chunks is the retrieval rail.',
+    },
+    {
+      q: 'A configuration file contains `define user ask_about_pricing` and `define flow pricing deflection`. What are you looking at?',
+      opts: [
+        'Colang, used by NeMo Guardrails',
+        'A LangGraph state-graph definition file',
+        'A NIM container deployment manifest',
+        'A JSON Schema describing tool arguments',
+      ],
+      a: 0,
+      why: '`define user` and `define flow` syntax is Colang, which defines canonical user intents, bot responses and the flows connecting them. Seeing it tells you the system is NeMo Guardrails.',
+    },
+    {
+      q: 'A team says: "We added an execution rail that requires approval for refunds over $500, so the refund flow is safe." What is the best critique?',
+      opts: [
+        'Execution rails cannot inspect tool arguments such as the refund amount',
+        'It is one layer; it also needs input/output rails, scoped permissions and audit',
+        'Approval belongs in a dialog rail, not an execution rail, for this flow',
+        'Nothing is missing; approval on high-impact actions is sufficient by itself',
+      ],
+      a: 1,
+      why: 'The lesson treats guardrails as one layer, not the answer. A complete answer for a sensitive action combines an input rail, server-side least-privilege permissions, an execution rail or human approval, an output rail and an audit record, because each control can fail on its own.',
+      distract: 'Execution rails do validate arguments, and approval at the tool boundary is correctly an execution-rail job; the flaw is relying on a single control.',
+    },
+    {
+      q: 'Your agent has a tight latency SLO and you need several rails. How should you arrange the checks?',
+      opts: [
+        'Run a model-based check first, since it catches the widest range of attack types',
+        'Drop the rails and rely on system-prompt instructions to keep latency low',
+        'Cheap deterministic checks first; model checks only where judgement is needed',
+        'Run every rail as its own LLM call so all the checks behave consistently',
+      ],
+      a: 2,
+      why: 'Every rail adds latency, and some are model calls. Regex, allow-lists and schema validation are cheap and deterministic, so they go first; model-based checks are reserved for what genuinely needs judgement.',
+      distract: 'Leading with model calls or making every rail a model call inflates latency, and removing rails trades safety for speed.',
+    },
+  ],
+
+  'agent-security': [
+    {
+      q: 'A user asks an agent to summarise a public web page. Hidden text on the page tells the agent to reveal its system prompt and call an external URL. What is this, and who is at fault?',
+      opts: [
+        'Direct injection; the user crafted the attack',
+        'Indirect injection; the user may be entirely innocent',
+        'A hallucination caused by an unclear user request',
+        'A jailbreak the user triggered by asking for a summary',
+      ],
+      a: 1,
+      why: 'Indirect injection arrives through content the agent reads, such as a web page, document or tool response. The attacker planted the text where the agent would look, so the user did nothing wrong.',
+      distract: 'Direct injection and jailbreaks come from the user typing the attack; here the payload came from the page.',
+    },
+    {
+      q: 'You delimit retrieved content clearly and tell the model it is reference material only. Which statement about this control is accurate?',
+      opts: [
+        'It fully prevents indirect injection once strong delimiters are in place',
+        'It is only useful for direct injection, not indirect',
+        'It should replace retrieval rails because it adds no latency',
+        'Necessary but not sufficient; enforcement must live in the runtime',
+      ],
+      a: 3,
+      why: 'Treating non-user content as data is the first layer of the defence, but prompts are defaults an adversary can talk over, not a security boundary. Runtime controls such as least privilege, per-call authorisation and approval do the enforcing.',
+      distract: 'No prompt-level technique fully prevents injection, and it is not a substitute for rails or runtime checks.',
+    },
+    {
+      q: 'An injection fully convinces an agent to drop a production table, and the agent does hold that tool. Which control still holds even when everything upstream has failed?',
+      opts: [
+        'Human approval on irreversible, high-impact actions',
+        'A system-prompt rule forbidding destructive operations',
+        'Clearly delimiting the retrieved content in the prompt',
+        'An input rail screening the user message for injection',
+      ],
+      a: 0,
+      why: 'The lesson calls human approval on irreversible or high-impact actions the last line that holds even when everything upstream fails: the model can be persuaded, but the action cannot run without a person approving it.',
+      distract: 'Prompt rules and delimiters are defaults the injection already overcame, and an input rail does not see an indirect payload in the user message.',
+    },
+    {
+      q: 'An agent has one database tool that can both read and delete rows, with a long-lived admin credential, although it only answers questions. Which risk is this, and what is the fix?',
+      opts: [
+        'Denial of wallet; add per-user rate limits and cost budgets',
+        'Memory poisoning; sanitise anything written to long-term memory',
+        'Excessive agency; split read from write and scope credentials',
+        'Insecure tool output handling; sanitise the rows it returns',
+      ],
+      a: 2,
+      why: 'Excessive agency means too many permissions or overly capable tools. Least privilege says the agent should hold only what it needs, with narrow, short-lived credentials and destructive operations separated and gated.',
+    },
+    {
+      q: 'An agent takes text returned by a web-search tool and pastes it directly into a SQL query it then executes. Which risk does this illustrate?',
+      opts: [
+        'Memory poisoning',
+        'Insecure tool output handling',
+        'Denial of wallet',
+        'Data exfiltration through the answer',
+      ],
+      a: 1,
+      why: 'Passing tool results into a shell, SQL query or renderer without sanitising is insecure tool output handling. Every tool result must be treated as untrusted input.',
+    },
+    {
+      q: 'An attacker plants text in an agent\'s long-term memory during one session; weeks later it triggers a harmful action for a different request. What does the lesson recommend?',
+      opts: [
+        'Clear the memory store after every session to be safe',
+        'Only store memories the model marks as trustworthy',
+        'Move memory into the system prompt so it cannot change',
+        'Sanitise on write and treat memory as untrusted on read',
+      ],
+      a: 3,
+      why: 'This is memory poisoning: planted content that fires later. Content is sanitised when it is written, and anything read back from memory is treated as untrusted, like retrieved documents.',
+      distract: 'Letting the model judge trustworthiness is itself injectable, and wiping memory every session removes the feature instead of securing it.',
+    },
+    {
+      q: 'An attacker sends requests crafted to make the agent loop through expensive tool calls and long generations. Which controls address this?',
+      opts: [
+        'Per-user rate limits and cost budgets, alerting on outliers',
+        'A larger model that finishes the same tasks in fewer steps',
+        'An output rail that filters toxic or offensive language',
+        'Egress allow-lists on the agent\'s outbound network calls',
+      ],
+      a: 0,
+      why: 'This is denial of wallet. Rate limits and cost budgets per user cap the spend, and alerting on outliers surfaces the abuse early.',
+      distract: 'Egress control stops exfiltration, not spend; output rails and model size do not bound how many calls an attacker can drive.',
+    },
+  ],
+
+  'compliance': [
+    {
+      q: 'A user exercises their right to erasure and the team deletes their row from the primary customer database. What is still missing?',
+      opts: [
+        'Nothing further; the primary database is the system of record',
+        'Retraining the base model so it forgets the user\'s data',
+        'Deleting it from the vector index, memory, traces and caches too',
+        'Anonymising the user\'s row in the database instead of deleting it',
+      ],
+      a: 2,
+      why: 'Deletion propagation means an erasure request must reach every copy: the vector index, the memory store, the trace backend and any caches, not just the primary database.',
+    },
+    {
+      q: 'A support agent calls an external model API. Messages contain customer names and emails, but drafting a reply does not need them. What is the most proportionate engineering control?',
+      opts: [
+        'Rely on the provider\'s signed data-processing agreement',
+        'Redact or tokenise the PII before it crosses the boundary',
+        'Log the full prompts so that any leak can be audited later',
+        'Switch to a larger hosted model with better privacy',
+      ],
+      a: 1,
+      why: 'When regulated data meets an external provider, the expected answers are redact at the boundary or self-host. Here the model does not need the identifiers, so minimisation plus redaction keeps them inside the trust boundary.',
+      distract: 'A contractual assurance alone is not an engineering control, and logging full prompts adds another place the PII lives.',
+    },
+    {
+      q: 'A regulator asks why an application was declined in March. Since then the prompt was edited twice and the model was upgraded. Which part of the audit record makes the answer possible?',
+      opts: [
+        'The current production prompt and model configuration',
+        'Monthly aggregate approval and decline rates',
+        'The application logs showing request latency at the time',
+        'The model, prompt and policy versions in force at the time',
+      ],
+      a: 3,
+      why: 'An audit trail must be complete enough to reconstruct a decision, which includes the versions of every artefact in force when it was made. Without them, today\'s configuration tells you nothing about March.',
+      distract: 'Aggregate rates describe the system, not the case, and ordinary application logs are not an audit trail.',
+    },
+    {
+      q: 'Under the EU AI Act, which deployment is most likely high-risk and so needs human oversight, logging, documentation and conformity assessment?',
+      opts: [
+        'An agent that screens consumer credit applications',
+        'An assistant that summarises internal meeting notes',
+        'A chatbot that suggests recipes from pantry items',
+        'A code-completion tool inside a developer IDE',
+      ],
+      a: 0,
+      why: 'The Act is risk-tiered, and credit, hiring, healthcare and essential services are named high-risk uses that carry these obligations.',
+    },
+    {
+      q: 'Which item is a certifiable AI management-system standard, often described as the AI analogue of ISO 27001?',
+      opts: ['NIST AI RMF', 'A model card', 'ISO/IEC 42001', 'The EU AI Act'],
+      a: 2,
+      why: 'ISO/IEC 42001 is the certifiable management-system standard for AI.',
+      distract: 'The NIST AI RMF is a voluntary framework, a model card is documentation, and the EU AI Act is regulation, not a certifiable standard.',
+    },
+    {
+      q: 'An HR policy assistant\'s corpus is 90% documents from the head office, and staff at regional sites get noticeably worse answers. Where did the bias come from, and what is the response?',
+      opts: [
+        'Model pre-training data; fine-tune on regional text',
+        'Retrieval; audit sources for diversity and evaluate per site',
+        'Sampling temperature; lower it for regional users\' queries',
+        'The system prompt; add an instruction to be fair',
+      ],
+      a: 1,
+      why: 'Bias can enter through retrieval when some sources dominate the corpus. The responses are auditing retrieval for source diversity and evaluating disaggregated by subgroup, here by site, rather than one average.',
+      distract: 'The symptom follows the corpus imbalance, so retraining, temperature or a fairness instruction do not fix the cause.',
+    },
+    {
+      q: 'An order-status agent sends the entire customer record, including date of birth and payment history, to the model on every request. Which data-protection principle does this break?',
+      opts: [
+        'Retention limits',
+        'Data residency',
+        'Deletion propagation',
+        'Minimisation',
+      ],
+      a: 3,
+      why: 'Minimisation means sending only the fields a task needs. Order status needs an order reference, not the whole customer record.',
+      distract: 'Retention covers how long data is kept, residency covers where it is processed, and deletion propagation covers erasure requests.',
+    },
+  ],
+}

@@ -4,6 +4,8 @@ import { moduleById, modules } from '../data/modules/index.js'
 import { blueprint } from '../data/exam.js'
 import { useProgress } from '../lib/progress.js'
 import Blocks, { slugify } from '../components/Blocks.jsx'
+import LessonCheck from '../components/LessonCheck.jsx'
+import { lessonCheck } from '../data/checks/index.js'
 
 export default function Lesson() {
   const { moduleId, lessonId } = useParams()
@@ -31,8 +33,8 @@ export default function Lesson() {
       },
       { rootMargin: '-80px 0px -70% 0px' }
     )
-    headings.forEach((h) => {
-      const el = document.getElementById(h.id)
+    ;[...headings.map((h) => h.id), 'check-title'].forEach((id) => {
+      const el = document.getElementById(id)
       if (el) obs.observe(el)
     })
     return () => obs.disconnect()
@@ -46,6 +48,8 @@ export default function Lesson() {
   const nextMod = modules.find((m) => m.n === mod.n + 1)
   const isDone = !!progress.lessons[`${mod.id}/${lesson.id}`]
   const d = blueprint.find((b) => b.id === mod.domain)
+  const check = lessonCheck(mod.id, lesson.id)
+  const jumpTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 
   return (
     <div className="wrap">
@@ -61,26 +65,44 @@ export default function Lesson() {
             <span className="pill" style={{ color: d.color, borderColor: d.color }}>Domain {mod.n} · {mod.weight}%</span>
             <span className="pill">{lesson.minutes} min read</span>
           </div>
-          <h1 style={{ fontSize: 'clamp(1.6rem, 4.2vw, 2.4rem)' }}>{lesson.title}</h1>
+          <h1 className="lesson-title">{lesson.title}</h1>
+
+          {headings.length > 1 && (
+            <details className="toc-mobile">
+              <summary>On this page <span className="dim">· {headings.length} sections{check.length ? ' + check' : ''}</span></summary>
+              <nav>
+                {headings.map((h) => (
+                  <a key={h.id} href={`#${h.id}`} onClick={(e) => { e.preventDefault(); e.currentTarget.closest('details').open = false; jumpTo(h.id) }}>{h.text}</a>
+                ))}
+                {check.length > 0 && (
+                  <a href="#check-title" onClick={(e) => { e.preventDefault(); e.currentTarget.closest('details').open = false; jumpTo('check-title') }}>Check your understanding</a>
+                )}
+              </nav>
+            </details>
+          )}
 
           <div className="prose">
             <Blocks blocks={lesson.blocks} />
           </div>
 
-          <div
-            className={`checkline ${isDone ? 'on' : ''}`}
-            style={{ marginTop: 36 }}
-            onClick={() => progress.markLesson(mod.id, lesson.id, !isDone)}
-            role="checkbox"
-            aria-checked={isDone}
-            tabIndex={0}
-            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && progress.markLesson(mod.id, lesson.id, !isDone)}
-          >
-            <span className="box">✓</span>
-            <span>{isDone ? 'Marked complete — nice work.' : 'Mark this lesson complete'}</span>
-          </div>
+          {check.length > 0 ? (
+            <LessonCheck moduleId={mod.id} lessonId={lesson.id} questions={check} />
+          ) : (
+            <div
+              className={`checkline ${isDone ? 'on' : ''}`}
+              style={{ marginTop: 36 }}
+              onClick={() => progress.markLesson(mod.id, lesson.id, !isDone)}
+              role="checkbox"
+              aria-checked={isDone}
+              tabIndex={0}
+              onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && progress.markLesson(mod.id, lesson.id, !isDone)}
+            >
+              <span className="box">✓</span>
+              <span>{isDone ? 'Marked complete — nice work.' : 'Mark this lesson complete'}</span>
+            </div>
+          )}
 
-          <div className="row" style={{ marginTop: 22, justifyContent: 'space-between', gap: 10 }}>
+          <div className="lesson-nav">
             {prev
               ? <Link className="btn btn-ghost" to={`/module/${mod.id}/${prev.id}`}>← {prev.title.slice(0, 30)}{prev.title.length > 30 ? '…' : ''}</Link>
               : <Link className="btn btn-ghost" to={`/module/${mod.id}`}>← Module overview</Link>}
@@ -103,12 +125,12 @@ export default function Lesson() {
               key={h.id}
               href={`#${h.id}`}
               className={active === h.id ? 'on' : ''}
-              onClick={(e) => {
-                e.preventDefault()
-                document.getElementById(h.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-              }}
+              onClick={(e) => { e.preventDefault(); jumpTo(h.id) }}
             >{h.text}</a>
           ))}
+          {check.length > 0 && (
+            <a href="#check-title" className={active === 'check-title' ? 'on' : ''} onClick={(e) => { e.preventDefault(); jumpTo('check-title') }}>Check your understanding</a>
+          )}
         </aside>
       </div>
     </div>

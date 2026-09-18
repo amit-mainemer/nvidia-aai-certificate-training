@@ -1,0 +1,176 @@
+// End-of-lesson comprehension checks for Module 8: Run, Monitor, and Maintain. Keyed by lesson id.
+export default {
+  'observability': [
+    {
+      q: 'A traditional APM trace shows a request took nine seconds. What does an agent trace add that makes it actionable?',
+      opts: [
+        'A more precise measurement of total wall-clock time',
+        'Why it was slow, such as the planner picking the wrong tool twice',
+        'Automatic rollback when a request exceeds its latency budget',
+        'CPU and memory metrics for the host running the agent',
+      ],
+      a: 1,
+      why: 'Agent traces record each LLM call, tool call, retrieval and handoff as spans, so they show **why** the run was slow (for example wrong tool choices or empty retrieval), not only that it was.',
+      distract: 'Timing and host metrics are what plain APM already gives you, and tracing does not roll anything back.',
+    },
+    {
+      q: 'Why should a tool-call span record the tool\'s arguments, not only its name and status?',
+      opts: [
+        'To tell "chose the wrong tool" apart from "chose the right tool badly"',
+        'Because OpenTelemetry rejects spans that have no arguments',
+        'So the tracing backend can re-execute the call on failure',
+        'Because arguments are the only way to compute token cost',
+      ],
+      a: 0,
+      why: 'The lesson notes that without **argument-level detail** you cannot separate a tool-selection error from a correct tool called with bad inputs, and each needs a different fix.',
+      distract: 'OTel has no such requirement, traces are not a retry mechanism, and token counts are recorded separately.',
+    },
+    {
+      q: 'You enable full prompt and response capture in traces. What does the lesson say this requires?',
+      opts: [
+        'Nothing extra, since traces are internal telemetry',
+        'Turning tracing off for any session that contains PII',
+        'Redacting PII before export, retention limits, and access control like the production DB',
+        'Encrypting spans in transit, which is sufficient by itself',
+      ],
+      a: 2,
+      why: 'With full capture, the tracing backend **holds customer data**. The controls are redaction before export, retention limits, and access control as strict as for the production database.',
+      distract: 'Treating traces as harmless telemetry is the misconception the warning targets. Encryption in transit alone leaves stored data exposed, and switching tracing off loses the debugging value.',
+    },
+    {
+      q: 'The aggregate tool error rate looks normal, but users report that order lookups keep failing. Which alerting practice would have caught this?',
+      opts: [
+        'Alerting on p95 latency instead of error rate',
+        'Raising the aggregate error threshold',
+        'Alerting on average steps per task only',
+        'Tracking tool error rate per tool, not just in aggregate',
+      ],
+      a: 3,
+      why: 'A spike in one dependency can hide inside a healthy aggregate. **Per-tool error rate** isolates the failing dependency fast.',
+      distract: 'Latency and step count are indirect signals, and raising the aggregate threshold makes the problem harder to see.',
+    },
+    {
+      q: 'Which signal from the alerting table gives the earliest warning that the agent is starting to hallucinate?',
+      opts: [
+        'A falling groundedness score on sampled traffic',
+        'A rising budget-exhaustion rate',
+        'A rising escalation or handoff rate',
+        'A breach of the p95 latency target',
+      ],
+      a: 0,
+      why: 'The table lists **groundedness score** as the early hallucination warning, with a falling trend on sampled traffic as the trigger.',
+      distract: 'Budget exhaustion means runs are hitting step or cost caps, escalations point to lost capability, and latency is an SLO signal. None of them measures whether answers are supported by sources.',
+    },
+    {
+      q: 'Which of these is an implicit feedback signal?',
+      opts: [
+        'A user gives a response a thumbs-down',
+        'A user rates the conversation 2 out of 5',
+        'A user rephrases the same question immediately',
+        'A user types a correction into a feedback form',
+      ],
+      a: 2,
+      why: '**Implicit** signals are inferred from behaviour: rephrasing, abandoning, escalating, or accepting a suggested action. They are abundant, while explicit signals are precise but sparse.',
+      distract: 'Thumbs, ratings and typed corrections are all explicit feedback.',
+    },
+    {
+      q: 'What turns a monitoring system into an improvement system, according to the lesson?',
+      opts: [
+        'Adding more dashboards for every span attribute',
+        'Tying feedback to trace ids and feeding it into the data flywheel',
+        'Sampling fewer traces to reduce storage cost',
+        'Replacing implicit feedback with a mandatory rating prompt',
+      ],
+      a: 1,
+      why: 'Capturing explicit and implicit feedback, linking it to the **trace id**, and routing it into the **data flywheel** as training and evaluation data is what closes the loop.',
+      distract: 'More dashboards or less sampling do not produce training data, and dropping implicit signals throws away the most abundant feedback.',
+    },
+  ],
+
+  'maintenance': [
+    {
+      q: 'The knowledge base was reorganised and many documents were rewritten. Answer quality shifts even though the model and code are unchanged. Which drift is this, and how do you detect it?',
+      opts: [
+        'Input drift, detected by monitoring query topic distribution',
+        'Model drift, detected by pinning the model version',
+        'Tool drift, detected by contract tests on each API',
+        'Corpus drift, detected by re-running retrieval eval on a fixed query set',
+      ],
+      a: 3,
+      why: 'A changing knowledge base is **corpus drift**. Re-running retrieval evaluation on a fixed query set shows whether retrieval quality moved.',
+      distract: 'Input drift is about what users ask, model drift about the model version, and tool drift about API schemas, none of which changed here.',
+    },
+    {
+      q: 'Users have started asking about a newly launched product line in unfamiliar phrasing. How does the lesson say to detect this kind of drift?',
+      opts: [
+        'Monitor the distribution of query embeddings and topics over time',
+        'Run contract tests against every external tool',
+        'Pin the hosted model to a fixed version',
+        'Re-index the vector database every night',
+      ],
+      a: 0,
+      why: 'This is **input drift**: new questions, new phrasing, new products. It shows up as a shift in the distribution of query embeddings and topics.',
+      distract: 'Contract tests catch tool drift, version pinning prevents model drift, and re-indexing does not detect anything.',
+    },
+    {
+      q: 'Why run the golden set against production on a schedule when it already runs in CI?',
+      opts: [
+        'CI results are not trustworthy for agent systems',
+        'Scheduled runs replace the need for live traffic sampling',
+        'It catches drift that no code change caused, such as a silent model update',
+        'Production runs are cheaper than CI runs',
+      ],
+      a: 2,
+      why: 'CI only runs when you change something. A scheduled production run catches degradation from **outside** changes (model, corpus, tools) that never pass through CI.',
+      distract: 'CI is still the gate for your own changes, and the lesson keeps live-traffic sampling and a human review queue alongside scheduled runs.',
+    },
+    {
+      q: 'A report says: "Groundedness this week: 0.82." What is missing for this number to be useful?',
+      opts: [
+        'A second decimal place for precision',
+        'A baseline or trend to compare it against',
+        'A human review of every scored response',
+        'The same score computed on the golden set only',
+      ],
+      a: 1,
+      why: 'The lesson says to track every metric as a **trend against a baseline**. A single number without one tells you nothing about whether things got better or worse.',
+      distract: 'More precision or full human review does not add context, and the golden set alone misses live-traffic behaviour.',
+    },
+    {
+      q: 'An agent starts giving confidently wrong refund amounts in production. What is the first step of incident response?',
+      opts: [
+        'Edit the prompt directly in production to fix the wording',
+        'Keep the agent live while you gather a full week of traces',
+        'Switch to a larger model and monitor the results',
+        'Contain: route traffic to a previous version, a safe model, or a fallback',
+      ],
+      a: 3,
+      why: 'Step one is **contain**. A degraded but available answer beats a confidently wrong one, so affected traffic moves to a previous version, a smaller safe model, or a deterministic fallback.',
+      distract: 'Untested prompt hotfixes and model swaps skip diagnosis, and leaving the agent live keeps the harm going.',
+    },
+    {
+      q: 'After a fix, the team asks what control would have caught the incident earlier, such as a budget, an eval, an alert or a rail, and adds it. Which step is this?',
+      opts: [
+        'Diagnose from traces',
+        'Fix at the right layer',
+        'Review the guard',
+        'Contain',
+      ],
+      a: 2,
+      why: 'The final step, **review the guard**, asks which control would have caught the problem sooner and adds it, so the system improves beyond the single fix.',
+      distract: 'Diagnosis localises the failing span, fixing changes the faulty layer, and containment limits the blast radius. None of them adds a new early-detection control.',
+    },
+    {
+      q: 'An engineer wants to change one word in the system prompt and push it straight to production because "it is not code." What does the lesson recommend?',
+      opts: [
+        'Ship it directly, since prompt edits cannot affect tool selection',
+        'Treat it as a production change: version it, gate on the golden set, roll out via shadow and canary',
+        'Ship it, but only outside business hours',
+        'Ship it and add it to the golden set if users complain',
+      ],
+      a: 1,
+      why: 'A prompt edit is a **production change**. Version it with the other components, gate it on the golden set in CI, and release through shadow, canary and full rollout with a tested rollback path. One word can move tool-selection accuracy several points.',
+      distract: 'Timing a release off-hours or waiting for complaints does not replace evaluation gates, and the lesson says outright that small prompt changes can move accuracy.',
+    },
+  ],
+}
