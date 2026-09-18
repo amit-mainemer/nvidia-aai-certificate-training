@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module 4 intro slides</title>
+<link rel="stylesheet" href="base.css">
+</head>
+<body>
+
+<!-- local symbols shared by the slides below -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="truck" viewBox="0 0 300 180">
+      <rect x="0" y="16" width="192" height="124" rx="12" fill="var(--body,#ff7a59)"/>
+      <rect x="18" y="34" width="156" height="18" rx="9" fill="#fff" opacity=".35"/>
+      <path d="M198 56 H250 L292 100 V140 H198 Z" fill="var(--cab,#5cc8ff)"/>
+      <path d="M212 70 H244 L272 100 H212 Z" fill="#e6f6ff"/>
+      <circle cx="62" cy="146" r="26" fill="#1d2340"/><circle cx="62" cy="146" r="10" fill="#b8c2de"/>
+      <circle cx="240" cy="146" r="26" fill="#1d2340"/><circle cx="240" cy="146" r="10" fill="#b8c2de"/>
+    </symbol>
+    <symbol id="bag" viewBox="0 0 140 160">
+      <path d="M40 50 V36 a30 30 0 0 1 60 0 V50" fill="none" stroke="#1d2340" stroke-width="9" stroke-linecap="round"/>
+      <path d="M14 46 H126 L118 156 H22 Z" fill="var(--body,#ff6f9c)"/>
+      <circle cx="44" cy="66" r="6" fill="#1d2340"/><circle cx="96" cy="66" r="6" fill="#1d2340"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- 1 · hook: demo vs real traffic -->
+<section class="slide t-night" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Module 4 · Deployment and Scaling</span><h1>From demo to <em>real traffic</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <ellipse cx="330" cy="860" rx="230" ry="36" fill="#fff" opacity=".12"/>
+    <use href="sprites.svg#robot" x="200" y="500" width="260" height="341" style="--body:#22b8a6"/>
+    <use href="sprites.svg#sparkle" x="130" y="430" width="70" height="70"/>
+    <use href="sprites.svg#sparkle" x="470" y="470" width="50" height="50" style="--body:#7ff0d8"/>
+    <use href="sprites.svg#arrow" x="600" y="630" width="300" height="90" style="--body:#ffcf4a"/>
+    <use href="sprites.svg#group" x="1010" y="400" width="250" height="200"/>
+    <use href="sprites.svg#group" x="1270" y="380" width="250" height="200"/>
+    <use href="sprites.svg#group" x="1530" y="400" width="250" height="200"/>
+    <use href="sprites.svg#group" x="940" y="600" width="310" height="248"/>
+    <use href="sprites.svg#group" x="1250" y="620" width="310" height="248"/>
+    <use href="sprites.svg#group" x="1560" y="600" width="310" height="248"/>
+  </svg>
+  <div class="lbl teal" style="left:330px; top:900px">Demo: a few users</div>
+  <div class="lbl red lg" style="left:1400px; top:910px">Production: everyone at once</div>
+</section>
+
+<!-- 2 · the retailer and Black Friday -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">A real-world case</span><h1>Then <em>Black Friday</em> hits</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#phone" x="140" y="330" width="250" height="443" style="--screen:#fff4d6"/>
+    <use href="#bag" x="190" y="470" width="150" height="171"/>
+    <use href="sprites.svg#robot" x="370" y="560" width="190" height="249" style="--body:#7c5cff"/>
+    <rect x="660" y="310" width="1160" height="600" rx="34" fill="#fff"/>
+    <g stroke="#e7e2d6" stroke-width="4"><line x1="730" y1="820" x2="1760" y2="820"/><line x1="730" y1="640" x2="1760" y2="640"/><line x1="730" y1="460" x2="1760" y2="460"/></g>
+    <path d="M730 800 L880 796 L1030 802 L1180 797 L1290 800" fill="none" stroke="#22b8a6" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M1290 800 L1370 400 L1480 430 L1580 380 L1740 395" fill="none" stroke="#ff5d73" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+    <g transform="rotate(-6 1170 480)">
+      <rect x="1000" y="440" width="300" height="76" rx="14" fill="#1d2340"/>
+      <text x="1150" y="492" text-anchor="middle" font-size="36" font-weight="900" fill="#ffcf4a" letter-spacing="3">BLACK FRIDAY</text>
+    </g>
+    <use href="sprites.svg#fire" x="1690" y="250" width="90" height="123"/>
+  </svg>
+  <div class="lbl teal" style="left:1000px; top:730px">100 users ✓</div>
+  <div class="stat" style="left:1590px; top:640px; color:#c25e00"><b>50×</b><span>the traffic</span></div>
+  <div class="lbl dark sm" style="left:465px; top:850px">Shopping agent</div>
+</section>
+
+<!-- 3 · GPU out of memory -->
+<section class="slide t-coral" style="--accent:#e2533a">
+  <div class="cap"><span class="eyebrow">Black Friday · problem 1</span><h1>GPUs run out of <em>memory</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#gpu" x="110" y="470" width="480" height="312"/>
+    <path d="M600 626 H930" stroke="#fff" stroke-width="10" stroke-dasharray="4 18" stroke-linecap="round"/>
+    <rect x="940" y="360" width="320" height="560" rx="26" fill="#fff" opacity=".3"/>
+    <rect x="940" y="360" width="320" height="560" rx="26" fill="none" stroke="#fff" stroke-width="8"/>
+    <rect x="960" y="760" width="280" height="140" rx="14" fill="#5cc8ff"/>
+    <text x="1100" y="845" text-anchor="middle" font-size="38" font-weight="900" fill="#1d2340">Weights</text>
+    <g>
+      <rect x="960" y="680" width="130" height="66" rx="10" fill="#ffcf4a"/><rect x="1110" y="680" width="130" height="66" rx="10" fill="#7c5cff"/>
+      <rect x="960" y="600" width="130" height="66" rx="10" fill="#22b8a6"/><rect x="1110" y="600" width="130" height="66" rx="10" fill="#ffcf4a"/>
+      <rect x="960" y="520" width="130" height="66" rx="10" fill="#7c5cff"/><rect x="1110" y="520" width="130" height="66" rx="10" fill="#22b8a6"/>
+      <rect x="960" y="440" width="130" height="66" rx="10" fill="#ffcf4a"/><rect x="1110" y="440" width="130" height="66" rx="10" fill="#7c5cff"/>
+      <rect x="960" y="376" width="130" height="50" rx="10" fill="#22b8a6"/><rect x="1110" y="376" width="130" height="50" rx="10" fill="#ffcf4a"/>
+      <rect x="1285" y="330" width="130" height="66" rx="10" fill="#7c5cff" transform="rotate(18 1350 363)"/>
+      <rect x="1330" y="430" width="130" height="66" rx="10" fill="#22b8a6" transform="rotate(-12 1395 463)"/>
+    </g>
+    <use href="sprites.svg#chat" x="1560" y="330" width="190" height="150" style="--dot:#ff7a59"/>
+    <use href="sprites.svg#chat" x="1640" y="520" width="170" height="134" style="--dot:#7c5cff"/>
+    <use href="sprites.svg#chat" x="1500" y="600" width="150" height="118" style="--dot:#22b8a6"/>
+    <use href="sprites.svg#arrow" x="1440" y="560" width="120" height="36" transform="rotate(180 1500 578)" style="--body:#fff"/>
+  </svg>
+  <div class="lbl dark" style="left:1370px; top:560px; transform:translate(0,-50%)">KV cache</div>
+  <div class="lbl red lg" style="left:1520px; top:840px">Out of memory!</div>
+  <div class="lbl sm" style="left:350px; top:840px">GPU</div>
+</section>
+
+<!-- 4 · latency explodes -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Problem 2</span><h1>Latency <em>explodes</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="140" y="310" width="300" height="620" rx="24" fill="#fff"/>
+    <g fill="#b8c2de">
+      <rect x="180" y="360" width="220" height="16" rx="8"/><rect x="180" y="400" width="180" height="16" rx="8"/><rect x="180" y="440" width="210" height="16" rx="8"/>
+      <rect x="180" y="480" width="150" height="16" rx="8"/><rect x="180" y="520" width="220" height="16" rx="8"/><rect x="180" y="560" width="190" height="16" rx="8"/>
+      <rect x="180" y="600" width="220" height="16" rx="8"/><rect x="180" y="640" width="160" height="16" rx="8"/><rect x="180" y="680" width="210" height="16" rx="8"/>
+      <rect x="180" y="720" width="220" height="16" rx="8"/><rect x="180" y="760" width="170" height="16" rx="8"/><rect x="180" y="800" width="200" height="16" rx="8"/>
+      <rect x="180" y="840" width="140" height="16" rx="8"/>
+    </g>
+    <use href="sprites.svg#arrow" x="470" y="580" width="170" height="51" style="--body:#1d2340"/>
+    <use href="sprites.svg#gpu" x="660" y="500" width="320" height="208"/>
+    <use href="sprites.svg#hourglass" x="760" y="300" width="120" height="175"/>
+    <use href="sprites.svg#arrow" x="1000" y="580" width="140" height="42" style="--body:#1d2340"/>
+    <use href="sprites.svg#chat" x="1150" y="330" width="230" height="182" style="--dot:#7c5cff"/>
+    <use href="sprites.svg#phone" x="1190" y="530" width="160" height="283" style="--screen:#efe2ff"/>
+    <use href="sprites.svg#person-worried" x="1420" y="400" width="220" height="440"/>
+    <use href="sprites.svg#clock" x="1660" y="330" width="170" height="170" style="--rim:#ff5d73"/>
+  </svg>
+  <div class="lbl violet" style="left:290px; top:890px">Long prompt</div>
+  <div class="lbl red" style="left:1400px; top:900px">First word takes seconds</div>
+</section>
+
+<!-- 5 · wrong scaling signal -->
+<section class="slide t-sand" style="--accent:#b5541c">
+  <div class="cap"><span class="eyebrow">Problem 3 · Kubernetes autoscaling</span><h1>Scaling on the <em>wrong signal</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- CPU gauge -->
+    <path d="M190 780 A230 230 0 0 1 650 780" fill="none" stroke="#e7dccb" stroke-width="56"/>
+    <path d="M190 780 A230 230 0 0 1 234 645" fill="none" stroke="#22c55e" stroke-width="56"/>
+    <line x1="420" y1="780" x2="264" y2="667" stroke="#1d2340" stroke-width="16" stroke-linecap="round"/>
+    <circle cx="420" cy="780" r="28" fill="#1d2340"/>
+    <text x="420" y="880" text-anchor="middle" font-size="76" font-weight="900" fill="#1d2340">20%</text>
+    <!-- GPU gauge -->
+    <path d="M830 780 A230 230 0 0 1 1290 780" fill="none" stroke="#e7dccb" stroke-width="56"/>
+    <path d="M830 780 A230 230 0 0 1 1289 758" fill="none" stroke="#ff5d73" stroke-width="56"/>
+    <line x1="1060" y1="780" x2="1250" y2="762" stroke="#1d2340" stroke-width="16" stroke-linecap="round"/>
+    <circle cx="1060" cy="780" r="28" fill="#1d2340"/>
+    <text x="1060" y="880" text-anchor="middle" font-size="76" font-weight="900" fill="#ff5d73">100%</text>
+    <!-- queue piling up -->
+    <use href="sprites.svg#ticket" x="1440" y="760" width="300" height="138" style="--accent:#ff7a59"/>
+    <use href="sprites.svg#ticket" x="1460" y="690" width="300" height="138" transform="rotate(-4 1610 759)" style="--accent:#7c5cff"/>
+    <use href="sprites.svg#ticket" x="1430" y="620" width="300" height="138" transform="rotate(3 1580 689)" style="--accent:#22b8a6"/>
+    <use href="sprites.svg#ticket" x="1470" y="550" width="300" height="138" transform="rotate(-6 1620 619)" style="--accent:#ffb020"/>
+    <use href="sprites.svg#ticket" x="1440" y="480" width="300" height="138" transform="rotate(5 1590 549)" style="--accent:#ff5d73"/>
+    <use href="sprites.svg#warn" x="1770" y="520" width="110" height="97"/>
+  </svg>
+  <div class="lbl lg" style="left:420px; top:440px">CPU</div>
+  <div class="lbl lg" style="left:1060px; top:440px">GPU</div>
+  <div class="lbl green sm" style="left:420px; top:370px">“Looks fine, no new pods”</div>
+  <div class="lbl red" style="left:1590px; top:400px">Requests pile up</div>
+</section>
+
+<!-- 6 · cold starts -->
+<section class="slide t-ocean" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Problem 4 · Cold starts</span><h1>New pods arrive <em>too late</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#server" x="150" y="330" width="200" height="280"/>
+    <use href="sprites.svg#gpu" x="120" y="630" width="260" height="169"/>
+    <rect x="440" y="400" width="1060" height="120" rx="60" fill="#143f7c"/>
+    <rect x="440" y="400" width="470" height="120" rx="60" fill="#5cc8ff"/>
+    <rect x="880" y="400" width="420" height="120" fill="#7c5cff"/>
+    <rect x="1300" y="400" width="200" height="120" rx="60" fill="#22c55e"/>
+    <rect x="1300" y="400" width="60" height="120" fill="#22c55e"/>
+    <g font-size="38" font-weight="900" fill="#fff" text-anchor="middle"><text x="665" y="474" fill="#0f2b5b">Pull image</text><text x="1090" y="474">Load model</text><text x="1400" y="474">Ready</text></g>
+    <use href="sprites.svg#clock" x="1600" y="330" width="240" height="240" style="--rim:#ffb020"/>
+    <use href="sprites.svg#group" x="620" y="620" width="330" height="264"/>
+    <use href="sprites.svg#arrow" x="990" y="720" width="300" height="90" style="--body:#fff"/>
+    <use href="sprites.svg#building" x="1370" y="620" width="210" height="254"/>
+    <use href="sprites.svg#cross" x="1520" y="600" width="100" height="100"/>
+  </svg>
+  <div class="lbl amber" style="left:1720px; top:620px">minutes</div>
+  <div class="lbl red" style="left:1140px; top:900px">Shoppers already gone</div>
+</section>
+
+<!-- 7 · one slow tool hangs every worker -->
+<section class="slide t-rose" style="--accent:#d6336c">
+  <div class="cap"><span class="eyebrow">Problem 5</span><h1>One slow tool <em>hangs</em> everyone</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="none" stroke="#d6336c" stroke-width="7" stroke-dasharray="4 16" stroke-linecap="round">
+      <path d="M245 560 C 700 420, 1100 470, 1320 600"/>
+      <path d="M525 560 C 850 470, 1150 520, 1320 620"/>
+      <path d="M805 560 C 1000 520, 1200 560, 1320 640"/>
+      <path d="M1085 560 C 1180 560, 1260 610, 1320 660"/>
+    </g>
+    <use href="sprites.svg#robot-sad" x="170" y="560" width="150" height="197"/>
+    <use href="sprites.svg#robot-sad" x="450" y="560" width="150" height="197"/>
+    <use href="sprites.svg#robot-sad" x="730" y="560" width="150" height="197"/>
+    <use href="sprites.svg#robot-sad" x="1010" y="560" width="150" height="197"/>
+    <use href="sprites.svg#hourglass" x="220" y="440" width="50" height="73"/>
+    <use href="sprites.svg#hourglass" x="500" y="440" width="50" height="73"/>
+    <use href="sprites.svg#hourglass" x="780" y="440" width="50" height="73"/>
+    <use href="sprites.svg#hourglass" x="1060" y="440" width="50" height="73"/>
+    <use href="#truck" x="1300" y="520" width="480" height="288" style="--body:#ff7a59"/>
+    <use href="sprites.svg#hourglass" x="1440" y="330" width="110" height="160"/>
+  </svg>
+  <div class="lbl dark" style="left:1540px; top:860px">Shipping tool</div>
+  <div class="lbl red" style="left:1680px; top:400px">No timeout</div>
+  <div class="lbl" style="left:665px; top:850px">Every worker stuck waiting</div>
+</section>
+
+<!-- 8 · retry storm, agent down -->
+<section class="slide t-plum" style="--accent:#7b2ff7">
+  <div class="cap"><span class="eyebrow">Problem 6</span><h1>A retry storm, then <em>down</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#robot-sad" x="130" y="440" width="280" height="368"/>
+    <g>
+      <use href="sprites.svg#arrow" x="480" y="450" width="240" height="72" style="--body:#ffcf4a"/>
+      <use href="sprites.svg#arrow" x="560" y="520" width="240" height="72" style="--body:#ffcf4a"/>
+      <use href="sprites.svg#arrow" x="480" y="590" width="240" height="72" style="--body:#ffcf4a"/>
+      <use href="sprites.svg#arrow" x="820" y="470" width="240" height="72" style="--body:#ff7a59"/>
+      <use href="sprites.svg#arrow" x="900" y="545" width="240" height="72" style="--body:#ff7a59"/>
+      <use href="sprites.svg#arrow" x="820" y="620" width="240" height="72" style="--body:#ff7a59"/>
+      <use href="sprites.svg#arrow" x="960" y="400" width="200" height="60" style="--body:#ff6f9c"/>
+      <use href="sprites.svg#arrow" x="700" y="690" width="200" height="60" style="--body:#ff6f9c"/>
+      <use href="sprites.svg#arrow" x="1000" y="700" width="200" height="60" style="--body:#ff6f9c"/>
+    </g>
+    <use href="#truck" x="1260" y="480" width="480" height="288" style="--body:#ff7a59"/>
+    <use href="sprites.svg#fire" x="1330" y="330" width="130" height="177"/>
+    <use href="sprites.svg#fire" x="1500" y="300" width="160" height="218"/>
+  </svg>
+  <div class="lbl amber sm" style="left:600px; top:400px">agent retries</div>
+  <div class="lbl coral sm" style="left:960px; top:360px">client retries</div>
+  <div class="lbl lg" style="left:840px; top:830px">× load multiplies</div>
+  <div class="lbl red lg" style="left:1500px; top:870px">Agent down</div>
+</section>
+
+<!-- 9 · every failure has a fix -->
+<section class="slide t-mint" style="--accent:#128c7e">
+  <div class="cap"><span class="eyebrow">The way out</span><h1>Every failure has a <em>known fix</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff">
+      <rect x="130" y="330" width="420" height="120" rx="60"/><rect x="590" y="330" width="420" height="120" rx="60"/>
+      <rect x="130" y="490" width="420" height="120" rx="60"/><rect x="590" y="490" width="420" height="120" rx="60"/>
+      <rect x="130" y="650" width="420" height="120" rx="60"/><rect x="590" y="650" width="420" height="120" rx="60"/>
+    </g>
+    <g font-size="36" font-weight="800" fill="#1d2340">
+      <text x="260" y="403">Out of memory</text><text x="720" y="403">Slow replies</text>
+      <text x="260" y="563">Wrong signal</text><text x="720" y="563">Cold starts</text>
+      <text x="260" y="723">Slow tool</text><text x="720" y="723">Retry storm</text>
+    </g>
+    <g>
+      <use href="sprites.svg#check" x="160" y="350" width="80" height="80"/><use href="sprites.svg#check" x="620" y="350" width="80" height="80"/>
+      <use href="sprites.svg#check" x="160" y="510" width="80" height="80"/><use href="sprites.svg#check" x="620" y="510" width="80" height="80"/>
+      <use href="sprites.svg#check" x="160" y="670" width="80" height="80"/><use href="sprites.svg#check" x="620" y="670" width="80" height="80"/>
+    </g>
+    <use href="sprites.svg#wrench" x="1040" y="480" width="160" height="160" style="--body:#128c7e"/>
+    <use href="sprites.svg#gpu" x="1230" y="460" width="560" height="364"/>
+    <use href="sprites.svg#sparkle" x="1700" y="360" width="80" height="80" style="--body:#fff"/>
+  </svg>
+  <div class="lbl teal" style="left:1370px; top:390px">Phase 1</div>
+  <div class="lbl violet" style="left:1600px; top:390px">Phase 2</div>
+  <div class="lbl dark" style="left:1510px; top:880px">Lesson 1 starts inside the GPU</div>
+</section>
+
+<!-- 10 · prefill vs decode -->
+<section class="slide t-teal" style="--accent:#0b7f75">
+  <div class="cap"><span class="eyebrow">Lesson 1 · Inference on a GPU</span><h1>Prefill vs. <em>decode</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="120" y="320" width="820" height="620" rx="36"/><rect x="980" y="320" width="820" height="620" rx="36"/></g>
+    <g font-size="56" font-weight="900" fill="#1d2340" text-anchor="middle"><text x="530" y="410">Prefill</text><text x="1390" y="410">Decode</text></g>
+    <!-- prefill: whole prompt at once -->
+    <g>
+      <rect x="180" y="470" width="56" height="56" rx="10" fill="#22b8a6"/><rect x="246" y="470" width="56" height="56" rx="10" fill="#5cc8ff"/><rect x="312" y="470" width="56" height="56" rx="10" fill="#7c5cff"/><rect x="378" y="470" width="56" height="56" rx="10" fill="#ffb020"/>
+      <rect x="180" y="536" width="56" height="56" rx="10" fill="#7c5cff"/><rect x="246" y="536" width="56" height="56" rx="10" fill="#ffb020"/><rect x="312" y="536" width="56" height="56" rx="10" fill="#22b8a6"/><rect x="378" y="536" width="56" height="56" rx="10" fill="#5cc8ff"/>
+      <rect x="180" y="602" width="56" height="56" rx="10" fill="#5cc8ff"/><rect x="246" y="602" width="56" height="56" rx="10" fill="#22b8a6"/><rect x="312" y="602" width="56" height="56" rx="10" fill="#ffb020"/><rect x="378" y="602" width="56" height="56" rx="10" fill="#7c5cff"/>
+    </g>
+    <g stroke="#0b7f75" stroke-width="10" stroke-linecap="round"><line x1="460" y1="498" x2="560" y2="520"/><line x1="460" y1="564" x2="560" y2="564"/><line x1="460" y1="630" x2="560" y2="608"/></g>
+    <use href="sprites.svg#gpu" x="580" y="470" width="300" height="195"/>
+    <use href="sprites.svg#bolt" x="820" y="440" width="60" height="100" style="--body:#ffb020"/>
+    <text x="530" y="760" text-anchor="middle" font-size="36" font-weight="700" fill="#4a5275">The whole prompt at once</text>
+    <!-- decode: one token at a time -->
+    <use href="sprites.svg#gpu" x="1030" y="470" width="300" height="195"/>
+    <use href="sprites.svg#arrow" x="1340" y="545" width="90" height="27" style="--body:#1d2340"/>
+    <g>
+      <rect x="1440" y="530" width="56" height="56" rx="10" fill="#7c5cff"/>
+      <rect x="1506" y="530" width="56" height="56" rx="10" fill="#7c5cff" opacity=".7"/>
+      <rect x="1572" y="530" width="56" height="56" rx="10" fill="#7c5cff" opacity=".45"/>
+      <rect x="1638" y="530" width="56" height="56" rx="10" fill="none" stroke="#7c5cff" stroke-width="5" stroke-dasharray="8 8"/>
+    </g>
+    <text x="1390" y="760" text-anchor="middle" font-size="36" font-weight="700" fill="#4a5275">One token at a time</text>
+  </svg>
+  <div class="lbl amber" style="left:530px; top:850px">Limited by compute</div>
+  <div class="lbl violet" style="left:1390px; top:850px">Limited by memory bandwidth</div>
+</section>
+
+<!-- 11 · KV cache + batching -->
+<section class="slide t-sunrise" style="--accent:#e2533a">
+  <div class="cap"><span class="eyebrow">Lesson 1 · Memory and batching</span><h1>The KV cache <em>sets the limit</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- memory column -->
+    <rect x="150" y="320" width="330" height="600" rx="26" fill="#fff" opacity=".55"/>
+    <rect x="170" y="760" width="290" height="140" rx="14" fill="#5cc8ff"/>
+    <text x="315" y="845" text-anchor="middle" font-size="36" font-weight="900" fill="#1d2340">Weights</text>
+    <g>
+      <rect x="170" y="680" width="138" height="64" rx="10" fill="#ff7a59"/><rect x="322" y="680" width="138" height="64" rx="10" fill="#7c5cff"/>
+      <rect x="170" y="602" width="138" height="64" rx="10" fill="#22b8a6"/><rect x="322" y="602" width="138" height="64" rx="10" fill="#ff7a59"/>
+      <rect x="170" y="524" width="138" height="64" rx="10" fill="#7c5cff"/><rect x="322" y="524" width="138" height="64" rx="10" fill="#22b8a6"/>
+      <rect x="170" y="446" width="138" height="64" rx="10" fill="#ff7a59"/><rect x="322" y="446" width="138" height="64" rx="10" fill="#7c5cff"/>
+    </g>
+    <!-- continuous batching lanes -->
+    <rect x="620" y="320" width="1180" height="400" rx="30" fill="#fff"/>
+    <text x="670" y="390" font-size="38" font-weight="900" fill="#1d2340">Continuous batching</text>
+    <g>
+      <rect x="670" y="420" width="420" height="50" rx="25" fill="#22b8a6"/><rect x="1100" y="420" width="640" height="50" rx="25" fill="#ffb020"/>
+      <rect x="670" y="490" width="760" height="50" rx="25" fill="#7c5cff"/><rect x="1440" y="490" width="300" height="50" rx="25" fill="#ff6f9c"/>
+      <rect x="670" y="560" width="250" height="50" rx="25" fill="#5cc8ff"/><rect x="930" y="560" width="390" height="50" rx="25" fill="#22b8a6"/><rect x="1330" y="560" width="410" height="50" rx="25" fill="#7c5cff"/>
+      <rect x="670" y="630" width="1070" height="50" rx="25" fill="#ffb020"/>
+    </g>
+    <!-- prefix caching -->
+    <rect x="620" y="750" width="1180" height="170" rx="30" fill="#fff"/>
+    <rect x="670" y="790" width="380" height="90" rx="18" fill="#ffb020"/>
+    <text x="860" y="848" text-anchor="middle" font-size="34" font-weight="900" fill="#1d2340">Shared prompt</text>
+    <g fill="none" stroke="#e2533a" stroke-width="8" stroke-linecap="round" stroke-dasharray="2 16"><path d="M1060 835 H1130"/><path d="M1240 835 H1300"/><path d="M1410 835 H1470"/></g>
+    <use href="sprites.svg#chat" x="1130" y="785" width="110" height="87" style="--body:#ffe7cc;--dot:#e2533a"/>
+    <use href="sprites.svg#chat" x="1300" y="785" width="110" height="87" style="--body:#ffe7cc;--dot:#7c5cff"/>
+    <use href="sprites.svg#chat" x="1470" y="785" width="110" height="87" style="--body:#ffe7cc;--dot:#22b8a6"/>
+  </svg>
+  <div class="lbl dark" style="left:315px; top:390px">KV cache</div>
+  <div class="lbl sm" style="left:1580px; top:370px">free slot → next request</div>
+  <div class="lbl coral sm" style="left:1700px; top:835px">reused ×3</div>
+</section>
+
+<!-- 12 · two tiers -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Lesson 2 · Scaling on Kubernetes</span><h1>Two tiers, <em>two signals</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="120" y="300" width="1680" height="270" rx="34" fill="#fff" opacity=".7"/>
+    <rect x="120" y="610" width="1680" height="330" rx="34" fill="#fff" opacity=".7"/>
+    <g font-size="40" font-weight="900" fill="#1d2340"><text x="170" y="370">Orchestration</text><text x="170" y="680">GPU inference</text></g>
+    <g font-size="30" font-weight="700" fill="#4a5275"><text x="170" y="415">cheap · stateless</text><text x="170" y="725">expensive · slow to start</text></g>
+    <g>
+      <use href="sprites.svg#robot-head" x="560" y="360" width="140" height="110" style="--body:#22b8a6"/>
+      <use href="sprites.svg#robot-head" x="720" y="360" width="140" height="110" style="--body:#22b8a6"/>
+      <use href="sprites.svg#robot-head" x="880" y="360" width="140" height="110" style="--body:#22b8a6"/>
+      <use href="sprites.svg#robot-head" x="1040" y="360" width="140" height="110" style="--body:#22b8a6"/>
+      <use href="sprites.svg#robot-head" x="1200" y="360" width="140" height="110" style="--body:#22b8a6"/>
+    </g>
+    <g>
+      <use href="sprites.svg#gpu" x="560" y="770" width="230" height="150"/>
+      <use href="sprites.svg#gpu" x="810" y="770" width="230" height="150"/>
+      <rect x="1060" y="770" width="230" height="150" rx="20" fill="none" stroke="#1f6fbf" stroke-width="6" stroke-dasharray="14 12"/>
+      <text x="1175" y="860" text-anchor="middle" font-size="60" font-weight="900" fill="#1f6fbf">+</text>
+    </g>
+    <g>
+      <use href="sprites.svg#ticket" x="1420" y="800" width="200" height="92" style="--accent:#ff7a59"/>
+      <use href="sprites.svg#ticket" x="1440" y="760" width="200" height="92" style="--accent:#7c5cff"/>
+      <use href="sprites.svg#ticket" x="1420" y="720" width="200" height="92" style="--accent:#22b8a6"/>
+    </g>
+  </svg>
+  <div class="lbl teal" style="left:1580px; top:415px">scale on concurrency</div>
+  <div class="lbl violet" style="left:1540px; top:670px">scale on queue depth</div>
+  <div class="lbl red sm" style="left:1100px; top:670px">✗ never CPU</div>
+  <div class="lbl dark sm" style="left:800px; top:740px">warm floor</div>
+</section>
+
+<!-- 13 · cost: route by difficulty -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Lesson 2 · Cost control</span><h1>Route by <em>difficulty</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#chat" x="120" y="420" width="150" height="118" style="--dot:#22b8a6"/>
+    <use href="sprites.svg#chat" x="160" y="570" width="150" height="118" style="--dot:#22b8a6"/>
+    <use href="sprites.svg#chat" x="110" y="720" width="150" height="118" style="--dot:#ff6f9c"/>
+    <use href="sprites.svg#arrow" x="330" y="610" width="140" height="42" style="--body:#1d2340"/>
+    <use href="sprites.svg#gear" x="480" y="530" width="200" height="200" style="--body:#6a45e8"/>
+    <g fill="none" stroke-linecap="round">
+      <path d="M680 610 C 780 610, 780 470, 900 470" stroke="#22b8a6" stroke-width="36"/>
+      <path d="M680 650 C 780 650, 780 780, 900 780" stroke="#ff6f9c" stroke-width="12"/>
+    </g>
+    <use href="sprites.svg#robot" x="920" y="350" width="140" height="184" style="--body:#22b8a6"/>
+    <use href="sprites.svg#robot" x="910" y="610" width="230" height="302" style="--body:#ff6f9c"/>
+    <use href="sprites.svg#coin" x="1430" y="330" width="220" height="220"/>
+    <use href="sprites.svg#checklist" x="1640" y="420" width="130" height="156"/>
+  </svg>
+  <div class="lbl teal" style="left:730px; top:400px">Easy · most traffic</div>
+  <div class="lbl coral" style="left:780px; top:860px">Hard</div>
+  <div class="lbl sm" style="left:1180px; top:450px">Small model</div>
+  <div class="lbl sm" style="left:1260px; top:720px">Large model</div>
+  <div class="lbl dark" style="left:1580px; top:660px">Cost per completed task</div>
+  <div class="lbl red sm" style="left:1580px; top:760px">✗ not cost per token</div>
+</section>
+
+<!-- 14 · resilience -->
+<section class="slide t-coral" style="--accent:#e2533a">
+  <div class="cap"><span class="eyebrow">Lesson 3 · Resilience</span><h1>Design for <em>failure</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="120" y="330" width="390" height="570" rx="34"/><rect x="545" y="330" width="390" height="570" rx="34"/><rect x="970" y="330" width="390" height="570" rx="34"/><rect x="1395" y="330" width="390" height="570" rx="34"/></g>
+    <!-- timeout -->
+    <use href="sprites.svg#clock" x="215" y="390" width="200" height="200" style="--rim:#ff7a59"/>
+    <!-- bounded retries -->
+    <g fill="none" stroke="#7c5cff" stroke-width="16" stroke-linecap="round">
+      <path d="M620 560 q 30 -120 60 0"/><path d="M680 560 q 45 -150 90 0"/><path d="M770 560 q 60 -170 120 0"/>
+    </g>
+    <line x1="600" y1="560" x2="900" y2="560" stroke="#1d2340" stroke-width="8" stroke-linecap="round"/>
+    <text x="740" y="440" text-anchor="middle" font-size="30" font-weight="800" fill="#7c5cff">1 · 2 · 3 · stop</text>
+    <!-- circuit breaker -->
+    <circle cx="1070" cy="520" r="22" fill="#1d2340"/><circle cx="1260" cy="520" r="22" fill="#1d2340"/>
+    <line x1="1000" y1="520" x2="1048" y2="520" stroke="#1d2340" stroke-width="12"/><line x1="1282" y1="520" x2="1330" y2="520" stroke="#1d2340" stroke-width="12"/>
+    <line x1="1070" y1="520" x2="1225" y2="420" stroke="#ff5d73" stroke-width="16" stroke-linecap="round"/>
+    <use href="sprites.svg#bolt" x="1130" y="510" width="50" height="83" style="--body:#ffb020"/>
+    <!-- fallback -->
+    <use href="sprites.svg#doc" x="1500" y="380" width="150" height="185"/>
+    <use href="sprites.svg#check" x="1620" y="480" width="90" height="90"/>
+    <g text-anchor="middle" fill="#1d2340">
+      <g font-size="44" font-weight="900"><text x="315" y="680">Timeout</text><text x="740" y="680">Bounded retries</text><text x="1165" y="680">Circuit breaker</text><text x="1590" y="680">Fallback</text></g>
+      <g font-size="30" font-weight="600" fill="#4a5275"><text x="315" y="740">on every call</text><text x="740" y="740">backoff + jitter</text><text x="1165" y="740">stop calling a</text><text x="1165" y="780">dead tool</text><text x="1590" y="740">cached answer,</text><text x="1590" y="780">age disclosed</text></g>
+    </g>
+  </svg>
+</section>
+
+<!-- 15 · the exam -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">On the exam</span><h1>Right signal, <em>complete answer</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#target" x="180" y="340" width="300" height="300"/>
+    <use href="sprites.svg#arrow" x="330" y="360" width="220" height="66" transform="rotate(145 440 393)" style="--body:#1d2340"/>
+    <g fill="#fff"><rect x="700" y="340" width="1100" height="130" rx="65"/><rect x="700" y="510" width="1100" height="130" rx="65"/></g>
+    <g font-size="44" font-weight="900" fill="#1d2340"><text x="800" y="421">Scale on queue depth, not CPU</text><text x="800" y="591">Timeout + retry + breaker + fallback</text></g>
+    <use href="sprites.svg#check" x="1690" y="365" width="80" height="80"/>
+    <use href="sprites.svg#check" x="1690" y="535" width="80" height="80"/>
+  </svg>
+  <div class="stat" style="left:330px; top:790px; color:#c25e00"><b style="font-size:120px">13%</b><span>of the exam</span></div>
+  <div class="lbl dark" style="left:1250px; top:760px">Next · Lesson 1: Inside the GPU →</div>
+</section>
+
+</body>
+</html>

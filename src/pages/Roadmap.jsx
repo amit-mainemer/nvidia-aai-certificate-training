@@ -4,6 +4,7 @@ import { blueprint } from '../data/exam.js'
 import { useProgress, moduleProgress } from '../lib/progress.js'
 import { studyPlans } from '../data/resources.js'
 import { useState } from 'react'
+import ModuleIntroVideo from '../components/ModuleIntroVideo.jsx'
 
 export default function Roadmap() {
   const progress = useProgress()
@@ -56,6 +57,8 @@ export default function Roadmap() {
                     </div>
                   </div>
                 </div>
+
+                <ModuleIntroVideo key={m.id} mod={m} compact />
 
                 <div style={{ marginTop: 14 }}>
                   <div className="bar" style={{ marginBottom: 12 }}><i style={{ width: `${p.pct}%` }} /></div>

@@ -1,0 +1,153 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:03.770
+Welcome to Module One: Agent Architecture and Design.
+
+2
+00:00:04.100 --> 00:00:08.445
+Every agent system starts with one question: how much should the model decide?
+
+3
+00:00:09.245 --> 00:00:12.928
+Picture a telecom support desk with fifty thousand tickets a month.
+
+4
+00:00:13.258 --> 00:00:17.027
+Billing, plan changes, outages, and plenty of angry customers.
+
+5
+00:00:17.827 --> 00:00:21.275
+Leadership sends a one-line request: add AI agents.
+
+6
+00:00:21.605 --> 00:00:24.414
+Two teams take the job, and choose very differently.
+
+7
+00:00:25.214 --> 00:00:29.964
+Team A goes big: five agents, including a supervisor to coordinate them.
+
+8
+00:00:30.294 --> 00:00:32.015
+In the demo, it looks incredible.
+
+9
+00:00:32.815 --> 00:00:34.471
+Production is a different story.
+
+10
+00:00:34.801 --> 00:00:37.752
+Every handoff adds latency and re-sends context,
+
+11
+00:00:37.802 --> 00:00:40.127
+so simple answers take twelve seconds.
+
+12
+00:00:40.927 --> 00:00:42.648
+Costs swing from ticket to ticket.
+
+13
+00:00:42.978 --> 00:00:46.576
+And when a refund goes wrong, nobody can tell which agent broke it.
+
+14
+00:00:47.376 --> 00:00:50.537
+Four agents in a row, each ninety percent reliable,
+
+15
+00:00:50.587 --> 00:00:53.747
+are only about sixty-six percent reliable together.
+
+16
+00:00:54.077 --> 00:00:55.990
+Errors compound at every handoff.
+
+17
+00:00:56.790 --> 00:01:01.305
+Team B asks a different question: what is the least agency that does the job?
+
+18
+00:01:01.635 --> 00:01:04.252
+Most tickets, they notice, follow a few known paths.
+
+19
+00:01:05.052 --> 00:01:09.119
+So a router sends each known ticket type to a fixed, testable workflow.
+
+20
+00:01:09.449 --> 00:01:12.855
+Only open-ended cases reach a single agent with tools.
+
+21
+00:01:13.655 --> 00:01:16.549
+The result is faster, cheaper, and easy to debug.
+
+22
+00:01:16.879 --> 00:01:19.901
+When something fails, they know exactly which step to fix.
+
+23
+00:01:20.701 --> 00:01:23.924
+That's this module's core idea: the agency spectrum,
+
+24
+00:01:23.974 --> 00:01:28.203
+from fixed chains and routers to tool loops and multi-agent systems.
+
+25
+00:01:28.533 --> 00:01:33.347
+Each step up buys flexibility, and pays in latency, cost, and predictability.
+
+26
+00:01:34.147 --> 00:01:38.257
+You'll learn the loop every agent runs: reason, act, observe, repeat.
+
+27
+00:01:38.587 --> 00:01:41.503
+Budgets and stop conditions make sure it always ends.
+
+28
+00:01:42.303 --> 00:01:45.008
+Then four patterns built on that loop: ReAct,
+
+29
+00:01:45.058 --> 00:01:47.458
+Plan and Execute, ReWOO, and Reflection.
+
+30
+00:01:47.788 --> 00:01:49.615
+You'll see exactly when each one wins.
+
+31
+00:01:50.415 --> 00:01:53.352
+Multi-agent systems aren't wrong, just expensive.
+
+32
+00:01:53.682 --> 00:01:58.432
+They earn their cost through specialisation, context isolation, or parallel work.
+
+33
+00:01:59.232 --> 00:02:01.785
+Anything else is one agent wearing a costume.
+
+34
+00:02:02.115 --> 00:02:05.755
+Splitting it up only adds handoffs, tokens, and places to fail.
+
+35
+00:02:06.555 --> 00:02:09.005
+This domain is fifteen percent of the exam,
+
+36
+00:02:09.055 --> 00:02:12.201
+and it rewards reading constraints before capabilities.
+
+37
+00:02:12.531 --> 00:02:16.074
+Sub-second, regulated, or fixed process means less agency,
+
+38
+00:02:16.124 --> 00:02:18.241
+and that's where lesson one begins.

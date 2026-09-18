@@ -5,6 +5,7 @@ import { blueprint } from '../data/exam.js'
 import { useProgress } from '../lib/progress.js'
 import Blocks, { slugify } from '../components/Blocks.jsx'
 import LessonCheck from '../components/LessonCheck.jsx'
+import ModuleIntroVideo from '../components/ModuleIntroVideo.jsx'
 import { lessonCheck } from '../data/checks/index.js'
 
 export default function Lesson() {
@@ -80,6 +81,8 @@ export default function Lesson() {
               </nav>
             </details>
           )}
+
+          {idx === 0 && <ModuleIntroVideo mod={mod} />}
 
           <div className="prose">
             <Blocks blocks={lesson.blocks} />

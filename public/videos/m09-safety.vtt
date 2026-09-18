@@ -1,0 +1,153 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:03.727
+Welcome to Module Nine: Safety, Ethics, and Compliance.
+
+2
+00:00:04.057 --> 00:00:07.506
+Agents read untrusted content, then take real actions.
+
+3
+00:00:08.306 --> 00:00:12.629
+Picture a small firm whose AI assistant runs its inbox and calendar.
+
+4
+00:00:12.959 --> 00:00:15.725
+It drafts replies, books meetings, and sends files.
+
+5
+00:00:16.525 --> 00:00:19.099
+One day, an ordinary-looking email arrives.
+
+6
+00:00:19.429 --> 00:00:22.771
+Hidden inside is text written for the assistant, not a human.
+
+7
+00:00:23.571 --> 00:00:25.911
+The assistant follows that text like an order.
+
+8
+00:00:26.241 --> 00:00:29.945
+It quietly forwards confidential contracts to an outside address.
+
+9
+00:00:30.745 --> 00:00:32.743
+Nobody on the team did anything wrong.
+
+10
+00:00:33.073 --> 00:00:37.845
+This is indirect prompt injection: the attack hides in content the agent reads.
+
+11
+00:00:38.645 --> 00:00:41.581
+The only defence was one line in the system prompt.
+
+12
+00:00:41.911 --> 00:00:45.915
+But prompts are defaults attackers can talk over, not a security boundary.
+
+13
+00:00:46.715 --> 00:00:49.523
+When the client asks what happened, nobody can answer.
+
+14
+00:00:49.853 --> 00:00:52.577
+There's no audit trail to reconstruct the decision.
+
+15
+00:00:53.377 --> 00:00:56.932
+The rebuild uses defence in depth, since any control can fail.
+
+16
+00:00:57.262 --> 00:00:59.899
+Email is treated as data, not instructions,
+
+17
+00:00:59.949 --> 00:01:02.524
+and rails screen it for injected commands.
+
+18
+00:01:03.324 --> 00:01:06.597
+The assistant gets least privilege: only the tools it needs,
+
+19
+00:01:06.647 --> 00:01:08.757
+checked against the user's permissions.
+
+20
+00:01:09.087 --> 00:01:12.279
+Sending files outside now needs a person's approval.
+
+21
+00:01:13.079 --> 00:01:16.272
+Outbound traffic can only reach approved destinations.
+
+22
+00:01:16.602 --> 00:01:18.663
+And an audit trail records who asked,
+
+23
+00:01:18.713 --> 00:01:21.459
+what was read, which tools ran, and who approved.
+
+24
+00:01:22.259 --> 00:01:25.793
+Lesson one covers guardrails, runtime checks around the model.
+
+25
+00:01:26.123 --> 00:01:31.662
+NeMo Guardrails defines five: input, dialog, retrieval, execution, and output.
+
+26
+00:01:32.462 --> 00:01:35.975
+Exam questions give one requirement and ask which rail fits.
+
+27
+00:01:36.305 --> 00:01:39.540
+Restricting which tools may run? That's the execution rail.
+
+28
+00:01:40.340 --> 00:01:42.539
+Lesson two covers prompt injection,
+
+29
+00:01:42.589 --> 00:01:45.879
+which has no complete fix, only layered containment.
+
+30
+00:01:46.209 --> 00:01:49.999
+Plus excessive agency, sandboxed code, and memory poisoning.
+
+31
+00:01:50.799 --> 00:01:52.598
+Lesson three covers privacy:
+
+32
+00:01:52.648 --> 00:01:56.360
+send only the data you need, and redact personal details.
+
+33
+00:01:56.690 --> 00:02:00.373
+Deletions must reach every copy, not just the main database.
+
+34
+00:02:01.173 --> 00:02:05.198
+A real audit trail is tamper-evident and can reconstruct any decision.
+
+35
+00:02:05.528 --> 00:02:10.171
+You'll also check fairness by subgroup and meet frameworks like the EU AI Act.
+
+36
+00:02:10.971 --> 00:02:14.864
+This domain is five percent of the exam, and it rewards one habit:
+
+37
+00:02:14.914 --> 00:02:17.492
+put controls in the runtime, not the prompt.
+
+38
+00:02:17.822 --> 00:02:19.884
+Lesson one starts with the five rails.

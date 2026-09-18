@@ -1,0 +1,107 @@
+{
+  "module": "deployment",
+  "title": "Module 4 intro — Deployment and Scaling",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module Four: Deployment and Scaling.",
+        "A demo agent is easy; surviving real traffic is not."
+      ]
+    },
+    {
+      "lines": [
+        "Picture an online retailer whose shopping agent runs smoothly for a hundred users.",
+        "Then Black Friday arrives, with fifty times the traffic."
+      ]
+    },
+    {
+      "lines": [
+        "First, the GPUs run out of memory.",
+        "The culprit is the KV cache, which holds every token each conversation has already seen."
+      ],
+      "say": {
+        "1": "The culprit is the kay-vee cache, which holds every token each conversation has already seen."
+      }
+    },
+    {
+      "lines": [
+        "Then latency explodes.",
+        "Long prompts are slow to process, so the first word of each reply takes seconds."
+      ]
+    },
+    {
+      "lines": [
+        "Kubernetes was set to add pods when CPU usage climbs.",
+        "But CPU sits at twenty percent while the GPUs are saturated, so nothing scales."
+      ]
+    },
+    {
+      "lines": [
+        "Each new GPU pod takes minutes to pull its image and load the model.",
+        "By the time they're ready, the shoppers are gone."
+      ]
+    },
+    {
+      "lines": [
+        "Then a shipping tool slows down, with no timeout.",
+        "Workers hang waiting on it, until none are left for anyone else."
+      ]
+    },
+    {
+      "lines": [
+        "The agent retries, its HTTP client retries too, and the load multiplies.",
+        "On the busiest day of the year, the agent goes down."
+      ]
+    },
+    {
+      "lines": [
+        "Every one of those failures has a known fix.",
+        "Lesson one starts inside the GPU, where each request runs in two phases."
+      ]
+    },
+    {
+      "lines": [
+        "Prefill reads the whole prompt at once, limited by compute.",
+        "Decode writes one token at a time, limited by memory bandwidth."
+      ],
+      "say": {
+        "0": "Pree-fill reads the whole prompt at once, limited by compute."
+      }
+    },
+    {
+      "lines": [
+        "You'll see why the KV cache, not the weights, limits how many users fit.",
+        "And how continuous batching and prefix caching win back speed and capacity."
+      ],
+      "say": {
+        "0": "You'll see why the kay-vee cache, not the weights, limits how many users fit."
+      }
+    },
+    {
+      "lines": [
+        "Lesson two scales two tiers: cheap orchestration pods, and costly GPU inference.",
+        "Inference scales on queue depth or latency, never CPU, with warm replicas to hide cold starts."
+      ]
+    },
+    {
+      "lines": [
+        "It also cuts cost by routing easy requests to a smaller model.",
+        "And it measures cost per completed task, not per token."
+      ]
+    },
+    {
+      "lines": [
+        "Lesson three keeps the agent alive when tools break.",
+        "Timeouts, bounded retries with jitter, circuit breakers, and a fallback, such as a cached answer."
+      ]
+    },
+    {
+      "lines": [
+        "This domain is thirteen percent of the exam, and it rewards the right signal and the complete answer.",
+        "Next up, lesson one: inside the GPU."
+      ]
+    }
+  ]
+}

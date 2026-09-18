@@ -1,0 +1,98 @@
+{
+  "module": "human",
+  "title": "Module 10 intro — Human-AI Interaction and Oversight",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module Ten: Human-AI Interaction and Oversight.",
+        "A human in charge sounds safe, but only if that human can actually catch mistakes."
+      ]
+    },
+    {
+      "lines": [
+        "Picture a fintech whose refunds agent handles thousands of requests a day.",
+        "To be safe, the team rules that every action needs a human click."
+      ]
+    },
+    {
+      "lines": [
+        "Each reviewer now faces four hundred approvals a day.",
+        "Most are small, routine refunds, and the agent is almost always right."
+      ]
+    },
+    {
+      "lines": [
+        "So the reviewers stop reading and start rubber-stamping.",
+        "The approval rate climbs to ninety-nine point eight percent."
+      ]
+    },
+    {
+      "lines": [
+        "Then comes a large refund to a brand-new account.",
+        "The agent is unsure, but its summary sounds completely confident."
+      ]
+    },
+    {
+      "lines": [
+        "The approve button is pre-selected, and the reviewer clicks in two seconds.",
+        "The money is gone, and the refund can't be reversed."
+      ]
+    },
+    {
+      "lines": [
+        "They had oversight on paper, but none in practice.",
+        "That's automation bias: over-trusting automated output and no longer checking it."
+      ]
+    },
+    {
+      "lines": [
+        "So they redesign around two questions: can it be undone, and how bad is a mistake?",
+        "Small refunds now run on their own, with monitoring and sampled audits."
+      ]
+    },
+    {
+      "lines": [
+        "Only large, irreversible refunds wait for human approval.",
+        "Clear triggers escalate the rest: low confidence, a value limit, or a customer asking for a person."
+      ]
+    },
+    {
+      "lines": [
+        "The review screen shows the evidence, and low-confidence cases look different.",
+        "Nothing is pre-selected, and a sample of approvals gets audited."
+      ]
+    },
+    {
+      "lines": [
+        "That's lesson one: three oversight models.",
+        "In the loop, a human approves first; on the loop, a human watches and can reverse; in command, humans set the limits."
+      ]
+    },
+    {
+      "lines": [
+        "You'll build approval interrupts that pause, save state, and resume.",
+        "And you'll hand off full context, so customers never repeat themselves."
+      ]
+    },
+    {
+      "lines": [
+        "Lesson two covers communicating uncertainty.",
+        "Raw model probabilities aren't reliable, so use simple confidence bands, and let the system say it doesn't know."
+      ]
+    },
+    {
+      "lines": [
+        "You'll also cover disclosing the AI, citing sources, and offering a route to a human.",
+        "Plus specific feedback, because human corrections are your best training data."
+      ]
+    },
+    {
+      "lines": [
+        "This domain is five percent of the exam, and it rewards one instinct: match oversight to reversibility and risk.",
+        "Approving everything is a wrong answer, and that's where lesson one begins."
+      ]
+    }
+  ]
+}

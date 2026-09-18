@@ -1,0 +1,141 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:03.983
+Welcome to Module Ten: Human-AI Interaction and Oversight.
+
+2
+00:00:04.313 --> 00:00:09.213
+A human in charge sounds safe, but only if that human can actually catch mistakes.
+
+3
+00:00:10.013 --> 00:00:14.421
+Picture a fintech whose refunds agent handles thousands of requests a day.
+
+4
+00:00:14.751 --> 00:00:18.264
+To be safe, the team rules that every action needs a human click.
+
+5
+00:00:19.064 --> 00:00:21.851
+Each reviewer now faces four hundred approvals a day.
+
+6
+00:00:22.181 --> 00:00:26.526
+Most are small, routine refunds, and the agent is almost always right.
+
+7
+00:00:27.326 --> 00:00:30.007
+So the reviewers stop reading and start rubber-stamping.
+
+8
+00:00:30.337 --> 00:00:33.529
+The approval rate climbs to ninety-nine point eight percent.
+
+9
+00:00:34.329 --> 00:00:36.861
+Then comes a large refund to a brand-new account.
+
+10
+00:00:37.191 --> 00:00:40.938
+The agent is unsure, but its summary sounds completely confident.
+
+11
+00:00:41.738 --> 00:00:45.635
+The approve button is pre-selected, and the reviewer clicks in two seconds.
+
+12
+00:00:45.965 --> 00:00:48.709
+The money is gone, and the refund can't be reversed.
+
+13
+00:00:49.509 --> 00:00:52.147
+They had oversight on paper, but none in practice.
+
+14
+00:00:52.477 --> 00:00:57.291
+That's automation bias: over-trusting automated output and no longer checking it.
+
+15
+00:00:58.091 --> 00:01:02.969
+So they redesign around two questions: can it be undone, and how bad is a mistake?
+
+16
+00:01:03.299 --> 00:01:07.473
+Small refunds now run on their own, with monitoring and sampled audits.
+
+17
+00:01:08.273 --> 00:01:11.850
+Only large, irreversible refunds wait for human approval.
+
+18
+00:01:12.180 --> 00:01:15.181
+Clear triggers escalate the rest: low confidence,
+
+19
+00:01:15.231 --> 00:01:18.231
+a value limit, or a customer asking for a person.
+
+20
+00:01:19.031 --> 00:01:23.120
+The review screen shows the evidence, and low-confidence cases look different.
+
+21
+00:01:23.450 --> 00:01:27.069
+Nothing is pre-selected, and a sample of approvals gets audited.
+
+22
+00:01:27.869 --> 00:01:30.166
+That's lesson one: three oversight models.
+
+23
+00:01:30.496 --> 00:01:33.402
+In the loop, a human approves first; on the loop,
+
+24
+00:01:33.452 --> 00:01:37.443
+a human watches and can reverse; in command, humans set the limits.
+
+25
+00:01:38.243 --> 00:01:41.799
+You'll build approval interrupts that pause, save state, and resume.
+
+26
+00:01:42.129 --> 00:01:45.940
+And you'll hand off full context, so customers never repeat themselves.
+
+27
+00:01:46.740 --> 00:01:49.442
+Lesson two covers communicating uncertainty.
+
+28
+00:01:49.772 --> 00:01:52.005
+Raw model probabilities aren't reliable,
+
+29
+00:01:52.055 --> 00:01:56.058
+so use simple confidence bands, and let the system say it doesn't know.
+
+30
+00:01:56.858 --> 00:01:59.002
+You'll also cover disclosing the AI,
+
+31
+00:01:59.052 --> 00:02:01.928
+citing sources, and offering a route to a human.
+
+32
+00:02:02.258 --> 00:02:06.347
+Plus specific feedback, because human corrections are your best training data.
+
+33
+00:02:07.147 --> 00:02:11.420
+This domain is five percent of the exam, and it rewards one instinct:
+
+34
+00:02:11.470 --> 00:02:14.051
+match oversight to reversibility and risk.
+
+35
+00:02:14.381 --> 00:02:18.321
+Approving everything is a wrong answer, and that's where lesson one begins.

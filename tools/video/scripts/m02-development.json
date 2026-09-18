@@ -1,0 +1,98 @@
+{
+  "module": "development",
+  "title": "Module 2 intro — Agent Development",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module Two: Agent Development.",
+        "This is where designs become working code, and where agents quietly break."
+      ]
+    },
+    {
+      "lines": [
+        "Picture a travel startup launching a booking assistant.",
+        "It searches flights, checks hotels, and books trips, all through tools the model can call."
+      ]
+    },
+    {
+      "lines": [
+        "Its tools were written in a hurry, each with one vague line of description.",
+        "So a customer asks for a Lisbon hotel, and the model calls flight search."
+      ]
+    },
+    {
+      "lines": [
+        "Even with the right tool, the model guesses the arguments.",
+        "It sends the date as next Friday-ish, and the system just replies: bad request."
+      ]
+    },
+    {
+      "lines": [
+        "The app needs clean JSON to draw the booking screen.",
+        "But sometimes the model wraps it in friendly chatter, and the page crashes."
+      ]
+    },
+    {
+      "lines": [
+        "Every hotel search dumps pages of raw data into the conversation.",
+        "By step eight, the assistant has forgotten the customer's budget."
+      ]
+    },
+    {
+      "lines": [
+        "Then a booking times out, and the agent tries again.",
+        "But the first one went through, so a family pays twice."
+      ]
+    },
+    {
+      "lines": [
+        "The team's only test checks for one exact sentence.",
+        "Any harmless rewording breaks it, so nobody trusts it."
+      ]
+    },
+    {
+      "lines": [
+        "The fix wasn't a bigger model.",
+        "It was treating tools, outputs, and context as contracts."
+      ]
+    },
+    {
+      "lines": [
+        "Lesson one is tool design: descriptions that say when not to use a tool, plus strict schemas.",
+        "And idempotency keys make a retried booking charge only once."
+      ]
+    },
+    {
+      "lines": [
+        "Lesson two is structured output.",
+        "Asking for JSON makes errors unlikely, but constrained decoding makes invalid output impossible."
+      ]
+    },
+    {
+      "lines": [
+        "Lesson three maps the frameworks, like LangGraph for stateful agents that pause for human approval.",
+        "And NVIDIA's NeMo Agent Toolkit, which wraps them with profiling, evaluation, and tracing."
+      ]
+    },
+    {
+      "lines": [
+        "Lesson four is context engineering: deciding what belongs in the window at each step.",
+        "Raw results become short digests, and a stable prompt prefix keeps each step fast and cheap."
+      ]
+    },
+    {
+      "lines": [
+        "Lesson five tests properties, not exact strings: the right tool, valid arguments, within budget.",
+        "Each case runs several times, and traces show which stage failed."
+      ]
+    },
+    {
+      "lines": [
+        "This domain is fifteen percent of the exam, and its favourite trap: a schema guarantees a well-formed call, not a correct one.",
+        "Lesson one starts right there, with tool design."
+      ]
+    }
+  ]
+}

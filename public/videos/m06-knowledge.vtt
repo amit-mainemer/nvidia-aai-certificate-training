@@ -1,0 +1,137 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:04.047
+Welcome to Module Six: Knowledge Integration and Data Handling.
+
+2
+00:00:04.377 --> 00:00:08.679
+When an agent answers wrong, the culprit is usually retrieval, not the model.
+
+3
+00:00:09.479 --> 00:00:14.315
+Picture a hospital assistant answering staff questions about internal policy.
+
+4
+00:00:14.645 --> 00:00:18.285
+It indexes twenty thousand documents, and the pilot looks great.
+
+5
+00:00:19.085 --> 00:00:23.046
+Then a nurse asks about a dosing policy and gets last year's version.
+
+6
+00:00:23.376 --> 00:00:26.675
+It was deleted at the source, but its chunks stayed in the index.
+
+7
+00:00:27.475 --> 00:00:29.900
+Another answer sits in a PDF table.
+
+8
+00:00:30.230 --> 00:00:34.127
+The parser flattened it into loose numbers, so no value matched its header.
+
+9
+00:00:34.927 --> 00:00:40.359
+Searches for exact form codes, like F-417, return loosely related pages.
+
+10
+00:00:40.689 --> 00:00:44.117
+Meaning-based search is weak on rare, exact strings like that.
+
+11
+00:00:44.917 --> 00:00:48.600
+Worst, a nurse sees a salary review meant only for managers.
+
+12
+00:00:48.930 --> 00:00:51.333
+Nobody attached access rules to the chunks.
+
+13
+00:00:52.133 --> 00:00:54.622
+The first instinct is to buy a bigger model.
+
+14
+00:00:54.952 --> 00:00:58.209
+But every failure happened before the model saw a single word.
+
+15
+00:00:59.009 --> 00:01:00.884
+So the team rebuilds the pipeline,
+
+16
+00:01:00.934 --> 00:01:03.716
+starting with extraction that keeps tables intact.
+
+17
+00:01:04.046 --> 00:01:07.900
+Chunks follow the headings and carry their source, date, and access level.
+
+18
+00:01:08.700 --> 00:01:13.194
+Hybrid search pairs vector search for meaning with keyword search for exact codes.
+
+19
+00:01:13.524 --> 00:01:15.885
+Then a reranker keeps only the best handful.
+
+20
+00:01:16.685 --> 00:01:19.643
+Deleted policies now leave the index immediately.
+
+21
+00:01:19.973 --> 00:01:23.400
+And searches are filtered by permission before anything is ranked.
+
+22
+00:01:24.200 --> 00:01:28.374
+The assistant cites the current policy, or admits its sources don't cover it.
+
+23
+00:01:28.704 --> 00:01:30.766
+And staff see only what they're allowed to.
+
+24
+00:01:31.566 --> 00:01:36.039
+Lesson one walks the production RAG pipeline, from extraction to generation.
+
+25
+00:01:36.369 --> 00:01:38.409
+You'll learn which stage causes which symptom.
+
+26
+00:01:39.209 --> 00:01:42.599
+Lesson two adds agentic retrieval: rewrite the query,
+
+27
+00:01:42.649 --> 00:01:45.261
+grade the results, and retry a few times.
+
+28
+00:01:45.591 --> 00:01:49.573
+Knowledge graphs answer questions that join facts across documents.
+
+29
+00:01:50.373 --> 00:01:54.440
+Lesson three keeps the index fresh, correct, and permission-aware over time.
+
+30
+00:01:54.770 --> 00:01:57.920
+It also covers conflicting versions and personal data.
+
+31
+00:01:58.720 --> 00:02:02.745
+This domain is ten percent of the exam, and it loves symptom questions.
+
+32
+00:02:03.075 --> 00:02:07.377
+Wrong table numbers mean extraction; missed part numbers mean hybrid search.
+
+33
+00:02:08.177 --> 00:02:12.628
+Remember: a reranker reorders results, but can't find what retrieval missed.
+
+34
+00:02:12.958 --> 00:02:16.321
+Lesson one starts there: the pipeline, stage by stage.

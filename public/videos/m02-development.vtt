@@ -1,0 +1,157 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:02.874
+Welcome to Module Two: Agent Development.
+
+2
+00:00:03.204 --> 00:00:07.335
+This is where designs become working code, and where agents quietly break.
+
+3
+00:00:08.135 --> 00:00:11.029
+Picture a travel startup launching a booking assistant.
+
+4
+00:00:11.359 --> 00:00:14.214
+It searches flights, checks hotels, and books trips,
+
+5
+00:00:14.264 --> 00:00:16.280
+all through tools the model can call.
+
+6
+00:00:17.080 --> 00:00:21.041
+Its tools were written in a hurry, each with one vague line of description.
+
+7
+00:00:21.371 --> 00:00:25.481
+So a customer asks for a Lisbon hotel, and the model calls flight search.
+
+8
+00:00:26.281 --> 00:00:29.281
+Even with the right tool, the model guesses the arguments.
+
+9
+00:00:29.611 --> 00:00:34.404
+It sends the date as next Friday-ish, and the system just replies: bad request.
+
+10
+00:00:35.204 --> 00:00:38.183
+The app needs clean JSON to draw the booking screen.
+
+11
+00:00:38.513 --> 00:00:42.538
+But sometimes the model wraps it in friendly chatter, and the page crashes.
+
+12
+00:00:43.338 --> 00:00:47.427
+Every hotel search dumps pages of raw data into the conversation.
+
+13
+00:00:47.757 --> 00:00:51.227
+By step eight, the assistant has forgotten the customer's budget.
+
+14
+00:00:52.027 --> 00:00:54.686
+Then a booking times out, and the agent tries again.
+
+15
+00:00:55.016 --> 00:00:57.803
+But the first one went through, so a family pays twice.
+
+16
+00:00:58.603 --> 00:01:01.135
+The team's only test checks for one exact sentence.
+
+17
+00:01:01.465 --> 00:01:04.401
+Any harmless rewording breaks it, so nobody trusts it.
+
+18
+00:01:05.201 --> 00:01:06.773
+The fix wasn't a bigger model.
+
+19
+00:01:07.103 --> 00:01:10.487
+It was treating tools, outputs, and context as contracts.
+
+20
+00:01:11.287 --> 00:01:12.847
+Lesson one is tool design:
+
+21
+00:01:12.897 --> 00:01:16.933
+descriptions that say when not to use a tool, plus strict schemas.
+
+22
+00:01:17.263 --> 00:01:21.203
+And idempotency keys make a retried booking charge only once.
+
+23
+00:01:22.003 --> 00:01:23.979
+Lesson two is structured output.
+
+24
+00:01:24.309 --> 00:01:26.853
+Asking for JSON makes errors unlikely,
+
+25
+00:01:26.903 --> 00:01:30.745
+but constrained decoding makes invalid output impossible.
+
+26
+00:01:31.545 --> 00:01:33.477
+Lesson three maps the frameworks,
+
+27
+00:01:33.527 --> 00:01:37.383
+like LangGraph for stateful agents that pause for human approval.
+
+28
+00:01:37.713 --> 00:01:39.688
+And NVIDIA's NeMo Agent Toolkit,
+
+29
+00:01:39.738 --> 00:01:43.295
+which wraps them with profiling, evaluation, and tracing.
+
+30
+00:01:44.095 --> 00:01:46.125
+Lesson four is context engineering:
+
+31
+00:01:46.175 --> 00:01:49.037
+deciding what belongs in the window at each step.
+
+32
+00:01:49.367 --> 00:01:51.297
+Raw results become short digests,
+
+33
+00:01:51.347 --> 00:01:54.778
+and a stable prompt prefix keeps each step fast and cheap.
+
+34
+00:01:55.578 --> 00:01:58.417
+Lesson five tests properties, not exact strings:
+
+35
+00:01:58.467 --> 00:02:01.245
+the right tool, valid arguments, within budget.
+
+36
+00:02:01.575 --> 00:02:05.280
+Each case runs several times, and traces show which stage failed.
+
+37
+00:02:06.080 --> 00:02:10.055
+This domain is fifteen percent of the exam, and its favourite trap:
+
+38
+00:02:10.105 --> 00:02:13.539
+a schema guarantees a well-formed call, not a correct one.
+
+39
+00:02:13.869 --> 00:02:16.550
+Lesson one starts right there, with tool design.

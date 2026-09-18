@@ -3,3 +3,9 @@ dist
 .DS_Store
 *.local
 .vite
+
+# video pipeline: local TTS model + venv + intermediate renders
+tools/video/.models/
+tools/video/.venv/
+tools/video/build/
+__pycache__/

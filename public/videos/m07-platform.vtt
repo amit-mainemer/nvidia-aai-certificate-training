@@ -1,0 +1,149 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:03.855
+Welcome to Module Seven: NVIDIA Platform Implementation.
+
+2
+00:00:04.185 --> 00:00:07.357
+It's about knowing which piece of NVIDIA's stack does which job.
+
+3
+00:00:08.157 --> 00:00:11.904
+Picture a bank's platform team with a promising prototype assistant.
+
+4
+00:00:12.234 --> 00:00:15.832
+Under the hood, it's glued together from whatever libraries were handy.
+
+5
+00:00:16.632 --> 00:00:20.401
+First, customer data can never leave the bank's own infrastructure.
+
+6
+00:00:20.731 --> 00:00:24.691
+So the model runs on a home-made server that crawls under real traffic.
+
+7
+00:00:25.491 --> 00:00:27.148
+Second, there are no guardrails.
+
+8
+00:00:27.478 --> 00:00:31.631
+A tester talks the assistant into ignoring its rules, and nothing stops it.
+
+9
+00:00:32.431 --> 00:00:34.407
+Third, there's no evaluation gate.
+
+10
+00:00:34.737 --> 00:00:38.634
+When a fine-tuned model arrives, nobody can say if it beats the old one.
+
+11
+00:00:39.434 --> 00:00:41.347
+So the team stops adding libraries.
+
+12
+00:00:41.677 --> 00:00:45.808
+Instead, they map each need to one component with exactly one job.
+
+13
+00:00:46.608 --> 00:00:49.136
+For serving, they pick NIM: a prebuilt,
+
+14
+00:00:49.186 --> 00:00:53.299
+GPU-optimised model container running in their own data centre.
+
+15
+00:00:53.629 --> 00:00:58.443
+Its OpenAI-compatible API means the agent code barely changes.
+
+16
+00:00:59.243 --> 00:01:02.244
+NeMo Guardrails applies safety rails to live traffic.
+
+17
+00:01:02.574 --> 00:01:07.153
+NeMo Evaluator becomes the gate: a new model ships only if it scores better.
+
+18
+00:01:07.953 --> 00:01:12.085
+NeMo Retriever handles document extraction, embedding, and reranking.
+
+19
+00:01:12.415 --> 00:01:17.071
+The NeMo Agent Toolkit wraps their LangGraph agent with profiling and tracing,
+
+20
+00:01:17.121 --> 00:01:18.338
+without replacing it.
+
+21
+00:01:19.138 --> 00:01:23.931
+It all runs on Kubernetes, with the NIM Operator managing the model services.
+
+22
+00:01:24.261 --> 00:01:28.072
+The glued-together prototype becomes a production reference architecture.
+
+23
+00:01:28.872 --> 00:01:31.297
+Lesson one maps the stack, layer by layer.
+
+24
+00:01:31.627 --> 00:01:34.156
+You'll learn each component's one-line job,
+
+25
+00:01:34.206 --> 00:01:37.635
+like Curator preparing data and Customizer training on it.
+
+26
+00:01:38.435 --> 00:01:40.678
+It untangles pairs people confuse:
+
+27
+00:01:40.728 --> 00:01:44.657
+Evaluator measures offline, Guardrails enforce policy live.
+
+28
+00:01:44.987 --> 00:01:50.207
+NIM is a packaged model service; Triton is a general server you configure yourself.
+
+29
+00:01:51.007 --> 00:01:52.927
+You'll see why NIM is fast:
+
+30
+00:01:52.977 --> 00:01:58.765
+its TensorRT-LLM engine batches requests on the fly and runs in lower precision.
+
+31
+00:01:59.095 --> 00:02:01.967
+And when Dynamo spreads inference across many machines.
+
+32
+00:02:02.767 --> 00:02:05.981
+Lesson two assembles a full reference architecture,
+
+33
+00:02:06.031 --> 00:02:09.757
+with Curator, Customizer, and Evaluator in an offline loop.
+
+34
+00:02:10.087 --> 00:02:13.920
+It also covers sizing GPUs and fully air-gapped deployments.
+
+35
+00:02:14.720 --> 00:02:17.139
+This domain is seven percent of the exam,
+
+36
+00:02:17.189 --> 00:02:20.089
+mostly asking which component fits a requirement.
+
+37
+00:02:20.419 --> 00:02:22.054
+Lesson one starts with the map.

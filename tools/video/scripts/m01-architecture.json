@@ -1,0 +1,110 @@
+{
+  "module": "architecture",
+  "title": "Module 1 intro — Agent Architecture and Design",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module One: Agent Architecture and Design.",
+        "Every agent system starts with one question: how much should the model decide?"
+      ]
+    },
+    {
+      "lines": [
+        "Picture a telecom support desk with fifty thousand tickets a month.",
+        "Billing, plan changes, outages, and plenty of angry customers."
+      ]
+    },
+    {
+      "lines": [
+        "Leadership sends a one-line request: add AI agents.",
+        "Two teams take the job, and choose very differently."
+      ]
+    },
+    {
+      "lines": [
+        "Team A goes big: five agents, including a supervisor to coordinate them.",
+        "In the demo, it looks incredible."
+      ],
+      "say": {
+        "0": "Team, A, goes big: five agents, including a supervisor to coordinate them."
+      }
+    },
+    {
+      "lines": [
+        "Production is a different story.",
+        "Every handoff adds latency and re-sends context, so simple answers take twelve seconds."
+      ]
+    },
+    {
+      "lines": [
+        "Costs swing from ticket to ticket.",
+        "And when a refund goes wrong, nobody can tell which agent broke it."
+      ]
+    },
+    {
+      "lines": [
+        "Four agents in a row, each ninety percent reliable, are only about sixty-six percent reliable together.",
+        "Errors compound at every handoff."
+      ]
+    },
+    {
+      "lines": [
+        "Team B asks a different question: what is the least agency that does the job?",
+        "Most tickets, they notice, follow a few known paths."
+      ]
+    },
+    {
+      "lines": [
+        "So a router sends each known ticket type to a fixed, testable workflow.",
+        "Only open-ended cases reach a single agent with tools."
+      ]
+    },
+    {
+      "lines": [
+        "The result is faster, cheaper, and easy to debug.",
+        "When something fails, they know exactly which step to fix."
+      ]
+    },
+    {
+      "lines": [
+        "That's this module's core idea: the agency spectrum, from fixed chains and routers to tool loops and multi-agent systems.",
+        "Each step up buys flexibility, and pays in latency, cost, and predictability."
+      ]
+    },
+    {
+      "lines": [
+        "You'll learn the loop every agent runs: reason, act, observe, repeat.",
+        "Budgets and stop conditions make sure it always ends."
+      ]
+    },
+    {
+      "lines": [
+        "Then four patterns built on that loop: ReAct, Plan and Execute, ReWOO, and Reflection.",
+        "You'll see exactly when each one wins."
+      ],
+      "say": {
+        "0": "Then four patterns built on that loop: react, plan and execute, re-woo, and reflection."
+      }
+    },
+    {
+      "lines": [
+        "Multi-agent systems aren't wrong, just expensive.",
+        "They earn their cost through specialisation, context isolation, or parallel work."
+      ]
+    },
+    {
+      "lines": [
+        "Anything else is one agent wearing a costume.",
+        "Splitting it up only adds handoffs, tokens, and places to fail."
+      ]
+    },
+    {
+      "lines": [
+        "This domain is fifteen percent of the exam, and it rewards reading constraints before capabilities.",
+        "Sub-second, regulated, or fixed process means less agency, and that's where lesson one begins."
+      ]
+    }
+  ]
+}

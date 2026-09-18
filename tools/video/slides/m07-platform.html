@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module 7 intro slides</title>
+<link rel="stylesheet" href="base.css">
+</head>
+<body>
+
+<!-- local shapes: a model container (NIM-style box) and an engine block -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ctr" viewBox="0 0 300 200" preserveAspectRatio="none">
+    <rect x="0" y="14" width="300" height="186" rx="18" fill="var(--body, #2c3350)"/>
+    <rect x="0" y="0" width="300" height="34" rx="12" fill="var(--lid, #4a5275)"/>
+    <g stroke="rgba(255,255,255,.14)" stroke-width="10">
+      <path d="M40 50 V180 M80 50 V180 M120 50 V180 M160 50 V180 M200 50 V180 M240 50 V180"/>
+    </g>
+  </symbol>
+</svg>
+
+<!-- 1 · the hook: which piece does which job -->
+<section class="slide t-night" style="--accent:#3a5bd9">
+  <div class="cap"><span class="eyebrow">Module 7 · NVIDIA Platform</span><h1>Which piece does <em>which job</em>?</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#person-worried" x="140" y="500" width="210" height="420"/>
+    <use href="sprites.svg#question" x="330" y="360" width="120" height="120" style="--body:#ffb020"/>
+    <use href="sprites.svg#puzzle" x="620" y="360" width="230" height="230" transform="rotate(-8 735 475)" style="--body:#7c5cff"/>
+    <use href="sprites.svg#puzzle" x="960" y="330" width="210" height="210" transform="rotate(12 1065 435)" style="--body:#22b8a6"/>
+    <use href="sprites.svg#puzzle" x="1270" y="380" width="230" height="230" transform="rotate(-10 1385 495)" style="--body:#ff7a59"/>
+    <use href="sprites.svg#puzzle" x="1580" y="300" width="210" height="210" transform="rotate(8 1685 405)" style="--body:#ffb020"/>
+    <use href="sprites.svg#puzzle" x="740" y="660" width="230" height="230" transform="rotate(-14 855 775)" style="--body:#ff6f9c"/>
+    <use href="sprites.svg#puzzle" x="1080" y="650" width="230" height="230" transform="rotate(6 1195 765)" style="--body:#5cc8ff"/>
+    <use href="sprites.svg#puzzle" x="1420" y="640" width="230" height="230" transform="rotate(-6 1535 755)" style="--body:#8bd346"/>
+    <use href="sprites.svg#sparkle" x="1780" y="560" width="70" height="70"/>
+    <use href="sprites.svg#sparkle" x="560" y="300" width="50" height="50" style="--body:#fff"/>
+  </svg>
+  <div class="lbl" style="left:735px; top:485px">NIM</div>
+  <div class="lbl" style="left:1065px; top:445px">NeMo</div>
+  <div class="lbl" style="left:1385px; top:505px">Triton</div>
+  <div class="lbl" style="left:1685px; top:415px">Dynamo</div>
+  <div class="lbl" style="left:855px; top:785px">Agent Toolkit</div>
+  <div class="lbl" style="left:1195px; top:775px">Blueprints</div>
+  <div class="lbl" style="left:1535px; top:765px">TensorRT-LLM</div>
+</section>
+
+<!-- 2 · the bank's prototype -->
+<section class="slide t-sand" style="--accent:#b5561d">
+  <div class="cap"><span class="eyebrow">A real-world case</span><h1>A bank's <em>prototype</em> agent</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="140" y="330" width="250" height="64" rx="14" fill="#2c3350"/>
+    <text x="265" y="377" text-anchor="middle" font-size="40" font-weight="900" fill="#ffcf4a" letter-spacing="6">BANK</text>
+    <use href="sprites.svg#building" x="115" y="400" width="300" height="363"/>
+    <use href="sprites.svg#group" x="420" y="640" width="360" height="288"/>
+    <g fill="none" stroke="#8a6a4f" stroke-width="7" stroke-dasharray="14 12" stroke-linecap="round">
+      <path d="M1000 380 C 1060 430, 1080 470, 1120 520"/>
+      <path d="M1560 380 C 1500 430, 1470 470, 1400 520"/>
+      <path d="M980 780 C 1050 760, 1080 720, 1130 690"/>
+      <path d="M1570 790 C 1500 770, 1460 730, 1400 690"/>
+    </g>
+    <use href="sprites.svg#robot" x="1110" y="400" width="300" height="394" style="--body:#9aa3c7;--accent:#ff7a59"/>
+    <g opacity=".9">
+      <rect x="1140" y="600" width="170" height="34" rx="6" fill="#ffcf4a" transform="rotate(-24 1225 617)"/>
+      <rect x="1220" y="640" width="170" height="34" rx="6" fill="#ffcf4a" transform="rotate(20 1305 657)"/>
+      <rect x="1150" y="450" width="120" height="30" rx="6" fill="#ffcf4a" transform="rotate(15 1210 465)"/>
+    </g>
+    <g font-size="32" font-weight="800" text-anchor="middle" fill="#fff">
+      <rect x="840" y="320" width="240" height="80" rx="16" fill="#7c5cff"/><text x="960" y="372">serve.py</text>
+      <rect x="1460" y="320" width="240" height="80" rx="16" fill="#22b8a6"/><text x="1580" y="372">lib-v0.3</text>
+      <rect x="820" y="770" width="240" height="80" rx="16" fill="#ff7a59"/><text x="940" y="822">hack.js</text>
+      <rect x="1480" y="780" width="240" height="80" rx="16" fill="#ff6f9c"/><text x="1600" y="832">utils_old</text>
+    </g>
+  </svg>
+  <div class="lbl dark" style="left:1270px; top:910px">Glued from whatever was handy</div>
+</section>
+
+<!-- 3 · data can't leave; home-made serving -->
+<section class="slide t-coral" style="--accent:#e2533a">
+  <div class="cap"><span class="eyebrow">Problem 1</span><h1>Data can't <em>leave</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="110" y="320" width="1080" height="610" rx="40" fill="#fff" fill-opacity=".16" stroke="#fff" stroke-width="8" stroke-dasharray="26 18"/>
+    <use href="sprites.svg#database" x="190" y="470" width="220" height="249" style="--body:#22b8a6"/>
+    <use href="sprites.svg#person-desk" x="420" y="600" width="320" height="274" style="--shirt:#7c5cff"/>
+    <use href="sprites.svg#server" x="800" y="430" width="230" height="322"/>
+    <use href="sprites.svg#fire" x="950" y="350" width="110" height="150"/>
+    <use href="sprites.svg#hourglass" x="1050" y="560" width="100" height="145"/>
+    <use href="sprites.svg#lock" x="1130" y="540" width="130" height="163" style="--body:#ffb020"/>
+    <use href="sprites.svg#arrow" x="1290" y="580" width="170" height="51" style="--body:#fff"/>
+    <use href="sprites.svg#cloud" x="1470" y="440" width="360" height="213"/>
+    <use href="sprites.svg#cross" x="1590" y="560" width="130" height="130"/>
+  </svg>
+  <div class="lbl dark" style="left:650px; top:320px">The bank's own data centre</div>
+  <div class="lbl" style="left:915px; top:800px">Home-made server</div>
+  <div class="lbl sm red" style="left:915px; top:870px">crawls under load</div>
+  <div class="lbl" style="left:1650px; top:760px">Hosted API</div>
+</section>
+
+<!-- 4 · no guardrails -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Problem 2</span><h1>No <em>guardrails</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#person" x="140" y="470" width="210" height="420" style="--shirt:#ff7a59"/>
+    <use href="sprites.svg#chat" x="340" y="300" width="560" height="442" style="--dot:#fff"/>
+    <text x="620" y="455" text-anchor="middle" font-size="50" font-weight="900" fill="#1d2340">“Ignore your rules…”</text>
+    <use href="sprites.svg#chat" x="920" y="420" width="520" height="410" transform="matrix(-1 0 0 1 2360 0)" style="--body:#ff5d73;--dot:#ff5d73"/>
+    <text x="1180" y="565" text-anchor="middle" font-size="46" font-weight="900" fill="#fff">“Sure, rules off!”</text>
+    <use href="sprites.svg#robot" x="1480" y="500" width="280" height="368" style="--body:#ff5d73;--accent:#ffcf4a"/>
+    <use href="sprites.svg#warn" x="1640" y="320" width="170" height="151"/>
+  </svg>
+  <div class="lbl red lg" style="left:900px; top:900px">Nothing stops it</div>
+</section>
+
+<!-- 5 · no evaluation gate -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">Problem 3</span><h1>No <em>evaluation</em> gate</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- balance scale -->
+    <path d="M880 880 L1040 880 L960 820 Z" fill="#2c3350"/>
+    <rect x="948" y="470" width="24" height="360" rx="10" fill="#2c3350"/>
+    <rect x="620" y="470" width="680" height="22" rx="11" fill="#2c3350" transform="rotate(-4 960 481)"/>
+    <g stroke="#2c3350" stroke-width="6"><path d="M660 510 L600 640 M660 510 L720 640"/><path d="M1260 460 L1200 590 M1260 460 L1320 590"/></g>
+    <path d="M560 640 H760 A100 40 0 0 1 560 640 Z" fill="#fff"/>
+    <path d="M1160 590 H1360 A100 40 0 0 1 1160 590 Z" fill="#fff"/>
+    <use href="sprites.svg#question" x="885" y="330" width="150" height="150"/>
+    <use href="sprites.svg#robot" x="200" y="440" width="260" height="341" style="--body:#5cc8ff"/>
+    <use href="sprites.svg#robot" x="1440" y="420" width="260" height="341" style="--body:#7c5cff;--accent:#ffcf4a"/>
+    <use href="sprites.svg#sparkle" x="1680" y="360" width="80" height="80" style="--body:#fff"/>
+  </svg>
+  <div class="lbl" style="left:330px; top:830px">Old model</div>
+  <div class="lbl violet" style="left:1570px; top:810px">Fine-tuned model</div>
+  <div class="lbl dark lg" style="left:960px; top:930px">Better or worse? Nobody knows</div>
+</section>
+
+<!-- 6 · map each need to one piece -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">The fix</span><h1>One need, <em>one piece</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#group" x="90" y="560" width="400" height="320"/>
+    <use href="sprites.svg#bulb" x="230" y="360" width="120" height="175"/>
+    <rect x="560" y="300" width="1270" height="620" rx="32" fill="#fff"/>
+    <g font-size="30" font-weight="800" fill="#1f6fbf" letter-spacing="3"><text x="620" y="370">NEED</text><text x="1330" y="370">PIECE</text></g>
+    <line x1="600" y1="395" x2="1790" y2="395" stroke="#d6e4f5" stroke-width="4"/>
+    <g font-size="40" font-weight="800" fill="#1d2340">
+      <text x="620" y="468">Keep data in-house</text>
+      <text x="620" y="568">Block misuse</text>
+      <text x="620" y="668">Prove it's better</text>
+      <text x="620" y="768">Search documents</text>
+      <text x="620" y="868">See inside the agent</text>
+    </g>
+    <g>
+      <use href="sprites.svg#arrow" x="1100" y="440" width="160" height="48" style="--body:#9fb3d1"/>
+      <use href="sprites.svg#arrow" x="1100" y="540" width="160" height="48" style="--body:#9fb3d1"/>
+      <use href="sprites.svg#arrow" x="1100" y="640" width="160" height="48" style="--body:#9fb3d1"/>
+      <use href="sprites.svg#arrow" x="1100" y="740" width="160" height="48" style="--body:#9fb3d1"/>
+      <use href="sprites.svg#arrow" x="1100" y="840" width="160" height="48" style="--body:#9fb3d1"/>
+    </g>
+    <g>
+      <use href="sprites.svg#puzzle" x="1290" y="430" width="64" height="64" style="--body:#7c5cff"/>
+      <use href="sprites.svg#puzzle" x="1290" y="530" width="64" height="64" style="--body:#22b8a6"/>
+      <use href="sprites.svg#puzzle" x="1290" y="630" width="64" height="64" style="--body:#ffb020"/>
+      <use href="sprites.svg#puzzle" x="1290" y="730" width="64" height="64" style="--body:#ff7a59"/>
+      <use href="sprites.svg#puzzle" x="1290" y="830" width="64" height="64" style="--body:#ff6f9c"/>
+    </g>
+    <g font-size="40" font-weight="900" fill="#1d2340">
+      <text x="1380" y="468">NIM</text>
+      <text x="1380" y="568">Guardrails</text>
+      <text x="1380" y="668">Evaluator</text>
+      <text x="1380" y="768">Retriever</text>
+      <text x="1380" y="868">Agent Toolkit</text>
+    </g>
+  </svg>
+</section>
+
+<!-- 7 · NIM -->
+<section class="slide t-mint" style="--accent:#128c7e">
+  <div class="cap"><span class="eyebrow">Serving</span><h1>Serve it with <em>NIM</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="100" y="320" width="1180" height="620" rx="40" fill="#fff" fill-opacity=".35" stroke="#128c7e" stroke-width="7" stroke-dasharray="24 16"/>
+    <use href="sprites.svg#robot" x="160" y="470" width="230" height="302" style="--body:#ffb020"/>
+    <use href="sprites.svg#arrow" x="400" y="585" width="140" height="42" style="--body:#1d2340"/>
+    <use href="#ctr" x="560" y="380" width="620" height="413"/>
+    <text x="620" y="490" font-size="64" font-weight="900" fill="#fff">NIM</text>
+    <use href="sprites.svg#gpu" x="610" y="540" width="280" height="182"/>
+    <use href="sprites.svg#brain" x="920" y="530" width="220" height="191"/>
+    <use href="sprites.svg#laptop" x="1400" y="430" width="400" height="255" style="--screen:#bff0dc"/>
+    <g stroke="#128c7e" stroke-width="10" stroke-linecap="round"><path d="M1470 500 H1640 M1470 540 H1720 M1470 580 H1600"/></g>
+    <use href="sprites.svg#check" x="1700" y="360" width="120" height="120"/>
+  </svg>
+  <div class="lbl dark" style="left:690px; top:320px">The bank's own data centre</div>
+  <div class="lbl sm" style="left:870px; top:845px">Prebuilt · GPU-optimised</div>
+  <div class="lbl teal" style="left:1600px; top:760px">OpenAI-compatible API</div>
+  <div class="lbl green sm" style="left:1600px; top:840px">agent code barely changes</div>
+</section>
+
+<!-- 8 · Guardrails + Evaluator -->
+<section class="slide t-plum" style="--accent:#7b2ff7">
+  <div class="cap"><span class="eyebrow">Safety and quality</span><h1>Rails live, <em>a gate</em> before</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="100" y="320" width="830" height="610" rx="36" fill="#fff"/>
+    <rect x="990" y="320" width="830" height="610" rx="36" fill="#fff"/>
+    <text x="150" y="400" font-size="44" font-weight="900" fill="#1d2340">NeMo Guardrails</text>
+    <text x="1040" y="400" font-size="44" font-weight="900" fill="#1d2340">NeMo Evaluator</text>
+    <!-- guardrails -->
+    <use href="sprites.svg#chat" x="150" y="450" width="190" height="150" style="--body:#ffe3ec;--dot:#ff5d73"/>
+    <use href="sprites.svg#chat" x="150" y="640" width="190" height="150" style="--body:#ffe3ec;--dot:#ff5d73"/>
+    <use href="sprites.svg#cross" x="290" y="440" width="70" height="70"/>
+    <use href="sprites.svg#cross" x="290" y="630" width="70" height="70"/>
+    <use href="sprites.svg#shield" x="420" y="480" width="200" height="231" style="--body:#7c5cff"/>
+    <use href="sprites.svg#robot" x="660" y="470" width="210" height="276" style="--body:#22b8a6"/>
+    <g font-size="28" font-weight="800" fill="#4a5275" text-anchor="middle"><text x="245" y="625">Off-topic</text><text x="245" y="815">Jailbreak</text></g>
+    <text x="515" y="880" text-anchor="middle" font-size="34" font-weight="800" fill="#7b2ff7">Enforced on live traffic</text>
+    <!-- evaluator gate -->
+    <use href="sprites.svg#chart-bar" x="1040" y="470" width="260" height="195"/>
+    <rect x="1380" y="440" width="30" height="340" rx="10" fill="#2c3350"/>
+    <rect x="1720" y="440" width="30" height="340" rx="10" fill="#2c3350"/>
+    <rect x="1370" y="430" width="390" height="34" rx="12" fill="#ffb020"/>
+    <use href="sprites.svg#robot" x="1470" y="500" width="200" height="263" style="--body:#7c5cff;--accent:#ffcf4a"/>
+    <use href="sprites.svg#check" x="1640" y="470" width="90" height="90"/>
+    <text x="1405" y="880" text-anchor="middle" font-size="34" font-weight="800" fill="#7b2ff7">Ships only if it scores better</text>
+  </svg>
+</section>
+
+<!-- 9 · Retriever + Agent Toolkit -->
+<section class="slide t-rose" style="--accent:#d6336c">
+  <div class="cap"><span class="eyebrow">Documents and visibility</span><h1>Better search, <em>clear view</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#doc" x="120" y="420" width="150" height="185" style="--accent:#7c5cff"/>
+    <use href="sprites.svg#doc" x="160" y="460" width="150" height="185" style="--accent:#22b8a6"/>
+    <use href="sprites.svg#doc" x="200" y="500" width="150" height="185" style="--accent:#ff7a59"/>
+    <use href="sprites.svg#arrow" x="370" y="570" width="120" height="36" style="--body:#1d2340"/>
+    <use href="sprites.svg#magnifier" x="500" y="480" width="190" height="190"/>
+    <g>
+      <rect x="720" y="470" width="220" height="60" rx="30" fill="#fff"/>
+      <rect x="720" y="550" width="190" height="60" rx="30" fill="#fff" opacity=".85"/>
+      <rect x="720" y="630" width="160" height="60" rx="30" fill="#fff" opacity=".7"/>
+      <g font-size="32" font-weight="900" fill="#d6336c"><text x="745" y="512">1</text><text x="745" y="592">2</text><text x="745" y="672">3</text></g>
+      <g stroke="#f3b6c9" stroke-width="10" stroke-linecap="round"><path d="M790 500 H900 M790 580 H870 M790 660 H840"/></g>
+    </g>
+    <line x1="990" y1="330" x2="990" y2="920" stroke="#fff" stroke-width="6" stroke-dasharray="10 16" stroke-linecap="round"/>
+    <rect x="1060" y="420" width="440" height="430" rx="36" fill="#fff" fill-opacity=".4" stroke="#d6336c" stroke-width="8" stroke-dasharray="22 14"/>
+    <use href="sprites.svg#robot" x="1170" y="460" width="220" height="289" style="--body:#22b8a6"/>
+    <use href="sprites.svg#chart-line" x="1560" y="420" width="240" height="180" style="--c1:#d6336c"/>
+    <use href="sprites.svg#eye" x="1570" y="660" width="220" height="142"/>
+  </svg>
+  <div class="lbl violet" style="left:530px; top:370px">NeMo Retriever</div>
+  <div class="lbl sm" style="left:235px; top:770px">Extract</div>
+  <div class="lbl sm" style="left:595px; top:770px">Embed</div>
+  <div class="lbl sm" style="left:830px; top:770px">Rerank</div>
+  <div class="lbl dark" style="left:1430px; top:370px">NeMo Agent Toolkit</div>
+  <div class="lbl sm" style="left:1280px; top:800px">LangGraph agent</div>
+  <div class="lbl sm" style="left:1680px; top:630px">Profiling</div>
+  <div class="lbl sm" style="left:1680px; top:840px">Tracing</div>
+</section>
+
+<!-- 10 · the reference architecture -->
+<section class="slide t-teal" style="--accent:#0b7f75">
+  <div class="cap"><span class="eyebrow">The result</span><h1>A production <em>architecture</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="100" y="320" width="1720" height="610" rx="40" fill="#fff" fill-opacity=".1" stroke="#fff" stroke-width="6" stroke-dasharray="24 16"/>
+    <use href="sprites.svg#robot" x="170" y="440" width="220" height="289" style="--body:#ffb020"/>
+    <use href="sprites.svg#shield" x="380" y="560" width="130" height="150" style="--body:#7c5cff"/>
+    <g fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round">
+      <path d="M520 620 C 620 620, 640 440, 740 440"/>
+      <path d="M520 620 H740"/>
+      <path d="M520 620 C 620 620, 640 800, 740 800"/>
+    </g>
+    <use href="#ctr" x="750" y="370" width="480" height="140"/>
+    <use href="#ctr" x="750" y="550" width="480" height="140"/>
+    <use href="#ctr" x="750" y="730" width="480" height="140"/>
+    <g font-size="40" font-weight="900" fill="#fff"><text x="790" y="462">LLM NIM</text><text x="790" y="642">Embedding NIM</text><text x="790" y="822">Reranking NIM</text></g>
+    <g fill="none" stroke="#ffcf4a" stroke-width="6" stroke-dasharray="6 14" stroke-linecap="round">
+      <path d="M1420 600 L1230 440 M1420 620 L1230 620 M1420 640 L1230 800"/>
+    </g>
+    <use href="sprites.svg#gear" x="1410" y="500" width="230" height="230" style="--body:#ffcf4a;--hole:#0b4f5c"/>
+    <use href="sprites.svg#flag" x="1680" y="400" width="110" height="147" style="--body:#22c55e;--pole:#fff"/>
+  </svg>
+  <div class="lbl dark" style="left:290px; top:320px">Kubernetes</div>
+  <div class="lbl sm" style="left:330px; top:790px">Agent + Guardrails</div>
+  <div class="lbl amber" style="left:1525px; top:780px">NIM Operator</div>
+  <div class="lbl green" style="left:1580px; top:870px">In production</div>
+</section>
+
+<!-- 11 · lesson 1: the layers -->
+<section class="slide t-sunrise" style="--accent:#e2533a">
+  <div class="cap"><span class="eyebrow">Lesson 1 · The stack, mapped</span><h1>Six layers, <em>one job</em> each</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g>
+      <rect x="720" y="300" width="1100" height="92" rx="22" fill="#7c5cff"/>
+      <rect x="720" y="404" width="1100" height="92" rx="22" fill="#ff6f9c"/>
+      <rect x="720" y="508" width="1100" height="92" rx="22" fill="#ff7a59"/>
+      <rect x="720" y="612" width="1100" height="92" rx="22" fill="#ffb020"/>
+      <rect x="720" y="716" width="1100" height="92" rx="22" fill="#22b8a6"/>
+      <rect x="720" y="820" width="1100" height="92" rx="22" fill="#2c3350"/>
+    </g>
+    <g font-size="34" font-weight="900" fill="#fff">
+      <text x="760" y="358">Applications</text><text x="760" y="462">Agent layer</text><text x="760" y="566">Model services</text>
+      <text x="760" y="670" fill="#1d2340">Model lifecycle</text><text x="760" y="774">Serving runtime</text><text x="760" y="878">Infrastructure</text>
+    </g>
+    <g font-size="32" font-weight="700" fill="#fff">
+      <text x="1130" y="358">Blueprints</text><text x="1130" y="462">NeMo Agent Toolkit</text><text x="1130" y="566">NIM</text>
+      <text x="1130" y="670" fill="#1d2340">NeMo microservices</text><text x="1130" y="774">TensorRT-LLM · Triton · Dynamo</text><text x="1130" y="878">Kubernetes · GPUs</text>
+    </g>
+    <use href="sprites.svg#folder" x="100" y="480" width="230" height="176"/>
+    <use href="sprites.svg#arrow" x="340" y="550" width="120" height="36" style="--body:#1d2340"/>
+    <use href="sprites.svg#brain" x="470" y="480" width="220" height="191"/>
+    <use href="sprites.svg#sparkle" x="600" y="400" width="70" height="70" style="--body:#fff"/>
+  </svg>
+  <div class="lbl" style="left:215px; top:740px">Curator</div>
+  <div class="lbl sm" style="left:215px; top:810px">prepares data</div>
+  <div class="lbl" style="left:580px; top:740px">Customizer</div>
+  <div class="lbl sm" style="left:580px; top:810px">trains on it</div>
+</section>
+
+<!-- 12 · confusing pairs -->
+<section class="slide t-ocean" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Lesson 1 · Boundaries</span><h1>Pairs people <em>confuse</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff">
+      <rect x="130" y="310" width="740" height="280" rx="32"/><rect x="1050" y="310" width="740" height="280" rx="32"/>
+      <rect x="130" y="640" width="740" height="280" rx="32"/><rect x="1050" y="640" width="740" height="280" rx="32"/>
+    </g>
+    <g fill="#ffcf4a"><circle cx="960" cy="450" r="62"/><circle cx="960" cy="780" r="62"/></g>
+    <g font-size="44" font-weight="900" fill="#1d2340" text-anchor="middle"><text x="960" y="466">vs</text><text x="960" y="796">vs</text></g>
+    <use href="sprites.svg#chart-bar" x="170" y="360" width="240" height="180"/>
+    <use href="sprites.svg#shield" x="1110" y="355" width="160" height="185" style="--body:#22b8a6"/>
+    <use href="#ctr" x="160" y="700" width="250" height="167"/>
+    <use href="sprites.svg#server" x="1100" y="680" width="140" height="196"/>
+    <use href="sprites.svg#gear" x="1200" y="780" width="100" height="100" style="--body:#ffb020"/>
+    <g font-size="54" font-weight="900" fill="#1d2340">
+      <text x="450" y="430">Evaluator</text><text x="1340" y="430">Guardrails</text>
+      <text x="450" y="760">NIM</text><text x="1340" y="760">Triton</text>
+    </g>
+    <g font-size="34" font-weight="700" fill="#4a5275">
+      <text x="450" y="490">measures quality</text><text x="450" y="534">offline</text>
+      <text x="1340" y="490">enforces policy</text><text x="1340" y="534">on live traffic</text>
+      <text x="450" y="820">packaged model</text><text x="450" y="864">service</text>
+      <text x="1340" y="820">general server</text><text x="1340" y="864">you configure</text>
+    </g>
+  </svg>
+</section>
+
+<!-- 13 · why NIM is fast + Dynamo -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Lesson 1 · Under the hood</span><h1>Why <em>NIM</em> is fast</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="#ctr" x="110" y="310" width="840" height="560"/>
+    <text x="160" y="420" font-size="54" font-weight="900" fill="#fff">NIM</text>
+    <rect x="160" y="450" width="740" height="370" rx="26" fill="#ffcf4a"/>
+    <text x="530" y="530" text-anchor="middle" font-size="50" font-weight="900" fill="#1d2340">TensorRT-LLM engine</text>
+    <use href="sprites.svg#bolt" x="200" y="560" width="120" height="200" style="--body:#ff7a59"/>
+    <g fill="none" stroke="#1f6fbf" stroke-width="8" stroke-linecap="round">
+      <path d="M1040 470 H1790 M1040 710 H1790"/>
+      <path d="M1115 470 V420 M1305 470 V420 M1495 470 V420 M1685 470 V420"/>
+      <path d="M1415 470 V710"/>
+    </g>
+    <g>
+      <use href="sprites.svg#server" x="1060" y="300" width="110" height="154"/>
+      <use href="sprites.svg#server" x="1250" y="300" width="110" height="154"/>
+      <use href="sprites.svg#server" x="1440" y="300" width="110" height="154"/>
+      <use href="sprites.svg#server" x="1630" y="300" width="110" height="154"/>
+      <use href="sprites.svg#server" x="1060" y="720" width="110" height="154"/>
+      <use href="sprites.svg#server" x="1250" y="720" width="110" height="154"/>
+      <use href="sprites.svg#server" x="1440" y="720" width="110" height="154"/>
+      <use href="sprites.svg#server" x="1630" y="720" width="110" height="154"/>
+    </g>
+  </svg>
+  <div class="lbl sm" style="left:600px; top:610px">Batches on the fly</div>
+  <div class="lbl sm" style="left:600px; top:685px">Lower precision</div>
+  <div class="lbl sm" style="left:600px; top:760px">Reuses cached work</div>
+  <div class="lbl violet lg" style="left:1415px; top:590px">Dynamo</div>
+  <div class="lbl dark sm" style="left:1415px; top:915px">inference across many machines</div>
+</section>
+
+<!-- 14 · lesson 2: assemble, improve, lock down -->
+<section class="slide t-night" style="--accent:#3a5bd9">
+  <div class="cap"><span class="eyebrow">Lesson 2 · Putting it together</span><h1>Improve, size, <em>lock down</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <defs><marker id="ah14" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#5cc8ff"/></marker></defs>
+    <circle cx="560" cy="640" r="230" fill="#fff" opacity=".06"/>
+    <path d="M660 432 A230 230 0 0 1 780 690" fill="none" stroke="#5cc8ff" stroke-width="14" marker-end="url(#ah14)"/>
+    <path d="M680 836 A230 230 0 0 1 440 836" fill="none" stroke="#5cc8ff" stroke-width="14" marker-end="url(#ah14)"/>
+    <path d="M340 690 A230 230 0 0 1 460 432" fill="none" stroke="#5cc8ff" stroke-width="14" marker-end="url(#ah14)"/>
+    <circle cx="560" cy="410" r="86" fill="#ffb020"/>
+    <circle cx="759" cy="755" r="86" fill="#7c5cff"/>
+    <circle cx="361" cy="755" r="86" fill="#22b8a6"/>
+    <use href="sprites.svg#folder" x="495" y="360" width="130" height="100" style="--body:#fff3d6;--front:#fff"/>
+    <use href="sprites.svg#gear" x="704" y="700" width="110" height="110" style="--body:#fff;--hole:#7c5cff"/>
+    <use href="sprites.svg#checklist" x="316" y="700" width="90" height="108"/>
+    <text x="560" y="650" text-anchor="middle" font-size="34" font-weight="800" fill="#fff" opacity=".8">offline loop</text>
+    <use href="sprites.svg#gpu" x="1080" y="360" width="340" height="221"/>
+    <use href="sprites.svg#building" x="1510" y="420" width="240" height="291"/>
+    <use href="sprites.svg#lock" x="1680" y="590" width="130" height="163" style="--body:#ffb020"/>
+    <use href="sprites.svg#cloud" x="1500" y="300" width="170" height="100" style="--body:#8a95b8"/>
+    <use href="sprites.svg#cross" x="1620" y="300" width="70" height="70"/>
+  </svg>
+  <div class="lbl sm" style="left:780px; top:330px">Curator</div>
+  <div class="lbl sm" style="left:830px; top:875px">Customizer</div>
+  <div class="lbl sm" style="left:290px; top:875px">Evaluator</div>
+  <div class="lbl" style="left:1250px; top:650px">Size the GPUs</div>
+  <div class="lbl amber" style="left:1640px; top:830px">Air-gapped</div>
+</section>
+
+<!-- 15 · exam angle -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">On the exam</span><h1>Match the need to <em>the piece</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#target" x="170" y="330" width="300" height="300"/>
+    <use href="sprites.svg#arrow" x="330" y="350" width="220" height="66" transform="rotate(145 440 383)" style="--body:#1d2340"/>
+    <g fill="#fff"><rect x="640" y="320" width="880" height="120" rx="60"/><rect x="640" y="480" width="880" height="120" rx="60"/><rect x="640" y="640" width="880" height="120" rx="60"/></g>
+    <g font-size="40" font-weight="800" fill="#1d2340">
+      <text x="700" y="394">“Data must not leave our VPC”</text>
+      <text x="700" y="554">“Did the new model beat the old?”</text>
+      <text x="700" y="714">“Multi-node serving”</text>
+    </g>
+  </svg>
+  <div class="lbl green lg" style="left:1680px; top:380px">NIM</div>
+  <div class="lbl green lg" style="left:1680px; top:540px">Evaluator</div>
+  <div class="lbl green lg" style="left:1680px; top:700px">Dynamo</div>
+  <div class="stat" style="left:320px; top:760px; color:#c25e00"><b style="font-size:130px">7%</b><span>of the exam</span></div>
+  <div class="lbl dark" style="left:1180px; top:880px">Next · Lesson 1: The NVIDIA agentic stack, mapped →</div>
+</section>
+
+</body>
+</html>

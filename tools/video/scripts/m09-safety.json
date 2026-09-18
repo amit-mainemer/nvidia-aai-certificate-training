@@ -1,0 +1,104 @@
+{
+  "module": "safety",
+  "title": "Module 9 intro — Safety, Ethics, and Compliance",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module Nine: Safety, Ethics, and Compliance.",
+        "Agents read untrusted content, then take real actions."
+      ]
+    },
+    {
+      "lines": [
+        "Picture a small firm whose AI assistant runs its inbox and calendar.",
+        "It drafts replies, books meetings, and sends files."
+      ]
+    },
+    {
+      "lines": [
+        "One day, an ordinary-looking email arrives.",
+        "Hidden inside is text written for the assistant, not a human."
+      ]
+    },
+    {
+      "lines": [
+        "The assistant follows that text like an order.",
+        "It quietly forwards confidential contracts to an outside address."
+      ]
+    },
+    {
+      "lines": [
+        "Nobody on the team did anything wrong.",
+        "This is indirect prompt injection: the attack hides in content the agent reads."
+      ]
+    },
+    {
+      "lines": [
+        "The only defence was one line in the system prompt.",
+        "But prompts are defaults attackers can talk over, not a security boundary."
+      ]
+    },
+    {
+      "lines": [
+        "When the client asks what happened, nobody can answer.",
+        "There's no audit trail to reconstruct the decision."
+      ]
+    },
+    {
+      "lines": [
+        "The rebuild uses defence in depth, since any control can fail.",
+        "Email is treated as data, not instructions, and rails screen it for injected commands."
+      ]
+    },
+    {
+      "lines": [
+        "The assistant gets least privilege: only the tools it needs, checked against the user's permissions.",
+        "Sending files outside now needs a person's approval."
+      ]
+    },
+    {
+      "lines": [
+        "Outbound traffic can only reach approved destinations.",
+        "And an audit trail records who asked, what was read, which tools ran, and who approved."
+      ]
+    },
+    {
+      "lines": [
+        "Lesson one covers guardrails, runtime checks around the model.",
+        "NeMo Guardrails defines five: input, dialog, retrieval, execution, and output."
+      ]
+    },
+    {
+      "lines": [
+        "Exam questions give one requirement and ask which rail fits.",
+        "Restricting which tools may run? That's the execution rail."
+      ]
+    },
+    {
+      "lines": [
+        "Lesson two covers prompt injection, which has no complete fix, only layered containment.",
+        "Plus excessive agency, sandboxed code, and memory poisoning."
+      ]
+    },
+    {
+      "lines": [
+        "Lesson three covers privacy: send only the data you need, and redact personal details.",
+        "Deletions must reach every copy, not just the main database."
+      ]
+    },
+    {
+      "lines": [
+        "A real audit trail is tamper-evident and can reconstruct any decision.",
+        "You'll also check fairness by subgroup and meet frameworks like the EU AI Act."
+      ]
+    },
+    {
+      "lines": [
+        "This domain is five percent of the exam, and it rewards one habit: put controls in the runtime, not the prompt.",
+        "Lesson one starts with the five rails."
+      ]
+    }
+  ]
+}

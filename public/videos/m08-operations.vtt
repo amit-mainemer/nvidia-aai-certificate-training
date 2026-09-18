@@ -1,0 +1,165 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:03.429
+Welcome to Module Eight: Run, Monitor, and Maintain.
+
+2
+00:00:03.759 --> 00:00:06.290
+Shipping an agent is where the real job starts.
+
+3
+00:00:07.090 --> 00:00:08.108
+Picture QuickBite,
+
+4
+00:00:08.158 --> 00:00:12.437
+a food delivery app with an AI support agent for late orders and refunds.
+
+5
+00:00:12.767 --> 00:00:15.128
+At launch it works well, and the team moves on.
+
+6
+00:00:15.928 --> 00:00:19.611
+For a month, nobody deploys anything, and the logs show no errors.
+
+7
+00:00:19.941 --> 00:00:21.513
+Every dashboard stays green.
+
+8
+00:00:22.313 --> 00:00:25.932
+Yet refunds creep up, and steps per chat climb from four to eight.
+
+9
+00:00:26.262 --> 00:00:28.452
+The cost of each resolved ticket doubles.
+
+10
+00:00:29.252 --> 00:00:31.890
+Nobody notices until customers complain.
+
+11
+00:00:32.220 --> 00:00:35.711
+Their monitoring could say a chat took nine seconds, but never why.
+
+12
+00:00:36.511 --> 00:00:41.133
+So they add agent traces, where every model call and tool call becomes a span.
+
+13
+00:00:41.463 --> 00:00:46.619
+Each span records the prompt version, tokens, cost, and the tool's exact arguments.
+
+14
+00:00:47.419 --> 00:00:49.182
+Within minutes, the pattern appears.
+
+15
+00:00:49.512 --> 00:00:52.726
+A partner's order-status tool had changed its format,
+
+16
+00:00:52.776 --> 00:00:55.435
+so the agent retried, gave up, and refunded.
+
+17
+00:00:56.235 --> 00:00:58.657
+They switch to a safe fallback, fix the tool,
+
+18
+00:00:58.707 --> 00:01:00.964
+and add the case to their golden test set.
+
+19
+00:01:01.294 --> 00:01:04.679
+A scheduled contract test now checks that tool every day.
+
+20
+00:01:05.479 --> 00:01:08.885
+Lesson one is observability: what every span must carry.
+
+21
+00:01:09.215 --> 00:01:14.199
+OpenTelemetry lets you instrument once and send the same traces to any backend.
+
+22
+00:01:14.999 --> 00:01:17.094
+You'll learn which signals to alert on,
+
+23
+00:01:17.144 --> 00:01:19.899
+like task success, tool errors, and steps per task.
+
+24
+00:01:20.229 --> 00:01:23.144
+The one that matters most is cost per resolved task.
+
+25
+00:01:23.944 --> 00:01:28.011
+You'll also capture feedback, from thumbs to quiet signs like rephrasing.
+
+26
+00:01:28.341 --> 00:01:30.894
+Tied to traces, it feeds a data flywheel.
+
+27
+00:01:31.694 --> 00:01:35.889
+Lesson two covers four kinds of drift: input, corpus, model, and tool.
+
+28
+00:01:36.219 --> 00:01:38.836
+Agents degrade even when nobody touches them.
+
+29
+00:01:39.636 --> 00:01:41.448
+The fixes: pin model versions,
+
+30
+00:01:41.498 --> 00:01:46.413
+run a golden set against production on a schedule, and contract-test every tool.
+
+31
+00:01:46.743 --> 00:01:48.826
+Track each metric against a baseline.
+
+32
+00:01:49.626 --> 00:01:52.719
+When an incident hits: contain, diagnose from traces,
+
+33
+00:01:52.769 --> 00:01:55.507
+fix the right layer, and add a regression test.
+
+34
+00:01:55.837 --> 00:01:57.749
+Then ask what guard would have caught it sooner.
+
+35
+00:01:58.549 --> 00:02:01.867
+Prompts, schemas, and model versions are versioned together,
+
+36
+00:02:01.917 --> 00:02:04.729
+then ship through shadow, canary, and full rollout.
+
+37
+00:02:05.059 --> 00:02:08.017
+Even a one-word prompt edit is a production change.
+
+38
+00:02:08.817 --> 00:02:11.248
+This domain is five percent of the exam,
+
+39
+00:02:11.298 --> 00:02:15.466
+and a classic question is an agent that degrades with no deployment:
+
+40
+00:02:15.516 --> 00:02:17.513
+the answer is an upstream change.
+
+41
+00:02:17.843 --> 00:02:20.929
+Let's start with lesson one, observability for agents.

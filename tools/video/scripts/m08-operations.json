@@ -1,0 +1,110 @@
+{
+  "module": "operations",
+  "title": "Module 8 intro — Run, Monitor, and Maintain",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module Eight: Run, Monitor, and Maintain.",
+        "Shipping an agent is where the real job starts."
+      ]
+    },
+    {
+      "lines": [
+        "Picture QuickBite, a food delivery app with an AI support agent for late orders and refunds.",
+        "At launch it works well, and the team moves on."
+      ],
+      "say": {
+        "0": "Picture Quick Bite, a food delivery app with an AI support agent for late orders and refunds."
+      }
+    },
+    {
+      "lines": [
+        "For a month, nobody deploys anything, and the logs show no errors.",
+        "Every dashboard stays green."
+      ]
+    },
+    {
+      "lines": [
+        "Yet refunds creep up, and steps per chat climb from four to eight.",
+        "The cost of each resolved ticket doubles."
+      ]
+    },
+    {
+      "lines": [
+        "Nobody notices until customers complain.",
+        "Their monitoring could say a chat took nine seconds, but never why."
+      ]
+    },
+    {
+      "lines": [
+        "So they add agent traces, where every model call and tool call becomes a span.",
+        "Each span records the prompt version, tokens, cost, and the tool's exact arguments."
+      ]
+    },
+    {
+      "lines": [
+        "Within minutes, the pattern appears.",
+        "A partner's order-status tool had changed its format, so the agent retried, gave up, and refunded."
+      ]
+    },
+    {
+      "lines": [
+        "They switch to a safe fallback, fix the tool, and add the case to their golden test set.",
+        "A scheduled contract test now checks that tool every day."
+      ]
+    },
+    {
+      "lines": [
+        "Lesson one is observability: what every span must carry.",
+        "OpenTelemetry lets you instrument once and send the same traces to any backend."
+      ],
+      "say": {
+        "1": "Open Telemetry lets you instrument once and send the same traces to any back end."
+      }
+    },
+    {
+      "lines": [
+        "You'll learn which signals to alert on, like task success, tool errors, and steps per task.",
+        "The one that matters most is cost per resolved task."
+      ]
+    },
+    {
+      "lines": [
+        "You'll also capture feedback, from thumbs to quiet signs like rephrasing.",
+        "Tied to traces, it feeds a data flywheel."
+      ]
+    },
+    {
+      "lines": [
+        "Lesson two covers four kinds of drift: input, corpus, model, and tool.",
+        "Agents degrade even when nobody touches them."
+      ]
+    },
+    {
+      "lines": [
+        "The fixes: pin model versions, run a golden set against production on a schedule, and contract-test every tool.",
+        "Track each metric against a baseline."
+      ]
+    },
+    {
+      "lines": [
+        "When an incident hits: contain, diagnose from traces, fix the right layer, and add a regression test.",
+        "Then ask what guard would have caught it sooner."
+      ]
+    },
+    {
+      "lines": [
+        "Prompts, schemas, and model versions are versioned together, then ship through shadow, canary, and full rollout.",
+        "Even a one-word prompt edit is a production change."
+      ]
+    },
+    {
+      "lines": [
+        "This domain is five percent of the exam, and a classic question is an agent that degrades with no deployment: the answer is an upstream change.",
+        "Let's start with lesson one, observability for agents."
+      ]
+    }
+  ]
+}

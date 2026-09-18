@@ -1,0 +1,110 @@
+{
+  "module": "knowledge",
+  "title": "Module 6 intro — Knowledge Integration and Data Handling",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module Six: Knowledge Integration and Data Handling.",
+        "When an agent answers wrong, the culprit is usually retrieval, not the model."
+      ]
+    },
+    {
+      "lines": [
+        "Picture a hospital assistant answering staff questions about internal policy.",
+        "It indexes twenty thousand documents, and the pilot looks great."
+      ]
+    },
+    {
+      "lines": [
+        "Then a nurse asks about a dosing policy and gets last year's version.",
+        "It was deleted at the source, but its chunks stayed in the index."
+      ]
+    },
+    {
+      "lines": [
+        "Another answer sits in a PDF table.",
+        "The parser flattened it into loose numbers, so no value matched its header."
+      ]
+    },
+    {
+      "lines": [
+        "Searches for exact form codes, like F-417, return loosely related pages.",
+        "Meaning-based search is weak on rare, exact strings like that."
+      ],
+      "say": {
+        "0": "Searches for exact form codes, like F four-seventeen, return loosely related pages."
+      }
+    },
+    {
+      "lines": [
+        "Worst, a nurse sees a salary review meant only for managers.",
+        "Nobody attached access rules to the chunks."
+      ]
+    },
+    {
+      "lines": [
+        "The first instinct is to buy a bigger model.",
+        "But every failure happened before the model saw a single word."
+      ]
+    },
+    {
+      "lines": [
+        "So the team rebuilds the pipeline, starting with extraction that keeps tables intact.",
+        "Chunks follow the headings and carry their source, date, and access level."
+      ]
+    },
+    {
+      "lines": [
+        "Hybrid search pairs vector search for meaning with keyword search for exact codes.",
+        "Then a reranker keeps only the best handful."
+      ]
+    },
+    {
+      "lines": [
+        "Deleted policies now leave the index immediately.",
+        "And searches are filtered by permission before anything is ranked."
+      ]
+    },
+    {
+      "lines": [
+        "The assistant cites the current policy, or admits its sources don't cover it.",
+        "And staff see only what they're allowed to."
+      ]
+    },
+    {
+      "lines": [
+        "Lesson one walks the production RAG pipeline, from extraction to generation.",
+        "You'll learn which stage causes which symptom."
+      ],
+      "say": {
+        "0": "Lesson one walks the production rag pipeline, from extraction to generation."
+      }
+    },
+    {
+      "lines": [
+        "Lesson two adds agentic retrieval: rewrite the query, grade the results, and retry a few times.",
+        "Knowledge graphs answer questions that join facts across documents."
+      ]
+    },
+    {
+      "lines": [
+        "Lesson three keeps the index fresh, correct, and permission-aware over time.",
+        "It also covers conflicting versions and personal data."
+      ]
+    },
+    {
+      "lines": [
+        "This domain is ten percent of the exam, and it loves symptom questions.",
+        "Wrong table numbers mean extraction; missed part numbers mean hybrid search."
+      ]
+    },
+    {
+      "lines": [
+        "Remember: a reranker reorders results, but can't find what retrieval missed.",
+        "Lesson one starts there: the pipeline, stage by stage."
+      ]
+    }
+  ]
+}

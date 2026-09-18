@@ -1,0 +1,137 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:03.151
+Welcome to Module Four: Deployment and Scaling.
+
+2
+00:00:03.481 --> 00:00:07.037
+A demo agent is easy; surviving real traffic is not.
+
+3
+00:00:07.837 --> 00:00:12.523
+Picture an online retailer whose shopping agent runs smoothly for a hundred users.
+
+4
+00:00:12.853 --> 00:00:16.003
+Then Black Friday arrives, with fifty times the traffic.
+
+5
+00:00:16.803 --> 00:00:19.035
+First, the GPUs run out of memory.
+
+6
+00:00:19.365 --> 00:00:21.066
+The culprit is the KV cache,
+
+7
+00:00:21.116 --> 00:00:24.755
+which holds every token each conversation has already seen.
+
+8
+00:00:25.555 --> 00:00:26.999
+Then latency explodes.
+
+9
+00:00:27.329 --> 00:00:31.652
+Long prompts are slow to process, so the first word of each reply takes seconds.
+
+10
+00:00:32.452 --> 00:00:36.135
+Kubernetes was set to add pods when CPU usage climbs.
+
+11
+00:00:36.465 --> 00:00:41.557
+But CPU sits at twenty percent while the GPUs are saturated, so nothing scales.
+
+12
+00:00:42.357 --> 00:00:46.488
+Each new GPU pod takes minutes to pull its image and load the model.
+
+13
+00:00:46.818 --> 00:00:49.157
+By the time they're ready, the shoppers are gone.
+
+14
+00:00:49.957 --> 00:00:52.659
+Then a shipping tool slows down, with no timeout.
+
+15
+00:00:52.989 --> 00:00:56.374
+Workers hang waiting on it, until none are left for anyone else.
+
+16
+00:00:57.174 --> 00:01:02.201
+The agent retries, its HTTP client retries too, and the load multiplies.
+
+17
+00:01:02.531 --> 00:01:05.404
+On the busiest day of the year, the agent goes down.
+
+18
+00:01:06.204 --> 00:01:08.543
+Every one of those failures has a known fix.
+
+19
+00:01:08.873 --> 00:01:13.751
+Lesson one starts inside the GPU, where each request runs in two phases.
+
+20
+00:01:14.551 --> 00:01:17.979
+Prefill reads the whole prompt at once, limited by compute.
+
+21
+00:01:18.309 --> 00:01:22.077
+Decode writes one token at a time, limited by memory bandwidth.
+
+22
+00:01:22.877 --> 00:01:26.710
+You'll see why the KV cache, not the weights, limits how many users fit.
+
+23
+00:01:27.040 --> 00:01:31.491
+And how continuous batching and prefix caching win back speed and capacity.
+
+24
+00:01:32.291 --> 00:01:37.511
+Lesson two scales two tiers: cheap orchestration pods, and costly GPU inference.
+
+25
+00:01:37.841 --> 00:01:40.700
+Inference scales on queue depth or latency,
+
+26
+00:01:40.750 --> 00:01:44.084
+never CPU, with warm replicas to hide cold starts.
+
+27
+00:01:44.884 --> 00:01:48.589
+It also cuts cost by routing easy requests to a smaller model.
+
+28
+00:01:48.919 --> 00:01:51.962
+And it measures cost per completed task, not per token.
+
+29
+00:01:52.762 --> 00:01:55.720
+Lesson three keeps the agent alive when tools break.
+
+30
+00:01:56.050 --> 00:01:58.136
+Timeouts, bounded retries with jitter,
+
+31
+00:01:58.186 --> 00:02:01.397
+circuit breakers, and a fallback, such as a cached answer.
+
+32
+00:02:02.197 --> 00:02:04.644
+This domain is thirteen percent of the exam,
+
+33
+00:02:04.694 --> 00:02:07.822
+and it rewards the right signal and the complete answer.
+
+34
+00:02:08.152 --> 00:02:10.790
+Next up, lesson one: inside the GPU.

@@ -1,0 +1,137 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:03.749
+Welcome to Module Five: Cognition, Planning, and Memory.
+
+2
+00:00:04.079 --> 00:00:06.290
+How an agent thinks, plans, and remembers.
+
+3
+00:00:07.090 --> 00:00:11.029
+Picture a research agent that writes a competitor report every Monday.
+
+4
+00:00:11.359 --> 00:00:14.275
+Five rivals, their prices, and a one-page summary.
+
+5
+00:00:15.075 --> 00:00:17.393
+In week one, it thinks hard about everything.
+
+6
+00:00:17.723 --> 00:00:20.873
+Slow, expensive reasoning, just to copy one price.
+
+7
+00:00:21.673 --> 00:00:23.223
+It never makes a plan, either.
+
+8
+00:00:23.553 --> 00:00:27.129
+It wanders from source to source, and the report takes forty minutes.
+
+9
+00:00:27.929 --> 00:00:29.991
+Then one pricing page goes offline.
+
+10
+00:00:30.321 --> 00:00:33.941
+The agent retries the same dead link until its budget runs out.
+
+11
+00:00:34.741 --> 00:00:36.867
+And every Monday, it starts from zero.
+
+12
+00:00:37.197 --> 00:00:40.987
+The team has said it five times: prices in euros, one page.
+
+13
+00:00:41.787 --> 00:00:44.937
+Fix one: route reasoning effort like any other decision.
+
+14
+00:00:45.267 --> 00:00:49.910
+Easy steps get a direct answer, and only hard ones get the expensive techniques.
+
+15
+00:00:50.710 --> 00:00:54.436
+Fix two: a planner splits the report into small, checkable steps.
+
+16
+00:00:54.766 --> 00:00:57.681
+The five lookups run in parallel, then feed the summary.
+
+17
+00:00:58.481 --> 00:01:02.293
+When a step keeps failing, the agent replans and tries another source.
+
+18
+00:01:02.623 --> 00:01:05.282
+After a set number of replans, it asks a human.
+
+19
+00:01:06.082 --> 00:01:08.443
+Fix three: memory that outlasts the session.
+
+20
+00:01:08.773 --> 00:01:12.722
+Preferences are stored as facts, last week's dead link as an episode,
+
+21
+00:01:12.772 --> 00:01:14.867
+and the steps that worked as a skill.
+
+22
+00:01:15.667 --> 00:01:18.838
+Now the report takes eight minutes, at a fraction of the cost.
+
+23
+00:01:19.168 --> 00:01:22.233
+It arrives in euros, and nobody repeats themselves.
+
+24
+00:01:23.033 --> 00:01:25.392
+Lesson one compares six reasoning techniques,
+
+25
+00:01:25.442 --> 00:01:28.764
+from chain of thought to tree of thoughts, and what each costs.
+
+26
+00:01:29.094 --> 00:01:31.860
+Sometimes the right answer is no scaffold at all.
+
+27
+00:01:32.660 --> 00:01:37.431
+Lesson two covers planning: right-sized steps, laid out as a dependency graph.
+
+28
+00:01:37.761 --> 00:01:41.466
+You'll learn what should trigger a replan, and why replanning needs a limit.
+
+29
+00:01:42.266 --> 00:01:47.571
+Lesson three names four memory types: working, semantic, episodic, and procedural.
+
+30
+00:01:47.901 --> 00:01:51.477
+The current context, durable facts, past events, and learned how-to.
+
+31
+00:01:52.277 --> 00:01:57.027
+Saving everything backfires, so memory needs a write policy and a way to forget.
+
+32
+00:01:57.357 --> 00:01:59.654
+And attackers can plant hidden instructions there.
+
+33
+00:02:00.454 --> 00:02:05.055
+This domain is ten percent of the exam, and questions often hinge on one phrase.
+
+34
+00:02:05.385 --> 00:02:08.855
+Learn the phrase that gives each technique away, starting in lesson one.

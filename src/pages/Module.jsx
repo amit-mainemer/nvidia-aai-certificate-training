@@ -2,6 +2,7 @@ import { Link, useParams, Navigate } from 'react-router-dom'
 import { moduleById } from '../data/modules/index.js'
 import { blueprint } from '../data/exam.js'
 import { useProgress, moduleProgress } from '../lib/progress.js'
+import ModuleIntroVideo from '../components/ModuleIntroVideo.jsx'
 
 export default function Module() {
   const { moduleId } = useParams()
@@ -23,6 +24,8 @@ export default function Module() {
       <span className="eyebrow" style={{ color: d.color }}>Domain {mod.n} · {mod.weight}% of the exam</span>
       <h1>{mod.title}</h1>
       <p className="hero-sub">{mod.blurb}</p>
+
+      <div style={{ marginTop: 24 }}><ModuleIntroVideo mod={mod} /></div>
 
       <div className="card" style={{ margin: '26px 0 30px' }}>
         <div className="spread" style={{ marginBottom: 12 }}>

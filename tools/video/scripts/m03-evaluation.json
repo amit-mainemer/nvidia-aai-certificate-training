@@ -1,0 +1,118 @@
+{
+  "module": "evaluation",
+  "title": "Module 3 intro — Evaluation and Tuning",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module Three: Evaluation and Tuning.",
+        "How do you measure a system with no single right answer?"
+      ]
+    },
+    {
+      "lines": [
+        "Picture an insurer's AI assistant that answers questions about claims.",
+        "In every demo it felt great, so the team shipped it."
+      ]
+    },
+    {
+      "lines": [
+        "Then someone tweaked the prompt to sound friendlier.",
+        "Nobody noticed that wrong coverage answers quietly doubled."
+      ]
+    },
+    {
+      "lines": [
+        "The team had no metrics, just a feeling.",
+        "And one end-to-end score would only say something broke, never where."
+      ]
+    },
+    {
+      "lines": [
+        "So they added an AI judge to grade the answers.",
+        "It loved long, confident replies, even the wrong ones."
+      ]
+    },
+    {
+      "lines": [
+        "Next, they planned to fine-tune the model on policy documents.",
+        "But policies change every quarter, and fine-tuning bakes facts into the weights."
+      ]
+    },
+    {
+      "lines": [
+        "Instead, they tested each piece alone, starting with retrieval, the search step.",
+        "The right policy clause was never being fetched at all."
+      ]
+    },
+    {
+      "lines": [
+        "They also checked trajectories, the path the agent took.",
+        "Some right answers came after six redundant tool calls and a lucky guess."
+      ]
+    },
+    {
+      "lines": [
+        "They rebuilt the judge to compare answers in pairs, with a clear rubric.",
+        "Then they checked it against human experts before trusting its scores."
+      ]
+    },
+    {
+      "lines": [
+        "The real fix was better retrieval, not fine-tuning.",
+        "And a golden test set now runs on every change, so no tweak slips through."
+      ]
+    },
+    {
+      "lines": [
+        "Lesson one shows what to measure: components, steps, trajectories, and outcomes.",
+        "Plus how to test on real traffic safely, with shadow and canary rollouts."
+      ]
+    },
+    {
+      "lines": [
+        "Agents vary from run to run, so one run proves nothing.",
+        "Passing once in k tries shows capability; passing every time shows reliability."
+      ],
+      "say": {
+        "1": "Passing once in kay tries shows capability; passing every time shows reliability."
+      }
+    },
+    {
+      "lines": [
+        "Lesson two covers LLM-as-a-judge, and when a simple code check beats it.",
+        "You'll name its four biases: position, verbosity, self-preference, and score compression."
+      ],
+      "say": {
+        "0": "Lesson two covers L L M as a judge, and when a simple code check beats it."
+      }
+    },
+    {
+      "lines": [
+        "Lesson three is the exam's most common decision: prompting, RAG, or fine-tuning.",
+        "RAG looks facts up, fine-tuning shapes behaviour, and prompting covers the rest."
+      ],
+      "say": {
+        "0": "Lesson three is the exam's most common decision: prompting, rag, or fine-tuning.",
+        "1": "Rag looks facts up, fine-tuning shapes behavior, and prompting covers the rest."
+      }
+    },
+    {
+      "lines": [
+        "You'll compare methods like LoRA and distillation.",
+        "Then NVIDIA's data flywheel: curate, customise, evaluate, deploy, repeat."
+      ],
+      "say": {
+        "0": "You'll compare methods like lora and distillation.",
+        "1": "Then n-vidia's data flywheel: curate, customize, evaluate, deploy, repeat."
+      }
+    },
+    {
+      "lines": [
+        "This domain is thirteen percent of the exam, and it rewards finding which layer a symptom belongs to.",
+        "Measure first, fix the right layer, and that's where lesson one begins."
+      ]
+    }
+  ]
+}

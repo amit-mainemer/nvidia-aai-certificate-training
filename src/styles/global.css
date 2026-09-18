@@ -545,6 +545,47 @@ table.tbl tr:hover td { background: var(--surface-2); }
 .lesson-item .li-time .ok { color: var(--ok); font-weight: 700; }
 .lesson-item .li-time .warn { color: var(--warn); font-weight: 700; }
 
+/* ---------------- module intro video ---------------- */
+
+.intro-video { margin: 0 0 30px; max-width: 74ch; }
+.intro-video video {
+  display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--r) var(--r) 0 0; background: #000;
+  border: 1px solid var(--line); box-shadow: var(--shadow);
+}
+video::cue { background-color: rgba(0, 0, 0, .8); color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.35; }
+.intro-cc {
+  min-height: 3.3em; padding: 9px 16px; display: grid; place-items: center; text-align: center;
+  background: #050704; border: 1px solid var(--line); border-top: 0; border-radius: 0 0 var(--r) var(--r);
+  color: #f3f8ec; font-size: 1rem; font-weight: 500; line-height: 1.45;
+}
+.intro-video figcaption { display: flex; align-items: center; gap: 10px; margin-top: 10px; font-size: .86rem; color: var(--fg-3); }
+.intro-meta { flex: 1; min-width: 0; }
+.cc-btn {
+  flex-shrink: 0; min-width: 44px; height: 32px; padding: 0 10px; border-radius: 8px; cursor: pointer;
+  font: 800 .74rem/1 var(--font); letter-spacing: .06em;
+  background: transparent; border: 1.5px solid var(--line); color: var(--fg-3);
+}
+.cc-btn.on { background: var(--fg); border-color: var(--fg); color: var(--bg); }
+
+/* roadmap tile that expands into the player */
+.intro-tile {
+  display: flex; align-items: center; gap: 14px; width: 100%; margin-top: 14px; padding: 8px 14px 8px 8px;
+  border-radius: 14px; border: 1px solid var(--line); background: var(--surface-2); color: var(--fg);
+  font-family: inherit; text-align: left; cursor: pointer; transition: border-color .15s, background .15s;
+}
+.intro-tile:hover { border-color: var(--nv-dim); background: var(--surface-3); }
+.intro-thumb {
+  position: relative; flex-shrink: 0; width: 136px; aspect-ratio: 16 / 9; border-radius: 9px;
+  background: #000 center / cover no-repeat; overflow: hidden;
+}
+.intro-play { position: absolute; inset: 0; margin: auto; width: 38px; height: 38px; border-radius: 50%; background: rgba(0, 0, 0, .6); backdrop-filter: blur(2px); }
+.intro-play::after { content: ''; position: absolute; left: 15px; top: 11px; border-left: 13px solid #fff; border-top: 8px solid transparent; border-bottom: 8px solid transparent; }
+.intro-tile-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.intro-tile-text b { font-size: .95rem; }
+.intro-tile-text span { font-size: .8rem; color: var(--fg-3); }
+.mod-card .intro-video { margin: 14px 0 0; max-width: none; }
+.mod-card .intro-meta { visibility: hidden; }
+
 /* ---------------- end-of-lesson check ---------------- */
 
 .check { margin-top: 48px; padding-top: 30px; border-top: 1px solid var(--line); max-width: 74ch; scroll-margin-top: calc(var(--nav-h) + 12px); }
@@ -633,6 +674,14 @@ table.tbl tr:hover td { background: var(--surface-2); }
   .hero-cta { margin-top: 22px; gap: 10px; }
 
   /* lessons */
+  .intro-video { margin-left: -16px; margin-right: -16px; max-width: none; }
+  .intro-video video, .intro-cc { border-radius: 0; border-left: 0; border-right: 0; }
+  .intro-cc { font-size: .98rem; min-height: 3.6em; }
+  .mod-card .intro-video { margin-left: 0; margin-right: 0; }
+  .mod-card .intro-video video { border-radius: var(--r) var(--r) 0 0; border-left: 1px solid var(--line); border-right: 1px solid var(--line); }
+  .mod-card .intro-cc { border-radius: 0 0 var(--r) var(--r); border-left: 1px solid var(--line); border-right: 1px solid var(--line); }
+  .intro-thumb { width: 112px; }
+  .intro-video figcaption { padding: 0 16px; }
   .lesson-title { font-size: 1.75rem; line-height: 1.2; }
   .prose { font-size: 1.0625rem; line-height: 1.7; }
   .prose h2 { font-size: 1.35rem; margin-top: 1.8em; }

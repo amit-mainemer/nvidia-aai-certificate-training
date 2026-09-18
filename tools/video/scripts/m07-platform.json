@@ -1,0 +1,124 @@
+{
+  "module": "platform",
+  "title": "Module 7 intro — NVIDIA Platform Implementation",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module Seven: NVIDIA Platform Implementation.",
+        "It's about knowing which piece of NVIDIA's stack does which job."
+      ],
+      "say": {
+        "0": "Welcome to Module Seven: en-vidia Platform Implementation.",
+        "1": "It's about knowing which piece of en-vidia's stack does which job."
+      }
+    },
+    {
+      "lines": [
+        "Picture a bank's platform team with a promising prototype assistant.",
+        "Under the hood, it's glued together from whatever libraries were handy."
+      ]
+    },
+    {
+      "lines": [
+        "First, customer data can never leave the bank's own infrastructure.",
+        "So the model runs on a home-made server that crawls under real traffic."
+      ]
+    },
+    {
+      "lines": [
+        "Second, there are no guardrails.",
+        "A tester talks the assistant into ignoring its rules, and nothing stops it."
+      ]
+    },
+    {
+      "lines": [
+        "Third, there's no evaluation gate.",
+        "When a fine-tuned model arrives, nobody can say if it beats the old one."
+      ]
+    },
+    {
+      "lines": [
+        "So the team stops adding libraries.",
+        "Instead, they map each need to one component with exactly one job."
+      ]
+    },
+    {
+      "lines": [
+        "For serving, they pick NIM: a prebuilt, GPU-optimised model container running in their own data centre.",
+        "Its OpenAI-compatible API means the agent code barely changes."
+      ],
+      "say": {
+        "0": "For serving, they pick nim: a prebuilt, G P U optimised model container running in their own data centre.",
+        "1": "Its open A-I compatible A-P-I means the agent code barely changes."
+      }
+    },
+    {
+      "lines": [
+        "NeMo Guardrails applies safety rails to live traffic.",
+        "NeMo Evaluator becomes the gate: a new model ships only if it scores better."
+      ],
+      "say": {
+        "0": "Neemo Guardrails applies safety rails to live traffic.",
+        "1": "Neemo Evaluator becomes the gate: a new model ships only if it scores better."
+      }
+    },
+    {
+      "lines": [
+        "NeMo Retriever handles document extraction, embedding, and reranking.",
+        "The NeMo Agent Toolkit wraps their LangGraph agent with profiling and tracing, without replacing it."
+      ],
+      "say": {
+        "0": "Neemo Retriever handles document extraction, embedding, and reranking.",
+        "1": "The Neemo Agent Toolkit wraps their Lang Graph agent with profiling and tracing, without replacing it."
+      }
+    },
+    {
+      "lines": [
+        "It all runs on Kubernetes, with the NIM Operator managing the model services.",
+        "The glued-together prototype becomes a production reference architecture."
+      ],
+      "say": {
+        "0": "It all runs on Kubernetes, with the nim Operator managing the model services."
+      }
+    },
+    {
+      "lines": [
+        "Lesson one maps the stack, layer by layer.",
+        "You'll learn each component's one-line job, like Curator preparing data and Customizer training on it."
+      ]
+    },
+    {
+      "lines": [
+        "It untangles pairs people confuse: Evaluator measures offline, Guardrails enforce policy live.",
+        "NIM is a packaged model service; Triton is a general server you configure yourself."
+      ],
+      "say": {
+        "1": "Nim is a packaged model service; Triton is a general server you configure yourself.",
+        "0": "It untangles pairs people confuse: Evaluator measures offline, Guardrails in-force policy live."
+      }
+    },
+    {
+      "lines": [
+        "You'll see why NIM is fast: its TensorRT-LLM engine batches requests on the fly and runs in lower precision.",
+        "And when Dynamo spreads inference across many machines."
+      ],
+      "say": {
+        "0": "You'll see why nim is fast: its tensor R T, L L M engine batches requests on the fly and runs in lower precision."
+      }
+    },
+    {
+      "lines": [
+        "Lesson two assembles a full reference architecture, with Curator, Customizer, and Evaluator in an offline loop.",
+        "It also covers sizing GPUs and fully air-gapped deployments."
+      ]
+    },
+    {
+      "lines": [
+        "This domain is seven percent of the exam, mostly asking which component fits a requirement.",
+        "Lesson one starts with the map."
+      ]
+    }
+  ]
+}
