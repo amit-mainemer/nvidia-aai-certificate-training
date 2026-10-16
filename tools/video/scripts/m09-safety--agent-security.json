@@ -1,0 +1,98 @@
+{
+  "module": "safety",
+  "title": "Module 9 · Lesson 2 — Prompt injection and agent security",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module Nine, Lesson Two: prompt injection and agent security.",
+        "It's the defining agent threat, because agents read untrusted content and then act."
+      ]
+    },
+    {
+      "lines": [
+        "Picture a team whose coding agent reads code, runs tests, and pushes fixes.",
+        "Its shell holds the team's cloud keys."
+      ]
+    },
+    {
+      "lines": [
+        "One day it pulls in an open-source package.",
+        "Buried in a code comment is a note written for AI assistants, not people."
+      ]
+    },
+    {
+      "lines": [
+        "The agent obeys it and sends the keys to an outside server.",
+        "Nobody on the team did anything wrong."
+      ]
+    },
+    {
+      "lines": [
+        "That's indirect prompt injection, hidden in content the agent reads.",
+        "Unlike direct injection from the user, it hides in documents, web pages, tool results, or memory."
+      ]
+    },
+    {
+      "lines": [
+        "There's no complete fix, only layered containment.",
+        "First, treat all non-user content as data, never instructions."
+      ]
+    },
+    {
+      "lines": [
+        "Next, least privilege: only the tools it needs, with narrow, short-lived credentials.",
+        "An agent that never holds the cloud keys can't leak them."
+      ]
+    },
+    {
+      "lines": [
+        "Authorise every call server-side, under the user's identity.",
+        "A hijacked agent then can't exceed that user's rights, defeating the confused deputy."
+      ]
+    },
+    {
+      "lines": [
+        "Require human approval for irreversible, high-impact actions.",
+        "It holds even when everything upstream fails."
+      ]
+    },
+    {
+      "lines": [
+        "Rails screen inputs and retrieved content for injection, and outputs for leaks.",
+        "Egress control limits which hosts tools can reach."
+      ]
+    },
+    {
+      "lines": [
+        "Finally, monitor tool sequences.",
+        "A sudden network call right after reading a package is a red flag."
+      ]
+    },
+    {
+      "lines": [
+        "Excessive agency means too many permissions, so split read from write.",
+        "And never pass tool output into a shell or query unsanitised."
+      ]
+    },
+    {
+      "lines": [
+        "Agent-written code runs in a sandbox, like a container or microVM.",
+        "No ambient credentials, capped resources, and restricted network."
+      ]
+    },
+    {
+      "lines": [
+        "Denial of wallet drives costly loops, so set rate limits and budgets.",
+        "Memory poisoning fires later, so sanitise on write and distrust memory on read."
+      ]
+    },
+    {
+      "lines": [
+        "The exam trap: a system-prompt line telling the model to ignore injected instructions.",
+        "Prompts are defaults attackers can talk over, so enforce in the runtime, and read on."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:04.111
+Module Seven, Lesson One: the NVIDIA agentic stack, mapped.
+
+2
+00:00:04.441 --> 00:00:05.565
+Here's who does what.
+
+3
+00:00:06.365 --> 00:00:11.136
+Picture Leo, a new architect at a furniture retailer, in his first design review.
+
+4
+00:00:11.466 --> 00:00:16.237
+Colleagues say NIM, Triton, Curator and Customizer; he can't tell them apart.
+
+5
+00:00:17.037 --> 00:00:20.699
+The fix is to learn each piece's one-line job, layer by layer.
+
+6
+00:00:21.029 --> 00:00:23.728
+On top sit Blueprints, then the agent layer:
+
+7
+00:00:23.778 --> 00:00:27.102
+the NeMo Agent Toolkit plus frameworks like LangGraph.
+
+8
+00:00:27.902 --> 00:00:32.460
+Then NIM serves models, and NeMo microservices run the model lifecycle.
+
+9
+00:00:32.790 --> 00:00:36.324
+At the base: the serving runtime and Kubernetes infrastructure.
+
+10
+00:00:37.124 --> 00:00:41.191
+NIM itself is a prebuilt, GPU-optimised model container.
+
+11
+00:00:41.521 --> 00:00:44.927
+The NIM Operator manages those services on Kubernetes.
+
+12
+00:00:45.727 --> 00:00:49.560
+NeMo Retriever does extraction, embedding and reranking for RAG.
+
+13
+00:00:49.890 --> 00:00:54.085
+NeMo Guardrails enforces programmable safety rails at runtime.
+
+14
+00:00:54.885 --> 00:00:59.955
+Curator prepares data, Customizer fine-tunes, and Evaluator runs benchmarks.
+
+15
+00:01:00.285 --> 00:01:03.563
+The Data and Entity Stores hold artefacts and metadata.
+
+16
+00:01:04.363 --> 00:01:07.975
+The NeMo Agent Toolkit composes agents across frameworks,
+
+17
+00:01:08.025 --> 00:01:09.839
+adding profiling and tracing.
+
+18
+00:01:10.169 --> 00:01:12.798
+Triton is a multi-backend inference server;
+
+19
+00:01:12.848 --> 00:01:15.601
+Dynamo spreads inference across a datacentre.
+
+20
+00:01:16.401 --> 00:01:18.037
+Four boundaries trip people up.
+
+21
+00:01:18.367 --> 00:01:20.941
+NIM is a packaged, model-specific service,
+
+22
+00:01:20.991 --> 00:01:24.439
+while Triton is a general server you configure yourself.
+
+23
+00:01:25.239 --> 00:01:28.539
+Curator prepares the data, and Customizer trains on it.
+
+24
+00:01:28.869 --> 00:01:33.939
+Evaluator measures quality offline, while Guardrails enforce policy on live traffic.
+
+25
+00:01:34.739 --> 00:01:38.955
+And the Agent Toolkit instruments agents built in frameworks like LangGraph.
+
+26
+00:01:39.285 --> 00:01:41.646
+It composes them; it doesn't replace them.
+
+27
+00:01:42.446 --> 00:01:43.719
+So why is NIM fast?
+
+28
+00:01:44.049 --> 00:01:49.147
+Its TensorRT-LLM engine brings in-flight batching, a paged KV cache,
+
+29
+00:01:49.197 --> 00:01:53.236
+quantisation, prefix caching and speculative decoding.
+
+30
+00:01:54.036 --> 00:01:56.229
+With an OpenAI-compatible API,
+
+31
+00:01:56.279 --> 00:02:01.389
+switching from a hosted endpoint to NIM is usually a base-URL change.
+
+32
+00:02:01.719 --> 00:02:03.845
+So agent code doesn't need rewriting.
+
+33
+00:02:04.645 --> 00:02:08.468
+Exam trap: asked why NIM beats a naive Hugging Face server,
+
+34
+00:02:08.518 --> 00:02:11.357
+name those mechanisms, not “it's optimised”.
+
+35
+00:02:11.687 --> 00:02:13.109
+Read on for the full table.

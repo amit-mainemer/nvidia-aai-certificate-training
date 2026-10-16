@@ -1,0 +1,107 @@
+{
+  "module": "knowledge",
+  "title": "Module 6 · Lesson 1 — The production RAG pipeline stage by stage",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "This lesson walks the production RAG pipeline, stage by stage.",
+        "Most hallucination complaints are really retrieval failures."
+      ],
+      "say": {
+        "0": "This lesson walks the production rag pipeline, stage by stage."
+      }
+    },
+    {
+      "lines": [
+        "Picture a solar company whose assistant helps technicians read installation manuals.",
+        "Up on a roof, a technician asks for a clamp's torque setting."
+      ]
+    },
+    {
+      "lines": [
+        "The assistant confidently gives the wrong number.",
+        "A bigger model won't help: the spec was lost before the model saw it."
+      ]
+    },
+    {
+      "lines": [
+        "The pipeline has seven stages: extract, chunk, embed, index, retrieve, rerank, and generate.",
+        "Each one fails in its own recognizable way."
+      ]
+    },
+    {
+      "lines": [
+        "Extraction is where most quality is lost: the torque table became a run-on line of numbers.",
+        "Table-aware parsing, like NeMo Retriever extraction, keeps each value under its header."
+      ],
+      "say": {
+        "1": "Table-aware parsing, like Nemo Retriever extraction, keeps each value under its header."
+      }
+    },
+    {
+      "lines": [
+        "Chunking should follow headings, sections, and tables, with a small overlap.",
+        "Every chunk carries metadata: source, section, date, access level, and version."
+      ]
+    },
+    {
+      "lines": [
+        "Chunks too small lose their context; too large, and the embedding blurs.",
+        "Small-to-big searches small chunks, but returns the whole parent section."
+      ]
+    },
+    {
+      "lines": [
+        "Question-answer embedders encode questions and passages differently.",
+        "Encode a query as if it were a passage, and recall silently drops."
+      ]
+    },
+    {
+      "lines": [
+        "Changing the embedding model means re-embedding everything.",
+        "Vectors from two different models simply can't be compared."
+      ]
+    },
+    {
+      "lines": [
+        "Vector search misses exact tokens, like the inverter error code E-42.",
+        "Hybrid search adds keyword search, and fuses both lists with Reciprocal Rank Fusion."
+      ],
+      "say": {
+        "0": "Vector search misses exact tokens, like the inverter error code E forty-two."
+      }
+    },
+    {
+      "lines": [
+        "Metadata filters run before the vector search, so restricted manuals are never candidates.",
+        "Filtering afterwards leaks what exists and wastes recall."
+      ]
+    },
+    {
+      "lines": [
+        "A cross-encoder reranker is accurate, but too slow for a whole corpus.",
+        "So retrieve the top fifty cheaply, then rerank down to the best three to five."
+      ]
+    },
+    {
+      "lines": [
+        "Finally, the prompt says: answer only from the sources, and cite every claim.",
+        "If they don't cover it, say so instead of guessing."
+      ]
+    },
+    {
+      "lines": [
+        "The trap: a reranker only reorders what retrieval returned, so it can't rescue a missing document.",
+        "Fix recall upstream, with hybrid search, better chunking, or query rewriting."
+      ]
+    },
+    {
+      "lines": [
+        "On the exam, wrong table numbers mean extraction, and missed codes mean hybrid search.",
+        "Read on for each stage in detail."
+      ]
+    }
+  ]
+}

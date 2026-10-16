@@ -1,0 +1,107 @@
+{
+  "module": "evaluation",
+  "title": "Module 3 · Lesson 2 — LLM-as-a-judge: power and pitfalls",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Module Three, Lesson Two: LLM as a judge.",
+        "It's powerful, as long as you know how it fails."
+      ],
+      "say": {
+        "0": "Module Three, Lesson Two: L L M as a judge."
+      }
+    },
+    {
+      "lines": [
+        "Picture a news app whose agent writes ten thousand summaries a day.",
+        "Good summaries never match word for word, and no editor can read them all."
+      ]
+    },
+    {
+      "lines": [
+        "So the team has another model grade every summary.",
+        "That's LLM as a judge: a scorer that scales."
+      ],
+      "say": {
+        "1": "That's L L M as a judge: a scorer that scales."
+      }
+    },
+    {
+      "lines": [
+        "Judges shine where quality is real but can't be string-matched.",
+        "Think summary quality, tone, helpfulness, or groundedness in a source."
+      ]
+    },
+    {
+      "lines": [
+        "But if a deterministic check exists, use code instead.",
+        "Schemas, numbers, passing tests, or the right tool call are cheaper, faster, and unbiased in code."
+      ]
+    },
+    {
+      "lines": [
+        "Next, learn to name the judge's four biases.",
+        "Position bias favors the first answer, so score both orders and average."
+      ]
+    },
+    {
+      "lines": [
+        "In the news app, the top-rated summaries were simply the longest.",
+        "That's verbosity bias, fixed with a rubric that rewards information density."
+      ]
+    },
+    {
+      "lines": [
+        "The same model family also wrote and judged, inflating every score.",
+        "That's self-preference, so use a judge from a different family."
+      ]
+    },
+    {
+      "lines": [
+        "Score compression clusters everything at seven or eight out of ten.",
+        "Pairwise comparison or a short discrete rubric spreads the scores out."
+      ]
+    },
+    {
+      "lines": [
+        "Now, design a judge that holds up.",
+        "Ask which of two answers is better, and anchor the rubric with examples of a one, a three, and a five."
+      ]
+    },
+    {
+      "lines": [
+        "Make the judge write its reasoning before its score.",
+        "Scoring first turns the reasoning into an after-the-fact excuse."
+      ]
+    },
+    {
+      "lines": [
+        "Then calibrate on one to two hundred expert-labeled cases, measuring agreement with Cohen's kappa.",
+        "A judge agreeing only sixty percent of the time is measuring something else."
+      ]
+    },
+    {
+      "lines": [
+        "Finally, pin the judge's version like any other dependency.",
+        "A silent provider upgrade would change your whole metric history."
+      ]
+    },
+    {
+      "lines": [
+        "NVIDIA's NeMo Evaluator runs benchmarks, custom datasets, and judges as comparable scored runs.",
+        "After a fine-tune, it answers: did the new model beat the incumbent?"
+      ],
+      "say": {
+        "0": "En-vidia's Neemo Evaluator runs benchmarks, custom datasets, and judges as comparable scored runs."
+      }
+    },
+    {
+      "lines": [
+        "Exam tip: if one option is a code check instead of a judge, pick the code.",
+        "And suspiciously high scores point to self-preference; read on for all four biases."
+      ]
+    }
+  ]
+}

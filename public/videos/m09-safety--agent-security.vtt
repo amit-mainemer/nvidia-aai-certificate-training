@@ -1,0 +1,141 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:04.858
+Welcome to Module Nine, Lesson Two: prompt injection and agent security.
+
+2
+00:00:05.188 --> 00:00:10.194
+It's the defining agent threat, because agents read untrusted content and then act.
+
+3
+00:00:10.994 --> 00:00:15.616
+Picture a team whose coding agent reads code, runs tests, and pushes fixes.
+
+4
+00:00:15.946 --> 00:00:17.923
+Its shell holds the team's cloud keys.
+
+5
+00:00:18.723 --> 00:00:20.977
+One day it pulls in an open-source package.
+
+6
+00:00:21.307 --> 00:00:25.630
+Buried in a code comment is a note written for AI assistants, not people.
+
+7
+00:00:26.430 --> 00:00:29.793
+The agent obeys it and sends the keys to an outside server.
+
+8
+00:00:30.123 --> 00:00:32.121
+Nobody on the team did anything wrong.
+
+9
+00:00:32.921 --> 00:00:36.818
+That's indirect prompt injection, hidden in content the agent reads.
+
+10
+00:00:37.148 --> 00:00:39.598
+Unlike direct injection from the user,
+
+11
+00:00:39.648 --> 00:00:43.413
+it hides in documents, web pages, tool results, or memory.
+
+12
+00:00:44.213 --> 00:00:47.000
+There's no complete fix, only layered containment.
+
+13
+00:00:47.330 --> 00:00:51.120
+First, treat all non-user content as data, never instructions.
+
+14
+00:00:51.920 --> 00:00:54.639
+Next, least privilege: only the tools it needs,
+
+15
+00:00:54.689 --> 00:00:56.819
+with narrow, short-lived credentials.
+
+16
+00:00:57.149 --> 00:01:00.214
+An agent that never holds the cloud keys can't leak them.
+
+17
+00:01:01.014 --> 00:01:04.484
+Authorise every call server-side, under the user's identity.
+
+18
+00:01:04.814 --> 00:01:08.083
+A hijacked agent then can't exceed that user's rights,
+
+19
+00:01:08.133 --> 00:01:09.927
+defeating the confused deputy.
+
+20
+00:01:10.727 --> 00:01:14.495
+Require human approval for irreversible, high-impact actions.
+
+21
+00:01:14.825 --> 00:01:17.229
+It holds even when everything upstream fails.
+
+22
+00:01:18.029 --> 00:01:22.587
+Rails screen inputs and retrieved content for injection, and outputs for leaks.
+
+23
+00:01:22.917 --> 00:01:25.661
+Egress control limits which hosts tools can reach.
+
+24
+00:01:26.461 --> 00:01:28.566
+Finally, monitor tool sequences.
+
+25
+00:01:28.896 --> 00:01:32.601
+A sudden network call right after reading a package is a red flag.
+
+26
+00:01:33.401 --> 00:01:37.319
+Excessive agency means too many permissions, so split read from write.
+
+27
+00:01:37.649 --> 00:01:41.225
+And never pass tool output into a shell or query unsanitised.
+
+28
+00:01:42.025 --> 00:01:46.541
+Agent-written code runs in a sandbox, like a container or microVM.
+
+29
+00:01:46.871 --> 00:01:50.661
+No ambient credentials, capped resources, and restricted network.
+
+30
+00:01:51.461 --> 00:01:55.528
+Denial of wallet drives costly loops, so set rate limits and budgets.
+
+31
+00:01:55.858 --> 00:02:00.992
+Memory poisoning fires later, so sanitise on write and distrust memory on read.
+
+32
+00:02:01.792 --> 00:02:02.617
+The exam trap:
+
+33
+00:02:02.667 --> 00:02:07.054
+a system-prompt line telling the model to ignore injected instructions.
+
+34
+00:02:07.384 --> 00:02:09.871
+Prompts are defaults attackers can talk over,
+
+35
+00:02:09.921 --> 00:02:12.070
+so enforce in the runtime, and read on.

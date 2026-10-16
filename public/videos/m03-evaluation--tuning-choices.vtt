@@ -1,0 +1,141 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:03.834
+Module Three, Lesson Three: prompting, RAG, or fine-tuning.
+
+2
+00:00:04.164 --> 00:00:06.717
+It's the exam's most frequent decision question.
+
+3
+00:00:07.517 --> 00:00:10.841
+Picture a bank's support assistant that quotes last week's
+
+4
+00:00:10.891 --> 00:00:13.867
+savings rates and ignores the required reply format.
+
+5
+00:00:14.197 --> 00:00:17.005
+The team's instinct is to fine-tune on everything.
+
+6
+00:00:17.805 --> 00:00:21.425
+But the rule is: RAG for knowledge, fine-tuning for behavior.
+
+7
+00:00:21.755 --> 00:00:24.243
+Prompting covers everything you can get away with.
+
+8
+00:00:25.043 --> 00:00:30.135
+Use RAG when facts change, answers need citations, or access varies by user.
+
+9
+00:00:30.465 --> 00:00:34.191
+Knowledge can be added or revoked instantly, with no retraining.
+
+10
+00:00:34.991 --> 00:00:39.271
+Use fine-tuning for a consistent format, tone, or tool-call syntax.
+
+11
+00:00:39.601 --> 00:00:42.965
+It can even make a small model match a big one on a narrow task.
+
+12
+00:00:43.765 --> 00:00:48.024
+So the bank retrieves live rates, and fine-tunes a small model for its format.
+
+13
+00:00:48.354 --> 00:00:51.781
+Together they give large-model quality at small-model cost.
+
+14
+00:00:52.581 --> 00:00:55.795
+Full fine-tuning updates every weight, and costs the most.
+
+15
+00:00:56.125 --> 00:00:59.425
+LoRA trains just a tenth of a percent to one percent of them.
+
+16
+00:01:00.225 --> 00:01:04.697
+LoRA freezes the base weights, so one deployed model can serve many adapters.
+
+17
+00:01:05.027 --> 00:01:09.969
+NIM supports this: a custom variant per customer, on a tight GPU budget.
+
+18
+00:01:10.769 --> 00:01:13.876
+DPO learns from chosen and rejected pairs,
+
+19
+00:01:13.926 --> 00:01:17.183
+and RFT from a verifier, like passing tests.
+
+20
+00:01:17.513 --> 00:01:21.133
+Distillation shrinks a large model's behavior into a small one.
+
+21
+00:01:21.933 --> 00:01:23.632
+Data quality beats quantity.
+
+22
+00:01:23.962 --> 00:01:28.422
+A thousand clean examples routinely beat a hundred thousand scraped ones,
+
+23
+00:01:28.472 --> 00:01:30.461
+which is why NeMo Curator exists.
+
+24
+00:01:31.261 --> 00:01:35.819
+Beware catastrophic forgetting, where narrow fine-tuning breaks unrelated skills.
+
+25
+00:01:36.149 --> 00:01:40.622
+Prefer LoRA, mix in general data, and evaluate on a broad held-out suite.
+
+26
+00:01:41.422 --> 00:01:44.241
+NVIDIA's data flywheel loops through capture,
+
+27
+00:01:44.291 --> 00:01:46.791
+curate, customize, evaluate, and deploy.
+
+28
+00:01:47.121 --> 00:01:50.108
+The payoff is a small model, tuned on real traffic,
+
+29
+00:01:50.158 --> 00:01:52.788
+matching a big one at a fraction of the cost.
+
+30
+00:01:53.588 --> 00:01:56.244
+The classic trap: a bot quotes outdated prices,
+
+31
+00:01:56.294 --> 00:01:58.893
+so should you fine-tune on the new price list?
+
+32
+00:01:59.223 --> 00:02:01.366
+No: fine-tuning teaches how to answer,
+
+33
+00:02:01.416 --> 00:02:04.079
+while retrieval supplies what's true right now.
+
+34
+00:02:04.879 --> 00:02:07.773
+That one rule wins the exam's most common question.
+
+35
+00:02:08.103 --> 00:02:11.467
+Read on for the full decision table and every tuning method.

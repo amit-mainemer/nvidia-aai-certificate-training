@@ -1,0 +1,145 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:04.005
+This lesson walks the production RAG pipeline, stage by stage.
+
+2
+00:00:04.335 --> 00:00:07.805
+Most hallucination complaints are really retrieval failures.
+
+3
+00:00:08.605 --> 00:00:13.312
+Picture a solar company whose assistant helps technicians read installation manuals.
+
+4
+00:00:13.642 --> 00:00:16.685
+Up on a roof, a technician asks for a clamp's torque setting.
+
+5
+00:00:17.485 --> 00:00:20.123
+The assistant confidently gives the wrong number.
+
+6
+00:00:20.453 --> 00:00:24.222
+A bigger model won't help: the spec was lost before the model saw it.
+
+7
+00:00:25.022 --> 00:00:28.056
+The pipeline has seven stages: extract, chunk,
+
+8
+00:00:28.106 --> 00:00:31.073
+embed, index, retrieve, rerank, and generate.
+
+9
+00:00:31.403 --> 00:00:34.084
+Each one fails in its own recognizable way.
+
+10
+00:00:34.884 --> 00:00:37.293
+Extraction is where most quality is lost:
+
+11
+00:00:37.343 --> 00:00:40.231
+the torque table became a run-on line of numbers.
+
+12
+00:00:40.561 --> 00:00:43.749
+Table-aware parsing, like NeMo Retriever extraction,
+
+13
+00:00:43.799 --> 00:00:45.866
+keeps each value under its header.
+
+14
+00:00:46.666 --> 00:00:50.904
+Chunking should follow headings, sections, and tables, with a small overlap.
+
+15
+00:00:51.234 --> 00:00:56.091
+Every chunk carries metadata: source, section, date, access level, and version.
+
+16
+00:00:56.891 --> 00:01:01.022
+Chunks too small lose their context; too large, and the embedding blurs.
+
+17
+00:01:01.352 --> 00:01:05.185
+Small-to-big searches small chunks, but returns the whole parent section.
+
+18
+00:01:05.985 --> 00:01:09.988
+Question-answer embedders encode questions and passages differently.
+
+19
+00:01:10.318 --> 00:01:14.236
+Encode a query as if it were a passage, and recall silently drops.
+
+20
+00:01:15.036 --> 00:01:18.335
+Changing the embedding model means re-embedding everything.
+
+21
+00:01:18.665 --> 00:01:21.794
+Vectors from two different models simply can't be compared.
+
+22
+00:01:22.594 --> 00:01:27.237
+Vector search misses exact tokens, like the inverter error code E-42.
+
+23
+00:01:27.567 --> 00:01:32.381
+Hybrid search adds keyword search, and fuses both lists with Reciprocal Rank Fusion.
+
+24
+00:01:33.181 --> 00:01:35.921
+Metadata filters run before the vector search,
+
+25
+00:01:35.971 --> 00:01:38.529
+so restricted manuals are never candidates.
+
+26
+00:01:38.859 --> 00:01:42.201
+Filtering afterwards leaks what exists and wastes recall.
+
+27
+00:01:43.001 --> 00:01:47.089
+A cross-encoder reranker is accurate, but too slow for a whole corpus.
+
+28
+00:01:47.419 --> 00:01:51.828
+So retrieve the top fifty cheaply, then rerank down to the best three to five.
+
+29
+00:01:52.628 --> 00:01:57.101
+Finally, the prompt says: answer only from the sources, and cite every claim.
+
+30
+00:01:57.431 --> 00:01:59.813
+If they don't cover it, say so instead of guessing.
+
+31
+00:02:00.613 --> 00:02:04.209
+The trap: a reranker only reorders what retrieval returned,
+
+32
+00:02:04.259 --> 00:02:06.557
+so it can't rescue a missing document.
+
+33
+00:02:06.887 --> 00:02:11.467
+Fix recall upstream, with hybrid search, better chunking, or query rewriting.
+
+34
+00:02:12.267 --> 00:02:15.217
+On the exam, wrong table numbers mean extraction,
+
+35
+00:02:15.267 --> 00:02:17.422
+and missed codes mean hybrid search.
+
+36
+00:02:17.752 --> 00:02:19.558
+Read on for each stage in detail.

@@ -1,0 +1,104 @@
+{
+  "module": "safety",
+  "title": "Module 9 · Lesson 1 — Guardrails and the five rail types",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module Nine, Lesson One: guardrails and the five rail types.",
+        "Guardrails are runtime checks between your app and the model."
+      ]
+    },
+    {
+      "lines": [
+        "Picture PetPal, an online pet pharmacy whose support agent can issue refunds.",
+        "In its first week, three things go wrong."
+      ],
+      "say": {
+        "0": "Picture Pet Pal, an online pet pharmacy whose support agent can issue refunds."
+      }
+    },
+    {
+      "lines": [
+        "It happily compares prices with a rival store.",
+        "Then someone talks it into a nine-hundred-dollar refund."
+      ]
+    },
+    {
+      "lines": [
+        "It even repeats a stranger's address from a retrieved note.",
+        "The only control was a polite line in the prompt."
+      ]
+    },
+    {
+      "lines": [
+        "Guardrails put checks at five points around the model.",
+        "NeMo Guardrails calls them the input, dialog, retrieval, execution, and output rails."
+      ]
+    },
+    {
+      "lines": [
+        "The input rail runs before the model sees the user's message.",
+        "It catches jailbreaks, redacts personal data, and restricts topics."
+      ]
+    },
+    {
+      "lines": [
+        "The dialog rail keeps conversations on approved paths.",
+        "The retrieval rail screens retrieved chunks for sensitive or injected text before they enter the prompt."
+      ]
+    },
+    {
+      "lines": [
+        "The execution rail wraps every tool call.",
+        "It restricts which tools may run, validates arguments, and requires approval for high-impact actions."
+      ]
+    },
+    {
+      "lines": [
+        "The output rail checks the response before the user sees it.",
+        "It filters toxicity and personal data, checks grounding, and enforces format."
+      ]
+    },
+    {
+      "lines": [
+        "So for PetPal, competitor questions hit the input rail, and big refunds the execution rail.",
+        "The leaked address belongs on the retrieval rail, with output as a backstop."
+      ],
+      "say": {
+        "0": "So for Pet Pal, competitor questions hit the input rail, and big refunds the execution rail."
+      }
+    },
+    {
+      "lines": [
+        "Rails are written in Colang, as user intents, bot responses, and flows.",
+        "If you see define user or define flow, think NeMo Guardrails."
+      ]
+    },
+    {
+      "lines": [
+        "But guardrails are one layer, not the whole answer.",
+        "Defence in depth stacks independent controls, because any one can fail."
+      ]
+    },
+    {
+      "lines": [
+        "For a sensitive action, name an input rail, server-side tool permissions, and approval on the risky step.",
+        "Add an output rail and an audit record."
+      ]
+    },
+    {
+      "lines": [
+        "Rails add latency, since some checks are model calls.",
+        "Run cheap checks like regex and allow-lists first, and save model checks for judgement."
+      ]
+    },
+    {
+      "lines": [
+        "On the exam, expect one requirement with all five rails as options.",
+        "Ask where the check must run, then read on."
+      ]
+    }
+  ]
+}

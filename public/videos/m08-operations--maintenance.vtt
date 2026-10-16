@@ -1,0 +1,137 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:04.773
+Welcome to Module Eight, Lesson Two: drift, regression, and the maintenance loop.
+
+2
+00:00:05.103 --> 00:00:07.719
+Agents degrade even when nobody touches them.
+
+3
+00:00:08.519 --> 00:00:13.312
+Picture CampusDesk, a university helpdesk agent that answers student questions.
+
+4
+00:00:13.642 --> 00:00:16.216
+All summer, nobody changes a line of its code.
+
+5
+00:00:17.016 --> 00:00:19.739
+By September, its answers are noticeably worse.
+
+6
+00:00:20.069 --> 00:00:22.366
+The world around it changed, and that's drift.
+
+7
+00:00:23.166 --> 00:00:26.060
+Input drift: students ask new things, in new ways.
+
+8
+00:00:26.390 --> 00:00:29.753
+Spot it by tracking query topics and embeddings over time.
+
+9
+00:00:30.553 --> 00:00:34.642
+Corpus drift: the wiki was reorganised, so retrieval quality moved.
+
+10
+00:00:34.972 --> 00:00:38.911
+Re-run retrieval evaluation on a fixed set of queries to catch it.
+
+11
+00:00:39.711 --> 00:00:43.459
+Model drift: the provider silently updated its hosted model.
+
+12
+00:00:43.789 --> 00:00:48.069
+Pin versions to prevent it, and run a golden set continuously to detect it.
+
+13
+00:00:48.869 --> 00:00:52.318
+Tool drift: the enrollment system's API changed its schema.
+
+14
+00:00:52.648 --> 00:00:55.819
+Scheduled contract tests against every tool catch that.
+
+15
+00:00:56.619 --> 00:01:00.708
+So run the golden set against production on a schedule, not only in CI.
+
+16
+00:01:01.038 --> 00:01:03.399
+That catches drift that no code change caused.
+
+17
+00:01:04.199 --> 00:01:06.807
+Sample live traffic for automated scoring,
+
+18
+00:01:06.857 --> 00:01:09.845
+and send uncertain cases to a small human queue.
+
+19
+00:01:10.175 --> 00:01:12.258
+Track every metric against a baseline.
+
+20
+00:01:13.058 --> 00:01:17.531
+When an incident hits, first contain it with a previous version or a safe fallback.
+
+21
+00:01:17.861 --> 00:01:20.627
+A degraded answer beats a confidently wrong one.
+
+22
+00:01:21.427 --> 00:01:26.155
+Next, diagnose from traces: pull the failing runs and find the common span.
+
+23
+00:01:26.485 --> 00:01:31.193
+Then fix the right layer, whether prompt, schema, tool, retrieval, or model version.
+
+24
+00:01:31.993 --> 00:01:35.057
+Add the failing case to the golden set, or you'll ship it again.
+
+25
+00:01:35.387 --> 00:01:37.300
+Then ask what guard would have caught it sooner.
+
+26
+00:01:38.100 --> 00:01:42.807
+Version prompts, tool schemas, retrieval settings, models, and guardrails together.
+
+27
+00:01:43.137 --> 00:01:46.970
+Record that version on every trace, so any output can be reproduced.
+
+28
+00:01:47.770 --> 00:01:49.544
+Gate changes on the golden set,
+
+29
+00:01:49.594 --> 00:01:53.309
+then roll out through shadow and canary, with a tested rollback.
+
+30
+00:01:53.639 --> 00:01:56.597
+Even a one-word prompt edit is a production change.
+
+31
+00:01:57.397 --> 00:01:58.071
+On the exam,
+
+32
+00:01:58.121 --> 00:02:02.595
+an agent that degrades with no deployment means something upstream changed.
+
+33
+00:02:02.925 --> 00:02:05.286
+The fix is pinned versions, a golden set,
+
+34
+00:02:05.336 --> 00:02:08.166
+and contract tests, so read on for the full loop.

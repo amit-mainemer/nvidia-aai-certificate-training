@@ -1,0 +1,131 @@
+{
+  "module": "platform",
+  "title": "Module 7 · Lesson 2 — Putting the stack together",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Module Seven, Lesson Two: putting the stack together.",
+        "The exam loves end-to-end designs, so let's build one."
+      ]
+    },
+    {
+      "lines": [
+        "Picture a hospital network whose nurses ask an assistant about clinical guidelines.",
+        "The first draft, one big model on one GPU, aces the pilot."
+      ],
+      "say": {
+        "1": "The first draft, one big model on one G P U, aces the pilot."
+      }
+    },
+    {
+      "lines": [
+        "Then three hundred nurses log on at once, and the GPU runs out of memory.",
+        "And patient data must never leave the hospital."
+      ],
+      "say": {
+        "0": "Then three hundred nurses log on at once, and the G P U runs out of memory."
+      }
+    },
+    {
+      "lines": [
+        "The rebuild starts with a stateless agent service on Kubernetes.",
+        "It scales out on the number of in-flight requests."
+      ]
+    },
+    {
+      "lines": [
+        "Inside, a NeMo Agent Toolkit workflow runs the loop, with profiling and tracing.",
+        "NeMo Guardrails adds input, dialog, retrieval, execution and output rails."
+      ],
+      "say": {
+        "0": "Inside, a Neemo Agent Toolkit workflow runs the loop, with profiling and tracing.",
+        "1": "Neemo Guardrails adds input, dialog, retrieval, execution and output rails."
+      }
+    },
+    {
+      "lines": [
+        "The agent calls an LLM NIM that scales on queue depth, with two warm copies.",
+        "Embedding and reranking NIMs from NeMo Retriever feed a Milvus vector database."
+      ],
+      "say": {
+        "0": "The agent calls an L L M nim that scales on queue depth, with two warm copies.",
+        "1": "Embedding and reranking nims from Neemo Retriever feed a Mil-vus vector database."
+      }
+    },
+    {
+      "lines": [
+        "Tools come through MCP servers and internal APIs.",
+        "Postgres and Redis hold state; OpenTelemetry traces feed observability."
+      ],
+      "say": {
+        "0": "Tools come through M C P servers and internal A P Is.",
+        "1": "Postgres and Reddis hold state; Open Telemetry traces feed observability."
+      }
+    },
+    {
+      "lines": [
+        "Offline, production traces flow through Curator, Customizer and Evaluator.",
+        "A new model then moves from shadow, to canary, to full rollout."
+      ]
+    },
+    {
+      "lines": [
+        "Now hardware: does the model fit in one GPU at your chosen precision?",
+        "Count weights plus KV cache for your target concurrency."
+      ],
+      "say": {
+        "0": "Now hardware: does the model fit in one G P U at your chosen precision?",
+        "1": "Count weights plus K V cache for your target concurrency."
+      }
+    },
+    {
+      "lines": [
+        "If not, NVLink makes tensor parallelism worthwhile.",
+        "And many small models can share fewer GPUs, with hard isolation, using MIG."
+      ],
+      "say": {
+        "0": "If not, en-vee link makes tensor parallelism worthwhile.",
+        "1": "And many small models can share fewer G P Us, with hard isolation, using mig."
+      }
+    },
+    {
+      "lines": [
+        "That's where the first draft went wrong: it was sized for weights alone.",
+        "With long agent runs at high concurrency, the KV cache can rival or exceed them."
+      ],
+      "say": {
+        "1": "With long agent runs at high concurrency, the K V cache can rival or exceed them."
+      }
+    },
+    {
+      "lines": [
+        "When data must never leave, the entire stack is self-hosted.",
+        "NIM containers come from NGC into a private registry; the NIM Operator caches models on a PVC."
+      ],
+      "say": {
+        "1": "Nim containers come from N G C into a private registry; the nim Operator caches models on a P V C."
+      }
+    },
+    {
+      "lines": [
+        "The vector database is self-hosted too, and no tool calls an external API.",
+        "This is one of NIM's main reasons to exist."
+      ],
+      "say": {
+        "0": "The vector database is self-hosted too, and no tool calls an external A P I.",
+        "1": "This is one of nim's main reasons to exist."
+      }
+    },
+    {
+      "lines": [
+        "Exam tip: air-gapped framing recurs in regulated-industry questions, and capacity plans must include the KV cache.",
+        "Read on for the full component map."
+      ],
+      "say": {
+        "0": "Exam tip: air-gapped framing recurs in regulated-industry questions, and capacity plans must include the K V cache."
+      }
+    }
+  ]
+}

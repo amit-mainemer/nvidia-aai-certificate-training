@@ -1,0 +1,125 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:03.215
+Module Five, Lesson Two: planning and replanning.
+
+2
+00:00:03.545 --> 00:00:07.293
+How an agent turns a goal into steps, and knows when to change course.
+
+3
+00:00:08.093 --> 00:00:12.992
+Picture an agent organizing a three-day team offsite in Lisbon for twelve people.
+
+4
+00:00:13.322 --> 00:00:17.261
+Flights, a hotel, a meeting room, and an agenda, all within budget.
+
+5
+00:00:18.061 --> 00:00:22.257
+Planning turns that goal into a sequence of steps that respects dependencies.
+
+6
+00:00:22.587 --> 00:00:26.142
+Just as important, it notices when the plan stops being valid.
+
+7
+00:00:26.942 --> 00:00:31.095
+A usable step runs on its own, can be verified, and is the right size.
+
+8
+00:00:31.425 --> 00:00:34.191
+For every step, ask: how would I know this succeeded?
+
+9
+00:00:34.991 --> 00:00:39.442
+Split too finely, and twenty tiny steps cost more to coordinate than the work.
+
+10
+00:00:39.772 --> 00:00:43.797
+Split too coarsely, and one giant step can't be done in a single action.
+
+11
+00:00:44.597 --> 00:00:46.872
+Dependencies decide the shape of the run.
+
+12
+00:00:47.202 --> 00:00:51.760
+Flights, hotel, and venue don't depend on each other, so they run at the same time.
+
+13
+00:00:52.560 --> 00:00:56.627
+That concurrency is the whole case for Plan and Execute over ReAct.
+
+14
+00:00:56.957 --> 00:01:01.494
+Drawn as a graph, total time is the critical path, not the sum of every step.
+
+15
+00:01:02.294 --> 00:01:05.124
+A plan is a hypothesis, so name what breaks it.
+
+16
+00:01:05.454 --> 00:01:09.436
+A step fails after its retries, like a hotel that stays fully booked.
+
+17
+00:01:10.236 --> 00:01:14.154
+A result contradicts an assumption, like a venue that seats only ten.
+
+18
+00:01:14.484 --> 00:01:16.984
+Or new information makes steps unnecessary,
+
+19
+00:01:17.034 --> 00:01:19.831
+so stop instead of running them out of momentum.
+
+20
+00:01:20.631 --> 00:01:23.184
+The budget no longer covers the rest of the plan.
+
+21
+00:01:23.514 --> 00:01:27.453
+Or the user changes the goal mid-run, and the offsite moves to Porto.
+
+22
+00:01:28.253 --> 00:01:31.510
+Unbounded replanning is just a loop with extra steps.
+
+23
+00:01:31.840 --> 00:01:35.062
+Cap the replans, make each plan meaningfully different,
+
+24
+00:01:35.112 --> 00:01:37.145
+and escalate to a human at the cap.
+
+25
+00:01:37.945 --> 00:01:42.140
+Planning is the highest-leverage call, so use your strongest model to plan.
+
+26
+00:01:42.470 --> 00:01:44.489
+A cheaper model can carry out the steps.
+
+27
+00:01:45.289 --> 00:01:48.162
+A bad plan cannot be rescued by good execution.
+
+28
+00:01:48.492 --> 00:01:52.666
+But a mediocre executor following a good plan usually still succeeds.
+
+29
+00:01:53.466 --> 00:01:56.007
+Expect an exam question on when to replan,
+
+30
+00:01:56.057 --> 00:01:59.709
+and remember that a step going as expected is not a trigger.
+
+31
+00:02:00.039 --> 00:02:03.061
+Read on for the full list, and a plan written as a graph.

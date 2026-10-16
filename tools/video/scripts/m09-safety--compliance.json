@@ -1,0 +1,102 @@
+{
+  "module": "safety",
+  "title": "Module 9 · Lesson 3 — Privacy, audit and governance",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module Nine, Lesson Three: privacy, audit, and governance.",
+        "You're tested on the engineering side of the rules, not legal detail."
+      ]
+    },
+    {
+      "lines": [
+        "Picture BrightLoan, an online lender whose agent pre-screens loan applications.",
+        "Then three hard questions arrive."
+      ],
+      "say": {
+        "0": "Picture Bright Loan, an online lender whose agent pre-screens loan applications."
+      }
+    },
+    {
+      "lines": [
+        "An applicant wants their data erased, and a regulator asks why a March application was declined.",
+        "An auditor asks if the agent is fair to every group."
+      ]
+    },
+    {
+      "lines": [
+        "Privacy starts with minimisation: send only the fields the model needs.",
+        "Redact or tokenise personal details before they reach a model or a log."
+      ]
+    },
+    {
+      "lines": [
+        "If data can't leave, self-host the model with NIM.",
+        "And limit how long prompts, traces, and memory are kept."
+      ]
+    },
+    {
+      "lines": [
+        "An erasure request must reach every copy.",
+        "The vector index, memory, traces, and caches, not just the main database."
+      ]
+    },
+    {
+      "lines": [
+        "The regulator needs an audit trail, which is not application logging.",
+        "It's immutable, tamper-evident, access-controlled, and retained per policy."
+      ]
+    },
+    {
+      "lines": [
+        "It records the input, who asked, the sources, and every tool call with its arguments and result.",
+        "Plus approvals, the output, and the exact model, prompt, and policy versions."
+      ]
+    },
+    {
+      "lines": [
+        "With that record, BrightLoan can reconstruct the March decision.",
+        "That's the answer the regulator wants."
+      ],
+      "say": {
+        "0": "With that record, Bright Loan can reconstruct the March decision."
+      }
+    },
+    {
+      "lines": [
+        "Credit is high-risk under the EU AI Act, which tiers obligations by risk.",
+        "High-risk uses need human oversight, logging, transparency, documentation, and conformity assessment."
+      ]
+    },
+    {
+      "lines": [
+        "NIST's AI Risk Management Framework has four functions: govern, map, measure, manage.",
+        "ISO/IEC 42001 is certifiable, and model cards document intended use and limits."
+      ],
+      "say": {
+        "0": "Nist's A I Risk Management Framework has four functions: govern, map, measure, manage.",
+        "1": "I S O, I E C forty-two thousand and one is certifiable, and model cards document intended use and limits."
+      }
+    },
+    {
+      "lines": [
+        "Then fairness: the agent is ninety-two percent accurate overall.",
+        "Split by subgroup, one group fares far worse."
+      ]
+    },
+    {
+      "lines": [
+        "Bias enters through data, retrieval, prompts, and majority-only test sets.",
+        "So evaluate by subgroup, audit sources, red-team with varied inputs, and offer an appeal path."
+      ]
+    },
+    {
+      "lines": [
+        "On the exam, regulated data plus an outside model API means redact at the boundary, or self-host.",
+        "A contract alone isn't an engineering control, so read on."
+      ]
+    }
+  ]
+}

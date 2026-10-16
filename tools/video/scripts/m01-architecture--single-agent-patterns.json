@@ -1,0 +1,114 @@
+{
+  "module": "architecture",
+  "title": "Module 1 · Lesson 3 — Single-agent patterns",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module One, Lesson Three: the four single-agent patterns.",
+        "For each, learn the mechanism, the giveaway keyword, and when it wins."
+      ]
+    },
+    {
+      "lines": [
+        "Picture Priya, who leads the AI team at a video streaming service.",
+        "Four requests arrive one Monday, and no single pattern fits them all."
+      ]
+    },
+    {
+      "lines": [
+        "Request one: why did buffering complaints spike last night?",
+        "Nobody knows the path in advance, so this is ReAct."
+      ],
+      "say": {
+        "1": "Nobody knows the path in advance, so this is react."
+      }
+    },
+    {
+      "lines": [
+        "ReAct alternates a thought with a tool action, choosing each step after seeing the last result.",
+        "It adapts and recovers well, but it's sequential, with one model call per step."
+      ],
+      "say": {
+        "0": "React alternates a thought with a tool action, choosing each step after seeing the last result."
+      }
+    },
+    {
+      "lines": [
+        "Request two is a compliance report, and legal must approve the plan before anything runs.",
+        "That's a job for Plan-and-Execute."
+      ]
+    },
+    {
+      "lines": [
+        "A strong planner writes every step up front, and a cheaper executor runs independent steps in parallel.",
+        "A replanner steps in only when a step fails or surprises it."
+      ]
+    },
+    {
+      "lines": [
+        "Request three needs six lookups for every ticket, and the token bill is huge.",
+        "That points to ReWOO: reasoning without observation."
+      ],
+      "say": {
+        "1": "That points to re-woo: reasoning without observation."
+      }
+    },
+    {
+      "lines": [
+        "The planner writes every tool call up front, with placeholders for results it hasn't seen.",
+        "A worker runs them with no model involved, and a solver answers, in about three model calls total."
+      ]
+    },
+    {
+      "lines": [
+        "Request four is a migration script that must compile and pass its tests.",
+        "That's Reflection: a critic checks the draft against a rubric, and the generator revises."
+      ]
+    },
+    {
+      "lines": [
+        "Its cousin Reflexion, spelled with an x, saves a self-critique to memory after a failed attempt.",
+        "So the lesson carries across attempts."
+      ],
+      "say": {
+        "0": "Its cousin reflexion, spelled with an x, saves a self-critique to memory after a failed attempt."
+      }
+    },
+    {
+      "lines": [
+        "Here's the keyword map.",
+        "Adapting to findings means ReAct, an approvable or parallel plan means Plan-and-Execute, and fewer tokens means ReWOO."
+      ],
+      "say": {
+        "1": "Adapting to findings means react, an approvable or parallel plan means plan and execute, and fewer tokens means re-woo."
+      }
+    },
+    {
+      "lines": [
+        "Real systems compose them: plan first, run each step as a small ReAct loop, then reflect once.",
+        "On the exam, a sensible composition usually beats one pattern forced to fit."
+      ],
+      "say": {
+        "0": "Real systems compose them: plan first, run each step as a small react loop, then reflect once."
+      }
+    },
+    {
+      "lines": [
+        "Watch the trap: Reflexion stores critiques across trials, while self-consistency takes a majority vote.",
+        "Chain-of-Verification checks a draft with questions, and Tree-of-Thoughts branches and backtracks."
+      ],
+      "say": {
+        "0": "Watch the trap: reflexion stores critiques across trials, while self-consistency takes a majority vote.",
+        "1": "Chain of verification checks a draft with questions, and tree of thoughts branches and backtracks."
+      }
+    },
+    {
+      "lines": [
+        "Match the phrase in the question, not the fanciest name.",
+        "Read on for the full comparison table."
+      ]
+    }
+  ]
+}

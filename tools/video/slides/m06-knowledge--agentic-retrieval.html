@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module 6 · Lesson 2 slides — agentic retrieval</title>
+<link rel="stylesheet" href="base.css">
+</head>
+<body>
+
+<!-- local symbols -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="kg" viewBox="0 0 240 180">
+      <g stroke="var(--edge,#1d2340)" stroke-width="7" stroke-linecap="round">
+        <line x1="40" y1="40" x2="120" y2="90"/><line x1="120" y1="90" x2="200" y2="40"/>
+        <line x1="120" y1="90" x2="60" y2="150"/><line x1="120" y1="90" x2="190" y2="145"/>
+      </g>
+      <circle cx="40" cy="40" r="24" fill="#7c5cff"/><circle cx="200" cy="40" r="24" fill="#22b8a6"/>
+      <circle cx="120" cy="90" r="30" fill="#ffb020"/><circle cx="60" cy="150" r="22" fill="#ff7a59"/>
+      <circle cx="190" cy="145" r="22" fill="#5cc8ff"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- 1 · title: single shot vs agentic -->
+<section class="slide t-night" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Module 6 · Lesson 2</span><h1>Retrieval that <em>thinks twice</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- single shot -->
+    <use href="sprites.svg#person" x="140" y="480" width="150" height="300" style="--shirt:#ff7a59"/>
+    <use href="sprites.svg#chat" x="260" y="380" width="160" height="126" style="--dot:#ff7a59"/>
+    <use href="sprites.svg#arrow" x="320" y="620" width="140" height="42" style="--body:#fff"/>
+    <use href="sprites.svg#magnifier" x="480" y="560" width="150" height="150"/>
+    <use href="sprites.svg#arrow" x="650" y="620" width="110" height="33" style="--body:#fff"/>
+    <use href="sprites.svg#doc" x="780" y="550" width="130" height="160"/>
+    <use href="sprites.svg#cross" x="860" y="500" width="90" height="90"/>
+    <line x1="1030" y1="380" x2="1030" y2="880" stroke="#fff" stroke-width="4" stroke-dasharray="10 14" opacity=".4"/>
+    <!-- agentic loop -->
+    <circle cx="1440" cy="630" r="250" fill="none" stroke="#9d86ff" stroke-width="8" stroke-dasharray="16 14"/>
+    <use href="sprites.svg#robot" x="1340" y="490" width="200" height="263" style="--body:#7c5cff"/>
+    <use href="sprites.svg#doc" x="1140" y="390" width="110" height="135"/>
+    <use href="sprites.svg#database" x="1660" y="400" width="110" height="125"/>
+    <use href="sprites.svg#book" x="1110" y="720" width="160" height="122"/>
+    <use href="sprites.svg#check" x="1660" y="730" width="110" height="110"/>
+  </svg>
+  <div class="lbl dark" style="left:540px; top:880px">One search, one shot</div>
+  <div class="lbl violet" style="left:1440px; top:920px">Agentic retrieval</div>
+</section>
+
+<!-- 2 · Maya at the bicycle maker -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">A real-world case</span><h1>Maya asks <em>the company assistant</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#person-desk" x="120" y="500" width="420" height="360" style="--shirt:#7c5cff"/>
+    <rect x="600" y="370" width="560" height="170" rx="34" fill="#fff"/>
+    <g font-size="40" font-weight="800" fill="#1d2340"><text x="650" y="445">What about</text><text x="650" y="500"><tspan fill="#1f6fbf">cracked frames</tspan>?</text></g>
+    <rect x="700" y="590" width="560" height="250" rx="34" fill="#fff"/>
+    <use href="sprites.svg#doc" x="740" y="625" width="130" height="160"/>
+    <g fill="#c9d8ea"><rect x="900" y="650" width="300" height="24" rx="12"/><rect x="900" y="700" width="260" height="24" rx="12"/><rect x="900" y="750" width="280" height="24" rx="12"/></g>
+    <use href="sprites.svg#check" x="1190" y="560" width="100" height="100"/>
+    <!-- a bicycle -->
+    <g fill="none" stroke="#1d2340" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="1440" cy="760" r="90"/><circle cx="1720" cy="760" r="90"/>
+      <path d="M1440 760 L1540 620 L1680 620 L1720 760 M1540 620 L1590 760 L1680 620 M1440 760 L1590 760"/>
+      <path d="M1520 590 L1560 590 M1680 620 L1670 570 L1710 560"/>
+    </g>
+    <path d="M1540 620 L1680 620 L1590 760 Z" fill="none" stroke="#ff7a59" stroke-width="12" stroke-linejoin="round"/>
+  </svg>
+  <div class="lbl dark" style="left:330px; top:900px">Maya, analyst</div>
+  <div class="lbl green" style="left:980px; top:890px">A great answer</div>
+  <div class="lbl sm" style="left:1580px; top:900px">Bicycle maker</div>
+</section>
+
+<!-- 3 · the follow-up fails literally -->
+<section class="slide t-coral" style="--accent:#d6335a">
+  <div class="cap"><span class="eyebrow">The follow-up</span><h1>“And what about <em>the carbon one?</em>”</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#person-worried" x="150" y="440" width="200" height="400" style="--shirt:#7c5cff"/>
+    <use href="sprites.svg#chat" x="360" y="400" width="190" height="150" style="--dot:#ff5d73"/>
+    <use href="sprites.svg#arrow" x="580" y="600" width="170" height="51" style="--body:#fff"/>
+    <use href="sprites.svg#magnifier" x="780" y="520" width="200" height="200"/>
+    <use href="sprites.svg#arrow" x="1000" y="600" width="140" height="42" style="--body:#fff"/>
+    <rect x="1170" y="360" width="620" height="500" rx="34" fill="#fff"/>
+    <g fill="#f1e3e6"><rect x="1230" y="420" width="500" height="60" rx="30"/><rect x="1230" y="500" width="500" height="60" rx="30"/><rect x="1230" y="580" width="500" height="60" rx="30"/></g>
+    <use href="sprites.svg#cross" x="1410" y="460" width="140" height="140"/>
+    <text x="1480" y="740" text-anchor="middle" font-size="44" font-weight="900" fill="#d6335a">Nothing useful</text>
+    <text x="1480" y="800" text-anchor="middle" font-size="32" font-weight="800" fill="#4a5275">“carbon one” matches no chunk</text>
+  </svg>
+  <div class="lbl dark" style="left:880px; top:800px">Searched literally</div>
+</section>
+
+<!-- 4 · query rewriting -->
+<section class="slide t-mint" style="--accent:#128c5e">
+  <div class="cap"><span class="eyebrow">Step 1</span><h1><em>Rewrite</em> the query first</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="130" y="360" width="480" height="440" rx="34" fill="#fff"/>
+    <text x="370" y="425" text-anchor="middle" font-size="30" font-weight="900" fill="#128c5e" letter-spacing="2">CHAT HISTORY</text>
+    <rect x="170" y="460" width="400" height="80" rx="40" fill="#d9f5e6"/>
+    <text x="370" y="512" text-anchor="middle" font-size="32" font-weight="800" fill="#1d2340">cracked frames?</text>
+    <rect x="170" y="570" width="400" height="80" rx="40" fill="#ffe1d8"/>
+    <text x="370" y="622" text-anchor="middle" font-size="32" font-weight="800" fill="#1d2340">the carbon one?</text>
+    <path d="M370 545 L370 565" stroke="#128c5e" stroke-width="6"/>
+    <text x="370" y="730" text-anchor="middle" font-size="30" font-weight="800" fill="#4a5275">“one” = frame</text>
+    <use href="sprites.svg#arrow" x="630" y="560" width="130" height="39" style="--body:#1d2340"/>
+    <use href="sprites.svg#robot" x="780" y="470" width="180" height="236" style="--body:#22b8a6"/>
+    <use href="sprites.svg#arrow" x="980" y="560" width="130" height="39" style="--body:#1d2340"/>
+    <rect x="1130" y="360" width="660" height="190" rx="34" fill="#fff" stroke="#128c5e" stroke-width="6"/>
+    <g font-size="38" font-weight="900" fill="#1d2340"><text x="1180" y="440">Warranty terms for</text><text x="1180" y="500" fill="#128c5e">cracked carbon frames</text></g>
+    <rect x="1130" y="600" width="315" height="240" rx="30" fill="#fff"/>
+    <rect x="1475" y="600" width="315" height="240" rx="30" fill="#fff"/>
+    <g fill="#9fe6c3"><rect x="1170" y="690" width="235" height="40" rx="20"/><rect x="1170" y="750" width="235" height="40" rx="20"/></g>
+    <g fill="#c6d8ff"><rect x="1515" y="690" width="235" height="40" rx="20"/><rect x="1530" y="750" width="205" height="40" rx="20"/></g>
+    <g font-size="32" font-weight="900" fill="#1d2340" text-anchor="middle"><text x="1287" y="660">Split</text><text x="1632" y="660">Paraphrase</text></g>
+  </svg>
+  <div class="lbl teal" style="left:870px; top:790px">Query rewriter</div>
+</section>
+
+<!-- 5 · routing to the right source -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">Step 2</span><h1>Pick the <em>right source</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g stroke="#1d2340" stroke-width="7" stroke-dasharray="4 16" stroke-linecap="round" fill="none">
+      <path d="M870 590 L 450 470"/><path d="M870 680 L 450 780"/><path d="M1060 680 L 1480 780"/>
+    </g>
+    <path d="M1060 590 L 1480 460" stroke="#c25e00" stroke-width="12" stroke-linecap="round"/>
+    <use href="sprites.svg#robot" x="860" y="500" width="200" height="263" style="--body:#7c5cff"/>
+    <use href="sprites.svg#book" x="200" y="380" width="230" height="176"/>
+    <use href="sprites.svg#ticket" x="180" y="720" width="260" height="119" style="--accent:#ff7a59"/>
+    <use href="sprites.svg#database" x="1500" y="360" width="160" height="181"/>
+    <use href="sprites.svg#globe" x="1500" y="700" width="160" height="160"/>
+  </svg>
+  <div class="lbl" style="left:315px; top:610px">Product docs</div>
+  <div class="lbl" style="left:310px; top:900px">Ticket history</div>
+  <div class="lbl amber" style="left:1580px; top:590px">SQL database</div>
+  <div class="lbl" style="left:1580px; top:910px">The web</div>
+  <div class="lbl dark sm" style="left:960px; top:820px">router</div>
+</section>
+
+<!-- 6 · grade the results -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Step 3</span><h1><em>Grade</em> before answering</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g>
+      <use href="sprites.svg#doc" x="150" y="440" width="130" height="160"/>
+      <use href="sprites.svg#doc" x="200" y="470" width="130" height="160"/>
+      <use href="sprites.svg#doc" x="250" y="500" width="130" height="160"/>
+    </g>
+    <use href="sprites.svg#arrow" x="410" y="550" width="130" height="39" style="--body:#1d2340"/>
+    <use href="sprites.svg#checklist" x="560" y="400" width="170" height="204"/>
+    <use href="sprites.svg#arrow" x="750" y="550" width="110" height="33" style="--body:#1d2340"/>
+    <rect x="880" y="410" width="460" height="200" rx="34" fill="#fff"/>
+    <g font-size="40" font-weight="900" fill="#1d2340" text-anchor="middle"><text x="1110" y="495">Does it answer</text><text x="1110" y="550">the question?</text></g>
+    <use href="sprites.svg#arrow" x="1360" y="490" width="120" height="36" style="--body:#22c55e"/>
+    <use href="sprites.svg#chat" x="1500" y="420" width="220" height="174" style="--dot:#22c55e"/>
+    <path d="M1110 620 Q 1110 840 760 840 Q 300 840 270 690" fill="none" stroke="#ff5d73" stroke-width="9" stroke-dasharray="18 12"/>
+    <polygon points="270,680 250,715 290,712" fill="#ff5d73"/>
+  </svg>
+  <div class="lbl green" style="left:1610px; top:660px">Yes: answer</div>
+  <div class="lbl coral" style="left:760px; top:840px">No: rewrite and retrieve again</div>
+</section>
+
+<!-- 7 · the loop, capped -->
+<section class="slide t-teal" style="--accent:#0b7f75">
+  <div class="cap"><span class="eyebrow">The best upgrade</span><h1>Grade, rewrite, retry, <em>capped</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <circle cx="540" cy="630" r="220" fill="none" stroke="#7ff0d8" stroke-width="10" stroke-dasharray="20 14"/>
+    <g fill="#fff"><circle cx="540" cy="410" r="90"/><circle cx="350" cy="740" r="90"/><circle cx="730" cy="740" r="90"/></g>
+    <use href="sprites.svg#checklist" x="497" y="358" width="86" height="103"/>
+    <use href="sprites.svg#magnifier" x="295" y="685" width="110" height="110"/>
+    <use href="sprites.svg#wrench" x="675" y="685" width="110" height="110" style="--body:#13a89e"/>
+    <g font-size="34" font-weight="900" fill="#fff" text-anchor="middle"><text x="540" y="630">loop</text></g>
+    <!-- rounds -->
+    <g><circle cx="1110" cy="440" r="56" fill="#ffcf4a"/><circle cx="1260" cy="440" r="56" fill="#ffcf4a"/><circle cx="1410" cy="440" r="56" fill="none" stroke="#ffcf4a" stroke-width="8" stroke-dasharray="12 10"/></g>
+    <g font-size="44" font-weight="900" text-anchor="middle"><text x="1110" y="456" fill="#1d2340">1</text><text x="1260" y="456" fill="#1d2340">2</text><text x="1410" y="456" fill="#ffcf4a">3</text></g>
+    <use href="sprites.svg#flag" x="1530" y="360" width="100" height="133"/>
+    <rect x="1040" y="590" width="760" height="270" rx="34" fill="#fff"/>
+    <use href="sprites.svg#check" x="1090" y="625" width="80" height="80"/>
+    <use href="sprites.svg#question" x="1090" y="745" width="80" height="80"/>
+    <g font-size="38" font-weight="800" fill="#1d2340"><text x="1200" y="680">Answer with what you have</text><text x="1200" y="800">…or say you can't</text></g>
+  </svg>
+  <div class="lbl amber" style="left:1260px; top:530px">Max 2–3 rounds</div>
+  <div class="lbl dark" style="left:540px; top:900px">Retrieve · grade · rewrite</div>
+</section>
+
+<!-- 8 · the multi-hop question -->
+<section class="slide t-sand" style="--accent:#b5541c">
+  <div class="cap"><span class="eyebrow">A harder question</span><h1>No single chunk <em>holds the answer</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="130" y="350" width="1660" height="120" rx="60" fill="#fff"/>
+    <text x="960" y="425" text-anchor="middle" font-size="40" font-weight="800" fill="#1d2340">Which suppliers of <tspan fill="#b5541c">recalled parts</tspan> also ship to <tspan fill="#b5541c">EU plants</tspan>?</text>
+    <use href="sprites.svg#doc" x="230" y="540" width="150" height="185"/>
+    <use href="sprites.svg#doc" x="690" y="540" width="150" height="185"/>
+    <use href="sprites.svg#doc" x="1150" y="540" width="150" height="185"/>
+    <g fill="none" stroke="#b5541c" stroke-width="8" stroke-dasharray="14 12"><path d="M390 630 L 680 630"/><path d="M850 630 L 1140 630"/><path d="M1310 630 L 1530 630"/></g>
+    <use href="sprites.svg#puzzle" x="1550" y="550" width="180" height="180"/>
+    <g font-size="34" font-weight="800" fill="#1d2340" text-anchor="middle"><text x="305" y="790">Recall list</text><text x="765" y="790">Supplier contracts</text><text x="1225" y="790">Shipping routes</text></g>
+  </svg>
+  <div class="lbl violet" style="left:960px; top:880px">A join across documents</div>
+</section>
+
+<!-- 9 · iterative decomposition -->
+<section class="slide t-rose" style="--accent:#d6336c">
+  <div class="cap"><span class="eyebrow">Fix 1</span><h1>Iterative <em>decomposition</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="120" y="370" width="460" height="420" rx="34"/><rect x="730" y="370" width="460" height="420" rx="34"/><rect x="1340" y="370" width="460" height="420" rx="34"/></g>
+    <g fill="#d6336c"><circle cx="350" cy="370" r="40"/><circle cx="960" cy="370" r="40"/><circle cx="1570" cy="370" r="40"/></g>
+    <g font-size="40" font-weight="900" fill="#fff" text-anchor="middle"><text x="350" y="384">1</text><text x="960" y="384">2</text><text x="1570" y="384">3</text></g>
+    <use href="sprites.svg#magnifier" x="290" y="430" width="120" height="120"/>
+    <use href="sprites.svg#magnifier" x="900" y="430" width="120" height="120"/>
+    <use href="sprites.svg#magnifier" x="1510" y="430" width="120" height="120"/>
+    <g font-size="38" font-weight="900" fill="#1d2340" text-anchor="middle"><text x="350" y="610">Recalled parts</text><text x="960" y="610">Their suppliers</text><text x="1570" y="610">Ship to EU?</text></g>
+    <g fill="#ffe3ec"><rect x="190" y="660" width="320" height="70" rx="35"/><rect x="800" y="660" width="320" height="70" rx="35"/><rect x="1410" y="660" width="320" height="70" rx="35"/></g>
+    <g font-size="30" font-weight="800" fill="#d6336c" text-anchor="middle"><text x="350" y="706">parts A, B, C</text><text x="960" y="706">suppliers X, Y</text><text x="1570" y="706">X ✓</text></g>
+    <use href="sprites.svg#arrow" x="590" y="670" width="130" height="39" style="--body:#1d2340"/>
+    <use href="sprites.svg#arrow" x="1200" y="670" width="130" height="39" style="--body:#1d2340"/>
+  </svg>
+  <div class="lbl dark" style="left:960px; top:880px">Each hop shapes the next search</div>
+</section>
+
+<!-- 10 · GraphRAG -->
+<section class="slide t-ocean" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Fix 2</span><h1><em>GraphRAG</em>: build the graph up front</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g>
+      <use href="sprites.svg#doc" x="150" y="440" width="130" height="160"/>
+      <use href="sprites.svg#doc" x="210" y="480" width="130" height="160"/>
+      <use href="sprites.svg#doc" x="270" y="520" width="130" height="160"/>
+    </g>
+    <use href="sprites.svg#arrow" x="450" y="570" width="200" height="60" style="--body:#fff"/>
+    <text x="550" y="540" text-anchor="middle" font-size="32" font-weight="800" fill="#bfe0ff">extract</text>
+    <g stroke="#fff" stroke-width="6" opacity=".55">
+      <line x1="1010" y1="760" x2="1260" y2="780"/><line x1="1260" y1="780" x2="1600" y2="780"/>
+    </g>
+    <g stroke="#ffcf4a" stroke-width="14" stroke-linecap="round">
+      <line x1="820" y1="440" x2="1010" y2="600"/><line x1="1010" y1="600" x2="1260" y2="460"/><line x1="1260" y1="460" x2="1600" y2="460"/>
+    </g>
+    <line x1="1010" y1="600" x2="1010" y2="760" stroke="#fff" stroke-width="6" opacity=".55"/>
+    <g>
+      <circle cx="820" cy="440" r="70" fill="#ff7a59"/><circle cx="1010" cy="600" r="70" fill="#ffb020"/><circle cx="1260" cy="460" r="70" fill="#22b8a6"/>
+      <circle cx="1600" cy="460" r="70" fill="#7c5cff"/><circle cx="1010" cy="760" r="56" fill="#5cc8ff"/><circle cx="1260" cy="780" r="56" fill="#5cc8ff"/><circle cx="1600" cy="780" r="56" fill="#5cc8ff"/>
+    </g>
+    <g font-size="26" font-weight="900" fill="#fff" text-anchor="middle"><text x="820" y="449">Batch</text><text x="1010" y="609" fill="#1d2340">Part</text><text x="1260" y="469">Supplier</text><text x="1600" y="469">EU plant</text></g>
+  </svg>
+  <div class="lbl" style="left:275px; top:760px">Entities + relations</div>
+  <div class="lbl amber" style="left:1430px; top:900px">Join = graph traversal</div>
+</section>
+
+<!-- 11 · the cost of a graph -->
+<section class="slide t-sunrise" style="--accent:#d9480f">
+  <div class="cap"><span class="eyebrow">The trade-off</span><h1>A graph <em>costs real upkeep</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="130" y="360" width="800" height="500" rx="34" fill="#fff"/>
+    <text x="530" y="430" text-anchor="middle" font-size="30" font-weight="900" fill="#d9480f" letter-spacing="2">THE COST</text>
+    <use href="sprites.svg#gear" x="190" y="470" width="170" height="170" style="--body:#ff7a59"/>
+    <use href="sprites.svg#gear" x="320" y="560" width="110" height="110" style="--body:#ffb020"/>
+    <use href="sprites.svg#wrench" x="480" y="480" width="150" height="150" style="--body:#7c5cff"/>
+    <use href="sprites.svg#coins" x="680" y="490" width="180" height="159"/>
+    <g font-size="34" font-weight="800" fill="#1d2340" text-anchor="middle"><text x="310" y="740">Extraction</text><text x="310" y="785">pipeline</text><text x="555" y="740">Ongoing</text><text x="555" y="785">upkeep</text><text x="770" y="740">Compute</text></g>
+    <rect x="990" y="360" width="800" height="500" rx="34" fill="#fff"/>
+    <text x="1390" y="430" text-anchor="middle" font-size="30" font-weight="900" fill="#128c5e" letter-spacing="2">WORTH IT WHEN</text>
+    <use href="#kg" x="1050" y="490" width="280" height="210" style="--edge:#1d2340"/>
+    <g font-size="38" font-weight="900" fill="#1d2340"><text x="1370" y="560">Multi-hop,</text><text x="1370" y="615">relational</text><text x="1370" y="670">questions are</text><text x="1370" y="725" fill="#d9480f">the core workload</text></g>
+  </svg>
+</section>
+
+<!-- 12 · text-to-SQL -->
+<section class="slide t-plum" style="--accent:#7b2ff7">
+  <div class="cap"><span class="eyebrow">Structured data</span><h1>Numbers live in a <em>database</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="130" y="360" width="520" height="170" rx="34" fill="#fff"/>
+    <g font-size="36" font-weight="800" fill="#1d2340"><text x="170" y="430">How many frames</text><text x="170" y="485">returned last quarter?</text></g>
+    <use href="sprites.svg#robot" x="290" y="580" width="200" height="263" style="--body:#ffb020"/>
+    <use href="sprites.svg#arrow" x="510" y="680" width="120" height="36" style="--body:#fff"/>
+    <rect x="650" y="560" width="640" height="270" rx="30" fill="#1d2340"/>
+    <g font-family="Menlo, monospace" font-size="34" font-weight="700" fill="#fff"><text x="690" y="630"><tspan fill="#ffcf4a">SELECT</tspan> COUNT(*)</text><text x="690" y="690"><tspan fill="#ffcf4a">FROM</tspan> returns</text><text x="690" y="750"><tspan fill="#ffcf4a">WHERE</tspan> item = 'frame'</text><text x="690" y="805"><tspan fill="#ffcf4a">AND</tspan> quarter = 'last'</text></g>
+    <use href="sprites.svg#arrow" x="1310" y="680" width="120" height="36" style="--body:#fff"/>
+    <use href="sprites.svg#database" x="1450" y="560" width="190" height="215"/>
+    <!-- not embedded rows -->
+    <use href="sprites.svg#magnifier" x="1520" y="350" width="120" height="120"/>
+    <use href="sprites.svg#cross" x="1610" y="340" width="80" height="80"/>
+  </svg>
+  <div class="lbl amber" style="left:970px; top:510px">Agent writes SQL</div>
+  <div class="lbl red sm" style="left:1580px; top:500px">no embedded-row search</div>
+</section>
+
+<!-- 13 · guard text-to-SQL -->
+<section class="slide t-mint" style="--accent:#128c5e">
+  <div class="cap"><span class="eyebrow">Guardrails</span><h1>Guard <em>text-to-SQL</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#shield" x="140" y="420" width="250" height="288"/>
+    <rect x="460" y="340" width="780" height="540" rx="34" fill="#fff"/>
+    <use href="sprites.svg#check" x="510" y="375" width="64" height="64"/>
+    <use href="sprites.svg#check" x="510" y="475" width="64" height="64"/>
+    <use href="sprites.svg#check" x="510" y="575" width="64" height="64"/>
+    <use href="sprites.svg#check" x="510" y="675" width="64" height="64"/>
+    <use href="sprites.svg#check" x="510" y="775" width="64" height="64"/>
+    <g font-size="40" font-weight="800" fill="#1d2340"><text x="600" y="422">Restricted schema</text><text x="600" y="522">Read-only credentials</text><text x="600" y="622">Validated queries</text><text x="600" y="722">Row limits</text><text x="600" y="822">Timeouts</text></g>
+    <rect x="1300" y="380" width="490" height="420" rx="34" fill="#fff"/>
+    <use href="sprites.svg#chat" x="1350" y="420" width="190" height="150" style="--dot:#22b8a6"/>
+    <rect x="1350" y="610" width="390" height="140" rx="22" fill="#1d2340"/>
+    <text x="1545" y="660" text-anchor="middle" font-family="Menlo, monospace" font-size="30" font-weight="700" fill="#ffcf4a">SELECT …</text>
+    <text x="1545" y="715" text-anchor="middle" font-size="28" font-weight="800" fill="#fff">the query used</text>
+    <use href="sprites.svg#magnifier" x="1600" y="420" width="140" height="140"/>
+  </svg>
+  <div class="lbl teal" style="left:1545px; top:860px">Answer + its SQL</div>
+</section>
+
+<!-- 14 · exam tip -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Exam tip</span><h1>Graphs are for <em>relationships</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="130" y="360" width="800" height="500" rx="34" fill="#fff"/>
+    <use href="#kg" x="200" y="420" width="320" height="240" style="--edge:#1d2340"/>
+    <use href="sprites.svg#check" x="640" y="450" width="160" height="160"/>
+    <text x="530" y="760" text-anchor="middle" font-size="42" font-weight="900" fill="#1d2340">Supply chains: traverse links</text>
+    <rect x="990" y="360" width="800" height="500" rx="34" fill="#fff"/>
+    <use href="sprites.svg#doc" x="1100" y="430" width="160" height="197"/>
+    <use href="sprites.svg#magnifier" x="1220" y="510" width="140" height="140"/>
+    <use href="#kg" x="1450" y="450" width="180" height="135" style="--edge:#1d2340" opacity=".5"/>
+    <use href="sprites.svg#cross" x="1490" y="440" width="150" height="150"/>
+    <text x="1390" y="760" text-anchor="middle" font-size="42" font-weight="900" fill="#1d2340">Find the passage: just RAG</text>
+  </svg>
+  <div class="lbl green" style="left:530px; top:900px">Knowledge graph</div>
+  <div class="lbl red" style="left:1390px; top:900px">Over-engineering</div>
+</section>
+
+</body>
+</html>

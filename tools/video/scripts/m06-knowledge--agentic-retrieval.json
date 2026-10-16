@@ -1,0 +1,108 @@
+{
+  "module": "knowledge",
+  "title": "Module 6 · Lesson 2 — Agentic RAG and knowledge graphs",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Single-shot RAG assumes the question is a good search query, and that one retrieval is enough.",
+        "Both often fail, so agentic retrieval is the standard upgrade."
+      ],
+      "say": {
+        "0": "Single-shot rag assumes the question is a good search query, and that one retrieval is enough."
+      }
+    },
+    {
+      "lines": [
+        "Meet Maya, an analyst at a bicycle maker, using the company assistant.",
+        "She asks what the warranty says about cracked frames, and gets a great answer."
+      ]
+    },
+    {
+      "lines": [
+        "Then she types: and what about the carbon one?",
+        "Searched literally, that phrase matches nothing useful."
+      ]
+    },
+    {
+      "lines": [
+        "So the agent first rewrites the query, resolving the carbon one from the chat history.",
+        "It also splits compound questions and tries paraphrases."
+      ]
+    },
+    {
+      "lines": [
+        "Next, it picks the right source: product docs, ticket history, a SQL database, or the web.",
+        "It doesn't always hit the same index."
+      ],
+      "say": {
+        "0": "Next, it picks the right source: product docs, ticket history, a sequel database, or the web."
+      }
+    },
+    {
+      "lines": [
+        "Before answering, it grades the results: do they actually answer the question?",
+        "If not, it rewrites the query and retrieves again."
+      ]
+    },
+    {
+      "lines": [
+        "This grade, rewrite, retry loop is the single most valuable addition.",
+        "Cap it at two or three rounds, then answer with what you have, or say you can't."
+      ]
+    },
+    {
+      "lines": [
+        "Now Maya asks which suppliers of parts in the recalled batch also ship to EU plants.",
+        "No single chunk holds that answer: it's a join across documents."
+      ]
+    },
+    {
+      "lines": [
+        "One fix is iterative decomposition: find the recalled parts, then their suppliers, then where they ship.",
+        "Each hop's result shapes the next search."
+      ]
+    },
+    {
+      "lines": [
+        "The other is GraphRAG: extract entities and relations into a graph up front.",
+        "Then the join becomes a graph traversal instead of a similarity search."
+      ],
+      "say": {
+        "0": "The other is graph rag: extract entities and relations into a graph up front."
+      }
+    },
+    {
+      "lines": [
+        "But a graph needs a big extraction pipeline and ongoing upkeep.",
+        "It pays off only when multi-hop, relational questions are the core workload."
+      ]
+    },
+    {
+      "lines": [
+        "Finally, Maya asks how many frames were returned last quarter.",
+        "That lives in a database, so the agent writes SQL rather than searching embedded rows."
+      ],
+      "say": {
+        "1": "That lives in a database, so the agent writes sequel rather than searching embedded rows."
+      }
+    },
+    {
+      "lines": [
+        "Guard text-to-SQL with a restricted schema, read-only credentials, validated queries, row limits, and timeouts.",
+        "And return the SQL with the answer so it can be checked."
+      ],
+      "say": {
+        "0": "Guard text-to-sequel with a restricted schema, read-only credentials, validated queries, row limits, and timeouts.",
+        "1": "And return the sequel with the answer so it can be checked."
+      }
+    },
+    {
+      "lines": [
+        "Exam tip: say knowledge graph only when explicit relationships must be traversed, like supply chains.",
+        "For find-the-passage questions it's over-engineering, so read on for the details."
+      ]
+    }
+  ]
+}

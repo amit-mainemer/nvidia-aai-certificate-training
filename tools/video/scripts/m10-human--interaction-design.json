@@ -1,0 +1,98 @@
+{
+  "module": "human",
+  "title": "Module 10 · Lesson 2 — Communicating uncertainty and designing against automation bias",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Module Ten, Lesson Two: communicating uncertainty, and designing against automation bias.",
+        "An oversight step that people rubber-stamp provides no oversight at all."
+      ]
+    },
+    {
+      "lines": [
+        "Picture a law firm where an AI assistant reviews contracts, and a paralegal named Sam checks each clause it marks as fine.",
+        "For months, the assistant is right, again and again."
+      ]
+    },
+    {
+      "lines": [
+        "So Sam stops reading and just clicks accept.",
+        "Then a risky auto-renewal clause gets a confident all-clear, and it slips straight through."
+      ]
+    },
+    {
+      "lines": [
+        "That's automation bias: the tendency to over-trust automated output and stop checking it.",
+        "It gets worse as the system gets better, so the fix has to live in the design."
+      ]
+    },
+    {
+      "lines": [
+        "First, show the evidence, not just the conclusion, so review is real rather than performative.",
+        "Then surface uncertainty, and make low-confidence clauses look different so they demand attention."
+      ]
+    },
+    {
+      "lines": [
+        "Require an active decision, with no pre-selected accept button, and ask for a brief reason on override.",
+        "Rotate and train reviewers on known failure cases, so they stay healthily doubtful."
+      ]
+    },
+    {
+      "lines": [
+        "Then sample-audit the approvals, and measure the override rate.",
+        "A rate near zero across thousands of reviews is evidence of rubber-stamping, not perfection."
+      ]
+    },
+    {
+      "lines": [
+        "Next, communicate confidence honestly.",
+        "Raw model probabilities are poorly calibrated, so never show them as precise percentages."
+      ]
+    },
+    {
+      "lines": [
+        "Better signals are retrieval scores, whether sources agree, and self-consistency across samples.",
+        "Show simple high, medium and low bands, tied to a calibrated threshold."
+      ]
+    },
+    {
+      "lines": [
+        "Language models sound fluent and sure whether they're right or not, so overconfident language is a design defect.",
+        "If the assistant can't answer well, it should say so, and point to someone who can help."
+      ]
+    },
+    {
+      "lines": [
+        "Transparency is both a regulatory expectation and good design.",
+        "Tell users they're talking to an AI, cite the sources, explain its limits, and show a visible route to a human."
+      ]
+    },
+    {
+      "lines": [
+        "For consequential decisions, add a documented appeal and override path.",
+        "A person must be able to contest the outcome, and reach someone with the authority to change it."
+      ]
+    },
+    {
+      "lines": [
+        "Finally, make feedback cheap and specific.",
+        "A thumbs-down tells you almost nothing, but quoted an outdated contract version tells you exactly where the pipeline failed."
+      ]
+    },
+    {
+      "lines": [
+        "Capture each correction against its trace ID, and tell the user what changed.",
+        "Then route it into the data flywheel, because human corrections are your best training and evaluation data."
+      ]
+    },
+    {
+      "lines": [
+        "On the exam, a near-zero override rate signals rubber-stamping, and options that always produce an answer are wrong.",
+        "Honest abstention beats a plausible invention, so read on for the full set of countermeasures."
+      ]
+    }
+  ]
+}

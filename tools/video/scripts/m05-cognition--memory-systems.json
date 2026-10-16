@@ -1,0 +1,92 @@
+{
+  "module": "cognition",
+  "title": "Module 5 · Lesson 3 — Memory: four types and how to build them",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Module Five, Lesson Three: the four types of memory.",
+        "The context window is working memory, and it is not enough."
+      ]
+    },
+    {
+      "lines": [
+        "Picture a running coach agent that chats with Maya every week.",
+        "Every week she repeats that she's vegetarian and training for a half marathon."
+      ]
+    },
+    {
+      "lines": [
+        "It has also forgotten the knee injury that stalled her last spring.",
+        "Agents need memory that outlasts the session, and it comes in four types."
+      ]
+    },
+    {
+      "lines": [
+        "Working memory is the context window: the goal, recent turns, the latest observations.",
+        "It is always there, because it is the prompt."
+      ]
+    },
+    {
+      "lines": [
+        "Semantic memory holds durable facts and preferences, like vegetarian.",
+        "It lives in a vector or key-value store, and is retrieved when relevant."
+      ]
+    },
+    {
+      "lines": [
+        "Episodic memory records specific past events and outcomes, like that injury.",
+        "It is recalled when a similar situation comes up again."
+      ]
+    },
+    {
+      "lines": [
+        "Procedural memory stores learned how-to, like the tool sequence that builds a good plan.",
+        "It sits in a skill registry, and is used when the task type matches."
+      ]
+    },
+    {
+      "lines": [
+        "Writing is the hard part, because saving every turn fills the store with noise.",
+        "A write policy keeps only durable facts, and deduplicates them."
+      ]
+    },
+    {
+      "lines": [
+        "When Maya goes vegan, the new fact contradicts the old one.",
+        "Supersede it with a timestamp, instead of keeping both and letting retrieval flip a coin."
+      ]
+    },
+    {
+      "lines": [
+        "Forgetting is a feature: age out unused entries, and let unreinforced facts decay.",
+        "Memory that only grows gets slower, costlier, and less accurate."
+      ]
+    },
+    {
+      "lines": [
+        "If Maya asks to be erased, that includes the agent's memory.",
+        "So memory is partitioned by user, with hard isolation on every read."
+      ]
+    },
+    {
+      "lines": [
+        "Memory is also an injection surface: text planted today can fire as an instruction tomorrow.",
+        "Sanitize on write, treat it as untrusted data on read, and never let it grant tool permissions."
+      ]
+    },
+    {
+      "lines": [
+        "Inside one long run, summaries replace old turns, and big tool results become short digests.",
+        "Key evidence goes at the start and end of the prompt."
+      ]
+    },
+    {
+      "lines": [
+        "On the exam, expect to place a need in one type: the customer's plan is semantic, a past outage is episodic.",
+        "A reusable query pattern is procedural, and the lesson below has the rest."
+      ]
+    }
+  ]
+}

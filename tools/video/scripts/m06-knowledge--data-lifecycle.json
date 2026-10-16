@@ -1,0 +1,96 @@
+{
+  "module": "knowledge",
+  "title": "Module 6 · Lesson 3 — Data quality, freshness and access control",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "A RAG system that was accurate at launch decays silently.",
+        "Freshness, permissions, and provenance are ongoing engineering, not setup steps."
+      ],
+      "say": {
+        "0": "A rag system that was accurate at launch decays silently."
+      }
+    },
+    {
+      "lines": [
+        "Picture an airline assistant that answers cabin crew questions from manuals and safety bulletins.",
+        "At launch, every answer checks out."
+      ]
+    },
+    {
+      "lines": [
+        "Six months later, it still quotes a retracted safety bulletin.",
+        "The bulletin was deleted at the source, but its chunks never left the index."
+      ]
+    },
+    {
+      "lines": [
+        "Nightly full rebuilds don't scale, and leave long windows of stale answers.",
+        "Instead, catch changes with webhooks or change-data-capture, and upsert each document by a stable ID."
+      ],
+      "say": {
+        "1": "Instead, catch changes with webhooks or change-data-capture, and up-sert each document by a stable I D."
+      }
+    },
+    {
+      "lines": [
+        "Deletions are tombstoned, so removed content stops being retrievable immediately.",
+        "Every chunk also carries a version and timestamp, so answers prefer the current revision."
+      ]
+    },
+    {
+      "lines": [
+        "Incident reports are for the safety team only, so every chunk gets access metadata at ingestion.",
+        "The vector search is then limited to what this user may see."
+      ]
+    },
+    {
+      "lines": [
+        "Filtering after retrieval leaks what exists, through rankings and result counts.",
+        "Where isolation must be absolute, use separate collections or namespaces per tenant."
+      ]
+    },
+    {
+      "lines": [
+        "Permissions also change: a purser who left the safety team last week shouldn't still see its reports.",
+        "So check access at query time, against current permissions, not ones baked into the index."
+      ]
+    },
+    {
+      "lines": [
+        "The corpus contradicts itself too: an old rule and its replacement, a regional variant and a global default.",
+        "Metadata like effective date, status, and authority lets ranking prefer the authoritative one."
+      ]
+    },
+    {
+      "lines": [
+        "The model should surface conflicts rather than silently pick one.",
+        "For example: the current rule from June says this, but the superseded one said that."
+      ]
+    },
+    {
+      "lines": [
+        "Incident reports also hold passenger names and phone numbers.",
+        "Redact or tokenise them at ingestion, because anything embedded is effectively distributed."
+      ]
+    },
+    {
+      "lines": [
+        "NeMo Curator detects and redacts personal data at scale.",
+        "And if data can't leave your trust boundary, redact at the boundary or self-host with NIM."
+      ],
+      "say": {
+        "0": "Nemo Curator detects and redacts personal data at scale.",
+        "1": "And if data can't leave your trust boundary, redact at the boundary or self-host with nim."
+      }
+    },
+    {
+      "lines": [
+        "Classic exam trap: a retracted policy keeps getting cited because the deletion never reached the index.",
+        "The fix is deletion propagation, and the lesson below shows how."
+      ]
+    }
+  ]
+}

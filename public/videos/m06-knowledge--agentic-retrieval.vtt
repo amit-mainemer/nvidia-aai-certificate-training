@@ -1,0 +1,141 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:03.760
+Single-shot RAG assumes the question is a good search query,
+
+2
+00:00:03.810 --> 00:00:05.690
+and that one retrieval is enough.
+
+3
+00:00:06.020 --> 00:00:09.938
+Both often fail, so agentic retrieval is the standard upgrade.
+
+4
+00:00:10.738 --> 00:00:15.061
+Meet Maya, an analyst at a bicycle maker, using the company assistant.
+
+5
+00:00:15.391 --> 00:00:19.416
+She asks what the warranty says about cracked frames, and gets a great answer.
+
+6
+00:00:20.216 --> 00:00:22.513
+Then she types: and what about the carbon one?
+
+7
+00:00:22.843 --> 00:00:25.758
+Searched literally, that phrase matches nothing useful.
+
+8
+00:00:26.558 --> 00:00:28.682
+So the agent first rewrites the query,
+
+9
+00:00:28.732 --> 00:00:31.372
+resolving the carbon one from the chat history.
+
+10
+00:00:31.702 --> 00:00:35.172
+It also splits compound questions and tries paraphrases.
+
+11
+00:00:35.972 --> 00:00:38.745
+Next, it picks the right source: product docs,
+
+12
+00:00:38.795 --> 00:00:41.383
+ticket history, a SQL database, or the web.
+
+13
+00:00:41.713 --> 00:00:43.562
+It doesn't always hit the same index.
+
+14
+00:00:44.362 --> 00:00:48.536
+Before answering, it grades the results: do they actually answer the question?
+
+15
+00:00:48.866 --> 00:00:51.739
+If not, it rewrites the query and retrieves again.
+
+16
+00:00:52.539 --> 00:00:56.649
+This grade, rewrite, retry loop is the single most valuable addition.
+
+17
+00:00:56.979 --> 00:01:01.046
+Cap it at two or three rounds, then answer with what you have, or say you can't.
+
+18
+00:01:01.846 --> 00:01:06.873
+Now Maya asks which suppliers of parts in the recalled batch also ship to EU plants.
+
+19
+00:01:07.203 --> 00:01:11.121
+No single chunk holds that answer: it's a join across documents.
+
+20
+00:01:11.921 --> 00:01:15.326
+One fix is iterative decomposition: find the recalled parts,
+
+21
+00:01:15.376 --> 00:01:17.802
+then their suppliers, then where they ship.
+
+22
+00:01:18.132 --> 00:01:20.109
+Each hop's result shapes the next search.
+
+23
+00:01:20.909 --> 00:01:25.381
+The other is GraphRAG: extract entities and relations into a graph up front.
+
+24
+00:01:25.711 --> 00:01:29.736
+Then the join becomes a graph traversal instead of a similarity search.
+
+25
+00:01:30.536 --> 00:01:34.219
+But a graph needs a big extraction pipeline and ongoing upkeep.
+
+26
+00:01:34.549 --> 00:01:39.129
+It pays off only when multi-hop, relational questions are the core workload.
+
+27
+00:01:39.929 --> 00:01:43.420
+Finally, Maya asks how many frames were returned last quarter.
+
+28
+00:01:43.750 --> 00:01:45.225
+That lives in a database,
+
+29
+00:01:45.275 --> 00:01:48.884
+so the agent writes SQL rather than searching embedded rows.
+
+30
+00:01:49.684 --> 00:01:52.436
+Guard text-to-SQL with a restricted schema,
+
+31
+00:01:52.486 --> 00:01:56.802
+read-only credentials, validated queries, row limits, and timeouts.
+
+32
+00:01:57.132 --> 00:01:59.962
+And return the SQL with the answer so it can be checked.
+
+33
+00:02:00.762 --> 00:02:05.827
+Exam tip: say knowledge graph only when explicit relationships must be traversed,
+
+34
+00:02:05.877 --> 00:02:07.027
+like supply chains.
+
+35
+00:02:07.357 --> 00:02:12.000
+For find-the-passage questions it's over-engineering, so read on for the details.

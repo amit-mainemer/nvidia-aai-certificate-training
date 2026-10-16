@@ -1,0 +1,145 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:04.666
+Welcome to Module Nine, Lesson One: guardrails and the five rail types.
+
+2
+00:00:04.996 --> 00:00:08.210
+Guardrails are runtime checks between your app and the model.
+
+3
+00:00:09.010 --> 00:00:13.696
+Picture PetPal, an online pet pharmacy whose support agent can issue refunds.
+
+4
+00:00:14.026 --> 00:00:16.152
+In its first week, three things go wrong.
+
+5
+00:00:16.952 --> 00:00:19.462
+It happily compares prices with a rival store.
+
+6
+00:00:19.792 --> 00:00:22.857
+Then someone talks it into a nine-hundred-dollar refund.
+
+7
+00:00:23.657 --> 00:00:26.871
+It even repeats a stranger's address from a retrieved note.
+
+8
+00:00:27.201 --> 00:00:29.945
+The only control was a polite line in the prompt.
+
+9
+00:00:30.745 --> 00:00:33.362
+Guardrails put checks at five points around the model.
+
+10
+00:00:33.692 --> 00:00:36.076
+NeMo Guardrails calls them the input,
+
+11
+00:00:36.126 --> 00:00:39.167
+dialog, retrieval, execution, and output rails.
+
+12
+00:00:39.967 --> 00:00:43.416
+The input rail runs before the model sees the user's message.
+
+13
+00:00:43.746 --> 00:00:47.579
+It catches jailbreaks, redacts personal data, and restricts topics.
+
+14
+00:00:48.379 --> 00:00:51.529
+The dialog rail keeps conversations on approved paths.
+
+15
+00:00:51.859 --> 00:00:54.612
+The retrieval rail screens retrieved chunks for
+
+16
+00:00:54.662 --> 00:00:57.953
+sensitive or injected text before they enter the prompt.
+
+17
+00:00:58.753 --> 00:01:01.327
+The execution rail wraps every tool call.
+
+18
+00:01:01.657 --> 00:01:04.867
+It restricts which tools may run, validates arguments,
+
+19
+00:01:04.917 --> 00:01:07.644
+and requires approval for high-impact actions.
+
+20
+00:01:08.444 --> 00:01:11.658
+The output rail checks the response before the user sees it.
+
+21
+00:01:11.988 --> 00:01:16.738
+It filters toxicity and personal data, checks grounding, and enforces format.
+
+22
+00:01:17.538 --> 00:01:20.891
+So for PetPal, competitor questions hit the input rail,
+
+23
+00:01:20.941 --> 00:01:23.056
+and big refunds the execution rail.
+
+24
+00:01:23.386 --> 00:01:27.667
+The leaked address belongs on the retrieval rail, with output as a backstop.
+
+25
+00:01:28.467 --> 00:01:32.790
+Rails are written in Colang, as user intents, bot responses, and flows.
+
+26
+00:01:33.120 --> 00:01:36.910
+If you see define user or define flow, think NeMo Guardrails.
+
+27
+00:01:37.710 --> 00:01:40.284
+But guardrails are one layer, not the whole answer.
+
+28
+00:01:40.614 --> 00:01:44.681
+Defence in depth stacks independent controls, because any one can fail.
+
+29
+00:01:45.481 --> 00:01:47.928
+For a sensitive action, name an input rail,
+
+30
+00:01:47.978 --> 00:01:51.469
+server-side tool permissions, and approval on the risky step.
+
+31
+00:01:51.799 --> 00:01:53.861
+Add an output rail and an audit record.
+
+32
+00:01:54.661 --> 00:01:57.704
+Rails add latency, since some checks are model calls.
+
+33
+00:01:58.034 --> 00:02:00.986
+Run cheap checks like regex and allow-lists first,
+
+34
+00:02:01.036 --> 00:02:03.147
+and save model checks for judgement.
+
+35
+00:02:03.947 --> 00:02:08.057
+On the exam, expect one requirement with all five rails as options.
+
+36
+00:02:08.387 --> 00:02:10.577
+Ask where the check must run, then read on.

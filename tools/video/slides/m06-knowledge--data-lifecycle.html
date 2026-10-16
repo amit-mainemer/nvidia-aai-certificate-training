@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module 6 · Lesson 3 slides — data lifecycle</title>
+<link rel="stylesheet" href="base.css">
+</head>
+<body>
+
+<!-- local symbols -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="chunk" viewBox="0 0 300 70">
+      <rect x="0" y="0" width="300" height="70" rx="18" fill="var(--card,#fff)"/>
+      <rect x="0" y="0" width="22" height="70" rx="8" fill="var(--tag,#7c5cff)"/>
+      <rect x="44" y="18" width="200" height="12" rx="6" fill="var(--lines,#c9cfe6)"/>
+      <rect x="44" y="42" width="150" height="12" rx="6" fill="var(--lines,#c9cfe6)"/>
+    </symbol>
+    <symbol id="plane" viewBox="0 0 200 120">
+      <path d="M10 70 L190 50 Q200 60 190 70 L10 80 Z" fill="var(--body,#fff)"/>
+      <path d="M80 66 L130 10 L150 10 L120 64 Z" fill="var(--body,#fff)"/>
+      <path d="M90 74 L130 115 L150 115 L125 74 Z" fill="var(--body,#fff)"/>
+      <path d="M10 70 L0 40 L20 40 L40 68 Z" fill="var(--body,#fff)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- 1 · title: silent decay -->
+<section class="slide t-night" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Module 6 · Lesson 3</span><h1>RAG <em>quietly goes stale</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#database" x="200" y="420" width="260" height="295"/>
+    <use href="sprites.svg#chart-down" x="520" y="460" width="280" height="210"/>
+    <use href="sprites.svg#clock" x="610" y="340" width="120" height="120"/>
+    <g>
+      <rect x="980" y="380" width="800" height="130" rx="34" fill="#fff" opacity=".12"/>
+      <rect x="980" y="550" width="800" height="130" rx="34" fill="#fff" opacity=".12"/>
+      <rect x="980" y="720" width="800" height="130" rx="34" fill="#fff" opacity=".12"/>
+    </g>
+    <use href="sprites.svg#clock" x="1010" y="395" width="100" height="100"/>
+    <use href="sprites.svg#lock" x="1020" y="560" width="88" height="110"/>
+    <use href="sprites.svg#doc" x="1020" y="730" width="90" height="111"/>
+    <g font-size="48" font-weight="900" fill="#fff"><text x="1150" y="462">Freshness</text><text x="1150" y="632">Permissions</text><text x="1150" y="802">Provenance</text></g>
+  </svg>
+  <div class="lbl violet" style="left:470px; top:810px">Accurate at launch… then not</div>
+  <div class="lbl amber sm" style="left:1610px; top:380px">ongoing engineering</div>
+</section>
+
+<!-- 2 · the airline assistant -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">A real-world case</span><h1>An assistant for <em>cabin crew</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="#plane" x="1400" y="330" width="320" height="192" style="--body:#fff"/>
+    <use href="sprites.svg#person" x="160" y="500" width="170" height="340" style="--shirt:#1f6fbf"/>
+    <use href="sprites.svg#chat" x="330" y="420" width="170" height="134" style="--dot:#1f6fbf"/>
+    <use href="sprites.svg#robot" x="640" y="520" width="220" height="289" style="--body:#22b8a6"/>
+    <path d="M520 660 L620 660" stroke="#1d2340" stroke-width="8" stroke-dasharray="4 14" stroke-linecap="round"/>
+    <path d="M880 660 L1010 660" stroke="#1d2340" stroke-width="8" stroke-dasharray="4 14" stroke-linecap="round"/>
+    <rect x="1030" y="560" width="760" height="300" rx="34" fill="#fff"/>
+    <use href="sprites.svg#book" x="1080" y="610" width="230" height="176"/>
+    <use href="sprites.svg#doc" x="1380" y="600" width="130" height="160"/>
+    <use href="sprites.svg#doc" x="1440" y="630" width="130" height="160"/>
+    <use href="sprites.svg#warn" x="1600" y="640" width="130" height="115"/>
+    <use href="sprites.svg#check" x="790" y="460" width="100" height="100"/>
+  </svg>
+  <div class="lbl dark" style="left:1410px; top:900px">Manuals + safety bulletins</div>
+  <div class="lbl green" style="left:750px; top:880px">Every answer checks out</div>
+</section>
+
+<!-- 3 · the zombie bulletin -->
+<section class="slide t-coral" style="--accent:#d6335a">
+  <div class="cap"><span class="eyebrow">Six months later</span><h1>Quoting a <em>retracted bulletin</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="130" y="370" width="440" height="460" rx="34" fill="#fff"/>
+    <text x="350" y="430" text-anchor="middle" font-size="30" font-weight="900" fill="#d6335a" letter-spacing="2">SOURCE</text>
+    <use href="sprites.svg#doc" x="270" y="470" width="160" height="197" opacity=".35"/>
+    <use href="sprites.svg#cross" x="290" y="510" width="120" height="120"/>
+    <text x="350" y="760" text-anchor="middle" font-size="36" font-weight="800" fill="#1d2340">deleted</text>
+    <rect x="680" y="370" width="560" height="460" rx="34" fill="#fff"/>
+    <text x="960" y="430" text-anchor="middle" font-size="30" font-weight="900" fill="#d6335a" letter-spacing="2">INDEX</text>
+    <use href="#chunk" x="760" y="470" width="400" height="93" style="--tag:#22b8a6"/>
+    <use href="#chunk" x="760" y="580" width="400" height="93" style="--tag:#ff5d73;--card:#ffe3e8"/>
+    <use href="#chunk" x="760" y="690" width="400" height="93" style="--tag:#ff5d73;--card:#ffe3e8"/>
+    <use href="sprites.svg#arrow" x="1260" y="590" width="130" height="39" style="--body:#fff"/>
+    <use href="sprites.svg#robot" x="1420" y="480" width="200" height="263" style="--body:#22b8a6"/>
+    <use href="sprites.svg#chat" x="1600" y="380" width="190" height="150" style="--dot:#ff5d73"/>
+    <use href="sprites.svg#warn" x="1640" y="600" width="140" height="124"/>
+  </svg>
+  <div class="lbl red" style="left:960px; top:880px">Its chunks never left</div>
+  <div class="lbl dark" style="left:1560px; top:880px">Confidently wrong</div>
+</section>
+
+<!-- 4 · incremental sync -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">Freshness</span><h1>Sync changes, <em>not the world</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="130" y="370" width="620" height="480" rx="34" fill="#fff"/>
+    <text x="440" y="430" text-anchor="middle" font-size="30" font-weight="900" fill="#c25e00" letter-spacing="2">NIGHTLY FULL REBUILD</text>
+    <use href="sprites.svg#clock" x="190" y="480" width="170" height="170" style="--rim:#c25e00"/>
+    <use href="sprites.svg#hourglass" x="400" y="480" width="110" height="160"/>
+    <use href="sprites.svg#cross" x="560" y="500" width="130" height="130"/>
+    <g font-size="32" font-weight="800" fill="#1d2340" text-anchor="middle"><text x="440" y="730">doesn't scale</text><text x="440" y="780">long stale windows</text></g>
+    <!-- event driven -->
+    <use href="sprites.svg#doc" x="860" y="460" width="150" height="185"/>
+    <use href="sprites.svg#envelope" x="1020" y="470" width="120" height="87"/>
+    <use href="sprites.svg#arrow" x="1140" y="520" width="160" height="48" style="--body:#1d2340"/>
+    <use href="sprites.svg#database" x="1330" y="420" width="220" height="249"/>
+    <rect x="1290" y="710" width="500" height="90" rx="45" fill="#1d2340"/>
+    <text x="1540" y="768" text-anchor="middle" font-family="Menlo, monospace" font-size="32" font-weight="700" fill="#ffcf4a">upsert id=bulletin-14</text>
+  </svg>
+  <div class="lbl dark" style="left:1000px; top:720px">Webhook / CDC</div>
+  <div class="lbl green" style="left:1540px; top:880px">Stable ID per document</div>
+</section>
+
+<!-- 5 · tombstones and versions -->
+<section class="slide t-mint" style="--accent:#128c5e">
+  <div class="cap"><span class="eyebrow">Deletes and versions</span><h1><em>Tombstone</em> deletions</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="130" y="360" width="760" height="500" rx="34" fill="#fff"/>
+    <use href="#chunk" x="190" y="420" width="450" height="105" style="--card:#eef7f2;--tag:#22b8a6"/>
+    <use href="#chunk" x="190" y="560" width="450" height="105" style="--card:#eef7f2;--tag:#ff5d73"/>
+    <use href="#chunk" x="190" y="700" width="450" height="105" style="--card:#eef7f2;--tag:#22b8a6"/>
+    <line x1="180" y1="612" x2="650" y2="612" stroke="#ff5d73" stroke-width="10" stroke-linecap="round"/>
+    <use href="sprites.svg#flag" x="680" y="530" width="90" height="120"/>
+    <text x="760" y="700" text-anchor="middle" font-size="30" font-weight="900" fill="#ff5d73">deleted</text>
+    <!-- versions -->
+    <rect x="990" y="360" width="800" height="500" rx="34" fill="#fff"/>
+    <rect x="1050" y="430" width="680" height="140" rx="26" fill="#d9f5e6" stroke="#22c55e" stroke-width="6"/>
+    <rect x="1050" y="620" width="680" height="140" rx="26" fill="#f1f1f4"/>
+    <g font-size="40" font-weight="900"><text x="1090" y="495" fill="#1d2340">v3 · 2026-06-01</text><text x="1090" y="685" fill="#9aa0b8">v2 · 2025-11-12</text></g>
+    <g font-size="30" font-weight="800"><text x="1090" y="540" fill="#128c5e">current revision</text><text x="1090" y="730" fill="#9aa0b8">older</text></g>
+    <use href="sprites.svg#check" x="1620" y="460" width="80" height="80"/>
+  </svg>
+  <div class="lbl red" style="left:510px; top:900px">Gone from retrieval, now</div>
+  <div class="lbl teal" style="left:1390px; top:900px">Answers prefer the latest</div>
+</section>
+
+<!-- 6 · access metadata at ingestion -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Permissions</span><h1>Filter <em>inside</em> the search</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#doc" x="140" y="440" width="150" height="185"/>
+    <use href="sprites.svg#lock" x="230" y="560" width="80" height="100" style="--body:#ff5d73"/>
+    <use href="sprites.svg#arrow" x="320" y="530" width="120" height="36" style="--body:#1d2340"/>
+    <rect x="460" y="360" width="620" height="500" rx="34" fill="#fff"/>
+    <use href="#chunk" x="500" y="410" width="360" height="84" style="--tag:#22b8a6"/>
+    <use href="#chunk" x="500" y="520" width="360" height="84" style="--tag:#ff5d73"/>
+    <use href="#chunk" x="500" y="630" width="360" height="84" style="--tag:#22b8a6"/>
+    <use href="#chunk" x="500" y="740" width="360" height="84" style="--tag:#ff5d73"/>
+    <g font-size="26" font-weight="900"><text x="880" y="462" fill="#128c5e">all crew</text><text x="880" y="572" fill="#d6335a">safety team</text><text x="880" y="682" fill="#128c5e">all crew</text><text x="880" y="792" fill="#d6335a">safety team</text></g>
+    <use href="sprites.svg#arrow" x="1100" y="580" width="120" height="36" style="--body:#1d2340"/>
+    <use href="sprites.svg#person" x="1260" y="460" width="160" height="320" style="--shirt:#1f6fbf"/>
+    <use href="sprites.svg#magnifier" x="1430" y="380" width="120" height="120"/>
+    <use href="#chunk" x="1460" y="560" width="320" height="75" style="--tag:#22b8a6"/>
+    <use href="#chunk" x="1460" y="660" width="320" height="75" style="--tag:#22b8a6"/>
+  </svg>
+  <div class="lbl violet" style="left:260px; top:720px">Tag at ingestion</div>
+  <div class="lbl teal" style="left:1580px; top:820px">Only what she may see</div>
+</section>
+
+<!-- 7 · post-filter leaks / namespaces -->
+<section class="slide t-rose" style="--accent:#d6336c">
+  <div class="cap"><span class="eyebrow">Beware</span><h1>Filtering after <em>still leaks</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="130" y="360" width="800" height="500" rx="34" fill="#fff"/>
+    <g font-size="42" font-weight="900" fill="#1d2340"><text x="190" y="450">Top 10 results</text></g>
+    <g><rect x="190" y="490" width="80" height="60" rx="12" fill="#22b8a6"/><rect x="290" y="490" width="80" height="60" rx="12" fill="#cfd3e3"/><rect x="390" y="490" width="80" height="60" rx="12" fill="#22b8a6"/><rect x="490" y="490" width="80" height="60" rx="12" fill="#cfd3e3"/><rect x="590" y="490" width="80" height="60" rx="12" fill="#22b8a6"/><rect x="690" y="490" width="80" height="60" rx="12" fill="#cfd3e3"/></g>
+    <g font-size="36" font-weight="800" fill="#4a5275"><text x="190" y="650">Shown: 7</text><text x="190" y="710">Hidden: 3 …</text></g>
+    <use href="sprites.svg#eye" x="560" y="610" width="230" height="149"/>
+    <!-- namespaces -->
+    <rect x="1010" y="360" width="780" height="500" rx="34" fill="#fff"/>
+    <rect x="1060" y="420" width="320" height="380" rx="26" fill="#ffe3ec" stroke="#d6336c" stroke-width="6"/>
+    <rect x="1420" y="420" width="320" height="380" rx="26" fill="#e3ecff" stroke="#1f6fbf" stroke-width="6"/>
+    <use href="sprites.svg#database" x="1155" y="470" width="130" height="147"/>
+    <use href="sprites.svg#database" x="1515" y="470" width="130" height="147" style="--body:#5cc8ff"/>
+    <g font-size="34" font-weight="900" text-anchor="middle"><text x="1220" y="700" fill="#d6336c">Tenant A</text><text x="1580" y="700" fill="#1f6fbf">Tenant B</text></g>
+    <use href="sprites.svg#lock" x="1182" y="720" width="60" height="75"/>
+    <use href="sprites.svg#lock" x="1542" y="720" width="60" height="75"/>
+  </svg>
+  <div class="lbl red" style="left:530px; top:900px">Rankings and counts reveal</div>
+  <div class="lbl dark" style="left:1400px; top:900px">Separate namespaces</div>
+</section>
+
+<!-- 8 · permissions change -->
+<section class="slide t-teal" style="--accent:#0b7f75">
+  <div class="cap"><span class="eyebrow">Permissions change</span><h1>Check access <em>at query time</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#person" x="160" y="460" width="180" height="360" style="--shirt:#ff6f9c"/>
+    <rect x="370" y="420" width="430" height="150" rx="30" fill="#fff"/>
+    <text x="585" y="485" text-anchor="middle" font-size="36" font-weight="900" fill="#1d2340" text-decoration="line-through">Safety team</text>
+    <text x="585" y="535" text-anchor="middle" font-size="28" font-weight="800" fill="#d6335a">left last week</text>
+    <use href="sprites.svg#chat" x="400" y="620" width="170" height="134" style="--dot:#ff6f9c"/>
+    <use href="sprites.svg#arrow" x="830" y="620" width="140" height="42" style="--body:#fff"/>
+    <use href="sprites.svg#shield" x="1000" y="470" width="190" height="219"/>
+    <rect x="1250" y="370" width="540" height="200" rx="34" fill="#fff"/>
+    <use href="sprites.svg#clock" x="1290" y="405" width="130" height="130" style="--rim:#0b7f75"/>
+    <g font-size="36" font-weight="900" fill="#1d2340"><text x="1450" y="460">Current</text><text x="1450" y="510">permissions</text></g>
+    <rect x="1250" y="620" width="540" height="200" rx="34" fill="#fff" opacity=".9"/>
+    <use href="sprites.svg#database" x="1290" y="650" width="110" height="125"/>
+    <use href="sprites.svg#cross" x="1350" y="700" width="80" height="80"/>
+    <g font-size="34" font-weight="800" fill="#4a5275"><text x="1450" y="710">Baked into</text><text x="1450" y="760">the index</text></g>
+  </svg>
+  <div class="lbl amber" style="left:1095px; top:780px">Every query</div>
+  <div class="lbl dark" style="left:250px; top:880px">Purser</div>
+</section>
+
+<!-- 9 · conflicting sources -->
+<section class="slide t-sand" style="--accent:#b5541c">
+  <div class="cap"><span class="eyebrow">Provenance</span><h1>The corpus <em>contradicts itself</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g>
+      <rect x="130" y="370" width="340" height="200" rx="28" fill="#fff" opacity=".7"/>
+      <rect x="500" y="370" width="340" height="200" rx="28" fill="#fff"/>
+      <rect x="130" y="620" width="340" height="200" rx="28" fill="#fff"/>
+      <rect x="500" y="620" width="340" height="200" rx="28" fill="#fff"/>
+    </g>
+    <g font-size="34" font-weight="900" text-anchor="middle"><text x="300" y="460" fill="#9aa0b8">Old rule</text><text x="670" y="460" fill="#1d2340">New rule</text><text x="300" y="710" fill="#1d2340">Regional</text><text x="670" y="710" fill="#1d2340">Global default</text></g>
+    <g font-size="44" font-weight="900" fill="#b5541c" text-anchor="middle"><text x="485" y="485">≠</text><text x="485" y="735">≠</text></g>
+    <g fill="#efe6da"><rect x="180" y="490" width="240" height="20" rx="10"/><rect x="550" y="490" width="240" height="20" rx="10"/><rect x="180" y="740" width="240" height="20" rx="10"/><rect x="550" y="740" width="240" height="20" rx="10"/></g>
+    <use href="sprites.svg#arrow" x="880" y="575" width="150" height="45" style="--body:#1d2340"/>
+    <rect x="1060" y="370" width="730" height="450" rx="34" fill="#fff"/>
+    <text x="1425" y="435" text-anchor="middle" font-size="30" font-weight="900" fill="#b5541c" letter-spacing="2">METADATA FOR RANKING</text>
+    <g fill="#fdf1e4"><rect x="1110" y="470" width="630" height="90" rx="45"/><rect x="1110" y="585" width="630" height="90" rx="45"/><rect x="1110" y="700" width="630" height="90" rx="45"/></g>
+    <use href="sprites.svg#clock" x="1130" y="485" width="60" height="60" style="--rim:#b5541c"/>
+    <use href="sprites.svg#flag" x="1137" y="597" width="50" height="67"/>
+    <use href="sprites.svg#shield" x="1135" y="712" width="56" height="65"/>
+    <g font-size="36" font-weight="800" fill="#1d2340"><text x="1220" y="528">Effective date</text><text x="1220" y="643">Status: current / superseded</text><text x="1220" y="758">Authority</text></g>
+  </svg>
+  <div class="lbl green" style="left:1425px; top:880px">Prefer the authoritative one</div>
+</section>
+
+<!-- 10 · surface conflicts -->
+<section class="slide t-ocean" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Be honest</span><h1>Surface the <em>conflict</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#robot" x="160" y="470" width="220" height="289" style="--body:#22b8a6"/>
+    <path d="M400 560 L 470 600 L 400 640 Z" fill="#fff"/>
+    <rect x="470" y="370" width="1320" height="460" rx="40" fill="#fff"/>
+    <rect x="530" y="430" width="1200" height="160" rx="28" fill="#e3f7ec"/>
+    <rect x="530" y="620" width="1200" height="160" rx="28" fill="#f1f1f4"/>
+    <use href="sprites.svg#check" x="560" y="470" width="80" height="80"/>
+    <use href="sprites.svg#clock" x="560" y="660" width="80" height="80" style="--rim:#9aa0b8"/>
+    <g font-size="44" font-weight="900"><text x="670" y="495" fill="#128c5e">Current rule (from June)</text><text x="670" y="685" fill="#6b7290">Superseded rule</text></g>
+    <g font-size="34" font-weight="800"><text x="670" y="555" fill="#1d2340">says this…</text><text x="670" y="745" fill="#6b7290">said that…</text></g>
+  </svg>
+  <div class="lbl red" style="left:1130px; top:900px">Not a silent pick</div>
+</section>
+
+<!-- 11 · PII redaction at ingestion -->
+<section class="slide t-plum" style="--accent:#7b2ff7">
+  <div class="cap"><span class="eyebrow">Personal data</span><h1><em>Redact</em> before you embed</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="130" y="370" width="460" height="460" rx="34" fill="#fff"/>
+    <text x="360" y="440" text-anchor="middle" font-size="30" font-weight="900" fill="#7b2ff7" letter-spacing="2">INCIDENT REPORT</text>
+    <g font-size="34" font-weight="800" fill="#1d2340"><text x="180" y="520">Passenger:</text><text x="180" y="620">Phone:</text></g>
+    <g font-size="34" font-weight="800" fill="#d6335a"><text x="385" y="520">J. Rivera</text><text x="300" y="620">+1 555 0142</text></g>
+    <g fill="#e6e1f4"><rect x="180" y="680" width="360" height="22" rx="11"/><rect x="180" y="730" width="300" height="22" rx="11"/></g>
+    <use href="sprites.svg#arrow" x="610" y="575" width="140" height="42" style="--body:#fff"/>
+    <rect x="770" y="370" width="460" height="460" rx="34" fill="#fff"/>
+    <text x="1000" y="440" text-anchor="middle" font-size="30" font-weight="900" fill="#7b2ff7" letter-spacing="2">INDEXED</text>
+    <g font-size="34" font-weight="800" fill="#1d2340"><text x="820" y="520">Passenger:</text><text x="820" y="620">Phone:</text></g>
+    <g fill="#1d2340"><rect x="1015" y="490" width="175" height="40" rx="8"/><rect x="950" y="590" width="250" height="40" rx="8"/></g>
+    <g fill="#e6e1f4"><rect x="820" y="680" width="360" height="22" rx="11"/><rect x="820" y="730" width="300" height="22" rx="11"/></g>
+    <!-- copies spread -->
+    <use href="sprites.svg#database" x="1320" y="380" width="140" height="159"/>
+    <use href="sprites.svg#cloud" x="1500" y="420" width="260" height="154" style="--body:#fff"/>
+    <use href="sprites.svg#laptop" x="1320" y="620" width="200" height="127"/>
+    <use href="sprites.svg#server" x="1600" y="600" width="120" height="168"/>
+  </svg>
+  <div class="lbl red" style="left:360px; top:880px">Names, phone numbers</div>
+  <div class="lbl violet" style="left:1000px; top:880px">Redact or tokenise</div>
+  <div class="lbl amber" style="left:1540px; top:860px">Embedded = distributed</div>
+</section>
+
+<!-- 12 · Curator, trust boundary, NIM -->
+<section class="slide t-sunrise" style="--accent:#d9480f">
+  <div class="cap"><span class="eyebrow">NVIDIA tooling</span><h1>Curator, and <em>a trust boundary</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="130" y="370" width="560" height="460" rx="34" fill="#fff"/>
+    <use href="sprites.svg#gear" x="190" y="430" width="180" height="180" style="--body:#76b900"/>
+    <use href="sprites.svg#magnifier" x="360" y="470" width="150" height="150"/>
+    <g><use href="sprites.svg#doc" x="530" y="430" width="90" height="111"/><use href="sprites.svg#doc" x="560" y="500" width="90" height="111"/></g>
+    <g fill="#1d2340"><rect x="190" y="680" width="160" height="34" rx="8"/><rect x="370" y="680" width="260" height="34" rx="8"/><rect x="190" y="740" width="300" height="34" rx="8"/></g>
+    <!-- trust boundary -->
+    <rect x="800" y="360" width="660" height="480" rx="40" fill="#fff" fill-opacity=".45" stroke="#d9480f" stroke-width="8" stroke-dasharray="22 14"/>
+    <use href="sprites.svg#gpu" x="840" y="420" width="280" height="182"/>
+    <use href="sprites.svg#database" x="1180" y="420" width="150" height="170"/>
+    <use href="sprites.svg#robot" x="1270" y="620" width="140" height="184" style="--body:#22b8a6"/>
+    <line x1="1460" y1="600" x2="1590" y2="600" stroke="#1d2340" stroke-width="10" stroke-dasharray="4 14" stroke-linecap="round"/>
+    <use href="sprites.svg#cloud" x="1580" y="520" width="220" height="130" style="--body:#fff"/>
+    <use href="sprites.svg#cross" x="1640" y="640" width="100" height="100"/>
+  </svg>
+  <div class="lbl green" style="left:410px; top:880px">NeMo Curator: PII at scale</div>
+  <div class="lbl dark" style="left:980px; top:660px">Self-hosted NIM</div>
+  <div class="lbl coral" style="left:1130px; top:880px">Trust boundary</div>
+</section>
+
+<!-- 13 · exam trap -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Exam trap</span><h1>Deletes must <em>reach the index</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="130" y="370" width="460" height="460" rx="34" fill="#fff"/>
+    <use href="sprites.svg#doc" x="270" y="420" width="170" height="209" opacity=".35"/>
+    <use href="sprites.svg#cross" x="290" y="460" width="130" height="130"/>
+    <text x="360" y="720" text-anchor="middle" font-size="38" font-weight="900" fill="#1d2340">Policy retracted</text>
+    <text x="360" y="775" text-anchor="middle" font-size="30" font-weight="800" fill="#4a5275">at the source</text>
+    <path d="M620 600 L 1180 600" stroke="#1f6fbf" stroke-width="14" stroke-linecap="round"/>
+    <polygon points="1180,575 1230,600 1180,625" fill="#1f6fbf"/>
+    <use href="sprites.svg#envelope" x="830" y="480" width="150" height="108"/>
+    <rect x="1260" y="370" width="530" height="460" rx="34" fill="#fff"/>
+    <use href="sprites.svg#database" x="1330" y="420" width="170" height="193"/>
+    <use href="sprites.svg#flag" x="1560" y="440" width="110" height="147"/>
+    <text x="1525" y="700" text-anchor="middle" font-size="38" font-weight="900" fill="#1d2340">Tombstoned</text>
+    <text x="1525" y="755" text-anchor="middle" font-size="30" font-weight="800" fill="#128c5e">no longer cited</text>
+  </svg>
+  <div class="lbl violet lg" style="left:905px; top:700px">Deletion propagation</div>
+</section>
+
+</body>
+</html>

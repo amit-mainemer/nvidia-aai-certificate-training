@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module 6 · Lesson 1 slides — The production RAG pipeline</title>
+<link rel="stylesheet" href="base.css">
+</head>
+<body>
+
+<!-- local shapes -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <marker id="ahInk" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1d2340"/></marker>
+    <marker id="ahWhite" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#ffffff"/></marker>
+    <marker id="ahRed" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#ff5d73"/></marker>
+    <marker id="ahGreen" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#16a34a"/></marker>
+    <!-- a small text chunk card -->
+    <symbol id="chunk" viewBox="0 0 120 80">
+      <rect x="0" y="0" width="120" height="80" rx="12" fill="var(--paper, #fff)"/>
+      <rect x="12" y="14" width="56" height="10" rx="5" fill="var(--accent, #7c5cff)"/>
+      <rect x="12" y="34" width="96" height="8" rx="4" fill="#b8c2de"/>
+      <rect x="12" y="52" width="76" height="8" rx="4" fill="#b8c2de"/>
+    </symbol>
+    <!-- vector: a scatter of dots -->
+    <symbol id="vec" viewBox="0 0 120 120">
+      <path d="M14 10 V106 H110" stroke="var(--ink, #1d2340)" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <circle cx="40" cy="74" r="10" fill="#7c5cff"/><circle cx="58" cy="52" r="10" fill="#22b8a6"/><circle cx="84" cy="36" r="10" fill="#ff7a59"/><circle cx="86" cy="76" r="10" fill="#ffb020"/>
+    </symbol>
+    <!-- a solar panel -->
+    <symbol id="solar" viewBox="0 0 220 120">
+      <polygon points="40,0 220,0 180,120 0,120" fill="#1f3f8f"/>
+      <g stroke="#8fd3fe" stroke-width="4"><path d="M93 0 L60 120 M146 0 L120 120 M30 40 H207 M17 80 H193"/></g>
+      <polygon points="40,0 220,0 180,120 0,120" fill="none" stroke="#c9d6f2" stroke-width="6"/>
+    </symbol>
+    <!-- a funnel -->
+    <symbol id="funnel" viewBox="0 0 200 220">
+      <path d="M8 14 H192 L122 110 V200 L78 180 V110 Z" fill="var(--body, #ffb020)"/>
+      <ellipse cx="100" cy="14" rx="92" ry="12" fill="var(--rim, #ffd36b)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- 1 · the pipeline -->
+<section class="slide t-night" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Module 6 · Lesson 1</span><h1>The pipeline, <em>stage by stage</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <path d="M180 640 H1740" stroke="#3a4f80" stroke-width="44" stroke-linecap="round"/>
+    <path d="M180 640 H1740" stroke="#7ff0d8" stroke-width="8" stroke-linecap="round" stroke-dasharray="2 30" opacity=".8"/>
+    <g fill="#fff">
+      <circle cx="180" cy="640" r="95"/><circle cx="440" cy="640" r="95"/><circle cx="700" cy="640" r="95"/><circle cx="960" cy="640" r="95"/>
+      <circle cx="1220" cy="640" r="95"/><circle cx="1480" cy="640" r="95"/><circle cx="1740" cy="640" r="95"/>
+    </g>
+    <use href="sprites.svg#doc" x="130" y="578" width="100" height="123" style="--accent:#ffb020"/>
+    <use href="#chunk" x="385" y="585" width="110" height="73" style="--accent:#22b8a6"/>
+    <use href="#chunk" x="395" y="625" width="110" height="73" style="--accent:#7c5cff"/>
+    <use href="#vec" x="648" y="588" width="104" height="104"/>
+    <use href="sprites.svg#database" x="910" y="580" width="100" height="113"/>
+    <use href="sprites.svg#magnifier" x="1168" y="588" width="104" height="104"/>
+    <use href="sprites.svg#chart-bar" x="1418" y="592" width="124" height="93"/>
+    <use href="sprites.svg#chat" x="1680" y="590" width="120" height="95" style="--body:#e9ecf8"/>
+    <g font-size="30" font-weight="900" fill="#1d2340" text-anchor="middle">
+      <circle cx="245" cy="565" r="28" fill="#ffb020"/><text x="245" y="576">1</text>
+      <circle cx="505" cy="565" r="28" fill="#ffb020"/><text x="505" y="576">2</text>
+      <circle cx="765" cy="565" r="28" fill="#ffb020"/><text x="765" y="576">3</text>
+      <circle cx="1025" cy="565" r="28" fill="#ffb020"/><text x="1025" y="576">4</text>
+      <circle cx="1285" cy="565" r="28" fill="#ffb020"/><text x="1285" y="576">5</text>
+      <circle cx="1545" cy="565" r="28" fill="#ffb020"/><text x="1545" y="576">6</text>
+      <circle cx="1805" cy="565" r="28" fill="#ffb020"/><text x="1805" y="576">7</text>
+    </g>
+    <!-- "hallucinated" crossed out -->
+    <rect x="1300" y="130" width="520" height="110" rx="26" fill="#fff"/>
+    <text x="1560" y="202" text-anchor="middle" font-size="40" font-weight="900" fill="#4a5275">"It hallucinated"</text>
+    <path d="M1335 188 H1785" stroke="#ff5d73" stroke-width="6" stroke-linecap="round"/>
+    <path d="M1400 250 Q1300 360 1245 520" fill="none" stroke="#ff5d73" stroke-width="8" stroke-dasharray="14 12" marker-end="url(#ahRed)"/>
+  </svg>
+  <div class="lbl red" style="left:1500px; top:390px">Usually retrieval</div>
+  <div class="lbl sm" style="left:180px; top:790px">Extract</div>
+  <div class="lbl sm" style="left:440px; top:790px">Chunk</div>
+  <div class="lbl sm" style="left:700px; top:790px">Embed</div>
+  <div class="lbl sm" style="left:960px; top:790px">Index</div>
+  <div class="lbl sm" style="left:1220px; top:790px">Retrieve</div>
+  <div class="lbl sm" style="left:1480px; top:790px">Rerank</div>
+  <div class="lbl sm" style="left:1740px; top:790px">Generate</div>
+</section>
+
+<!-- 2 · the solar technician -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">A real-world case</span><h1>A solar <em>field assistant</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- sun -->
+    <g transform="translate(1720 170)">
+      <g stroke="#ffb020" stroke-width="14" stroke-linecap="round"><path d="M0 -120 V-95 M0 95 V120 M-120 0 H-95 M95 0 H120 M-85 -85 L-67 -67 M67 67 L85 85 M-85 85 L-67 67 M67 -67 L85 -85"/></g>
+      <circle r="72" fill="#ffcf4a"/>
+    </g>
+    <!-- house with panels -->
+    <rect x="130" y="640" width="560" height="280" rx="10" fill="#fff"/>
+    <rect x="110" y="610" width="600" height="40" rx="12" fill="#5b6bb5"/>
+    <rect x="200" y="720" width="110" height="110" rx="10" fill="#8fd3fe"/><rect x="510" y="720" width="110" height="110" rx="10" fill="#8fd3fe"/>
+    <rect x="355" y="740" width="100" height="180" rx="10" fill="#5b6bb5"/>
+    <use href="#solar" x="140" y="520" width="170" height="93"/>
+    <use href="#solar" x="330" y="520" width="170" height="93"/>
+    <!-- technician on the roof -->
+    <use href="sprites.svg#person" x="540" y="340" width="135" height="270" style="--shirt:#ff7a59;--pants:#2c3350"/>
+    <path d="M572 372 Q572 330 608 330 Q644 330 644 372 Z" fill="#ffcf4a"/>
+    <rect x="562" y="366" width="92" height="12" rx="6" fill="#ffb020"/>
+    <!-- question -->
+    <use href="sprites.svg#chat" x="700" y="270" width="440" height="330" style="--dot:transparent"/>
+    <text x="920" y="390" text-anchor="middle" font-size="44" font-weight="900" fill="#1d2340">Torque for the</text>
+    <text x="920" y="445" text-anchor="middle" font-size="44" font-weight="900" fill="#1f6fbf">K2 clamp?</text>
+    <!-- assistant + manuals -->
+    <use href="sprites.svg#robot" x="1040" y="560" width="250" height="328" style="--body:#1f6fbf;--accent:#ffcf4a"/>
+    <use href="sprites.svg#book" x="1380" y="770" width="230" height="176" style="--left:#7c5cff;--right:#9d85ff"/>
+    <use href="sprites.svg#book" x="1580" y="740" width="230" height="176" style="--left:#22b8a6;--right:#5fd3c4"/>
+    <use href="sprites.svg#doc" x="1420" y="520" width="170" height="209" transform="rotate(-8 1505 625)" style="--accent:#ffb020"/>
+    <use href="sprites.svg#doc" x="1590" y="500" width="170" height="209" transform="rotate(7 1675 605)" style="--accent:#ff7a59"/>
+  </svg>
+  <div class="lbl dark" style="left:410px; top:960px">Field technician</div>
+  <div class="lbl" style="left:1600px; top:960px">Installation manuals</div>
+</section>
+
+<!-- 3 · confident, wrong -->
+<section class="slide t-coral" style="--accent:#d0314f">
+  <div class="cap"><span class="eyebrow">The symptom</span><h1>Confident, and <em>wrong</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#robot" x="130" y="500" width="270" height="354" style="--body:#1f6fbf;--accent:#ffcf4a"/>
+    <use href="sprites.svg#chat" x="330" y="310" width="470" height="340" style="--dot:transparent"/>
+    <text x="565" y="420" text-anchor="middle" font-size="46" font-weight="900" fill="#1d2340">Use</text>
+    <text x="565" y="495" text-anchor="middle" font-size="76" font-weight="900" fill="#d0314f">18 Nm</text>
+    <use href="sprites.svg#cross" x="720" y="300" width="110" height="110"/>
+    <!-- lost spec upstream -->
+    <rect x="900" y="330" width="440" height="520" rx="30" fill="#fff" opacity=".95"/>
+    <text x="1120" y="400" text-anchor="middle" font-size="34" font-weight="900" fill="#8a8fa8">The manual says</text>
+    <text x="1120" y="500" text-anchor="middle" font-size="96" font-weight="900" fill="#16a34a">12 Nm</text>
+    <path d="M940 560 H1300" stroke="#eadfe3" stroke-width="4"/>
+    <g font-size="30" font-weight="800" fill="#4a5275" font-family="Menlo, monospace">
+      <text x="940" y="630">K1 10 K2 12</text><text x="940" y="690">K3 15 Nm …</text>
+    </g>
+    <use href="sprites.svg#question" x="1200" y="700" width="110" height="110"/>
+    <!-- bigger model: no -->
+    <use href="sprites.svg#robot" x="1440" y="360" width="340" height="446" style="--body:#ff7a59;--accent:#ffb020"/>
+    <use href="sprites.svg#coins" x="1690" y="700" width="150" height="132"/>
+    <use href="sprites.svg#cross" x="1680" y="310" width="120" height="120"/>
+  </svg>
+  <div class="lbl dark" style="left:1120px; top:900px">Lost before the model</div>
+  <div class="lbl" style="left:1610px; top:900px">Bigger model?</div>
+</section>
+
+<!-- 4 · seven stages -->
+<section class="slide t-mint" style="--accent:#128c7e">
+  <div class="cap"><span class="eyebrow">The production pipeline</span><h1>Seven stages, <em>seven symptoms</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff">
+      <rect x="115" y="360" width="220" height="330" rx="28"/><rect x="360" y="360" width="220" height="330" rx="28"/><rect x="605" y="360" width="220" height="330" rx="28"/>
+      <rect x="850" y="360" width="220" height="330" rx="28"/><rect x="1095" y="360" width="220" height="330" rx="28"/><rect x="1340" y="360" width="220" height="330" rx="28"/><rect x="1585" y="360" width="220" height="330" rx="28"/>
+    </g>
+    <g font-size="30" font-weight="900" fill="#fff" text-anchor="middle">
+      <circle cx="225" cy="360" r="30" fill="#128c7e"/><text x="225" y="371">1</text>
+      <circle cx="470" cy="360" r="30" fill="#128c7e"/><text x="470" y="371">2</text>
+      <circle cx="715" cy="360" r="30" fill="#128c7e"/><text x="715" y="371">3</text>
+      <circle cx="960" cy="360" r="30" fill="#128c7e"/><text x="960" y="371">4</text>
+      <circle cx="1205" cy="360" r="30" fill="#128c7e"/><text x="1205" y="371">5</text>
+      <circle cx="1450" cy="360" r="30" fill="#128c7e"/><text x="1450" y="371">6</text>
+      <circle cx="1695" cy="360" r="30" fill="#128c7e"/><text x="1695" y="371">7</text>
+    </g>
+    <use href="sprites.svg#doc" x="170" y="420" width="110" height="135" style="--accent:#ffb020"/>
+    <use href="#chunk" x="405" y="430" width="130" height="87" style="--accent:#22b8a6"/>
+    <use href="#chunk" x="405" y="480" width="130" height="87" style="--accent:#7c5cff;--paper:#eef2fb"/>
+    <use href="#vec" x="655" y="430" width="120" height="120"/>
+    <use href="sprites.svg#database" x="900" y="425" width="120" height="136"/>
+    <use href="sprites.svg#magnifier" x="1145" y="425" width="120" height="120"/>
+    <use href="sprites.svg#chart-bar" x="1385" y="435" width="130" height="98"/>
+    <use href="sprites.svg#chat" x="1630" y="430" width="130" height="103" style="--body:#e3fbe9"/>
+    <g font-size="34" font-weight="900" fill="#1d2340" text-anchor="middle">
+      <text x="225" y="640">Extract</text><text x="470" y="640">Chunk</text><text x="715" y="640">Embed</text><text x="960" y="640">Index</text>
+      <text x="1205" y="640">Retrieve</text><text x="1450" y="640">Rerank</text><text x="1695" y="640">Generate</text>
+    </g>
+    <!-- symptom tags -->
+    <g fill="#1d2340">
+      <rect x="115" y="730" width="220" height="56" rx="28"/><rect x="360" y="730" width="220" height="56" rx="28"/><rect x="605" y="730" width="220" height="56" rx="28"/>
+      <rect x="850" y="730" width="220" height="56" rx="28"/><rect x="1095" y="730" width="220" height="56" rx="28"/><rect x="1340" y="730" width="220" height="56" rx="28"/><rect x="1585" y="730" width="220" height="56" rx="28"/>
+    </g>
+    <g font-size="23" font-weight="800" fill="#fff" text-anchor="middle">
+      <text x="225" y="766">Garbled tables</text><text x="470" y="766">Lost context</text><text x="715" y="766">Quiet recall loss</text><text x="960" y="766">Mixed vectors</text>
+      <text x="1205" y="766">Missed codes</text><text x="1450" y="766">Noisy top 5</text><text x="1695" y="766">Unsourced claims</text>
+    </g>
+    <g stroke="#128c7e" stroke-width="6" stroke-linecap="round" fill="none" opacity=".7">
+      <path d="M225 690 V728 M470 690 V728 M715 690 V728 M960 690 V728 M1205 690 V728 M1450 690 V728 M1695 690 V728"/>
+    </g>
+  </svg>
+  <div class="lbl teal" style="left:960px; top:870px">Each symptom points to a stage</div>
+</section>
+
+<!-- 5 · extraction -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Stage 1 · Extraction</span><h1>Extraction <em>loses the most</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- the PDF table -->
+    <rect x="110" y="340" width="500" height="540" rx="28" fill="#fff"/>
+    <rect x="150" y="375" width="90" height="44" rx="10" fill="#ff5d73"/><text x="195" y="407" text-anchor="middle" font-size="28" font-weight="900" fill="#fff">PDF</text>
+    <rect x="260" y="388" width="300" height="18" rx="9" fill="#d8def0"/>
+    <rect x="150" y="450" width="420" height="80" rx="10" fill="#7c5cff"/>
+    <g font-size="34" font-weight="900" fill="#fff" text-anchor="middle"><text x="255" y="502">Clamp</text><text x="465" y="502">Torque</text></g>
+    <g font-size="38" font-weight="800" fill="#1d2340" text-anchor="middle">
+      <text x="255" y="600">K1</text><text x="465" y="600">10 Nm</text>
+      <text x="255" y="700" fill="#6a45e8">K2</text><text x="465" y="700" fill="#6a45e8">12 Nm</text>
+      <text x="255" y="800">K3</text><text x="465" y="800">15 Nm</text>
+    </g>
+    <g stroke="#d8def0" stroke-width="4"><path d="M150 630 H570 M150 730 H570 M360 530 V840"/></g>
+    <!-- two paths -->
+    <path d="M630 560 C 720 470, 760 440, 870 440" fill="none" stroke="#1d2340" stroke-width="12" marker-end="url(#ahInk)"/>
+    <path d="M630 660 C 720 750, 760 780, 870 780" fill="none" stroke="#1d2340" stroke-width="12" marker-end="url(#ahInk)"/>
+    <!-- plain parser -> noise -->
+    <use href="sprites.svg#gear" x="900" y="370" width="140" height="140" style="--body:#9aa6c8"/>
+    <path d="M1060 440 H1130" stroke="#1d2340" stroke-width="12" marker-end="url(#ahInk)"/>
+    <rect x="1160" y="330" width="640" height="220" rx="26" fill="#fff"/>
+    <g font-size="38" font-weight="800" fill="#8a8fa8" font-family="Menlo, monospace">
+      <text x="1195" y="410">Clamp Torque K1 10</text><text x="1195" y="475">Nm K2 12 Nm K3 15…</text>
+    </g>
+    <use href="sprites.svg#cross" x="1730" y="290" width="100" height="100"/>
+    <!-- table-aware -> structure kept -->
+    <use href="sprites.svg#gear" x="900" y="710" width="140" height="140" style="--body:#22b8a6"/>
+    <path d="M1060 780 H1130" stroke="#1d2340" stroke-width="12" marker-end="url(#ahInk)"/>
+    <rect x="1160" y="640" width="640" height="250" rx="26" fill="#fff"/>
+    <rect x="1195" y="670" width="570" height="56" rx="10" fill="#22b8a6"/>
+    <g font-size="30" font-weight="900" fill="#fff"><text x="1225" y="708">Clamp</text><text x="1505" y="708">Torque</text></g>
+    <g font-size="32" font-weight="800" fill="#1d2340"><text x="1225" y="775">K2</text><text x="1505" y="775">12 Nm</text><text x="1225" y="850">K3</text><text x="1505" y="850">15 Nm</text></g>
+    <path d="M1195 795 H1765" stroke="#d8def0" stroke-width="4"/>
+    <use href="sprites.svg#check" x="1730" y="600" width="100" height="100"/>
+  </svg>
+  <div class="lbl dark sm" style="left:970px; top:560px">Plain text dump</div>
+  <div class="lbl teal sm" style="left:970px; top:900px">Table-aware parsing</div>
+  <div class="lbl violet" style="left:1480px; top:955px">NeMo Retriever extraction</div>
+</section>
+
+<!-- 6 · chunking + metadata -->
+<section class="slide t-amber" style="--accent:#b45309">
+  <div class="cap"><span class="eyebrow">Stage 2 · Chunking</span><h1>Chunks follow <em>the structure</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- the manual, cut at headings -->
+    <rect x="120" y="320" width="600" height="620" rx="28" fill="#fff"/>
+    <g font-size="34" font-weight="900" fill="#1d2340">
+      <text x="160" y="385">§ Mounting</text><text x="160" y="585">§ Torque table</text><text x="160" y="790">§ Wiring</text>
+    </g>
+    <g fill="#d8def0">
+      <rect x="160" y="410" width="500" height="14" rx="7"/><rect x="160" y="440" width="440" height="14" rx="7"/><rect x="160" y="470" width="480" height="14" rx="7"/>
+      <rect x="160" y="815" width="500" height="14" rx="7"/><rect x="160" y="845" width="420" height="14" rx="7"/><rect x="160" y="875" width="460" height="14" rx="7"/>
+    </g>
+    <rect x="160" y="605" width="500" height="120" rx="10" fill="#fff3d6" stroke="#ffb020" stroke-width="4"/>
+    <path d="M160 645 H660 M160 685 H660 M410 605 V725" stroke="#ffb020" stroke-width="4"/>
+    <!-- cut lines -->
+    <g stroke="#b45309" stroke-width="6" stroke-dasharray="18 12"><path d="M90 530 H750 M90 745 H750"/></g>
+    <!-- overlap band -->
+    <rect x="130" y="500" width="580" height="60" fill="#ff7a59" opacity=".22"/>
+    <rect x="130" y="715" width="580" height="60" fill="#ff7a59" opacity=".22"/>
+    <!-- arrow -->
+    <path d="M770 630 H930" stroke="#1d2340" stroke-width="14" marker-end="url(#ahInk)"/>
+    <!-- chunk with metadata -->
+    <rect x="980" y="330" width="820" height="570" rx="32" fill="#fff"/>
+    <rect x="980" y="330" width="820" height="96" rx="32" fill="#b45309"/>
+    <rect x="980" y="390" width="820" height="36" fill="#b45309"/>
+    <text x="1030" y="395" font-size="40" font-weight="900" fill="#fff">Chunk · Torque table</text>
+    <g fill="#d8def0"><rect x="1030" y="470" width="700" height="16" rx="8"/><rect x="1030" y="505" width="620" height="16" rx="8"/><rect x="1030" y="540" width="660" height="16" rx="8"/></g>
+    <g font-size="30" font-weight="800" fill="#fff" text-anchor="middle">
+      <rect x="1030" y="610" width="220" height="64" rx="32" fill="#7c5cff"/><text x="1140" y="652">source</text>
+      <rect x="1270" y="610" width="220" height="64" rx="32" fill="#22b8a6"/><text x="1380" y="652">section</text>
+      <rect x="1510" y="610" width="220" height="64" rx="32" fill="#ff7a59"/><text x="1620" y="652">date</text>
+      <rect x="1030" y="700" width="220" height="64" rx="32" fill="#ff5d73"/><text x="1140" y="742">access</text>
+      <rect x="1270" y="700" width="220" height="64" rx="32" fill="#1f6fbf"/><text x="1380" y="742">version</text>
+    </g>
+    <use href="sprites.svg#lock" x="1540" y="690" width="70" height="88"/>
+    <use href="sprites.svg#clock" x="1630" y="695" width="80" height="80"/>
+  </svg>
+  <div class="lbl coral sm" style="left:850px; top:520px">Small overlap</div>
+  <div class="lbl dark" style="left:1390px; top:850px">Metadata on every chunk</div>
+</section>
+
+<!-- 7 · chunk size + small-to-big -->
+<section class="slide t-sand" style="--accent:#b4541a">
+  <div class="cap"><span class="eyebrow">Chunk size</span><h1>Search small, <em>return big</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- too small -->
+    <rect x="130" y="380" width="480" height="460" rx="30" fill="#fff" opacity=".6"/>
+    <rect x="240" y="520" width="260" height="120" rx="18" fill="#fff" stroke="#ff5d73" stroke-width="5"/>
+    <text x="370" y="598" text-anchor="middle" font-size="52" font-weight="900" fill="#1d2340">12 Nm</text>
+    <use href="sprites.svg#question" x="450" y="440" width="100" height="100"/>
+    <text x="370" y="740" text-anchor="middle" font-size="32" font-weight="800" fill="#8a8fa8">for which clamp?</text>
+    <!-- too large -->
+    <rect x="700" y="340" width="500" height="540" rx="30" fill="#fff"/>
+    <g>
+      <rect x="740" y="380" width="420" height="16" rx="8" fill="#7c5cff"/><rect x="740" y="410" width="360" height="16" rx="8" fill="#d8def0"/>
+      <rect x="740" y="455" width="420" height="16" rx="8" fill="#22b8a6"/><rect x="740" y="485" width="380" height="16" rx="8" fill="#d8def0"/>
+      <rect x="740" y="530" width="420" height="16" rx="8" fill="#ff7a59"/><rect x="740" y="560" width="340" height="16" rx="8" fill="#d8def0"/>
+      <rect x="740" y="605" width="420" height="16" rx="8" fill="#ffb020"/><rect x="740" y="635" width="390" height="16" rx="8" fill="#d8def0"/>
+      <rect x="740" y="680" width="420" height="16" rx="8" fill="#1f6fbf"/><rect x="740" y="710" width="360" height="16" rx="8" fill="#d8def0"/>
+      <rect x="740" y="755" width="420" height="16" rx="8" fill="#ff5d73"/><rect x="740" y="785" width="300" height="16" rx="8" fill="#d8def0"/>
+    </g>
+    <circle cx="950" cy="600" r="120" fill="#b8c2de" opacity=".45"/>
+    <!-- small-to-big -->
+    <rect x="1290" y="340" width="520" height="540" rx="30" fill="#fff" opacity=".7"/>
+    <text x="1330" y="400" font-size="32" font-weight="900" fill="#8a8fa8">Parent section</text>
+    <g fill="#d8def0"><rect x="1330" y="430" width="440" height="16" rx="8"/><rect x="1330" y="460" width="400" height="16" rx="8"/><rect x="1330" y="700" width="440" height="16" rx="8"/><rect x="1330" y="730" width="380" height="16" rx="8"/><rect x="1330" y="760" width="420" height="16" rx="8"/></g>
+    <rect x="1320" y="510" width="460" height="150" rx="20" fill="#fff3d6" stroke="#b4541a" stroke-width="7"/>
+    <text x="1550" y="600" text-anchor="middle" font-size="40" font-weight="900" fill="#b4541a">K2 · 12 Nm</text>
+    <use href="sprites.svg#magnifier" x="1690" y="440" width="130" height="130"/>
+    <rect x="1290" y="340" width="520" height="540" rx="30" fill="none" stroke="#16a34a" stroke-width="8" stroke-dasharray="20 14"/>
+  </svg>
+  <div class="lbl red" style="left:370px; top:925px">Too small: no context</div>
+  <div class="lbl red" style="left:950px; top:925px">Too big: blurred</div>
+  <div class="lbl green" style="left:1550px; top:925px">Small-to-big</div>
+</section>
+
+<!-- 8 · query prefix -->
+<section class="slide t-ocean" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Stage 3 · Embeddings</span><h1>Queries need <em>their prefix</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- inputs -->
+    <rect x="110" y="330" width="560" height="140" rx="26" fill="#fff"/>
+    <rect x="140" y="360" width="150" height="50" rx="12" fill="#ffb020"/><text x="215" y="396" text-anchor="middle" font-size="30" font-weight="900" fill="#1d2340">query:</text>
+    <text x="140" y="450" font-size="32" font-weight="800" fill="#1d2340">K2 clamp torque?</text>
+    <rect x="110" y="520" width="560" height="300" rx="26" fill="#fff"/>
+    <rect x="140" y="550" width="190" height="50" rx="12" fill="#5cc8ff"/><text x="235" y="586" text-anchor="middle" font-size="30" font-weight="900" fill="#1d2340">passage:</text>
+    <g fill="#d8def0"><rect x="140" y="630" width="490" height="16" rx="8"/><rect x="140" y="665" width="450" height="16" rx="8"/><rect x="140" y="700" width="480" height="16" rx="8"/><rect x="140" y="735" width="400" height="16" rx="8"/><rect x="140" y="770" width="460" height="16" rx="8"/></g>
+    <!-- embedder -->
+    <path d="M690 400 C 740 400, 750 560, 790 570" fill="none" stroke="#fff" stroke-width="10" marker-end="url(#ahWhite)"/>
+    <path d="M690 670 C 740 670, 750 600, 790 590" fill="none" stroke="#fff" stroke-width="10" marker-end="url(#ahWhite)"/>
+    <use href="sprites.svg#gear" x="810" y="510" width="150" height="150" style="--body:#ffcf4a"/>
+    <path d="M980 585 H1050" stroke="#fff" stroke-width="10" marker-end="url(#ahWhite)"/>
+    <!-- vector space -->
+    <rect x="1080" y="320" width="730" height="560" rx="32" fill="#fff"/>
+    <path d="M1130 350 V840 H1780" stroke="#1d2340" stroke-width="6" fill="none"/>
+    <g fill="#b8c2de"><circle cx="1250" cy="760" r="14"/><circle cx="1330" cy="700" r="14"/><circle cx="1690" cy="780" r="14"/><circle cx="1720" cy="420" r="14"/><circle cx="1400" cy="420" r="14"/><circle cx="1230" cy="480" r="14"/><circle cx="1600" cy="700" r="14"/></g>
+    <circle cx="1520" cy="540" r="70" fill="#22c55e" opacity=".18"/>
+    <circle cx="1490" cy="555" r="22" fill="#5cc8ff"/>
+    <polygon points="1555,500 1566,526 1594,528 1572,546 1580,574 1555,558 1530,574 1538,546 1516,528 1544,526" fill="#ffb020"/>
+    <!-- wrong encoding lands far away -->
+    <polygon points="1250,590 1261,616 1289,618 1267,636 1275,664 1250,648 1225,664 1233,636 1211,618 1239,616" fill="#ff5d73" opacity=".85"/>
+    <path d="M1280 640 Q1380 640 1470 570" fill="none" stroke="#ff5d73" stroke-width="6" stroke-dasharray="12 10"/>
+  </svg>
+  <div class="lbl green sm" style="left:1640px; top:470px">Close match</div>
+  <div class="lbl red sm" style="left:1260px; top:720px">Wrong encoding</div>
+  <div class="lbl dark" style="left:1445px; top:935px">Recall drops silently</div>
+</section>
+
+<!-- 9 · change model = re-embed -->
+<section class="slide t-rose" style="--accent:#c2185b">
+  <div class="cap"><span class="eyebrow">Changing the embedder</span><h1>New model? <em>Re-embed all</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- space A -->
+    <rect x="110" y="340" width="440" height="400" rx="30" fill="#fff"/>
+    <path d="M150 370 V700 H520" stroke="#1d2340" stroke-width="6" fill="none"/>
+    <g fill="#7c5cff"><circle cx="230" cy="600" r="18"/><circle cx="300" cy="500" r="18"/><circle cx="400" cy="560" r="18"/><circle cx="460" cy="440" r="18"/><circle cx="260" cy="430" r="18"/></g>
+    <text x="330" y="820" text-anchor="middle" font-size="40" font-weight="900" fill="#1d2340">Model A</text>
+    <text x="620" y="570" text-anchor="middle" font-size="110" font-weight="900" fill="#c2185b">≠</text>
+    <!-- space B -->
+    <rect x="690" y="340" width="440" height="400" rx="30" fill="#fff"/>
+    <path d="M730 370 V700 H1100" stroke="#1d2340" stroke-width="6" fill="none"/>
+    <g fill="#22b8a6">
+      <polygon points="800,420 822,458 778,458"/><polygon points="900,600 922,638 878,638"/><polygon points="1010,470 1032,508 988,508"/><polygon points="960,380 982,418 938,418"/><polygon points="840,540 862,578 818,578"/>
+    </g>
+    <text x="910" y="820" text-anchor="middle" font-size="40" font-weight="900" fill="#1d2340">Model B</text>
+    <!-- half-migrated index -->
+    <use href="sprites.svg#database" x="1260" y="330" width="260" height="295" style="--top:#ffd0de;--body:#ff97b5"/>
+    <g><circle cx="1340" cy="480" r="18" fill="#7c5cff"/><polygon points="1430,462 1452,500 1408,500" fill="#22b8a6"/><circle cx="1390" cy="560" r="18" fill="#7c5cff"/><polygon points="1460,540 1482,578 1438,578" fill="#22b8a6"/></g>
+    <use href="sprites.svg#cross" x="1470" y="300" width="100" height="100"/>
+    <!-- fully re-embedded -->
+    <use href="sprites.svg#database" x="1580" y="600" width="230" height="261" style="--top:#bff5e6;--body:#22b8a6"/>
+    <g fill="#fff"><polygon points="1660,720 1680,756 1640,756"/><polygon points="1730,720 1750,756 1710,756"/><polygon points="1695,780 1715,816 1675,816"/></g>
+    <use href="sprites.svg#check" x="1750" y="570" width="90" height="90"/>
+  </svg>
+  <div class="lbl red" style="left:1390px; top:690px">Half migrated = broken</div>
+  <div class="lbl green" style="left:1640px; top:930px">Re-embed everything</div>
+</section>
+
+<!-- 10 · hybrid search -->
+<section class="slide t-teal" style="--accent:#0f766e">
+  <div class="cap"><span class="eyebrow">Stages 4–5 · Index and retrieve</span><h1>Hybrid search <em>finds E-42</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- query -->
+    <rect x="1240" y="120" width="580" height="100" rx="50" fill="#fff"/>
+    <use href="sprites.svg#magnifier" x="1270" y="135" width="70" height="70"/>
+    <text x="1360" y="187" font-size="40" font-weight="900" fill="#1d2340">Inverter error E-42</text>
+    <!-- vector lane -->
+    <rect x="110" y="320" width="560" height="560" rx="30" fill="#fff"/>
+    <use href="sprites.svg#brain" x="140" y="345" width="100" height="87"/>
+    <text x="260" y="405" font-size="38" font-weight="900" fill="#1d2340">Vector</text>
+    <g font-size="30" font-weight="800" fill="#4a5275">
+      <rect x="140" y="470" width="500" height="90" rx="18" fill="#eef2f7"/><text x="170" y="527">Inverter overview</text>
+      <rect x="140" y="580" width="500" height="90" rx="18" fill="#eef2f7"/><text x="170" y="637">Error handling</text>
+      <rect x="140" y="690" width="500" height="90" rx="18" fill="#eef2f7"/><text x="170" y="747">Fault lights</text>
+    </g>
+    <!-- keyword lane -->
+    <rect x="700" y="320" width="560" height="560" rx="30" fill="#fff"/>
+    <use href="sprites.svg#magnifier" x="730" y="345" width="90" height="90"/>
+    <text x="840" y="405" font-size="38" font-weight="900" fill="#1d2340">Keyword · BM25</text>
+    <g font-size="30" font-weight="800" fill="#4a5275">
+      <rect x="730" y="470" width="500" height="90" rx="18" fill="#ffe89c"/><text x="760" y="527" fill="#1d2340">E-42 · DC overvoltage</text>
+      <rect x="730" y="580" width="500" height="90" rx="18" fill="#eef2f7"/><text x="760" y="637">E-41 · Fan fault</text>
+      <rect x="730" y="690" width="500" height="90" rx="18" fill="#eef2f7"/><text x="760" y="747">Error code list</text>
+    </g>
+    <!-- fused -->
+    <path d="M1275 600 H1350" stroke="#fff" stroke-width="12" marker-end="url(#ahWhite)"/>
+    <rect x="1380" y="320" width="430" height="560" rx="30" fill="#fff"/>
+    <text x="1595" y="395" text-anchor="middle" font-size="38" font-weight="900" fill="#0f766e">Fused (RRF)</text>
+    <g font-size="28" font-weight="800">
+      <rect x="1410" y="440" width="370" height="100" rx="18" fill="#22c55e"/><text x="1440" y="502" fill="#fff">1 · E-42 overvoltage</text>
+      <rect x="1410" y="560" width="370" height="100" rx="18" fill="#eef2f7"/><text x="1440" y="622" fill="#4a5275">2 · Error handling</text>
+      <rect x="1410" y="680" width="370" height="100" rx="18" fill="#eef2f7"/><text x="1440" y="742" fill="#4a5275">3 · Error code list</text>
+    </g>
+  </svg>
+  <div class="lbl red sm" style="left:390px; top:920px">Misses the exact code</div>
+  <div class="lbl amber sm" style="left:980px; top:920px">Matches it exactly</div>
+</section>
+
+<!-- 11 · filter before -->
+<section class="slide t-sunrise" style="--accent:#c2410c">
+  <div class="cap"><span class="eyebrow">Metadata filtering</span><h1>Filter <em>before</em> you search</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- all manuals -->
+    <use href="sprites.svg#doc" x="110" y="420" width="140" height="172" style="--accent:#22b8a6"/>
+    <use href="sprites.svg#doc" x="240" y="380" width="140" height="172" style="--accent:#ff5d73"/>
+    <use href="sprites.svg#doc" x="170" y="560" width="140" height="172" style="--accent:#ff5d73"/>
+    <use href="sprites.svg#doc" x="310" y="600" width="140" height="172" style="--accent:#22b8a6"/>
+    <use href="sprites.svg#lock" x="330" y="360" width="70" height="88"/>
+    <use href="sprites.svg#lock" x="260" y="540" width="70" height="88"/>
+    <path d="M470 590 H560" stroke="#1d2340" stroke-width="12" marker-end="url(#ahInk)"/>
+    <!-- funnel -->
+    <use href="#funnel" x="580" y="440" width="220" height="242" style="--body:#ff7a59;--rim:#ffb199"/>
+    <use href="sprites.svg#key" x="620" y="350" width="140" height="74"/>
+    <path d="M690 700 V770 H830" stroke="#1d2340" stroke-width="12" fill="none" marker-end="url(#ahInk)"/>
+    <!-- search only permitted -->
+    <rect x="860" y="600" width="400" height="280" rx="30" fill="#fff"/>
+    <use href="sprites.svg#doc" x="890" y="640" width="110" height="135" style="--accent:#22b8a6"/>
+    <use href="sprites.svg#doc" x="1010" y="640" width="110" height="135" style="--accent:#22b8a6"/>
+    <use href="sprites.svg#magnifier" x="1120" y="680" width="120" height="120"/>
+    <use href="sprites.svg#check" x="1200" y="560" width="90" height="90"/>
+    <!-- after: leaks -->
+    <rect x="1400" y="330" width="410" height="540" rx="30" fill="#fff" opacity=".85"/>
+    <text x="1605" y="400" text-anchor="middle" font-size="36" font-weight="900" fill="#8a8fa8">Filter after?</text>
+    <g font-size="30" font-weight="800" fill="#4a5275">
+      <rect x="1440" y="440" width="330" height="70" rx="14" fill="#eef2f7"/><text x="1465" y="487">Result 1</text>
+      <rect x="1440" y="530" width="330" height="70" rx="14" fill="#ffe3ec"/><text x="1465" y="577">[hidden]</text>
+      <rect x="1440" y="620" width="330" height="70" rx="14" fill="#ffe3ec"/><text x="1465" y="667">[hidden]</text>
+    </g>
+    <text x="1605" y="760" text-anchor="middle" font-size="34" font-weight="900" fill="#d0314f">Found 12 · shown 1</text>
+    <use href="sprites.svg#cross" x="1730" y="290" width="100" height="100"/>
+  </svg>
+  <div class="lbl dark sm" style="left:690px; top:320px">User's permissions</div>
+  <div class="lbl green" style="left:1060px; top:930px">Never a candidate</div>
+  <div class="lbl red" style="left:1605px; top:930px">Leaks what exists</div>
+</section>
+
+<!-- 12 · rerank 50 -> 5 -->
+<section class="slide t-plum" style="--accent:#6d28d9">
+  <div class="cap"><span class="eyebrow">Stage 6 · Reranking</span><h1>Retrieve 50, <em>keep 5</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- 50 candidates -->
+    <g fill="#fff" opacity=".92">
+      <rect x="110" y="360" width="100" height="70" rx="10"/><rect x="220" y="360" width="100" height="70" rx="10"/><rect x="330" y="360" width="100" height="70" rx="10"/><rect x="440" y="360" width="100" height="70" rx="10"/><rect x="550" y="360" width="100" height="70" rx="10"/>
+      <rect x="110" y="440" width="100" height="70" rx="10"/><rect x="220" y="440" width="100" height="70" rx="10"/><rect x="330" y="440" width="100" height="70" rx="10"/><rect x="440" y="440" width="100" height="70" rx="10"/><rect x="550" y="440" width="100" height="70" rx="10"/>
+      <rect x="110" y="520" width="100" height="70" rx="10"/><rect x="220" y="520" width="100" height="70" rx="10"/><rect x="330" y="520" width="100" height="70" rx="10"/><rect x="440" y="520" width="100" height="70" rx="10"/><rect x="550" y="520" width="100" height="70" rx="10"/>
+      <rect x="110" y="600" width="100" height="70" rx="10"/><rect x="220" y="600" width="100" height="70" rx="10"/><rect x="330" y="600" width="100" height="70" rx="10"/><rect x="440" y="600" width="100" height="70" rx="10"/><rect x="550" y="600" width="100" height="70" rx="10"/>
+      <rect x="110" y="680" width="100" height="70" rx="10"/><rect x="220" y="680" width="100" height="70" rx="10"/><rect x="330" y="680" width="100" height="70" rx="10"/><rect x="440" y="680" width="100" height="70" rx="10"/><rect x="550" y="680" width="100" height="70" rx="10"/>
+      <rect x="110" y="760" width="100" height="70" rx="10"/><rect x="220" y="760" width="100" height="70" rx="10"/><rect x="330" y="760" width="100" height="70" rx="10"/><rect x="440" y="760" width="100" height="70" rx="10"/><rect x="550" y="760" width="100" height="70" rx="10"/>
+    </g>
+    <g fill="#ffcf4a"><rect x="330" y="440" width="100" height="70" rx="10"/><rect x="550" y="600" width="100" height="70" rx="10"/><rect x="110" y="760" width="100" height="70" rx="10"/><rect x="440" y="680" width="100" height="70" rx="10"/><rect x="220" y="520" width="100" height="70" rx="10"/></g>
+    <text x="380" y="890" text-anchor="middle" font-size="30" font-weight="800" fill="#d9c8ff">…and more</text>
+    <path d="M680 600 H790" stroke="#fff" stroke-width="12" marker-end="url(#ahWhite)"/>
+    <!-- cross-encoder -->
+    <rect x="820" y="400" width="400" height="400" rx="40" fill="#fff"/>
+    <use href="sprites.svg#robot-head" x="920" y="440" width="200" height="157" style="--body:#7c5cff"/>
+    <rect x="860" y="640" width="150" height="80" rx="16" fill="#ffb020"/><text x="935" y="694" text-anchor="middle" font-size="36" font-weight="900" fill="#1d2340">Q</text>
+    <text x="1020" y="696" text-anchor="middle" font-size="44" font-weight="900" fill="#6d28d9">+</text>
+    <rect x="1035" y="640" width="150" height="80" rx="16" fill="#5cc8ff"/><text x="1110" y="694" text-anchor="middle" font-size="36" font-weight="900" fill="#1d2340">P</text>
+    <path d="M1240 600 H1350" stroke="#fff" stroke-width="12" marker-end="url(#ahWhite)"/>
+    <!-- top 5 -->
+    <g font-size="34" font-weight="900">
+      <rect x="1380" y="330" width="430" height="96" rx="20" fill="#ffcf4a"/><text x="1420" y="392" fill="#1d2340">1</text>
+      <rect x="1380" y="440" width="430" height="96" rx="20" fill="#ffcf4a"/><text x="1420" y="502" fill="#1d2340">2</text>
+      <rect x="1380" y="550" width="430" height="96" rx="20" fill="#ffcf4a"/><text x="1420" y="612" fill="#1d2340">3</text>
+      <rect x="1380" y="660" width="430" height="96" rx="20" fill="#ffcf4a"/><text x="1420" y="722" fill="#1d2340">4</text>
+      <rect x="1380" y="770" width="430" height="96" rx="20" fill="#ffcf4a"/><text x="1420" y="832" fill="#1d2340">5</text>
+    </g>
+    <g fill="#c79a1c"><rect x="1470" y="365" width="280" height="14" rx="7"/><rect x="1470" y="393" width="200" height="14" rx="7"/><rect x="1470" y="475" width="280" height="14" rx="7"/><rect x="1470" y="503" width="220" height="14" rx="7"/><rect x="1470" y="585" width="280" height="14" rx="7"/><rect x="1470" y="613" width="180" height="14" rx="7"/><rect x="1470" y="695" width="280" height="14" rx="7"/><rect x="1470" y="723" width="240" height="14" rx="7"/><rect x="1470" y="805" width="280" height="14" rx="7"/><rect x="1470" y="833" width="200" height="14" rx="7"/></g>
+  </svg>
+  <div class="lbl sm" style="left:380px; top:320px">Top 50 · cheap</div>
+  <div class="lbl violet" style="left:1020px; top:850px">Cross-encoder</div>
+  <div class="lbl amber" style="left:1595px; top:925px">Top 5 · precise</div>
+</section>
+
+<!-- 13 · grounded generation -->
+<section class="slide t-mint" style="--accent:#128c7e">
+  <div class="cap"><span class="eyebrow">Stage 7 · Generation</span><h1>Grounded, cited, <em>or honest</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- prompt card -->
+    <rect x="110" y="330" width="720" height="560" rx="32" fill="#fff"/>
+    <rect x="110" y="330" width="720" height="96" rx="32" fill="#128c7e"/><rect x="110" y="390" width="720" height="36" fill="#128c7e"/>
+    <text x="160" y="395" font-size="40" font-weight="900" fill="#fff">Generation prompt</text>
+    <use href="sprites.svg#check" x="160" y="470" width="80" height="80"/>
+    <use href="sprites.svg#check" x="160" y="600" width="80" height="80"/>
+    <use href="sprites.svg#check" x="160" y="730" width="80" height="80"/>
+    <g font-size="40" font-weight="850" fill="#1d2340">
+      <text x="270" y="525">Answer only from sources</text>
+      <text x="270" y="655">Cite every claim</text>
+      <text x="270" y="785">Say when not covered</text>
+    </g>
+    <!-- answers -->
+    <use href="sprites.svg#robot" x="930" y="520" width="240" height="315" style="--body:#1f6fbf;--accent:#ffcf4a"/>
+    <path d="M1210 320 H1780 Q1810 320 1810 350 V540 Q1810 570 1780 570 H1300 L1210 640 L1240 570 H1210 Q1180 570 1180 540 V350 Q1180 320 1210 320 Z" fill="#fff"/>
+    <text x="1230" y="420" font-size="54" font-weight="900" fill="#1d2340">K2 clamp: 12 Nm</text>
+    <rect x="1230" y="460" width="330" height="64" rx="32" fill="#22b8a6"/>
+    <text x="1395" y="503" text-anchor="middle" font-size="30" font-weight="900" fill="#fff">Manual · p. 14</text>
+    <path d="M1240 660 H1780 Q1810 660 1810 690 V820 Q1810 850 1780 850 H1320 L1230 910 L1260 850 H1240 Q1210 850 1210 820 V690 Q1210 660 1240 660 Z" fill="#fff"/>
+    <text x="1250" y="740" font-size="42" font-weight="900" fill="#1d2340">The sources don't</text>
+    <text x="1250" y="800" font-size="42" font-weight="900" fill="#1d2340">cover this.</text>
+  </svg>
+  <div class="lbl dark sm" style="left:1680px; top:492px">Citation</div>
+  <div class="lbl dark sm" style="left:1050px; top:925px">No guessing</div>
+</section>
+
+<!-- 14 · reranking can't fix recall -->
+<section class="slide t-night" style="--accent:#e2533a">
+  <div class="cap"><span class="eyebrow">The classic trap</span><h1>Reranking can't <em>fix recall</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- the top-50 box -->
+    <rect x="110" y="330" width="760" height="560" rx="36" fill="#2c3a5e" stroke="#5cc8ff" stroke-width="6" stroke-dasharray="22 14"/>
+    <text x="150" y="395" font-size="36" font-weight="900" fill="#fff">Top 50 retrieved</text>
+    <use href="#chunk" x="150" y="440" width="180" height="120" style="--accent:#9aa6c8"/>
+    <use href="#chunk" x="350" y="440" width="180" height="120" style="--accent:#9aa6c8"/>
+    <use href="#chunk" x="550" y="440" width="180" height="120" style="--accent:#9aa6c8"/>
+    <use href="#chunk" x="150" y="600" width="180" height="120" style="--accent:#9aa6c8"/>
+    <use href="#chunk" x="350" y="600" width="180" height="120" style="--accent:#9aa6c8"/>
+    <use href="#chunk" x="550" y="600" width="180" height="120" style="--accent:#9aa6c8"/>
+    <path d="M300 770 C 380 830, 520 830, 600 770" fill="none" stroke="#ffcf4a" stroke-width="8" marker-end="url(#ahWhite)"/>
+    <path d="M600 750 C 520 700, 380 700, 300 750" fill="none" stroke="#ffcf4a" stroke-width="8" opacity=".6"/>
+    <!-- the missing document -->
+    <use href="sprites.svg#doc" x="960" y="460" width="190" height="234" style="--accent:#ffb020"/>
+    <use href="sprites.svg#sparkle" x="1110" y="420" width="70" height="70"/>
+    <path d="M950 580 H890" stroke="#ff5d73" stroke-width="8" stroke-dasharray="10 10"/>
+    <use href="sprites.svg#cross" x="860" y="540" width="80" height="80"/>
+    <!-- fixes -->
+    <rect x="1290" y="330" width="520" height="560" rx="36" fill="#fff"/>
+    <text x="1550" y="405" text-anchor="middle" font-size="38" font-weight="900" fill="#1d2340">Fix recall upstream</text>
+    <g font-size="34" font-weight="900" fill="#fff" text-anchor="middle">
+      <rect x="1340" y="460" width="420" height="90" rx="45" fill="#22b8a6"/><text x="1550" y="518">Hybrid search</text>
+      <rect x="1340" y="580" width="420" height="90" rx="45" fill="#7c5cff"/><text x="1550" y="638">Better chunking</text>
+      <rect x="1340" y="700" width="420" height="90" rx="45" fill="#ff7a59"/><text x="1550" y="758">Query rewriting</text>
+    </g>
+  </svg>
+  <div class="lbl amber sm" style="left:450px; top:850px">Reranker reorders</div>
+  <div class="lbl red" style="left:1055px; top:760px">Never retrieved</div>
+</section>
+
+<!-- 15 · exam: symptom to stage -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Exam tip</span><h1>Match symptom <em>to stage</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- row 1 -->
+    <rect x="110" y="330" width="620" height="220" rx="30" fill="#fff"/>
+    <rect x="150" y="370" width="200" height="140" rx="12" fill="#eef2fb"/>
+    <rect x="150" y="370" width="200" height="40" rx="12" fill="#7c5cff"/>
+    <path d="M150 455 H350 M250 410 V510" stroke="#b8c2de" stroke-width="4"/>
+    <text x="300" y="495" text-anchor="middle" font-size="40" font-weight="900" fill="#ff5d73">?</text>
+    <text x="380" y="435" font-size="36" font-weight="900" fill="#1d2340">Wrong table</text>
+    <text x="380" y="485" font-size="36" font-weight="900" fill="#1d2340">numbers</text>
+    <path d="M760 440 H900" stroke="#1d2340" stroke-width="14" marker-end="url(#ahInk)"/>
+    <rect x="930" y="370" width="440" height="140" rx="70" fill="#7c5cff"/>
+    <text x="1150" y="458" text-anchor="middle" font-size="50" font-weight="900" fill="#fff">Extraction</text>
+    <!-- row 2 -->
+    <rect x="110" y="610" width="620" height="220" rx="30" fill="#fff"/>
+    <rect x="150" y="660" width="200" height="120" rx="60" fill="#ffe89c"/>
+    <text x="250" y="738" text-anchor="middle" font-size="44" font-weight="900" fill="#1d2340">E-42</text>
+    <text x="380" y="715" font-size="36" font-weight="900" fill="#1d2340">Missed exact</text>
+    <text x="380" y="765" font-size="36" font-weight="900" fill="#1d2340">codes</text>
+    <path d="M760 720 H900" stroke="#1d2340" stroke-width="14" marker-end="url(#ahInk)"/>
+    <rect x="930" y="650" width="440" height="140" rx="70" fill="#22b8a6"/>
+    <text x="1150" y="738" text-anchor="middle" font-size="50" font-weight="900" fill="#fff">Hybrid search</text>
+    <!-- read on -->
+    <use href="sprites.svg#book" x="1470" y="470" width="340" height="260" style="--left:#1f6fbf;--right:#5cc8ff"/>
+    <use href="sprites.svg#sparkle" x="1760" y="380" width="70" height="70" style="--body:#ffb020"/>
+  </svg>
+  <div class="lbl dark lg" style="left:1640px; top:830px">Read on</div>
+</section>
+
+</body>
+</html>

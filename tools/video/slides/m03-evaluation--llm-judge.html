@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module 3 · Lesson 2 slides — LLM-as-a-judge</title>
+<link rel="stylesheet" href="base.css">
+</head>
+<body>
+
+<!-- 1 · title -->
+<section class="slide t-night" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Module 3 · Lesson 2</span><h1>LLM as a <em>judge</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g>
+      <use href="sprites.svg#doc" x="170" y="520" width="150" height="185" style="--accent:#ff7a59"/>
+      <use href="sprites.svg#doc" x="230" y="480" width="150" height="185" style="--accent:#22b8a6"/>
+      <use href="sprites.svg#doc" x="290" y="440" width="150" height="185" style="--accent:#7c5cff"/>
+    </g>
+    <g stroke="#9d86ff" stroke-width="8" stroke-dasharray="14 12" fill="none">
+      <path d="M470 600 Q 620 560 780 620"/>
+      <path d="M1130 620 Q 1240 560 1330 590"/>
+    </g>
+    <ellipse cx="955" cy="880" rx="240" ry="28" fill="#fff" opacity=".1"/>
+    <use href="sprites.svg#robot" x="830" y="500" width="260" height="341" style="--body:#22b8a6"/>
+    <use href="sprites.svg#magnifier" x="1040" y="430" width="120" height="120"/>
+    <rect x="1350" y="440" width="380" height="320" rx="34" fill="#fff"/>
+    <text x="1540" y="600" text-anchor="middle" font-size="110" font-weight="900" fill="#1d2340">8<tspan font-size="60" fill="#4a5275">/10</tspan></text>
+    <g fill="#ffcf4a"><circle cx="1450" cy="680" r="18"/><circle cx="1500" cy="680" r="18"/><circle cx="1550" cy="680" r="18"/><circle cx="1600" cy="680" r="18" opacity=".35"/></g>
+    <use href="sprites.svg#warn" x="1660" y="380" width="110" height="97"/>
+  </svg>
+  <div class="lbl teal" style="left:960px; top:920px">Powerful</div>
+  <div class="lbl coral" style="left:1540px; top:840px">…if you know how it fails</div>
+</section>
+
+<!-- 2 · the news app -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">A real-world case</span><h1>A news app, <em>10,000 summaries</em> a day</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#phone" x="150" y="440" width="190" height="336" style="--screen:#fff"/>
+    <use href="sprites.svg#robot" x="390" y="500" width="220" height="289" style="--body:#7c5cff"/>
+    <use href="sprites.svg#arrow" x="630" y="620" width="120" height="36" style="--body:#1d2340"/>
+    <g>
+      <use href="sprites.svg#doc" x="780" y="590" width="120" height="148" style="--accent:#ff7a59"/>
+      <use href="sprites.svg#doc" x="860" y="560" width="120" height="148" style="--accent:#22b8a6"/>
+      <use href="sprites.svg#doc" x="940" y="600" width="120" height="148" style="--accent:#ffb020"/>
+      <use href="sprites.svg#doc" x="1020" y="570" width="120" height="148" style="--accent:#7c5cff"/>
+      <use href="sprites.svg#doc" x="1100" y="610" width="120" height="148" style="--accent:#ff6f9c"/>
+    </g>
+    <use href="sprites.svg#person-worried" x="1450" y="420" width="180" height="360" style="--shirt:#ff7a59"/>
+    <g>
+      <use href="sprites.svg#doc" x="1640" y="660" width="100" height="123"/>
+      <use href="sprites.svg#doc" x="1660" y="620" width="100" height="123"/>
+      <use href="sprites.svg#doc" x="1680" y="580" width="100" height="123"/>
+    </g>
+    <use href="sprites.svg#question" x="1650" y="430" width="100" height="100"/>
+  </svg>
+  <div class="stat" style="left:1000px; top:450px"><b>10,000</b><span>per day</span></div>
+  <div class="lbl amber" style="left:1000px; top:850px">No word-for-word match</div>
+  <div class="lbl dark" style="left:1580px; top:850px">Too many to read</div>
+</section>
+
+<!-- 3 · another model grades -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">The idea</span><h1>A model that <em>grades every summary</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#robot" x="140" y="500" width="200" height="263" style="--body:#7c5cff"/>
+    <use href="sprites.svg#arrow" x="360" y="610" width="110" height="33" style="--body:#1d2340"/>
+    <g>
+      <use href="sprites.svg#doc" x="490" y="560" width="120" height="148"/>
+      <use href="sprites.svg#doc" x="530" y="520" width="120" height="148"/>
+      <use href="sprites.svg#doc" x="570" y="480" width="120" height="148"/>
+    </g>
+    <use href="sprites.svg#arrow" x="720" y="610" width="110" height="33" style="--body:#1d2340"/>
+    <use href="sprites.svg#robot" x="850" y="460" width="240" height="315" style="--body:#22b8a6"/>
+    <use href="sprites.svg#magnifier" x="1050" y="420" width="110" height="110"/>
+    <use href="sprites.svg#arrow" x="1130" y="610" width="110" height="33" style="--body:#1d2340"/>
+    <rect x="1270" y="380" width="510" height="440" rx="34" fill="#fff"/>
+    <g>
+      <use href="sprites.svg#doc" x="1310" y="410" width="80" height="98"/>
+      <use href="sprites.svg#doc" x="1310" y="545" width="80" height="98"/>
+      <use href="sprites.svg#doc" x="1310" y="680" width="80" height="98"/>
+    </g>
+    <g fill="#e6e1f7"><rect x="1420" y="440" width="320" height="40" rx="20"/><rect x="1420" y="575" width="320" height="40" rx="20"/><rect x="1420" y="710" width="320" height="40" rx="20"/></g>
+    <rect x="1420" y="440" width="256" height="40" rx="20" fill="#22b8a6"/>
+    <rect x="1420" y="575" width="160" height="40" rx="20" fill="#ffb020"/>
+    <rect x="1420" y="710" width="288" height="40" rx="20" fill="#22b8a6"/>
+  </svg>
+  <div class="lbl violet" style="left:240px; top:840px">Writer</div>
+  <div class="lbl teal" style="left:970px; top:840px">Judge</div>
+  <div class="lbl dark lg" style="left:1525px; top:900px">A scorer that scales</div>
+</section>
+
+<!-- 4 · where judges shine -->
+<section class="slide t-mint" style="--accent:#128c5e">
+  <div class="cap"><span class="eyebrow">Where judges shine</span><h1>Quality you <em>can't string-match</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff">
+      <rect x="150" y="390" width="360" height="420" rx="34"/>
+      <rect x="570" y="390" width="360" height="420" rx="34"/>
+      <rect x="990" y="390" width="360" height="420" rx="34"/>
+      <rect x="1410" y="390" width="360" height="420" rx="34"/>
+    </g>
+    <use href="sprites.svg#doc" x="250" y="440" width="160" height="197" style="--accent:#22b8a6"/>
+    <use href="sprites.svg#chat" x="645" y="460" width="210" height="166" style="--body:#ff6f9c;--dot:#fff"/>
+    <use href="sprites.svg#thumbs-up" x="1080" y="450" width="180" height="180"/>
+    <use href="sprites.svg#book" x="1475" y="470" width="230" height="176"/>
+    <use href="sprites.svg#check" x="1640" y="420" width="90" height="90"/>
+    <g font-size="36" font-weight="900" fill="#1d2340" text-anchor="middle">
+      <text x="330" y="740">Summary</text><text x="330" y="782" font-size="30" fill="#4a5275">quality</text>
+      <text x="750" y="740">Tone</text>
+      <text x="1170" y="740">Helpfulness</text>
+      <text x="1590" y="740">Groundedness</text><text x="1590" y="782" font-size="30" fill="#4a5275">in a source</text>
+    </g>
+  </svg>
+  <div class="lbl dark" style="left:960px; top:900px">Real quality, no exact string</div>
+</section>
+
+<!-- 5 · deterministic check: use code -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">Check first</span><h1>A deterministic check? <em>Use code</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="140" y="370" width="880" height="480" rx="34" fill="#fff"/>
+    <g font-size="40" font-weight="900" fill="#1d2340">
+      <text x="270" y="460">Valid schema</text>
+      <text x="270" y="565">Numbers equal</text>
+      <text x="270" y="670">Tests pass</text>
+      <text x="270" y="775">Right tool called</text>
+    </g>
+    <g>
+      <use href="sprites.svg#check" x="180" y="410" width="66" height="66"/>
+      <use href="sprites.svg#check" x="180" y="515" width="66" height="66"/>
+      <use href="sprites.svg#check" x="180" y="620" width="66" height="66"/>
+      <use href="sprites.svg#check" x="180" y="725" width="66" height="66"/>
+    </g>
+    <g font-family="Menlo, monospace" font-size="34" font-weight="800" fill="#c25e00" text-anchor="end">
+      <text x="980" y="460">{ }</text><text x="980" y="565">==</text><text x="980" y="670">pytest</text><text x="980" y="775">name()</text>
+    </g>
+    <use href="sprites.svg#gear" x="1140" y="420" width="220" height="220" style="--body:#22b8a6"/>
+    <text x="1250" y="700" text-anchor="middle" font-size="40" font-weight="900" fill="#1d2340">Code</text>
+    <text x="1460" y="560" text-anchor="middle" font-size="46" font-weight="900" fill="#4a5275">&gt;</text>
+    <use href="sprites.svg#robot" x="1560" y="440" width="160" height="210" style="--body:#7c5cff" opacity=".6"/>
+    <use href="sprites.svg#cross" x="1660" y="400" width="90" height="90"/>
+    <text x="1640" y="700" text-anchor="middle" font-size="40" font-weight="900" fill="#1d2340">Judge</text>
+  </svg>
+  <div class="lbl teal" style="left:1450px; top:800px">Cheaper · faster · unbiased</div>
+</section>
+
+<!-- 6 · position bias -->
+<section class="slide t-coral" style="--accent:#d6335a">
+  <div class="cap"><span class="eyebrow">Bias 1 · Position</span><h1>The <em>first answer</em> wins</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#robot-head" x="130" y="500" width="260" height="204" style="--body:#ffb020"/>
+    <g stroke="#fff" stroke-width="8" stroke-dasharray="12 12">
+      <line x1="400" y1="580" x2="500" y2="480"/><line x1="400" y1="640" x2="500" y2="720"/>
+    </g>
+    <!-- order 1 -->
+    <rect x="520" y="400" width="200" height="160" rx="28" fill="#7c5cff"/>
+    <rect x="750" y="400" width="200" height="160" rx="28" fill="#22b8a6"/>
+    <!-- order 2 -->
+    <rect x="520" y="640" width="200" height="160" rx="28" fill="#22b8a6"/>
+    <rect x="750" y="640" width="200" height="160" rx="28" fill="#7c5cff"/>
+    <g font-size="80" font-weight="900" fill="#fff" text-anchor="middle">
+      <text x="620" y="508">A</text><text x="850" y="508">B</text><text x="620" y="748">B</text><text x="850" y="748">A</text>
+    </g>
+    <use href="sprites.svg#check" x="660" y="360" width="80" height="80"/>
+    <use href="sprites.svg#check" x="660" y="600" width="80" height="80"/>
+    <use href="sprites.svg#arrow" x="990" y="580" width="150" height="45" style="--body:#fff"/>
+    <rect x="1170" y="380" width="610" height="440" rx="34" fill="#fff"/>
+    <text x="1475" y="470" text-anchor="middle" font-size="44" font-weight="900" fill="#1d2340">Average both orders</text>
+    <g font-size="40" font-weight="900" fill="#1d2340"><text x="1240" y="590">A</text><text x="1240" y="720">B</text></g>
+    <rect x="1300" y="550" width="420" height="50" rx="25" fill="#f3e9ee"/><rect x="1300" y="550" width="300" height="50" rx="25" fill="#7c5cff"/>
+    <rect x="1300" y="680" width="420" height="50" rx="25" fill="#f3e9ee"/><rect x="1300" y="680" width="230" height="50" rx="25" fill="#22b8a6"/>
+  </svg>
+  <div class="lbl dark" style="left:735px; top:880px">Order 1 · Order 2</div>
+  <div class="lbl" style="left:1475px; top:880px">Real preference survives</div>
+</section>
+
+<!-- 7 · verbosity bias -->
+<section class="slide t-sand" style="--accent:#b5541c">
+  <div class="cap"><span class="eyebrow">Bias 2 · Verbosity</span><h1>The longest <em>got top marks</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <line x1="140" y1="822" x2="900" y2="822" stroke="#1d2340" stroke-width="6"/>
+    <g fill="#fff">
+      <rect x="180" y="680" width="180" height="140" rx="20"/>
+      <rect x="430" y="560" width="180" height="260" rx="20"/>
+      <rect x="680" y="420" width="180" height="400" rx="20"/>
+    </g>
+    <g fill="#b8c2de">
+      <rect x="210" y="710" width="120" height="12" rx="6"/><rect x="210" y="740" width="90" height="12" rx="6"/>
+      <rect x="460" y="590" width="120" height="12" rx="6"/><rect x="460" y="620" width="120" height="12" rx="6"/><rect x="460" y="650" width="100" height="12" rx="6"/><rect x="460" y="680" width="120" height="12" rx="6"/><rect x="460" y="710" width="80" height="12" rx="6"/>
+      <rect x="710" y="450" width="120" height="12" rx="6"/><rect x="710" y="480" width="120" height="12" rx="6"/><rect x="710" y="510" width="100" height="12" rx="6"/><rect x="710" y="540" width="120" height="12" rx="6"/><rect x="710" y="570" width="110" height="12" rx="6"/><rect x="710" y="600" width="120" height="12" rx="6"/><rect x="710" y="630" width="90" height="12" rx="6"/><rect x="710" y="660" width="120" height="12" rx="6"/><rect x="710" y="690" width="120" height="12" rx="6"/><rect x="710" y="720" width="100" height="12" rx="6"/><rect x="710" y="750" width="70" height="12" rx="6"/>
+    </g>
+    <g>
+      <circle cx="270" cy="630" r="38" fill="#b8c2de"/><circle cx="520" cy="510" r="38" fill="#ffb020"/><circle cx="770" cy="370" r="44" fill="#ff5d73"/>
+    </g>
+    <g font-size="38" font-weight="900" fill="#fff" text-anchor="middle"><text x="270" y="643">6</text><text x="520" y="523">7</text><text x="770" y="384">9</text></g>
+    <use href="sprites.svg#arrow" x="930" y="590" width="130" height="39" style="--body:#1d2340"/>
+    <rect x="1090" y="370" width="690" height="460" rx="34" fill="#fff"/>
+    <text x="1435" y="450" text-anchor="middle" font-size="44" font-weight="900" fill="#b5541c">Rubric</text>
+    <g font-size="36" font-weight="800" fill="#1d2340">
+      <text x="1230" y="550">Facts per sentence</text>
+      <text x="1230" y="650">Covers the key points</text>
+      <text x="1230" y="750">No padding</text>
+    </g>
+    <use href="sprites.svg#check" x="1140" y="505" width="64" height="64"/>
+    <use href="sprites.svg#check" x="1140" y="605" width="64" height="64"/>
+    <use href="sprites.svg#check" x="1140" y="705" width="64" height="64"/>
+  </svg>
+  <div class="lbl coral" style="left:520px; top:890px">Length ≠ quality</div>
+  <div class="lbl teal" style="left:1435px; top:890px">Reward information density</div>
+</section>
+
+<!-- 8 · self-preference -->
+<section class="slide t-rose" style="--accent:#d6336c">
+  <div class="cap"><span class="eyebrow">Bias 3 · Self-preference</span><h1>Grading <em>its own family</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="140" y="360" width="790" height="480" rx="34" fill="#fff"/>
+    <use href="sprites.svg#robot" x="190" y="430" width="150" height="197" style="--body:#ff6f9c"/>
+    <use href="sprites.svg#robot" x="400" y="430" width="150" height="197" style="--body:#ff6f9c"/>
+    <text x="265" y="680" text-anchor="middle" font-size="32" font-weight="800" fill="#4a5275">wrote</text>
+    <text x="475" y="680" text-anchor="middle" font-size="32" font-weight="800" fill="#4a5275">judged</text>
+    <text x="740" y="560" text-anchor="middle" font-size="96" font-weight="900" fill="#ff5d73">10</text>
+    <use href="sprites.svg#warn" x="690" y="600" width="100" height="89"/>
+    <text x="535" y="790" text-anchor="middle" font-size="38" font-weight="900" fill="#1d2340">Same family</text>
+    <rect x="990" y="360" width="790" height="480" rx="34" fill="#fff"/>
+    <use href="sprites.svg#robot" x="1040" y="430" width="150" height="197" style="--body:#ff6f9c"/>
+    <use href="sprites.svg#robot" x="1250" y="430" width="150" height="197" style="--body:#22b8a6"/>
+    <text x="1115" y="680" text-anchor="middle" font-size="32" font-weight="800" fill="#4a5275">wrote</text>
+    <text x="1325" y="680" text-anchor="middle" font-size="32" font-weight="800" fill="#4a5275">judged</text>
+    <text x="1590" y="560" text-anchor="middle" font-size="96" font-weight="900" fill="#22b8a6">7</text>
+    <use href="sprites.svg#check" x="1545" y="600" width="90" height="90"/>
+    <text x="1385" y="790" text-anchor="middle" font-size="38" font-weight="900" fill="#1d2340">Different family</text>
+  </svg>
+  <div class="lbl red" style="left:535px; top:900px">Every score inflated</div>
+  <div class="lbl green" style="left:1385px; top:900px">An honest judge</div>
+</section>
+
+<!-- 9 · score compression -->
+<section class="slide t-ocean" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Bias 4 · Score compression</span><h1>Everything is a <em>7 or 8</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="140" y="360" width="900" height="480" rx="34" fill="#fff"/>
+    <line x1="190" y1="760" x2="990" y2="760" stroke="#1d2340" stroke-width="5"/>
+    <g fill="#b8c2de">
+      <rect x="200" y="748" width="56" height="12" rx="4"/><rect x="280" y="748" width="56" height="12" rx="4"/><rect x="360" y="744" width="56" height="16" rx="4"/><rect x="440" y="740" width="56" height="20" rx="4"/><rect x="520" y="728" width="56" height="32" rx="4"/><rect x="600" y="690" width="56" height="70" rx="4"/>
+      <rect x="840" y="720" width="56" height="40" rx="4"/><rect x="920" y="748" width="56" height="12" rx="4"/>
+    </g>
+    <rect x="680" y="420" width="56" height="340" rx="6" fill="#ff7a59"/>
+    <rect x="760" y="440" width="56" height="320" rx="6" fill="#ff7a59"/>
+    <g font-size="30" font-weight="800" fill="#4a5275" text-anchor="middle">
+      <text x="228" y="800">1</text><text x="308" y="800">2</text><text x="388" y="800">3</text><text x="468" y="800">4</text><text x="548" y="800">5</text><text x="628" y="800">6</text><text x="708" y="800" fill="#1d2340">7</text><text x="788" y="800" fill="#1d2340">8</text><text x="868" y="800">9</text><text x="948" y="800">10</text>
+    </g>
+    <rect x="1120" y="360" width="660" height="220" rx="34" fill="#fff"/>
+    <rect x="1180" y="410" width="150" height="120" rx="22" fill="#7c5cff"/><rect x="1440" y="410" width="150" height="120" rx="22" fill="#22b8a6"/>
+    <g font-size="64" font-weight="900" fill="#fff" text-anchor="middle"><text x="1255" y="493">A</text><text x="1515" y="493">B</text></g>
+    <text x="1385" y="490" text-anchor="middle" font-size="40" font-weight="900" fill="#1d2340">vs</text>
+    <use href="sprites.svg#check" x="1620" y="425" width="90" height="90"/>
+    <rect x="1120" y="620" width="660" height="220" rx="34" fill="#fff"/>
+    <g>
+      <circle cx="1270" cy="730" r="56" fill="#ff5d73"/><circle cx="1450" cy="730" r="56" fill="#ffb020"/><circle cx="1630" cy="730" r="56" fill="#22c55e"/>
+    </g>
+    <g font-size="52" font-weight="900" fill="#fff" text-anchor="middle"><text x="1270" y="748">1</text><text x="1450" y="748">2</text><text x="1630" y="748">3</text></g>
+  </svg>
+  <div class="lbl coral" style="left:590px; top:900px">10-point scale bunches up</div>
+  <div class="lbl teal" style="left:1450px; top:900px">Pairwise or short rubric</div>
+</section>
+
+<!-- 10 · pairwise + anchored rubric -->
+<section class="slide t-teal" style="--accent:#0b7f75">
+  <div class="cap"><span class="eyebrow">Design a judge</span><h1>Pairwise, with an <em>anchored rubric</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="140" y="370" width="760" height="470" rx="34" fill="#fff"/>
+    <text x="520" y="450" text-anchor="middle" font-size="42" font-weight="900" fill="#1d2340">Which is better?</text>
+    <use href="sprites.svg#doc" x="220" y="500" width="200" height="246" style="--accent:#7c5cff"/>
+    <use href="sprites.svg#doc" x="620" y="500" width="200" height="246" style="--accent:#22b8a6"/>
+    <text x="520" y="650" text-anchor="middle" font-size="44" font-weight="900" fill="#4a5275">vs</text>
+    <use href="sprites.svg#check" x="740" y="470" width="90" height="90"/>
+    <rect x="980" y="370" width="800" height="470" rx="34" fill="#fff"/>
+    <g>
+      <circle cx="1070" cy="460" r="46" fill="#ff5d73"/><circle cx="1070" cy="605" r="46" fill="#ffb020"/><circle cx="1070" cy="750" r="46" fill="#22c55e"/>
+    </g>
+    <g font-size="50" font-weight="900" fill="#fff" text-anchor="middle"><text x="1070" y="477">1</text><text x="1070" y="622">3</text><text x="1070" y="767">5</text></g>
+    <g>
+      <use href="sprites.svg#doc" x="1150" y="415" width="72" height="89" style="--accent:#ff5d73"/>
+      <use href="sprites.svg#doc" x="1150" y="560" width="72" height="89" style="--accent:#ffb020"/>
+      <use href="sprites.svg#doc" x="1150" y="705" width="72" height="89" style="--accent:#22c55e"/>
+    </g>
+    <g font-size="34" font-weight="800" fill="#1d2340">
+      <text x="1250" y="472">Misses the point</text>
+      <text x="1250" y="617">Right, but incomplete</text>
+      <text x="1250" y="762">Complete and grounded</text>
+    </g>
+  </svg>
+  <div class="lbl violet" style="left:520px; top:900px">Ask: A or B?</div>
+  <div class="lbl amber" style="left:1380px; top:900px">An example for each anchor</div>
+</section>
+
+<!-- 11 · reasoning before score -->
+<section class="slide t-sunrise" style="--accent:#d9480f">
+  <div class="cap"><span class="eyebrow">Output order</span><h1>Reasoning <em>before</em> the score</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="140" y="370" width="790" height="460" rx="34" fill="#fff"/>
+    <g font-family="Menlo, monospace" font-size="36" font-weight="800">
+      <text x="200" y="460" fill="#d9480f">"reasoning":</text>
+      <text x="200" y="740" fill="#d9480f">"score":</text>
+      <text x="420" y="740" fill="#1d2340">4</text>
+    </g>
+    <g fill="#b8c2de"><rect x="240" y="500" width="560" height="18" rx="9"/><rect x="240" y="545" width="600" height="18" rx="9"/><rect x="240" y="590" width="480" height="18" rx="9"/><rect x="240" y="635" width="540" height="18" rx="9"/></g>
+    <use href="sprites.svg#check" x="800" y="680" width="90" height="90"/>
+    <rect x="990" y="370" width="790" height="460" rx="34" fill="#fff"/>
+    <g font-family="Menlo, monospace" font-size="36" font-weight="800">
+      <text x="1050" y="460" fill="#d9480f">"score":</text>
+      <text x="1270" y="460" fill="#1d2340">9</text>
+      <text x="1050" y="560" fill="#d9480f">"reasoning":</text>
+    </g>
+    <g fill="#b8c2de" opacity=".6"><rect x="1090" y="600" width="520" height="18" rx="9"/><rect x="1090" y="645" width="460" height="18" rx="9"/><rect x="1090" y="690" width="400" height="18" rx="9"/></g>
+    <use href="sprites.svg#cross" x="1650" y="400" width="90" height="90"/>
+    <path d="M1320 445 Q 1560 500 1560 590" fill="none" stroke="#ff5d73" stroke-width="6" stroke-dasharray="12 10"/>
+  </svg>
+  <div class="lbl green" style="left:535px; top:890px">Think, then score</div>
+  <div class="lbl red" style="left:1385px; top:890px">An after-the-fact excuse</div>
+</section>
+
+<!-- 12 · calibrate with kappa -->
+<section class="slide t-plum" style="--accent:#7b2ff7">
+  <div class="cap"><span class="eyebrow">Calibrate</span><h1>Agree with <em>the experts?</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#group" x="130" y="380" width="250" height="200"/>
+    <use href="sprites.svg#robot" x="180" y="610" width="150" height="197" style="--body:#22b8a6"/>
+    <g>
+      <rect x="440" y="440" width="56" height="56" rx="12" fill="#22c55e"/><rect x="506" y="440" width="56" height="56" rx="12" fill="#22c55e"/><rect x="572" y="440" width="56" height="56" rx="12" fill="#ff5d73"/><rect x="638" y="440" width="56" height="56" rx="12" fill="#22c55e"/><rect x="704" y="440" width="56" height="56" rx="12" fill="#ff5d73"/><rect x="770" y="440" width="56" height="56" rx="12" fill="#22c55e"/><rect x="836" y="440" width="56" height="56" rx="12" fill="#22c55e"/><rect x="902" y="440" width="56" height="56" rx="12" fill="#ff5d73"/><rect x="968" y="440" width="56" height="56" rx="12" fill="#22c55e"/><rect x="1034" y="440" width="56" height="56" rx="12" fill="#22c55e"/>
+      <rect x="440" y="680" width="56" height="56" rx="12" fill="#22c55e"/><rect x="506" y="680" width="56" height="56" rx="12" fill="#22c55e"/><rect x="572" y="680" width="56" height="56" rx="12" fill="#ff5d73"/><rect x="638" y="680" width="56" height="56" rx="12" fill="#ff5d73"/><rect x="704" y="680" width="56" height="56" rx="12" fill="#ff5d73"/><rect x="770" y="680" width="56" height="56" rx="12" fill="#22c55e"/><rect x="836" y="680" width="56" height="56" rx="12" fill="#22c55e"/><rect x="902" y="680" width="56" height="56" rx="12" fill="#22c55e"/><rect x="968" y="680" width="56" height="56" rx="12" fill="#22c55e"/><rect x="1034" y="680" width="56" height="56" rx="12" fill="#22c55e"/>
+    </g>
+    <g stroke="#fff" stroke-width="5" opacity=".55">
+      <line x1="468" y1="510" x2="468" y2="666"/><line x1="534" y1="510" x2="534" y2="666"/><line x1="600" y1="510" x2="600" y2="666"/><line x1="732" y1="510" x2="732" y2="666"/><line x1="798" y1="510" x2="798" y2="666"/><line x1="864" y1="510" x2="864" y2="666"/><line x1="996" y1="510" x2="996" y2="666"/><line x1="1062" y1="510" x2="1062" y2="666"/>
+    </g>
+    <g stroke="#ffcf4a" stroke-width="6" stroke-dasharray="10 8"><line x1="666" y1="510" x2="666" y2="666"/><line x1="930" y1="510" x2="930" y2="666"/></g>
+    <rect x="1220" y="370" width="560" height="460" rx="34" fill="#fff"/>
+    <text x="1500" y="455" text-anchor="middle" font-size="40" font-weight="900" fill="#7b2ff7">Cohen's κ</text>
+    <text x="1500" y="640" text-anchor="middle" font-size="150" font-weight="900" fill="#ff5d73">60%</text>
+    <text x="1500" y="740" text-anchor="middle" font-size="32" font-weight="800" fill="#1d2340">agreement means it's</text>
+    <text x="1500" y="785" text-anchor="middle" font-size="32" font-weight="800" fill="#1d2340">measuring something else</text>
+  </svg>
+  <div class="lbl" style="left:765px; top:400px">Experts</div>
+  <div class="lbl teal" style="left:765px; top:800px">Judge</div>
+  <div class="lbl violet" style="left:765px; top:900px">100–200 labeled cases</div>
+</section>
+
+<!-- 13 · pin the judge version -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Versioning</span><h1>Pin the judge <em>like a dependency</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#robot" x="170" y="460" width="230" height="302" style="--body:#22b8a6"/>
+    <use href="sprites.svg#lock" x="400" y="420" width="120" height="150" style="--body:#ffb020"/>
+    <use href="sprites.svg#ticket" x="390" y="620" width="300" height="138" style="--accent:#1f6fbf"/>
+    <text x="555" y="800" text-anchor="middle" font-family="Menlo, monospace" font-size="32" font-weight="800" fill="#1d2340">judge@2026-06-01</text>
+    <rect x="820" y="360" width="960" height="480" rx="34" fill="#fff"/>
+    <text x="870" y="430" font-size="34" font-weight="900" fill="#4a5275">Quality score over time</text>
+    <line x1="880" y1="780" x2="1730" y2="780" stroke="#1d2340" stroke-width="5"/>
+    <polyline points="890,640 980,630 1070,650 1160,620 1250,635 1300,628" fill="none" stroke="#1f6fbf" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <polyline points="1300,500 1390,490 1480,510 1570,480 1660,495 1720,485" fill="none" stroke="#ff5d73" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <line x1="1300" y1="460" x2="1300" y2="780" stroke="#1d2340" stroke-width="5" stroke-dasharray="10 10"/>
+    <use href="sprites.svg#warn" x="1250" y="680" width="100" height="89"/>
+  </svg>
+  <div class="lbl dark" style="left:420px; top:890px">A fixed, versioned judge</div>
+  <div class="lbl red" style="left:1300px; top:890px">Silent upgrade = new metric</div>
+</section>
+
+<!-- 14 · NeMo Evaluator -->
+<section class="slide t-night" style="--accent:#5a9a00">
+  <div class="cap"><span class="eyebrow">NVIDIA tooling</span><h1><em>NeMo Evaluator</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#chart-bar" x="140" y="360" width="160" height="120"/>
+    <use href="sprites.svg#database" x="160" y="530" width="110" height="125"/>
+    <use href="sprites.svg#robot-head" x="140" y="710" width="150" height="118" style="--body:#22b8a6"/>
+    <g font-size="36" font-weight="900" fill="#fff">
+      <text x="330" y="435">Benchmarks</text><text x="330" y="605">Custom datasets</text><text x="330" y="785">Judges</text>
+    </g>
+    <g stroke="#9fd65a" stroke-width="8" stroke-dasharray="14 12" fill="none">
+      <path d="M560 420 Q 680 470 760 540"/><path d="M670 595 L 760 600"/><path d="M500 770 Q 680 720 760 660"/>
+    </g>
+    <rect x="770" y="430" width="360" height="340" rx="34" fill="#76b900"/>
+    <use href="sprites.svg#gpu" x="830" y="470" width="240" height="156"/>
+    <text x="950" y="700" text-anchor="middle" font-size="36" font-weight="900" fill="#fff">Scored runs</text>
+    <use href="sprites.svg#arrow" x="1150" y="580" width="110" height="33" style="--body:#fff"/>
+    <rect x="1280" y="380" width="500" height="440" rx="34" fill="#fff"/>
+    <g font-size="34" font-weight="900" fill="#1d2340"><text x="1330" y="480">Fine-tuned</text><text x="1330" y="650">Incumbent</text></g>
+    <rect x="1330" y="510" width="400" height="50" rx="25" fill="#e8ecf5"/><rect x="1330" y="510" width="360" height="50" rx="25" fill="#76b900"/>
+    <rect x="1330" y="680" width="400" height="50" rx="25" fill="#e8ecf5"/><rect x="1330" y="680" width="290" height="50" rx="25" fill="#8a93b0"/>
+    <use href="sprites.svg#check" x="1660" y="400" width="90" height="90"/>
+  </svg>
+  <div class="lbl amber" style="left:1400px; top:900px">Did the new model beat the incumbent?</div>
+</section>
+
+<!-- 15 · exam tip -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Exam tip</span><h1>Code check <em>beats a judge</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="140" y="370" width="800" height="460" rx="34" fill="#fff"/>
+    <use href="sprites.svg#gear" x="210" y="440" width="190" height="190" style="--body:#22b8a6"/>
+    <use href="sprites.svg#check" x="340" y="580" width="90" height="90"/>
+    <text x="305" y="760" text-anchor="middle" font-size="38" font-weight="900" fill="#1d2340">Code check</text>
+    <text x="540" y="560" text-anchor="middle" font-size="56" font-weight="900" fill="#4a5275">&gt;</text>
+    <use href="sprites.svg#robot-head" x="640" y="460" width="200" height="157" style="--body:#7c5cff"/>
+    <text x="740" y="760" text-anchor="middle" font-size="38" font-weight="900" fill="#1d2340">LLM judge</text>
+    <rect x="1010" y="370" width="770" height="460" rx="34" fill="#fff"/>
+    <use href="sprites.svg#chart-line" x="1070" y="430" width="240" height="180"/>
+    <text x="1430" y="490" font-size="96" font-weight="900" fill="#ff5d73">9.8</text>
+    <use href="sprites.svg#warn" x="1640" y="420" width="100" height="89"/>
+    <text x="1395" y="700" text-anchor="middle" font-size="38" font-weight="900" fill="#1d2340">Suspiciously high?</text>
+    <text x="1395" y="760" text-anchor="middle" font-size="34" font-weight="800" fill="#6a45e8">Think self-preference</text>
+  </svg>
+  <div class="lbl violet" style="left:540px; top:890px">Pick the code</div>
+  <div class="lbl coral" style="left:1395px; top:890px">Know all four biases</div>
+</section>
+
+</body>
+</html>

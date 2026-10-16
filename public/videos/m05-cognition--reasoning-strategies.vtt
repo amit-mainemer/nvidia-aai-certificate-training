@@ -1,0 +1,133 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:03.279
+Module Five, Lesson One: reasoning strategies.
+
+2
+00:00:03.609 --> 00:00:07.463
+Six techniques, each with a price tag and a phrase that gives it away.
+
+3
+00:00:08.263 --> 00:00:11.755
+Picture an HR help bot at a company of two thousand people.
+
+4
+00:00:12.085 --> 00:00:15.811
+To make it smarter, the team sends every question through Tree of Thoughts.
+
+5
+00:00:16.611 --> 00:00:19.867
+Now a question about vacation days takes thirty seconds.
+
+6
+00:00:20.197 --> 00:00:23.113
+The bill grows tenfold, and the answers are no better.
+
+7
+00:00:23.913 --> 00:00:28.087
+Chain of thought is the cheapest: one linear reasoning path before the answer.
+
+8
+00:00:28.417 --> 00:00:32.889
+It costs one to two times the baseline, and the phrase is: think step by step.
+
+9
+00:00:33.689 --> 00:00:37.693
+Self-consistency samples several chains and takes a majority vote.
+
+10
+00:00:38.023 --> 00:00:40.725
+Sample five chains, and you pay five times.
+
+11
+00:00:41.525 --> 00:00:45.891
+Tree of Thoughts branches, scores partial solutions, searches, and backtracks.
+
+12
+00:00:46.221 --> 00:00:50.117
+At five to twenty times the baseline, it is the priciest of the six.
+
+13
+00:00:50.917 --> 00:00:55.561
+It fits only when exploring branches helps, and the model can score partial states.
+
+14
+00:00:55.891 --> 00:00:58.330
+Without that score there is nothing to search on,
+
+15
+00:00:58.380 --> 00:01:00.107
+so never use it for a quick lookup.
+
+16
+00:01:00.907 --> 00:01:03.304
+Chain of Verification drafts an answer,
+
+17
+00:01:03.354 --> 00:01:06.127
+asks itself checking questions, then revises.
+
+18
+00:01:06.457 --> 00:01:09.841
+It costs three to four times, and it targets factual errors.
+
+19
+00:01:10.641 --> 00:01:15.071
+Reflexion writes a self-critique after a failure and keeps it for the next attempt.
+
+20
+00:01:15.401 --> 00:01:18.786
+Debate has agents argue positions while a judge decides.
+
+21
+00:01:19.586 --> 00:01:22.245
+Modern reasoning models already think internally.
+
+22
+00:01:22.575 --> 00:01:25.453
+Adding a step by step prompt duplicates that work,
+
+23
+00:01:25.503 --> 00:01:28.029
+so a simple lookup needs no scaffold at all.
+
+24
+00:01:28.829 --> 00:01:32.214
+Treat reasoning effort as a routed decision, not a constant.
+
+25
+00:01:32.544 --> 00:01:36.658
+Easy requests get a direct answer, medium ones get chain of thought,
+
+26
+00:01:36.708 --> 00:01:39.107
+and only hard ones get voting or search.
+
+27
+00:01:39.907 --> 00:01:43.228
+A confidence estimate or a small classifier picks the lane.
+
+28
+00:01:43.558 --> 00:01:46.559
+It is the same routing idea used to choose models.
+
+29
+00:01:47.359 --> 00:01:50.850
+And the HR bot still gets the new parental leave policy wrong.
+
+30
+00:01:51.180 --> 00:01:55.546
+Reasoning cannot invent a fact the model never had, so the fix is retrieval.
+
+31
+00:01:56.346 --> 00:01:58.951
+On the exam, match the phrase to the technique,
+
+32
+00:01:59.001 --> 00:02:02.397
+and distrust expensive reasoning offered for a knowledge gap.
+
+33
+00:02:02.727 --> 00:02:05.429
+The full cost table is waiting in the lesson below.

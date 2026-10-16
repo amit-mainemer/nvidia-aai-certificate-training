@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module 3 · Lesson 1 slides — what to measure and where</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .mono { font-family: 'SF Mono', Menlo, Consolas, monospace; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <marker id="a-ink" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1d2340"/></marker>
+    <marker id="a-white" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#fff"/></marker>
+    <marker id="a-violet" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#7c5cff"/></marker>
+    <marker id="a-teal" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#22b8a6"/></marker>
+    <marker id="a-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#ff5d73"/></marker>
+    <marker id="a-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#ffb020"/></marker>
+    <marker id="a-grey" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#9aa6c8"/></marker>
+  </defs>
+</svg>
+
+<!-- 1 · title -->
+<section class="slide t-plum" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Module 3 · Lesson 1</span><h1>What to measure, <em>and where</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#robot" x="150" y="520" width="260" height="341" style="--body:#ffb020;--accent:#7c5cff"/>
+    <!-- the one number -->
+    <rect x="470" y="360" width="560" height="530" rx="40" fill="#fff"/>
+    <text x="750" y="640" text-anchor="middle" font-size="190" font-weight="900" fill="#6a45e8" letter-spacing="-8">70%</text>
+    <text x="750" y="716" text-anchor="middle" font-size="36" font-weight="800" fill="#4a5275">success rate</text>
+    <line x1="540" y1="770" x2="960" y2="770" stroke="#eceff7" stroke-width="5"/>
+    <text x="750" y="838" text-anchor="middle" font-size="34" font-weight="900" fill="#1d2340">Something is wrong</text>
+    <!-- four sealed layers -->
+    <g>
+      <rect x="1170" y="350" width="640" height="118" rx="26" fill="#fff" opacity=".30"/>
+      <rect x="1170" y="492" width="640" height="118" rx="26" fill="#fff" opacity=".30"/>
+      <rect x="1170" y="634" width="640" height="118" rx="26" fill="#fff" opacity=".30"/>
+      <rect x="1170" y="776" width="640" height="118" rx="26" fill="#fff" opacity=".30"/>
+    </g>
+    <g fill="#ffcf4a"><circle cx="1255" cy="409" r="34"/><circle cx="1255" cy="551" r="34"/><circle cx="1255" cy="693" r="34"/><circle cx="1255" cy="835" r="34"/></g>
+    <g font-size="44" font-weight="900" fill="#1d2340" text-anchor="middle"><text x="1255" y="425">?</text><text x="1255" y="567">?</text><text x="1255" y="709">?</text><text x="1255" y="851">?</text></g>
+    <g fill="#fff" opacity=".55"><rect x="1330" y="396" width="330" height="26" rx="13"/><rect x="1330" y="538" width="260" height="26" rx="13"/><rect x="1330" y="680" width="360" height="26" rx="13"/><rect x="1330" y="822" width="290" height="26" rx="13"/></g>
+    <path d="M1050 620 H1140" stroke="#ffcf4a" stroke-width="12" marker-end="url(#a-amber)"/>
+  </svg>
+  <div class="lbl amber lg" style="left:1490px; top:300px">But where?</div>
+</section>
+
+<!-- 2 · the travel bot -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">A real-world case</span><h1>A travel bot <em>slips</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#person-desk" x="90" y="560" width="420" height="360" style="--shirt:#ff7a59;--hair:#1d2340"/>
+    <use href="sprites.svg#robot" x="560" y="490" width="250" height="328" style="--body:#1f6fbf;--accent:#ffcf4a"/>
+    <use href="sprites.svg#ticket" x="850" y="400" width="250" height="115"/>
+    <use href="sprites.svg#building" x="880" y="560" width="170" height="206" style="--roof:#1f6fbf"/>
+    <g stroke="#1f6fbf" stroke-width="8" fill="none" stroke-dasharray="4 14" stroke-linecap="round">
+      <path d="M800 560 C840 500 820 470 845 460"/>
+      <path d="M810 640 C850 640 860 650 875 655"/>
+    </g>
+    <!-- chart -->
+    <rect x="1150" y="330" width="660" height="560" rx="40" fill="#fff"/>
+    <g stroke="#eceff7" stroke-width="4"><path d="M1220 480 H1740 M1220 590 H1740 M1220 700 H1740"/></g>
+    <path d="M1220 470 L1350 486 L1470 462 L1560 478" fill="none" stroke="#22b8a6" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M1560 478 L1700 742" fill="none" stroke="#ff5d73" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="1560" cy="478" r="15" fill="#22b8a6"/><circle cx="1700" cy="742" r="15" fill="#ff5d73"/>
+    <text x="1420" y="432" text-anchor="middle" font-size="40" font-weight="900" fill="#22b8a6">82%</text>
+    <text x="1700" y="812" text-anchor="middle" font-size="40" font-weight="900" fill="#ff5d73">70%</text>
+    <text x="1640" y="420" text-anchor="middle" font-size="32" font-weight="800" fill="#4a5275">Monday</text>
+    <path d="M1640 440 V470" stroke="#9aa6c8" stroke-width="5" stroke-dasharray="8 8"/>
+  </svg>
+  <div class="lbl dark" style="left:685px; top:860px">Books flights &amp; hotels</div>
+  <div class="lbl" style="left:1480px; top:290px">Task success rate</div>
+</section>
+
+<!-- 3 · one number, no direction -->
+<section class="slide t-coral" style="--accent:#d33a2c">
+  <div class="cap"><span class="eyebrow">A week of staring</span><h1>One number, <em>no direction</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#group" x="110" y="590" width="420" height="336" style="--shirt:#2c3350"/>
+    <use href="sprites.svg#monitor" x="620" y="350" width="600" height="518" style="--accent:transparent;--screen:#1d2340"/>
+    <text x="920" y="560" text-anchor="middle" font-size="150" font-weight="900" fill="#fff">70%</text>
+    <text x="920" y="628" text-anchor="middle" font-size="34" font-weight="800" fill="#8a96c0">that is all it says</text>
+    <!-- arrows into nothing -->
+    <g fill="none" stroke="#fff" stroke-width="10" stroke-dasharray="6 18" stroke-linecap="round" marker-end="url(#a-white)">
+      <path d="M1250 480 C1350 440 1420 420 1500 415"/>
+      <path d="M1250 600 C1360 600 1420 600 1500 600"/>
+      <path d="M1250 720 C1350 760 1420 780 1500 785"/>
+    </g>
+    <g><use href="sprites.svg#question" x="1530" y="355" width="120" height="120" style="--body:#fff;--ink:#d33a2c"/>
+       <use href="sprites.svg#question" x="1530" y="540" width="120" height="120" style="--body:#fff;--ink:#d33a2c"/>
+       <use href="sprites.svg#question" x="1530" y="725" width="120" height="120" style="--body:#fff;--ink:#d33a2c"/></g>
+    <!-- a week -->
+    <g fill="#fff" opacity=".5"><rect x="1700" y="380" width="70" height="70" rx="14"/><rect x="1700" y="470" width="70" height="70" rx="14"/><rect x="1700" y="560" width="70" height="70" rx="14"/><rect x="1700" y="650" width="70" height="70" rx="14"/><rect x="1700" y="740" width="70" height="70" rx="14"/></g>
+  </svg>
+  <div class="lbl dark" style="left:320px; top:935px">The whole team, one week</div>
+  <div class="lbl red lg" style="left:1660px; top:300px">Wrong? Where?</div>
+</section>
+
+<!-- 4 · the four layers -->
+<section class="slide t-ocean" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">The core of the domain</span><h1>Four layers, <em>four questions</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="90" y="330" width="410" height="580" rx="36"/><rect x="540" y="330" width="410" height="580" rx="36"/><rect x="990" y="330" width="410" height="580" rx="36"/><rect x="1440" y="330" width="410" height="580" rx="36"/></g>
+    <!-- component -->
+    <use href="sprites.svg#puzzle" x="160" y="400" width="150" height="150" style="--body:#5cc8ff"/>
+    <use href="sprites.svg#magnifier" x="310" y="470" width="130" height="130"/>
+    <use href="sprites.svg#database" x="185" y="600" width="100" height="113"/>
+    <use href="sprites.svg#gear" x="320" y="615" width="90" height="90" style="--body:#b8c2de"/>
+    <!-- step -->
+    <use href="sprites.svg#robot-head" x="595" y="420" width="160" height="126" style="--body:#22b8a6"/>
+    <g fill="none" stroke="#1d2340" stroke-width="8"><path d="M760 483 C800 483 800 430 840 430"/><path d="M760 483 C800 483 800 545 840 545"/></g>
+    <use href="sprites.svg#check" x="845" y="395" width="70" height="70"/>
+    <use href="sprites.svg#cross" x="845" y="510" width="70" height="70"/>
+    <rect x="600" y="600" width="290" height="110" rx="20" fill="#eef2fb"/>
+    <text x="745" y="648" text-anchor="middle" font-size="28" font-weight="800" fill="#4a5275">tool +</text>
+    <text x="745" y="686" text-anchor="middle" font-size="28" font-weight="800" fill="#4a5275">arguments</text>
+    <!-- trajectory -->
+    <path d="M1050 690 C1110 540 1180 700 1240 560 S1330 420 1350 500" fill="none" stroke="#7c5cff" stroke-width="10" stroke-linecap="round"/>
+    <g fill="#7c5cff"><circle cx="1050" cy="690" r="18"/><circle cx="1160" cy="618" r="18"/><circle cx="1240" cy="560" r="18"/><circle cx="1320" cy="470" r="18"/></g>
+    <use href="sprites.svg#flag" x="1230" y="620" width="90" height="120"/>
+    <!-- outcome -->
+    <use href="sprites.svg#target" x="1560" y="420" width="220" height="220"/>
+    <path d="M1490 700 L1650 545" stroke="#1d2340" stroke-width="12" stroke-linecap="round" marker-end="url(#a-ink)"/>
+    <g font-size="34" font-weight="900" fill="#1d2340" text-anchor="middle">
+      <text x="295" y="805">Component</text><text x="745" y="805">Step</text><text x="1195" y="805">Trajectory</text><text x="1645" y="805">Outcome</text>
+    </g>
+    <g font-size="27" font-weight="700" fill="#4a5275" text-anchor="middle">
+      <text x="295" y="858">Each piece alone</text><text x="745" y="858">Each decision</text><text x="1195" y="858">The whole path</text><text x="1645" y="858">Task actually done</text>
+    </g>
+  </svg>
+</section>
+
+<!-- 5 · component + step -->
+<section class="slide t-mint" style="--accent:#128c7e">
+  <div class="cap"><span class="eyebrow">Layers one and two</span><h1>Each piece, <em>each decision</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- component card -->
+    <rect x="100" y="330" width="830" height="590" rx="40" fill="#fff"/>
+    <text x="150" y="400" font-size="34" font-weight="900" fill="#128c7e">COMPONENT · retrieval alone</text>
+    <use href="sprites.svg#magnifier" x="150" y="450" width="130" height="130"/>
+    <use href="sprites.svg#arrow" x="300" y="490" width="110" height="33" style="--body:#1d2340"/>
+    <use href="sprites.svg#database" x="430" y="440" width="130" height="147"/>
+    <g>
+      <rect x="610" y="430" width="270" height="56" rx="14" fill="#c6f5d6"/><use href="sprites.svg#check" x="620" y="436" width="44" height="44"/>
+      <rect x="610" y="502" width="270" height="56" rx="14" fill="#c6f5d6"/><use href="sprites.svg#check" x="620" y="508" width="44" height="44"/>
+      <rect x="610" y="574" width="270" height="56" rx="14" fill="#f0f2f8"/><use href="sprites.svg#cross" x="620" y="580" width="44" height="44"/>
+    </g>
+    <text x="150" y="720" font-size="30" font-weight="800" fill="#4a5275">recall@k</text>
+    <rect x="150" y="745" width="730" height="46" rx="23" fill="#eceff7"/>
+    <rect x="150" y="745" width="490" height="46" rx="23" fill="#22b8a6"/>
+    <text x="820" y="781" text-anchor="middle" font-size="34" font-weight="900" fill="#128c7e">0.67</text>
+    <text x="150" y="866" font-size="30" font-weight="800" fill="#1d2340">No generator involved</text>
+    <!-- step card -->
+    <rect x="990" y="330" width="830" height="590" rx="40" fill="#fff"/>
+    <text x="1040" y="400" font-size="34" font-weight="900" fill="#7c5cff">STEP · this one decision</text>
+    <use href="sprites.svg#robot-head" x="1040" y="450" width="170" height="134" style="--body:#7c5cff"/>
+    <g fill="none" stroke="#b8c2de" stroke-width="8"><path d="M1215 517 C1270 517 1270 455 1330 455"/><path d="M1215 517 H1330"/><path d="M1215 517 C1270 517 1270 580 1330 580"/></g>
+    <g>
+      <rect x="1335" y="420" width="220" height="70" rx="18" fill="#f0f2f8"/><use href="sprites.svg#wrench" x="1352" y="432" width="46" height="46" style="--body:#b8c2de"/><text x="1470" y="470" text-anchor="middle" font-size="28" font-weight="800" fill="#8a96c0">book</text>
+      <rect x="1335" y="495" width="220" height="70" rx="18" fill="#ffe89c"/><use href="sprites.svg#magnifier" x="1352" y="507" width="46" height="46"/><text x="1470" y="545" text-anchor="middle" font-size="28" font-weight="900" fill="#1d2340">search</text>
+      <rect x="1335" y="570" width="220" height="70" rx="18" fill="#f0f2f8"/><use href="sprites.svg#envelope" x="1352" y="588" width="46" height="33"/><text x="1470" y="620" text-anchor="middle" font-size="28" font-weight="800" fill="#8a96c0">email</text>
+    </g>
+    <use href="sprites.svg#check" x="1590" y="495" width="70" height="70"/>
+    <rect x="1040" y="690" width="730" height="150" rx="24" fill="#f4f1ff"/>
+    <text x="1075" y="750" font-size="30" font-weight="800" fill="#4a5275" class="mono">city = "Lisbon"</text>
+    <use href="sprites.svg#check" x="1650" y="712" width="52" height="52"/>
+    <text x="1075" y="812" font-size="30" font-weight="800" fill="#4a5275" class="mono">date = "last Tue"</text>
+    <use href="sprites.svg#cross" x="1650" y="774" width="52" height="52"/>
+  </svg>
+</section>
+
+<!-- 6 · trajectory -->
+<section class="slide t-night" style="--accent:#3f56c4">
+  <div class="cap"><span class="eyebrow">Layer three · the differentiator</span><h1>Trajectory: <em>the whole path</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#robot" x="110" y="560" width="200" height="263" style="--body:#ffb020"/>
+    <path d="M330 700 C420 560 520 820 620 660 S800 500 880 700 S1040 830 1140 640 S1300 470 1410 560" fill="none" stroke="#8a96c0" stroke-width="10" stroke-dasharray="4 20" stroke-linecap="round"/>
+    <g>
+      <use href="sprites.svg#magnifier" x="380" y="560" width="86" height="86"/>
+      <use href="sprites.svg#magnifier" x="560" y="700" width="86" height="86"/>
+      <use href="sprites.svg#magnifier" x="740" y="530" width="86" height="86"/>
+      <use href="sprites.svg#magnifier" x="920" y="750" width="86" height="86"/>
+      <use href="sprites.svg#magnifier" x="1100" y="560" width="86" height="86"/>
+      <use href="sprites.svg#magnifier" x="1260" y="690" width="86" height="86"/>
+    </g>
+    <use href="sprites.svg#flag" x="1440" y="470" width="110" height="147"/>
+    <!-- verdicts -->
+    <rect x="1600" y="420" width="250" height="190" rx="30" fill="#22c55e"/>
+    <use href="sprites.svg#check" x="1690" y="450" width="70" height="70" style="--body:#fff;--ink:#22c55e"/>
+    <text x="1725" y="570" text-anchor="middle" font-size="32" font-weight="900" fill="#fff">Outcome</text>
+    <rect x="1600" y="640" width="250" height="190" rx="30" fill="#ff5d73"/>
+    <use href="sprites.svg#cross" x="1690" y="670" width="70" height="70" style="--body:#fff;--ink:#ff5d73"/>
+    <text x="1725" y="790" text-anchor="middle" font-size="32" font-weight="900" fill="#fff">Reliability</text>
+    <text x="760" y="400" text-anchor="middle" font-size="46" font-weight="900" fill="#ffcf4a">6 redundant searches, one lucky guess</text>
+  </svg>
+  <div class="lbl amber" style="left:900px; top:905px">Right answer, wasteful path</div>
+</section>
+
+<!-- 7 · outcome -->
+<section class="slide t-sand" style="--accent:#b4541c">
+  <div class="cap"><span class="eyebrow">Layer four</span><h1>Did the task <em>get done?</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#target" x="150" y="430" width="300" height="300"/>
+    <path d="M110 850 L280 665" stroke="#1d2340" stroke-width="16" stroke-linecap="round" marker-end="url(#a-ink)"/>
+    <g fill="#fff"><rect x="580" y="350" width="380" height="270" rx="34"/><rect x="1010" y="350" width="380" height="270" rx="34"/><rect x="1440" y="350" width="380" height="270" rx="34"/></g>
+    <use href="sprites.svg#check" x="620" y="390" width="80" height="80"/>
+    <use href="sprites.svg#shield" x="1050" y="385" width="78" height="90" style="--body:#1f6fbf"/>
+    <use href="sprites.svg#coins" x="1480" y="392" width="100" height="88"/>
+    <g font-size="54" font-weight="900" fill="#b4541c"><text x="740" y="460">82%</text><text x="1170" y="460">0.91</text><text x="1610" y="460">$0.18</text></g>
+    <g font-size="32" font-weight="800" fill="#1d2340"><text x="620" y="545">Task success</text><text x="1050" y="545">Groundedness</text><text x="1480" y="545">Cost per task</text></g>
+    <g font-size="27" font-weight="700" fill="#4a5275"><text x="620" y="588">over repeated runs</text><text x="1050" y="588">claims backed by source</text><text x="1480" y="588">per resolved request</text></g>
+    <!-- caveat strip -->
+    <rect x="580" y="680" width="1240" height="200" rx="34" fill="#1d2340"/>
+    <use href="sprites.svg#warn" x="630" y="740" width="110" height="97"/>
+    <text x="790" y="770" font-size="36" font-weight="900" fill="#fff">Outcome alone hides the path</text>
+    <text x="790" y="826" font-size="32" font-weight="700" fill="#b8c2de">A lucky run still scores a pass</text>
+  </svg>
+  <div class="lbl dark" style="left:300px; top:790px">The only layer users feel</div>
+</section>
+
+<!-- 8 · RAG diagnostic grid -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Retrieval diagnostics</span><h1>Read the <em>RAG grid</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <text x="600" y="345" text-anchor="middle" font-size="32" font-weight="900" fill="#6a45e8">FAITHFULNESS LOW</text>
+    <text x="1250" y="345" text-anchor="middle" font-size="32" font-weight="900" fill="#6a45e8">FAITHFULNESS HIGH</text>
+    <g transform="rotate(-90 200 480)"><text x="200" y="480" text-anchor="middle" font-size="32" font-weight="900" fill="#6a45e8">RECALL LOW</text></g>
+    <g transform="rotate(-90 200 760)"><text x="200" y="760" text-anchor="middle" font-size="32" font-weight="900" fill="#6a45e8">RECALL HIGH</text></g>
+    <!-- cells -->
+    <rect x="280" y="380" width="640" height="260" rx="30" fill="#ff5d73"/>
+    <rect x="950" y="380" width="640" height="260" rx="30" fill="#ff5d73"/>
+    <rect x="280" y="660" width="640" height="260" rx="30" fill="#ffb020"/>
+    <rect x="950" y="660" width="640" height="260" rx="30" fill="#22c55e"/>
+    <use href="sprites.svg#database" x="330" y="440" width="90" height="102" style="--body:#ffb4a6;--top:#fff;--line:#ffd8d0"/>
+    <use href="sprites.svg#cross" x="340" y="560" width="60" height="60" style="--body:#fff;--ink:#ff5d73"/>
+    <text x="460" y="490" font-size="38" font-weight="900" fill="#fff">Evidence was</text>
+    <text x="460" y="540" font-size="38" font-weight="900" fill="#fff">never fetched</text>
+    <text x="460" y="596" font-size="30" font-weight="700" fill="#ffe2df">chunking · embeddings · top-k</text>
+    <use href="sprites.svg#database" x="1000" y="440" width="90" height="102" style="--body:#ffb4a6;--top:#fff;--line:#ffd8d0"/>
+    <use href="sprites.svg#cross" x="1010" y="560" width="60" height="60" style="--body:#fff;--ink:#ff5d73"/>
+    <text x="1130" y="490" font-size="38" font-weight="900" fill="#fff">Still a retrieval</text>
+    <text x="1130" y="540" font-size="38" font-weight="900" fill="#fff">failure</text>
+    <text x="1130" y="596" font-size="30" font-weight="700" fill="#ffe2df">grounded in the wrong evidence</text>
+    <use href="sprites.svg#robot-head" x="330" y="710" width="120" height="94" style="--body:#fff"/>
+    <use href="sprites.svg#warn" x="345" y="822" width="70" height="62"/>
+    <text x="480" y="770" font-size="38" font-weight="900" fill="#1d2340">The model</text>
+    <text x="480" y="820" font-size="38" font-weight="900" fill="#1d2340">ignored it</text>
+    <text x="480" y="876" font-size="30" font-weight="700" fill="#6b4a00">grounding prompt · rerank</text>
+    <use href="sprites.svg#check" x="1000" y="730" width="110" height="110" style="--body:#fff;--ink:#22c55e"/>
+    <text x="1150" y="790" font-size="38" font-weight="900" fill="#fff">Healthy pipeline</text>
+    <text x="1150" y="846" font-size="24" font-weight="700" fill="#d8f7e2">now check relevancy &amp; precision</text>
+    <use href="sprites.svg#magnifier" x="1670" y="520" width="200" height="200"/>
+  </svg>
+</section>
+
+<!-- 9 · test retrieval alone -->
+<section class="slide t-teal" style="--accent:#0b7f75">
+  <div class="cap"><span class="eyebrow">The most common root cause</span><h1>Test retrieval <em>on its own</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- pipeline -->
+    <rect x="110" y="420" width="240" height="180" rx="30" fill="#fff"/>
+    <use href="sprites.svg#chat" x="165" y="455" width="130" height="103" style="--dot:#0b7f75"/>
+    <text x="230" y="660" text-anchor="middle" font-size="30" font-weight="800" fill="#fff">query</text>
+    <path d="M360 510 H430" stroke="#fff" stroke-width="10" marker-end="url(#a-white)"/>
+    <rect x="440" y="380" width="420" height="260" rx="34" fill="#ffcf4a"/>
+    <use href="sprites.svg#database" x="490" y="425" width="120" height="136"/>
+    <use href="sprites.svg#magnifier" x="640" y="435" width="120" height="120"/>
+    <text x="650" y="612" text-anchor="middle" font-size="38" font-weight="900" fill="#1d2340">Retriever</text>
+    <!-- scoring gate -->
+    <path d="M650 660 V750" stroke="#1d2340" stroke-width="10" marker-end="url(#a-ink)"/>
+    <rect x="400" y="760" width="500" height="150" rx="30" fill="#1d2340"/>
+    <use href="sprites.svg#checklist" x="440" y="785" width="90" height="108"/>
+    <text x="580" y="825" font-size="32" font-weight="900" fill="#fff">query → doc ids</text>
+    <text x="580" y="875" font-size="30" font-weight="700" fill="#8fe8dd">score recall@k here</text>
+    <!-- greyed generator -->
+    <path d="M870 510 H950" stroke="#8a96c0" stroke-width="10" stroke-dasharray="10 10" marker-end="url(#a-grey)"/>
+    <rect x="960" y="400" width="340" height="220" rx="34" fill="#fff" opacity=".25"/>
+    <use href="sprites.svg#robot-head" x="1060" y="440" width="140" height="110" style="--body:#8a96c0"/>
+    <text x="1130" y="600" text-anchor="middle" font-size="32" font-weight="800" fill="#bfe6e0">not yet</text>
+    <!-- the culprit -->
+    <rect x="1400" y="340" width="420" height="560" rx="36" fill="#fff"/>
+    <text x="1440" y="410" font-size="32" font-weight="900" fill="#0b7f75">HOTEL SEARCH</text>
+    <g>
+      <rect x="1440" y="450" width="340" height="80" rx="18" fill="#ffe2df"/><use href="sprites.svg#cross" x="1700" y="465" width="50" height="50"/><use href="sprites.svg#building" x="1460" y="458" width="55" height="67"/>
+      <rect x="1440" y="550" width="340" height="80" rx="18" fill="#ffe2df"/><use href="sprites.svg#cross" x="1700" y="565" width="50" height="50"/><use href="sprites.svg#building" x="1460" y="558" width="55" height="67"/>
+      <rect x="1440" y="650" width="340" height="80" rx="18" fill="#ffe2df"/><use href="sprites.svg#cross" x="1700" y="665" width="50" height="50"/><use href="sprites.svg#building" x="1460" y="658" width="55" height="67"/>
+    </g>
+    <text x="1610" y="800" text-anchor="middle" font-size="36" font-weight="900" fill="#1d2340">Wrong listings</text>
+    <text x="1610" y="852" text-anchor="middle" font-size="30" font-weight="700" fill="#4a5275">invisible end-to-end</text>
+  </svg>
+  <div class="lbl red lg" style="left:1610px; top:300px">Culprit found</div>
+</section>
+
+<!-- 10 · golden dataset -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">The backbone</span><h1>Build a <em>golden dataset</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#book" x="130" y="500" width="440" height="345" style="--left:#ffb020;--right:#ffcf4a;--edge:#c25e00"/>
+    <rect x="200" y="420" width="220" height="80" rx="20" fill="#1d2340"/>
+    <text x="310" y="476" text-anchor="middle" font-size="38" font-weight="900" fill="#fff" class="mono">v3.2</text>
+    <path d="M310 500 V520" stroke="#1d2340" stroke-width="8"/>
+    <!-- hard cases -->
+    <rect x="640" y="330" width="1180" height="590" rx="40" fill="#fff"/>
+    <text x="690" y="400" font-size="34" font-weight="900" fill="#c25e00">DELIBERATELY HARD</text>
+    <g>
+      <rect x="690" y="440" width="510" height="130" rx="26" fill="#fff0b8"/>
+      <use href="sprites.svg#question" x="715" y="470" width="70" height="70"/>
+      <text x="810" y="525" font-size="34" font-weight="800" fill="#1d2340">Ambiguous queries</text>
+      <rect x="1250" y="440" width="510" height="130" rx="26" fill="#fff0b8"/>
+      <use href="sprites.svg#cross" x="1275" y="470" width="70" height="70"/>
+      <text x="1370" y="525" font-size="34" font-weight="800" fill="#1d2340">Out of scope</text>
+      <rect x="690" y="600" width="510" height="130" rx="26" fill="#fff0b8"/>
+      <use href="sprites.svg#warn" x="715" y="632" width="78" height="69"/>
+      <text x="810" y="685" font-size="34" font-weight="800" fill="#1d2340">Injection payloads</text>
+      <rect x="1250" y="600" width="510" height="130" rx="26" fill="#fff0b8"/>
+      <use href="sprites.svg#wrench" x="1275" y="630" width="70" height="70" style="--body:#c25e00"/>
+      <text x="1370" y="685" font-size="34" font-weight="800" fill="#1d2340">Tool failures</text>
+    </g>
+    <line x1="690" y1="775" x2="1760" y2="775" stroke="#eceff7" stroke-width="5"/>
+    <text x="690" y="850" font-size="36" font-weight="900" fill="#1d2340">Versioned with the code · drawn from real traffic</text>
+  </svg>
+</section>
+
+<!-- 11 · sources and CI -->
+<section class="slide t-rose" style="--accent:#d6336c">
+  <div class="cap"><span class="eyebrow">Where the cases come from</span><h1>Three sources, <em>then CI</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="90" y="350" width="380" height="150" rx="28"/><rect x="90" y="530" width="380" height="150" rx="28"/><rect x="90" y="710" width="380" height="150" rx="28"/></g>
+    <use href="sprites.svg#globe" x="125" y="390" width="86" height="86"/>
+    <use href="sprites.svg#sparkle" x="125" y="570" width="86" height="86" style="--body:#d6336c"/>
+    <use href="sprites.svg#person" x="140" y="730" width="60" height="120" style="--shirt:#d6336c"/>
+    <g font-size="30" font-weight="800" fill="#1d2340">
+      <text x="240" y="418">Production</text><text x="240" y="460">traffic</text>
+      <text x="240" y="598">Synthetic</text><text x="240" y="640">generation</text>
+      <text x="240" y="778">Expert</text><text x="240" y="820">adversarial</text>
+    </g>
+    <g fill="none" stroke="#d6336c" stroke-width="10" marker-end="url(#a-red)">
+      <path d="M480 425 C570 425 590 520 660 555"/>
+      <path d="M480 605 H660"/>
+      <path d="M480 785 C570 785 590 690 660 655"/>
+    </g>
+    <use href="sprites.svg#folder" x="680" y="490" width="280" height="214" style="--body:#ffb020"/>
+    <text x="820" y="760" text-anchor="middle" font-size="36" font-weight="900" fill="#1d2340">Golden set</text>
+    <path d="M980 600 H1080" stroke="#1d2340" stroke-width="10" marker-end="url(#a-ink)"/>
+    <!-- CI -->
+    <rect x="1100" y="360" width="720" height="480" rx="40" fill="#1d2340"/>
+    <text x="1140" y="430" font-size="34" font-weight="900" fill="#ff9ebb">CI · EVERY CHANGE</text>
+    <g font-size="30" font-weight="800" fill="#fff">
+      <rect x="1140" y="470" width="300" height="76" rx="20" fill="#3a4364"/><text x="1290" y="518" text-anchor="middle">prompt</text>
+      <rect x="1470" y="470" width="300" height="76" rx="20" fill="#3a4364"/><text x="1620" y="518" text-anchor="middle">model</text>
+      <rect x="1140" y="566" width="300" height="76" rx="20" fill="#3a4364"/><text x="1290" y="614" text-anchor="middle">tool</text>
+      <rect x="1470" y="566" width="300" height="76" rx="20" fill="#3a4364"/><text x="1620" y="614" text-anchor="middle">retrieval</text>
+    </g>
+    <use href="sprites.svg#gear" x="1150" y="680" width="100" height="100" style="--body:#ff9ebb"/>
+    <use href="sprites.svg#check" x="1620" y="680" width="100" height="100"/>
+    <path d="M1280 730 H1600" stroke="#8a96c0" stroke-width="8" stroke-dasharray="10 10" marker-end="url(#a-grey)"/>
+  </svg>
+</section>
+
+<!-- 12 · pass@k vs pass^k -->
+<section class="slide t-sunrise" style="--accent:#e2533a">
+  <div class="cap"><span class="eyebrow">Agents are stochastic</span><h1>Capability versus <em>reliability</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#robot" x="110" y="560" width="200" height="263" style="--body:#e2533a"/>
+    <text x="210" y="880" text-anchor="middle" font-size="30" font-weight="800" fill="#1d2340">same task, 5 runs</text>
+    <!-- row A -->
+    <rect x="390" y="350" width="1180" height="230" rx="36" fill="#fff"/>
+    <text x="440" y="420" font-size="36" font-weight="900" fill="#e2533a" class="mono">pass@k</text>
+    <text x="440" y="470" font-size="28" font-weight="700" fill="#4a5275">at least one run</text>
+    <text x="440" y="516" font-size="28" font-weight="700" fill="#4a5275">succeeded</text>
+    <g>
+      <use href="sprites.svg#cross" x="740" y="410" width="90" height="90"/>
+      <use href="sprites.svg#check" x="860" y="410" width="90" height="90"/>
+      <use href="sprites.svg#cross" x="980" y="410" width="90" height="90"/>
+      <use href="sprites.svg#cross" x="1100" y="410" width="90" height="90"/>
+      <use href="sprites.svg#cross" x="1220" y="410" width="90" height="90"/>
+    </g>
+    <text x="1460" y="480" text-anchor="middle" font-size="36" font-weight="900" fill="#4a5275">research</text>
+    <!-- row B -->
+    <rect x="390" y="620" width="1180" height="230" rx="36" fill="#fff"/>
+    <rect x="390" y="620" width="1180" height="230" rx="36" fill="none" stroke="#22c55e" stroke-width="8"/>
+    <text x="440" y="690" font-size="36" font-weight="900" fill="#128c7e" class="mono">pass^k</text>
+    <text x="440" y="740" font-size="28" font-weight="700" fill="#4a5275">every run</text>
+    <text x="440" y="786" font-size="28" font-weight="700" fill="#4a5275">succeeded</text>
+    <g>
+      <use href="sprites.svg#check" x="740" y="680" width="90" height="90"/>
+      <use href="sprites.svg#check" x="860" y="680" width="90" height="90"/>
+      <use href="sprites.svg#check" x="980" y="680" width="90" height="90"/>
+      <use href="sprites.svg#check" x="1100" y="680" width="90" height="90"/>
+      <use href="sprites.svg#check" x="1220" y="680" width="90" height="90"/>
+    </g>
+    <text x="1460" y="750" text-anchor="middle" font-size="36" font-weight="900" fill="#128c7e">production</text>
+    <use href="sprites.svg#target" x="1650" y="660" width="170" height="170"/>
+  </svg>
+  <div class="lbl dark" style="left:1560px; top:325px">One run proves nothing</div>
+</section>
+
+<!-- 13 · sample size -->
+<section class="slide t-ocean" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Statistical thinking</span><h1>Thirty cases <em>prove nothing</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="110" y="330" width="820" height="580" rx="40" fill="#fff"/>
+    <text x="160" y="400" font-size="36" font-weight="900" fill="#ff5d73">30 cases</text>
+    <g stroke="#eceff7" stroke-width="4"><path d="M170 470 H870 M170 620 H870 M170 770 H870"/></g>
+    <!-- wide error bar -->
+    <rect x="300" y="450" width="70" height="340" rx="14" fill="#5cc8ff" opacity=".35"/>
+    <path d="M335 450 V790 M280 450 H390 M280 790 H390" stroke="#ff5d73" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="335" cy="620" r="22" fill="#1f6fbf"/>
+    <text x="500" y="600" font-size="80" font-weight="900" fill="#ff5d73">±18</text>
+    <text x="500" y="655" font-size="32" font-weight="800" fill="#4a5275">percentage points</text>
+    <text x="500" y="740" font-size="32" font-weight="800" fill="#1d2340">A 3-point "win"</text>
+    <text x="500" y="784" font-size="32" font-weight="800" fill="#1d2340">is pure noise</text>
+    <!-- right -->
+    <rect x="990" y="330" width="820" height="580" rx="40" fill="#fff"/>
+    <text x="1040" y="400" font-size="36" font-weight="900" fill="#22c55e">Hundreds of cases</text>
+    <g stroke="#eceff7" stroke-width="4"><path d="M1050 470 H1750 M1050 620 H1750 M1050 770 H1750"/></g>
+    <rect x="1180" y="580" width="70" height="80" rx="14" fill="#c6f5d6"/>
+    <path d="M1215 580 V660 M1160 580 H1270 M1160 660 H1270" stroke="#22c55e" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="1215" cy="620" r="22" fill="#1f6fbf"/>
+    <text x="1380" y="600" font-size="80" font-weight="900" fill="#22c55e">±4</text>
+    <text x="1380" y="655" font-size="32" font-weight="800" fill="#4a5275">percentage points</text>
+    <text x="1380" y="740" font-size="32" font-weight="800" fill="#1d2340">Small gains become</text>
+    <text x="1380" y="784" font-size="32" font-weight="800" fill="#1d2340">releasable</text>
+  </svg>
+  <div class="lbl" style="left:520px; top:290px">Confidence interval</div>
+</section>
+
+<!-- 14 · offline → shadow → canary → rollout -->
+<section class="slide t-mint" style="--accent:#128c7e">
+  <div class="cap"><span class="eyebrow">Promotion path</span><h1>Offline, shadow, <em>canary</em>, rollout</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="90" y="330" width="400" height="420" rx="36"/><rect x="540" y="330" width="400" height="420" rx="36"/><rect x="990" y="330" width="400" height="420" rx="36"/><rect x="1440" y="330" width="400" height="420" rx="36"/></g>
+    <use href="sprites.svg#checklist" x="230" y="390" width="130" height="156"/>
+    <use href="sprites.svg#eye" x="620" y="420" width="180" height="116"/>
+    <use href="sprites.svg#group" x="1080" y="400" width="220" height="176" style="--shirt:#128c7e"/>
+    <use href="sprites.svg#globe" x="1570" y="400" width="150" height="150"/>
+    <g font-size="36" font-weight="900" fill="#1d2340" text-anchor="middle">
+      <text x="290" y="625">Offline eval</text><text x="740" y="625">Shadow</text><text x="1190" y="625">Canary / A-B</text><text x="1640" y="625">Full rollout</text>
+    </g>
+    <g font-size="27" font-weight="700" fill="#4a5275" text-anchor="middle">
+      <text x="290" y="675">golden set in CI</text><text x="740" y="675">mirror live traffic</text><text x="1190" y="675">a small slice</text><text x="1640" y="675">monitor · roll back</text>
+    </g>
+    <g font-size="30" font-weight="900" text-anchor="middle">
+      <rect x="180" y="700" width="220" height="56" rx="28" fill="#c6f5d6"/><text x="290" y="738" fill="#0b7f75">0 users</text>
+      <rect x="630" y="700" width="220" height="56" rx="28" fill="#c6f5d6"/><text x="740" y="738" fill="#0b7f75">0 users</text>
+      <rect x="1080" y="700" width="220" height="56" rx="28" fill="#ffe89c"/><text x="1190" y="738" fill="#7a4a00">5% users</text>
+      <rect x="1530" y="700" width="220" height="56" rx="28" fill="#ffd0de"/><text x="1640" y="738" fill="#b3134a">everyone</text>
+    </g>
+    <g stroke="#0b7f75" stroke-width="10" marker-end="url(#a-teal)"><path d="M500 530 H528"/><path d="M950 530 H978"/><path d="M1400 530 H1428"/></g>
+    <!-- exposure ramp -->
+    <defs><linearGradient id="ramp" x1="0" x2="1"><stop offset="0" stop-color="#22b8a6"/><stop offset=".6" stop-color="#ffb020"/><stop offset="1" stop-color="#ff5d73"/></linearGradient></defs>
+    <rect x="180" y="820" width="1570" height="34" rx="17" fill="url(#ramp)"/>
+    <text x="180" y="908" font-size="30" font-weight="800" fill="#0b7f75">no user risk</text>
+    <text x="1750" y="908" text-anchor="end" font-size="30" font-weight="800" fill="#b3134a">full exposure</text>
+  </svg>
+</section>
+
+<!-- 15 · exam tip -->
+<section class="slide t-plum" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Exam tip</span><h1>Zero risk means <em>shadow</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#group" x="100" y="520" width="300" height="240" style="--shirt:#ffb020"/>
+    <text x="250" y="820" text-anchor="middle" font-size="32" font-weight="800" fill="#fff">real traffic</text>
+    <!-- split -->
+    <path d="M420 600 H560" stroke="#fff" stroke-width="12" marker-end="url(#a-white)"/>
+    <circle cx="600" cy="600" r="30" fill="#ffcf4a"/>
+    <!-- live path -->
+    <path d="M630 580 C700 480 760 460 850 455" fill="none" stroke="#fff" stroke-width="12" marker-end="url(#a-white)"/>
+    <rect x="870" y="370" width="380" height="180" rx="32" fill="#fff"/>
+    <use href="sprites.svg#robot-head" x="910" y="405" width="140" height="110" style="--body:#22b8a6"/>
+    <text x="1130" y="478" text-anchor="middle" font-size="36" font-weight="900" fill="#1d2340">Live model</text>
+    <path d="M1260 460 H1360" stroke="#fff" stroke-width="12" marker-end="url(#a-white)"/>
+    <use href="sprites.svg#person" x="1390" y="380" width="120" height="240" style="--shirt:#22b8a6"/>
+    <text x="1395" y="670" font-size="30" font-weight="800" fill="#fff">served, as always</text>
+    <!-- shadow path -->
+    <path d="M630 630 C700 740 760 770 850 775" fill="none" stroke="#b99cff" stroke-width="12" stroke-dasharray="10 14" marker-end="url(#a-violet)"/>
+    <rect x="870" y="690" width="380" height="180" rx="32" fill="#fff" opacity=".55"/>
+    <use href="sprites.svg#robot-head" x="910" y="725" width="140" height="110" style="--body:#7c5cff"/>
+    <text x="1130" y="798" text-anchor="middle" font-size="36" font-weight="900" fill="#1d2340">Candidate</text>
+    <path d="M1260 780 H1360" stroke="#b99cff" stroke-width="12" stroke-dasharray="10 14" marker-end="url(#a-violet)"/>
+    <rect x="1390" y="700" width="420" height="160" rx="30" fill="#2b1057"/>
+    <use href="sprites.svg#checklist" x="1420" y="722" width="95" height="114"/>
+    <text x="1670" y="768" text-anchor="middle" font-size="34" font-weight="900" fill="#fff">Scored offline</text>
+    <text x="1670" y="818" text-anchor="middle" font-size="30" font-weight="700" fill="#c7b5ff">never served</text>
+    <use href="sprites.svg#cross" x="1290" y="620" width="80" height="80"/>
+  </svg>
+  <div class="lbl violet lg" style="left:1430px; top:300px">Canary already exposes users</div>
+</section>
+
+</body>
+</html>

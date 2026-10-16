@@ -1,0 +1,137 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:04.367
+Welcome to Module Nine, Lesson Three: privacy, audit, and governance.
+
+2
+00:00:04.697 --> 00:00:08.637
+You're tested on the engineering side of the rules, not legal detail.
+
+3
+00:00:09.437 --> 00:00:14.101
+Picture BrightLoan, an online lender whose agent pre-screens loan applications.
+
+4
+00:00:14.431 --> 00:00:16.216
+Then three hard questions arrive.
+
+5
+00:00:17.016 --> 00:00:19.193
+An applicant wants their data erased,
+
+6
+00:00:19.243 --> 00:00:22.683
+and a regulator asks why a March application was declined.
+
+7
+00:00:23.013 --> 00:00:26.057
+An auditor asks if the agent is fair to every group.
+
+8
+00:00:26.857 --> 00:00:31.180
+Privacy starts with minimisation: send only the fields the model needs.
+
+9
+00:00:31.510 --> 00:00:35.876
+Redact or tokenise personal details before they reach a model or a log.
+
+10
+00:00:36.676 --> 00:00:39.847
+If data can't leave, self-host the model with NIM.
+
+11
+00:00:40.177 --> 00:00:43.263
+And limit how long prompts, traces, and memory are kept.
+
+12
+00:00:44.063 --> 00:00:46.552
+An erasure request must reach every copy.
+
+13
+00:00:46.882 --> 00:00:51.355
+The vector index, memory, traces, and caches, not just the main database.
+
+14
+00:00:52.155 --> 00:00:55.945
+The regulator needs an audit trail, which is not application logging.
+
+15
+00:00:56.275 --> 00:01:00.705
+It's immutable, tamper-evident, access-controlled, and retained per policy.
+
+16
+00:01:01.505 --> 00:01:04.052
+It records the input, who asked, the sources,
+
+17
+00:01:04.102 --> 00:01:06.937
+and every tool call with its arguments and result.
+
+18
+00:01:07.267 --> 00:01:11.591
+Plus approvals, the output, and the exact model, prompt, and policy versions.
+
+19
+00:01:12.391 --> 00:01:15.946
+With that record, BrightLoan can reconstruct the March decision.
+
+20
+00:01:16.276 --> 00:01:18.103
+That's the answer the regulator wants.
+
+21
+00:01:18.903 --> 00:01:23.760
+Credit is high-risk under the EU AI Act, which tiers obligations by risk.
+
+22
+00:01:24.090 --> 00:01:26.968
+High-risk uses need human oversight, logging,
+
+23
+00:01:27.018 --> 00:01:30.547
+transparency, documentation, and conformity assessment.
+
+24
+00:01:31.347 --> 00:01:34.761
+NIST's AI Risk Management Framework has four functions:
+
+25
+00:01:34.811 --> 00:01:36.587
+govern, map, measure, manage.
+
+26
+00:01:36.917 --> 00:01:44.163
+ISO/IEC 42001 is certifiable, and model cards document intended use and limits.
+
+27
+00:01:44.963 --> 00:01:48.668
+Then fairness: the agent is ninety-two percent accurate overall.
+
+28
+00:01:48.998 --> 00:01:51.551
+Split by subgroup, one group fares far worse.
+
+29
+00:01:52.351 --> 00:01:56.802
+Bias enters through data, retrieval, prompts, and majority-only test sets.
+
+30
+00:01:57.132 --> 00:01:59.489
+So evaluate by subgroup, audit sources,
+
+31
+00:01:59.539 --> 00:02:02.821
+red-team with varied inputs, and offer an appeal path.
+
+32
+00:02:03.621 --> 00:02:04.413
+On the exam,
+
+33
+00:02:04.463 --> 00:02:10.312
+regulated data plus an outside model API means redact at the boundary, or self-host.
+
+34
+00:02:10.642 --> 00:02:14.027
+A contract alone isn't an engineering control, so read on.

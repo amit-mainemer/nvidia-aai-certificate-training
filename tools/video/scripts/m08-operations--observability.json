@@ -1,0 +1,111 @@
+{
+  "module": "operations",
+  "title": "Module 8 · Lesson 1 — Observability for agents",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module Eight, Lesson One: observability for agents.",
+        "Watching an agent takes more than watching a server."
+      ]
+    },
+    {
+      "lines": [
+        "Picture HomeShield, an insurer whose agent helps customers file home claims.",
+        "One day, a simple claim takes nine seconds and still gets it wrong."
+      ],
+      "say": {
+        "0": "Picture Home Shield, an insurer whose agent helps customers file home claims."
+      }
+    },
+    {
+      "lines": [
+        "Old monitoring can only say the request was slow.",
+        "An agent trace says why: the planner chose the wrong tool twice, and retrieval came back empty."
+      ]
+    },
+    {
+      "lines": [
+        "So make every model call, tool call, retrieval, and handoff a span.",
+        "Each one records the model and prompt version, tokens, latency, and cost."
+      ]
+    },
+    {
+      "lines": [
+        "It also records the tool's name and arguments, the result, and retries.",
+        "Run and session IDs tie it all together."
+      ]
+    },
+    {
+      "lines": [
+        "Those arguments matter.",
+        "Without them, you can't tell a wrong tool from the right tool used badly."
+      ]
+    },
+    {
+      "lines": [
+        "Use OpenTelemetry, the open standard that NeMo Agent Toolkit emits natively.",
+        "Instrument once, and send the same spans to Phoenix, Langfuse, Datadog, or any backend."
+      ],
+      "say": {
+        "0": "Use Open Telemetry, the open standard that Nemo Agent Toolkit emits natively.",
+        "1": "Instrument once, and send the same spans to Phoenix, Lang fuse, Data dog, or any back end."
+      }
+    },
+    {
+      "lines": [
+        "But full traces hold customer data.",
+        "Redact it before export, limit retention, and guard trace storage like your production database."
+      ]
+    },
+    {
+      "lines": [
+        "Next, pick the signals worth an alert.",
+        "Task success rate reflects user value, and tool errors belong per tool, not just in total."
+      ]
+    },
+    {
+      "lines": [
+        "Rising steps per task, or more runs hitting their budget cap, mean the agent is struggling.",
+        "More escalations mean lost capability, and falling groundedness warns of hallucination."
+      ]
+    },
+    {
+      "lines": [
+        "A spike in one guardrail can signal an attack.",
+        "And p95 latency and cost per resolved task are your two targets."
+      ],
+      "say": {
+        "1": "And P ninety-five latency and cost per resolved task are your two targets."
+      }
+    },
+    {
+      "lines": [
+        "Then capture feedback.",
+        "Thumbs are precise but rare, while rephrasing or giving up are quiet signals you get constantly."
+      ]
+    },
+    {
+      "lines": [
+        "Tie each signal to its trace ID and feed the data flywheel.",
+        "That's how monitoring becomes improvement."
+      ]
+    },
+    {
+      "lines": [
+        "HomeShield once tried a cheaper model to cut cost per token.",
+        "It failed more and took more steps, so each resolved claim cost more."
+      ],
+      "say": {
+        "0": "Home Shield once tried a cheaper model to cut cost per token."
+      }
+    },
+    {
+      "lines": [
+        "On the exam, when asked what to optimise or report, choose cost per successfully resolved task.",
+        "Now read on to see what every span should carry."
+      ]
+    }
+  ]
+}

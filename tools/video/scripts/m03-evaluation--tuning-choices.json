@@ -1,0 +1,120 @@
+{
+  "module": "evaluation",
+  "title": "Module 3 · Lesson 3 — Prompting vs. RAG vs. fine-tuning",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Module Three, Lesson Three: prompting, RAG, or fine-tuning.",
+        "It's the exam's most frequent decision question."
+      ],
+      "say": {
+        "0": "Module Three, Lesson Three: prompting, rag, or fine-tuning."
+      }
+    },
+    {
+      "lines": [
+        "Picture a bank's support assistant that quotes last week's savings rates and ignores the required reply format.",
+        "The team's instinct is to fine-tune on everything."
+      ]
+    },
+    {
+      "lines": [
+        "But the rule is: RAG for knowledge, fine-tuning for behavior.",
+        "Prompting covers everything you can get away with."
+      ],
+      "say": {
+        "0": "But the rule is: rag for knowledge, fine-tuning for behavior."
+      }
+    },
+    {
+      "lines": [
+        "Use RAG when facts change, answers need citations, or access varies by user.",
+        "Knowledge can be added or revoked instantly, with no retraining."
+      ],
+      "say": {
+        "0": "Use rag when facts change, answers need citations, or access varies by user."
+      }
+    },
+    {
+      "lines": [
+        "Use fine-tuning for a consistent format, tone, or tool-call syntax.",
+        "It can even make a small model match a big one on a narrow task."
+      ]
+    },
+    {
+      "lines": [
+        "So the bank retrieves live rates, and fine-tunes a small model for its format.",
+        "Together they give large-model quality at small-model cost."
+      ]
+    },
+    {
+      "lines": [
+        "Full fine-tuning updates every weight, and costs the most.",
+        "LoRA trains just a tenth of a percent to one percent of them."
+      ],
+      "say": {
+        "1": "Lora trains just a tenth of a percent to one percent of them."
+      }
+    },
+    {
+      "lines": [
+        "LoRA freezes the base weights, so one deployed model can serve many adapters.",
+        "NIM supports this: a custom variant per customer, on a tight GPU budget."
+      ],
+      "say": {
+        "0": "Lora freezes the base weights, so one deployed model can serve many adapters.",
+        "1": "Nim supports this: a custom variant per customer, on a tight G P U budget."
+      }
+    },
+    {
+      "lines": [
+        "DPO learns from chosen and rejected pairs, and RFT from a verifier, like passing tests.",
+        "Distillation shrinks a large model's behavior into a small one."
+      ],
+      "say": {
+        "0": "D P O learns from chosen and rejected pairs, and R F T from a verifier, like passing tests."
+      }
+    },
+    {
+      "lines": [
+        "Data quality beats quantity.",
+        "A thousand clean examples routinely beat a hundred thousand scraped ones, which is why NeMo Curator exists."
+      ],
+      "say": {
+        "1": "A thousand clean examples routinely beat a hundred thousand scraped ones, which is why Neemo Curator exists."
+      }
+    },
+    {
+      "lines": [
+        "Beware catastrophic forgetting, where narrow fine-tuning breaks unrelated skills.",
+        "Prefer LoRA, mix in general data, and evaluate on a broad held-out suite."
+      ],
+      "say": {
+        "1": "Prefer lora, mix in general data, and evaluate on a broad held-out suite."
+      }
+    },
+    {
+      "lines": [
+        "NVIDIA's data flywheel loops through capture, curate, customize, evaluate, and deploy.",
+        "The payoff is a small model, tuned on real traffic, matching a big one at a fraction of the cost."
+      ],
+      "say": {
+        "0": "En-vidia's data flywheel loops through capture, curate, customize, evaluate, and deploy."
+      }
+    },
+    {
+      "lines": [
+        "The classic trap: a bot quotes outdated prices, so should you fine-tune on the new price list?",
+        "No: fine-tuning teaches how to answer, while retrieval supplies what's true right now."
+      ]
+    },
+    {
+      "lines": [
+        "That one rule wins the exam's most common question.",
+        "Read on for the full decision table and every tuning method."
+      ]
+    }
+  ]
+}

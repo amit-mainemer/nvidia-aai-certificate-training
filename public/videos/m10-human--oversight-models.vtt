@@ -1,0 +1,193 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:04.623
+Module Ten, Lesson One: three oversight models, and where each one belongs.
+
+2
+00:00:04.953 --> 00:00:07.882
+Where you put the human is an architecture decision,
+
+3
+00:00:07.932 --> 00:00:10.002
+with real costs in latency and staff.
+
+4
+00:00:10.802 --> 00:00:13.936
+Picture a cloud operations agent at an online store,
+
+5
+00:00:13.986 --> 00:00:16.875
+running thousands of infrastructure tasks a day.
+
+6
+00:00:17.205 --> 00:00:20.031
+It tags resources, scales servers up and down,
+
+7
+00:00:20.081 --> 00:00:22.595
+and now and then deletes an old database.
+
+8
+00:00:23.395 --> 00:00:26.267
+Should a person approve every single one of those actions?
+
+9
+00:00:26.597 --> 00:00:30.238
+The agent would stall, and the reviewers would soon approve without looking.
+
+10
+00:00:31.038 --> 00:00:34.182
+Instead, ask two questions: can this action be undone,
+
+11
+00:00:34.232 --> 00:00:36.193
+and how much damage if it's wrong?
+
+12
+00:00:36.523 --> 00:00:39.055
+The answers point to one of three oversight models.
+
+13
+00:00:39.855 --> 00:00:42.130
+Human-in-the-loop means the agent pauses,
+
+14
+00:00:42.180 --> 00:00:44.626
+and can't proceed without explicit approval.
+
+15
+00:00:44.956 --> 00:00:48.578
+It costs the most, so save it for irreversible, high-value,
+
+16
+00:00:48.628 --> 00:00:53.183
+regulated or safety-critical actions, like deleting a production database.
+
+17
+00:00:53.983 --> 00:00:56.143
+Human-on-the-loop lets the agent act,
+
+18
+00:00:56.193 --> 00:00:59.309
+while a person monitors and can intervene or reverse.
+
+19
+00:00:59.639 --> 00:01:03.856
+Scaling servers fits here: it happens at volume, and there's a working undo.
+
+20
+00:01:04.656 --> 00:01:07.241
+Human-in-command means people set the policy,
+
+21
+00:01:07.291 --> 00:01:10.110
+scope and limits, with no per-action involvement.
+
+22
+00:01:10.440 --> 00:01:12.690
+It's the cheapest model, for low-stakes,
+
+23
+00:01:12.740 --> 00:01:15.681
+reversible, high-volume work like tagging resources.
+
+24
+00:01:16.481 --> 00:01:20.039
+Technically, an approval is an interrupt at the tool boundary:
+
+25
+00:01:20.089 --> 00:01:24.345
+the agent pauses before executing and saves its state with a checkpointer.
+
+26
+00:01:24.675 --> 00:01:28.999
+LangGraph does this directly, with interrupt before and a durable checkpointer.
+
+27
+00:01:29.799 --> 00:01:33.750
+The reviewer sees the proposed action with its reasoning and evidence,
+
+28
+00:01:33.800 --> 00:01:35.807
+and can approve, reject, or edit it.
+
+29
+00:01:36.137 --> 00:01:39.181
+On approval, the agent resumes from that exact point.
+
+30
+00:01:39.981 --> 00:01:44.837
+Set a timeout policy for when nobody responds, and never let it silently proceed.
+
+31
+00:01:45.167 --> 00:01:48.851
+Batch similar approvals, so reviewers aren't interrupted constantly.
+
+32
+00:01:49.651 --> 00:01:53.964
+The agent also needs escalation triggers that name concrete conditions,
+
+33
+00:01:54.014 --> 00:01:55.254
+not just when unsure.
+
+34
+00:01:55.584 --> 00:01:58.214
+Think confidence below a calibrated threshold,
+
+35
+00:01:58.264 --> 00:02:01.827
+the same step failing twice, or a request that's out of scope.
+
+36
+00:02:02.627 --> 00:02:04.710
+Others are a value or risk limit,
+
+37
+00:02:04.760 --> 00:02:09.297
+a frustrated user asking for a person, or a rule that requires a human.
+
+38
+00:02:09.627 --> 00:02:11.839
+Each one is a clear signal to hand over.
+
+39
+00:02:12.639 --> 00:02:16.343
+When it escalates, hand off context, not just the conversation.
+
+40
+00:02:16.673 --> 00:02:18.842
+The human gets the goal, what was tried,
+
+41
+00:02:18.892 --> 00:02:21.893
+what was found, the sources, and why the agent stopped.
+
+42
+00:02:22.693 --> 00:02:26.087
+On the exam, choose by reversibility and blast radius:
+
+43
+00:02:26.137 --> 00:02:29.085
+irreversible and high impact means in the loop.
+
+44
+00:02:29.415 --> 00:02:31.887
+Approving everything is a real wrong answer,
+
+45
+00:02:31.937 --> 00:02:35.040
+because it doesn't scale and it breeds rubber-stamping.
+
+46
+00:02:35.840 --> 00:02:38.279
+And a handoff that makes the customer repeat
+
+47
+00:02:38.329 --> 00:02:40.654
+everything is the failure users hate most.
+
+48
+00:02:40.984 --> 00:02:44.817
+Read on for the full comparison table and every escalation trigger.

@@ -1,0 +1,101 @@
+{
+  "module": "human",
+  "title": "Module 10 · Lesson 1 — Three oversight models and where each belongs",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Module Ten, Lesson One: three oversight models, and where each one belongs.",
+        "Where you put the human is an architecture decision, with real costs in latency and staff."
+      ]
+    },
+    {
+      "lines": [
+        "Picture a cloud operations agent at an online store, running thousands of infrastructure tasks a day.",
+        "It tags resources, scales servers up and down, and now and then deletes an old database."
+      ]
+    },
+    {
+      "lines": [
+        "Should a person approve every single one of those actions?",
+        "The agent would stall, and the reviewers would soon approve without looking."
+      ]
+    },
+    {
+      "lines": [
+        "Instead, ask two questions: can this action be undone, and how much damage if it's wrong?",
+        "The answers point to one of three oversight models."
+      ]
+    },
+    {
+      "lines": [
+        "Human-in-the-loop means the agent pauses, and can't proceed without explicit approval.",
+        "It costs the most, so save it for irreversible, high-value, regulated or safety-critical actions, like deleting a production database."
+      ]
+    },
+    {
+      "lines": [
+        "Human-on-the-loop lets the agent act, while a person monitors and can intervene or reverse.",
+        "Scaling servers fits here: it happens at volume, and there's a working undo."
+      ]
+    },
+    {
+      "lines": [
+        "Human-in-command means people set the policy, scope and limits, with no per-action involvement.",
+        "It's the cheapest model, for low-stakes, reversible, high-volume work like tagging resources."
+      ]
+    },
+    {
+      "lines": [
+        "Technically, an approval is an interrupt at the tool boundary: the agent pauses before executing and saves its state with a checkpointer.",
+        "LangGraph does this directly, with interrupt before and a durable checkpointer."
+      ],
+      "say": {
+        "1": "Lang Graph does this directly, with interrupt before, and a durable checkpointer."
+      }
+    },
+    {
+      "lines": [
+        "The reviewer sees the proposed action with its reasoning and evidence, and can approve, reject, or edit it.",
+        "On approval, the agent resumes from that exact point."
+      ]
+    },
+    {
+      "lines": [
+        "Set a timeout policy for when nobody responds, and never let it silently proceed.",
+        "Batch similar approvals, so reviewers aren't interrupted constantly."
+      ]
+    },
+    {
+      "lines": [
+        "The agent also needs escalation triggers that name concrete conditions, not just when unsure.",
+        "Think confidence below a calibrated threshold, the same step failing twice, or a request that's out of scope."
+      ]
+    },
+    {
+      "lines": [
+        "Others are a value or risk limit, a frustrated user asking for a person, or a rule that requires a human.",
+        "Each one is a clear signal to hand over."
+      ]
+    },
+    {
+      "lines": [
+        "When it escalates, hand off context, not just the conversation.",
+        "The human gets the goal, what was tried, what was found, the sources, and why the agent stopped."
+      ]
+    },
+    {
+      "lines": [
+        "On the exam, choose by reversibility and blast radius: irreversible and high impact means in the loop.",
+        "Approving everything is a real wrong answer, because it doesn't scale and it breeds rubber-stamping."
+      ]
+    },
+    {
+      "lines": [
+        "And a handoff that makes the customer repeat everything is the failure users hate most.",
+        "Read on for the full comparison table and every escalation trigger."
+      ]
+    }
+  ]
+}

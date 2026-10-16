@@ -1,0 +1,107 @@
+{
+  "module": "evaluation",
+  "title": "Module 3 · Lesson 1 — Evaluating agents: what to measure and where",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Module Three, Lesson One: evaluating agents.",
+        "What should you measure, and where?"
+      ]
+    },
+    {
+      "lines": [
+        "Picture a travel bot that books flights and hotels for an office.",
+        "One Monday, its success rate drops from eighty-two percent to seventy."
+      ]
+    },
+    {
+      "lines": [
+        "The team stares at that one number for a week.",
+        "It says something is wrong, but nothing about where."
+      ]
+    },
+    {
+      "lines": [
+        "Agent evaluation works in four layers: component, step, trajectory, and outcome.",
+        "Each one answers a different question."
+      ]
+    },
+    {
+      "lines": [
+        "Component checks test each piece alone, like retrieval recall.",
+        "Step checks grade each decision, like the tool and arguments chosen."
+      ]
+    },
+    {
+      "lines": [
+        "Trajectory checks score the whole path the agent took.",
+        "Six redundant searches and a lucky guess can pass the outcome check, yet fail on reliability."
+      ]
+    },
+    {
+      "lines": [
+        "Outcome checks ask whether the task actually got done.",
+        "Think task success, groundedness, and cost per resolved task."
+      ]
+    },
+    {
+      "lines": [
+        "For retrieval, four RAG metrics form a diagnostic grid.",
+        "Low context recall means the evidence was never fetched; high recall with low faithfulness means the model ignored it."
+      ],
+      "say": {
+        "0": "For retrieval, four rag metrics form a diagnostic grid."
+      }
+    },
+    {
+      "lines": [
+        "So test retrieval on its own, before the generator runs.",
+        "That exposed the travel team's culprit: hotel search was fetching the wrong listings."
+      ]
+    },
+    {
+      "lines": [
+        "A golden dataset keeps it from happening again.",
+        "It's versioned with the code, drawn from real traffic, and full of hard cases."
+      ]
+    },
+    {
+      "lines": [
+        "Source it from production traffic, synthetic data, and expert adversarial cases.",
+        "Then run it in CI on every prompt, model, or tool change."
+      ],
+      "say": {
+        "1": "Then run it in C I on every prompt, model, or tool change."
+      }
+    },
+    {
+      "lines": [
+        "Agents are stochastic, so one run proves nothing.",
+        "Pass@k means any of k runs succeeded; pass^k means all of them did, and production needs that."
+      ],
+      "say": {
+        "1": "Pass at kay means any of kay runs succeeded; pass hat kay means all of them did, and production needs that."
+      }
+    },
+    {
+      "lines": [
+        "A thirty-case suite swings about eighteen points either way.",
+        "You need hundreds of cases before small gains justify a release."
+      ]
+    },
+    {
+      "lines": [
+        "Releases then move from offline tests to shadow, canary, and full rollout.",
+        "Shadow mirrors live traffic to the new version but never serves its answers."
+      ]
+    },
+    {
+      "lines": [
+        "Exam tip: zero-risk validation on real traffic means shadow, since canary already exposes some users.",
+        "Read on for every layer in detail."
+      ]
+    }
+  ]
+}

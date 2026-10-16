@@ -1,0 +1,141 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:03.365
+Module Five, Lesson Three: the four types of memory.
+
+2
+00:00:03.695 --> 00:00:06.930
+The context window is working memory, and it is not enough.
+
+3
+00:00:07.730 --> 00:00:11.008
+Picture a running coach agent that chats with Maya every week.
+
+4
+00:00:11.338 --> 00:00:15.704
+Every week she repeats that she's vegetarian and training for a half marathon.
+
+5
+00:00:16.504 --> 00:00:19.889
+It has also forgotten the knee injury that stalled her last spring.
+
+6
+00:00:20.219 --> 00:00:24.350
+Agents need memory that outlasts the session, and it comes in four types.
+
+7
+00:00:25.150 --> 00:00:27.459
+Working memory is the context window:
+
+8
+00:00:27.509 --> 00:00:30.519
+the goal, recent turns, the latest observations.
+
+9
+00:00:30.849 --> 00:00:33.060
+It is always there, because it is the prompt.
+
+10
+00:00:33.860 --> 00:00:38.290
+Semantic memory holds durable facts and preferences, like vegetarian.
+
+11
+00:00:38.620 --> 00:00:42.709
+It lives in a vector or key-value store, and is retrieved when relevant.
+
+12
+00:00:43.509 --> 00:00:48.088
+Episodic memory records specific past events and outcomes, like that injury.
+
+13
+00:00:48.418 --> 00:00:51.589
+It is recalled when a similar situation comes up again.
+
+14
+00:00:52.389 --> 00:00:54.507
+Procedural memory stores learned how-to,
+
+15
+00:00:54.557 --> 00:00:57.054
+like the tool sequence that builds a good plan.
+
+16
+00:00:57.384 --> 00:01:01.153
+It sits in a skill registry, and is used when the task type matches.
+
+17
+00:01:01.953 --> 00:01:06.383
+Writing is the hard part, because saving every turn fills the store with noise.
+
+18
+00:01:06.713 --> 00:01:10.588
+A write policy keeps only durable facts, and deduplicates them.
+
+19
+00:01:11.388 --> 00:01:14.538
+When Maya goes vegan, the new fact contradicts the old one.
+
+20
+00:01:14.868 --> 00:01:16.542
+Supersede it with a timestamp,
+
+21
+00:01:16.592 --> 00:01:19.874
+instead of keeping both and letting retrieval flip a coin.
+
+22
+00:01:20.674 --> 00:01:25.936
+Forgetting is a feature: age out unused entries, and let unreinforced facts decay.
+
+23
+00:01:26.266 --> 00:01:30.077
+Memory that only grows gets slower, costlier, and less accurate.
+
+24
+00:01:30.877 --> 00:01:34.326
+If Maya asks to be erased, that includes the agent's memory.
+
+25
+00:01:34.656 --> 00:01:39.086
+So memory is partitioned by user, with hard isolation on every read.
+
+26
+00:01:39.886 --> 00:01:42.182
+Memory is also an injection surface:
+
+27
+00:01:42.232 --> 00:01:45.767
+text planted today can fire as an instruction tomorrow.
+
+28
+00:01:46.097 --> 00:01:49.245
+Sanitize on write, treat it as untrusted data on read,
+
+29
+00:01:49.295 --> 00:01:51.615
+and never let it grant tool permissions.
+
+30
+00:01:52.415 --> 00:01:55.639
+Inside one long run, summaries replace old turns,
+
+31
+00:01:55.689 --> 00:01:58.445
+and big tool results become short digests.
+
+32
+00:01:58.775 --> 00:02:01.370
+Key evidence goes at the start and end of the prompt.
+
+33
+00:02:02.170 --> 00:02:05.307
+On the exam, expect to place a need in one type:
+
+34
+00:02:05.357 --> 00:02:09.224
+the customer's plan is semantic, a past outage is episodic.
+
+35
+00:02:09.554 --> 00:02:13.877
+A reusable query pattern is procedural, and the lesson below has the rest.

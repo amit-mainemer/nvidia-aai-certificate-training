@@ -1,0 +1,95 @@
+{
+  "module": "cognition",
+  "title": "Module 5 · Lesson 2 — Task decomposition, planning and replanning",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Module Five, Lesson Two: planning and replanning.",
+        "How an agent turns a goal into steps, and knows when to change course."
+      ]
+    },
+    {
+      "lines": [
+        "Picture an agent organizing a three-day team offsite in Lisbon for twelve people.",
+        "Flights, a hotel, a meeting room, and an agenda, all within budget."
+      ]
+    },
+    {
+      "lines": [
+        "Planning turns that goal into a sequence of steps that respects dependencies.",
+        "Just as important, it notices when the plan stops being valid."
+      ]
+    },
+    {
+      "lines": [
+        "A usable step runs on its own, can be verified, and is the right size.",
+        "For every step, ask: how would I know this succeeded?"
+      ]
+    },
+    {
+      "lines": [
+        "Split too finely, and twenty tiny steps cost more to coordinate than the work.",
+        "Split too coarsely, and one giant step can't be done in a single action."
+      ]
+    },
+    {
+      "lines": [
+        "Dependencies decide the shape of the run.",
+        "Flights, hotel, and venue don't depend on each other, so they run at the same time."
+      ]
+    },
+    {
+      "lines": [
+        "That concurrency is the whole case for Plan and Execute over ReAct.",
+        "Drawn as a graph, total time is the critical path, not the sum of every step."
+      ],
+      "say": {
+        "0": "That concurrency is the whole case for Plan and Execute over Ree-Act."
+      }
+    },
+    {
+      "lines": [
+        "A plan is a hypothesis, so name what breaks it.",
+        "A step fails after its retries, like a hotel that stays fully booked."
+      ]
+    },
+    {
+      "lines": [
+        "A result contradicts an assumption, like a venue that seats only ten.",
+        "Or new information makes steps unnecessary, so stop instead of running them out of momentum."
+      ]
+    },
+    {
+      "lines": [
+        "The budget no longer covers the rest of the plan.",
+        "Or the user changes the goal mid-run, and the offsite moves to Porto."
+      ]
+    },
+    {
+      "lines": [
+        "Unbounded replanning is just a loop with extra steps.",
+        "Cap the replans, make each plan meaningfully different, and escalate to a human at the cap."
+      ]
+    },
+    {
+      "lines": [
+        "Planning is the highest-leverage call, so use your strongest model to plan.",
+        "A cheaper model can carry out the steps."
+      ]
+    },
+    {
+      "lines": [
+        "A bad plan cannot be rescued by good execution.",
+        "But a mediocre executor following a good plan usually still succeeds."
+      ]
+    },
+    {
+      "lines": [
+        "Expect an exam question on when to replan, and remember that a step going as expected is not a trigger.",
+        "Read on for the full list, and a plan written as a graph."
+      ]
+    }
+  ]
+}

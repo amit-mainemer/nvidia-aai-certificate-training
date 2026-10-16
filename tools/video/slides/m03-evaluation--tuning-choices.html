@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module 3 · Lesson 3 slides — prompting vs. RAG vs. fine-tuning</title>
+<link rel="stylesheet" href="base.css">
+</head>
+<body>
+
+<!-- 1 · title -->
+<section class="slide t-night" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Module 3 · Lesson 3</span><h1>Prompting, RAG, <em>or fine-tuning?</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff" opacity=".1">
+      <rect x="160" y="400" width="440" height="400" rx="34"/>
+      <rect x="740" y="400" width="440" height="400" rx="34"/>
+      <rect x="1320" y="400" width="440" height="400" rx="34"/>
+    </g>
+    <use href="sprites.svg#chat" x="260" y="460" width="240" height="189" style="--body:#ff6f9c;--dot:#fff"/>
+    <use href="sprites.svg#book" x="820" y="470" width="230" height="176"/>
+    <use href="sprites.svg#magnifier" x="1000" y="540" width="120" height="120"/>
+    <use href="sprites.svg#robot" x="1440" y="440" width="180" height="236" style="--body:#22b8a6"/>
+    <use href="sprites.svg#gear" x="1590" y="560" width="110" height="110" style="--body:#ffb020"/>
+    <use href="sprites.svg#question" x="905" y="330" width="110" height="110"/>
+  </svg>
+  <div class="lbl coral" style="left:380px; top:740px">Prompting</div>
+  <div class="lbl violet" style="left:960px; top:740px">RAG</div>
+  <div class="lbl teal" style="left:1540px; top:740px">Fine-tuning</div>
+  <div class="lbl amber" style="left:960px; top:890px">The exam's most frequent decision</div>
+</section>
+
+<!-- 2 · the bank -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">A real-world case</span><h1>A bank bot <em>quoting last week's rates</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#building" x="130" y="440" width="230" height="278"/>
+    <use href="sprites.svg#robot-sad" x="400" y="500" width="200" height="263" style="--body:#7c5cff"/>
+    <rect x="660" y="380" width="560" height="200" rx="34" fill="#fff"/>
+    <text x="700" y="455" font-size="34" font-weight="800" fill="#4a5275">Savings rate:</text>
+    <text x="700" y="535" font-size="64" font-weight="900" fill="#ff5d73">3.1%</text>
+    <text x="900" y="530" font-size="30" font-weight="800" fill="#4a5275">(last week)</text>
+    <use href="sprites.svg#warn" x="1130" y="340" width="100" height="89"/>
+    <rect x="660" y="620" width="560" height="200" rx="34" fill="#fff"/>
+    <use href="sprites.svg#doc" x="700" y="645" width="120" height="148" style="--accent:#ff5d73"/>
+    <text x="850" y="715" font-size="34" font-weight="900" fill="#1d2340">Reply format</text>
+    <text x="850" y="765" font-size="30" font-weight="800" fill="#4a5275">ignored</text>
+    <use href="sprites.svg#cross" x="1100" y="670" width="84" height="84"/>
+    <use href="sprites.svg#group" x="1350" y="520" width="350" height="280"/>
+    <use href="sprites.svg#chat" x="1460" y="360" width="190" height="150" style="--body:#ffb020;--dot:#1d2340"/>
+  </svg>
+  <div class="lbl dark" style="left:1525px; top:880px">"Fine-tune on everything!"</div>
+</section>
+
+<!-- 3 · the rule -->
+<section class="slide t-mint" style="--accent:#128c5e">
+  <div class="cap"><span class="eyebrow">The rule</span><h1>Knowledge vs. <em>behavior</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="140" y="370" width="790" height="330" rx="34" fill="#fff"/>
+    <use href="sprites.svg#database" x="190" y="410" width="190" height="215" style="--body:#7c5cff"/>
+    <text x="430" y="500" font-size="54" font-weight="900" fill="#1d2340">Knowledge</text>
+    <text x="430" y="580" font-size="40" font-weight="800" fill="#7c5cff">→ RAG</text>
+    <rect x="990" y="370" width="790" height="330" rx="34" fill="#fff"/>
+    <use href="sprites.svg#robot" x="1040" y="410" width="180" height="236" style="--body:#22b8a6"/>
+    <text x="1280" y="500" font-size="54" font-weight="900" fill="#1d2340">Behavior</text>
+    <text x="1280" y="580" font-size="40" font-weight="800" fill="#128c5e">→ fine-tuning</text>
+    <rect x="140" y="740" width="1640" height="130" rx="34" fill="#1d2340"/>
+    <use href="sprites.svg#chat" x="190" y="755" width="120" height="95" style="--body:#ff6f9c;--dot:#fff"/>
+    <text x="350" y="823" font-size="40" font-weight="900" fill="#fff">Prompting: everything you can get away with</text>
+  </svg>
+</section>
+
+<!-- 4 · when RAG -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">Use RAG when…</span><h1>Facts change, <em>cite, or vary by user</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff">
+      <rect x="140" y="380" width="320" height="380" rx="34"/>
+      <rect x="500" y="380" width="320" height="380" rx="34"/>
+      <rect x="860" y="380" width="320" height="380" rx="34"/>
+    </g>
+    <use href="sprites.svg#clock" x="210" y="430" width="180" height="180" style="--rim:#c25e00"/>
+    <use href="sprites.svg#doc" x="590" y="420" width="150" height="185" style="--accent:#7c5cff"/>
+    <use href="sprites.svg#lock" x="965" y="425" width="110" height="138" style="--body:#22b8a6"/>
+    <use href="sprites.svg#person" x="1060" y="480" width="60" height="120" style="--shirt:#ff7a59"/>
+    <g font-size="34" font-weight="900" fill="#1d2340" text-anchor="middle">
+      <text x="300" y="690">Facts change</text><text x="660" y="690">Citations</text><text x="1020" y="690">Per-user access</text>
+    </g>
+    <use href="sprites.svg#database" x="1350" y="420" width="220" height="249" style="--body:#7c5cff"/>
+    <circle cx="1650" cy="460" r="50" fill="#22c55e"/><text x="1650" y="482" text-anchor="middle" font-size="64" font-weight="900" fill="#fff">+</text>
+    <circle cx="1650" cy="600" r="50" fill="#ff5d73"/><text x="1650" y="620" text-anchor="middle" font-size="64" font-weight="900" fill="#fff">−</text>
+  </svg>
+  <div class="lbl dark" style="left:660px; top:850px">Answers grounded in live sources</div>
+  <div class="lbl teal" style="left:1520px; top:780px">Add or revoke instantly</div>
+  <div class="lbl" style="left:1520px; top:870px">No retraining</div>
+</section>
+
+<!-- 5 · when fine-tuning -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Use fine-tuning when…</span><h1>Format, tone, <em>tool-call syntax</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff">
+      <rect x="140" y="380" width="300" height="380" rx="34"/>
+      <rect x="480" y="380" width="300" height="380" rx="34"/>
+      <rect x="820" y="380" width="300" height="380" rx="34"/>
+    </g>
+    <use href="sprites.svg#checklist" x="215" y="420" width="150" height="180"/>
+    <use href="sprites.svg#chat" x="535" y="450" width="190" height="150" style="--body:#7c5cff;--dot:#fff"/>
+    <text x="970" y="540" text-anchor="middle" font-family="Menlo, monospace" font-size="80" font-weight="900" fill="#6a45e8">{ }</text>
+    <g font-size="34" font-weight="900" fill="#1d2340" text-anchor="middle">
+      <text x="290" y="690">Format</text><text x="630" y="690">Tone</text><text x="970" y="690">Tool calls</text>
+    </g>
+    <use href="sprites.svg#robot" x="1230" y="560" width="140" height="184" style="--body:#22b8a6"/>
+    <text x="1440" y="680" text-anchor="middle" font-size="64" font-weight="900" fill="#1d2340">=</text>
+    <use href="sprites.svg#robot" x="1510" y="400" width="260" height="341" style="--body:#7c5cff"/>
+    <use href="sprites.svg#target" x="1230" y="400" width="130" height="130"/>
+  </svg>
+  <div class="lbl violet" style="left:630px; top:850px">Consistent behavior</div>
+  <div class="lbl teal" style="left:1500px; top:850px">Small = big, on a narrow task</div>
+</section>
+
+<!-- 6 · the bank's fix -->
+<section class="slide t-teal" style="--accent:#0b7f75">
+  <div class="cap"><span class="eyebrow">Combine them</span><h1>Retrieve the rates, <em>tune the format</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#database" x="140" y="430" width="200" height="227" style="--body:#ffb020"/>
+    <text x="240" y="710" text-anchor="middle" font-size="34" font-weight="900" fill="#fff">Live rates</text>
+    <use href="sprites.svg#arrow" x="370" y="530" width="150" height="45" style="--body:#fff"/>
+    <use href="sprites.svg#robot" x="550" y="460" width="170" height="223" style="--body:#7c5cff"/>
+    <use href="sprites.svg#gear" x="690" y="430" width="80" height="80" style="--body:#ffcf4a"/>
+    <text x="635" y="730" text-anchor="middle" font-size="34" font-weight="900" fill="#fff">Small, tuned</text>
+    <use href="sprites.svg#arrow" x="780" y="530" width="150" height="45" style="--body:#fff"/>
+    <rect x="960" y="380" width="400" height="380" rx="34" fill="#fff"/>
+    <text x="1000" y="460" font-size="34" font-weight="800" fill="#4a5275">Savings rate</text>
+    <text x="1000" y="550" font-size="72" font-weight="900" fill="#0b7f75">3.4%</text>
+    <g fill="#b8c2de"><rect x="1000" y="600" width="300" height="14" rx="7"/><rect x="1000" y="635" width="240" height="14" rx="7"/></g>
+    <use href="sprites.svg#check" x="1260" y="670" width="70" height="70"/>
+    <use href="sprites.svg#coins" x="1480" y="480" width="250" height="221"/>
+  </svg>
+  <div class="lbl amber" style="left:1160px; top:870px">Large-model quality at small-model cost</div>
+</section>
+
+<!-- 7 · full FT vs LoRA -->
+<section class="slide t-sand" style="--accent:#b5541c">
+  <div class="cap"><span class="eyebrow">Fine-tuning cost</span><h1>Full weights <em>vs. LoRA</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="140" y="370" width="780" height="460" rx="34" fill="#fff"/>
+    <g fill="#ff7a59">
+      <rect x="200" y="420" width="660" height="60" rx="12"/><rect x="200" y="500" width="660" height="60" rx="12"/><rect x="200" y="580" width="660" height="60" rx="12"/><rect x="200" y="660" width="660" height="60" rx="12"/><rect x="200" y="740" width="660" height="60" rx="12"/>
+    </g>
+    <use href="sprites.svg#coins" x="770" y="330" width="130" height="115"/>
+    <rect x="1000" y="370" width="780" height="460" rx="34" fill="#fff"/>
+    <g fill="#d8def0">
+      <rect x="1060" y="420" width="660" height="60" rx="12"/><rect x="1060" y="500" width="660" height="60" rx="12"/><rect x="1060" y="580" width="660" height="60" rx="12"/><rect x="1060" y="660" width="660" height="60" rx="12"/><rect x="1060" y="740" width="660" height="60" rx="12"/>
+    </g>
+    <rect x="1660" y="420" width="16" height="380" rx="8" fill="#22b8a6"/>
+    <use href="sprites.svg#lock" x="1300" y="520" width="140" height="175" style="--body:#8a93b0"/>
+  </svg>
+  <div class="lbl coral" style="left:530px; top:890px">Every weight · costs the most</div>
+  <div class="lbl teal" style="left:1390px; top:890px">LoRA: ~0.1–1% trained</div>
+  <div class="lbl sm dark" style="left:1668px; top:350px">adapter</div>
+</section>
+
+<!-- 8 · many adapters, one base -->
+<section class="slide t-plum" style="--accent:#7b2ff7">
+  <div class="cap"><span class="eyebrow">LoRA in production</span><h1>One base model, <em>many adapters</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="620" y="420" width="680" height="380" rx="40" fill="#fff" opacity=".12"/>
+    <use href="sprites.svg#gpu" x="700" y="470" width="520" height="338"/>
+    <use href="sprites.svg#lock" x="1180" y="430" width="90" height="113" style="--body:#ffcf4a"/>
+    <use href="sprites.svg#puzzle" x="280" y="380" width="130" height="130" style="--body:#ff7a59"/>
+    <use href="sprites.svg#puzzle" x="280" y="560" width="130" height="130" style="--body:#22b8a6"/>
+    <use href="sprites.svg#puzzle" x="280" y="740" width="130" height="130" style="--body:#ffcf4a"/>
+    <g stroke="#fff" stroke-width="6" stroke-dasharray="12 10" opacity=".7">
+      <line x1="420" y1="445" x2="680" y2="560"/><line x1="420" y1="625" x2="680" y2="625"/><line x1="420" y1="805" x2="680" y2="690"/>
+    </g>
+    <use href="sprites.svg#building" x="1450" y="380" width="110" height="133"/>
+    <use href="sprites.svg#building" x="1450" y="560" width="110" height="133"/>
+    <use href="sprites.svg#building" x="1450" y="740" width="110" height="133"/>
+    <g font-size="34" font-weight="900" fill="#fff"><text x="1590" y="460">Bank A</text><text x="1590" y="640">Bank B</text><text x="1590" y="820">Bank C</text></g>
+    <g fill="#ff7a59"><circle cx="1420" cy="450" r="16"/></g><g fill="#22b8a6"><circle cx="1420" cy="630" r="16"/></g><g fill="#ffcf4a"><circle cx="1420" cy="810" r="16"/></g>
+  </svg>
+  <div class="lbl violet" style="left:345px; top:930px">Adapters</div>
+  <div class="lbl" style="left:960px; top:390px">Frozen base on NIM</div>
+  <div class="lbl amber" style="left:960px; top:880px">Tight GPU budget</div>
+</section>
+
+<!-- 9 · DPO, RFT, distillation -->
+<section class="slide t-sunrise" style="--accent:#d9480f">
+  <div class="cap"><span class="eyebrow">More methods</span><h1>DPO, RFT <em>and distillation</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff">
+      <rect x="140" y="370" width="520" height="460" rx="34"/>
+      <rect x="700" y="370" width="520" height="460" rx="34"/>
+      <rect x="1260" y="370" width="520" height="460" rx="34"/>
+    </g>
+    <use href="sprites.svg#doc" x="200" y="430" width="130" height="160" style="--accent:#22c55e"/>
+    <use href="sprites.svg#doc" x="420" y="430" width="130" height="160" style="--accent:#ff5d73"/>
+    <use href="sprites.svg#check" x="290" y="560" width="70" height="70"/>
+    <use href="sprites.svg#cross" x="510" y="560" width="70" height="70"/>
+    <text x="400" y="700" text-anchor="middle" font-size="40" font-weight="900" fill="#1d2340">DPO</text>
+    <text x="400" y="760" text-anchor="middle" font-size="30" font-weight="800" fill="#4a5275">chosen vs. rejected</text>
+    <use href="sprites.svg#checklist" x="820" y="420" width="140" height="168"/>
+    <use href="sprites.svg#robot-head" x="990" y="470" width="130" height="102" style="--body:#22b8a6"/>
+    <text x="960" y="700" text-anchor="middle" font-size="40" font-weight="900" fill="#1d2340">RFT</text>
+    <text x="960" y="760" text-anchor="middle" font-size="30" font-weight="800" fill="#4a5275">a verifier: tests pass</text>
+    <use href="sprites.svg#robot" x="1300" y="420" width="150" height="197" style="--body:#7c5cff"/>
+    <use href="sprites.svg#arrow" x="1460" y="510" width="110" height="33" style="--body:#d9480f"/>
+    <use href="sprites.svg#robot" x="1600" y="510" width="80" height="105" style="--body:#7c5cff"/>
+    <text x="1520" y="700" text-anchor="middle" font-size="40" font-weight="900" fill="#1d2340">Distillation</text>
+    <text x="1520" y="760" text-anchor="middle" font-size="30" font-weight="800" fill="#4a5275">large → small</text>
+  </svg>
+</section>
+
+<!-- 10 · data quality -->
+<section class="slide t-rose" style="--accent:#d6336c">
+  <div class="cap"><span class="eyebrow">Training data</span><h1>Quality <em>beats quantity</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g>
+      <use href="sprites.svg#doc" x="220" y="560" width="160" height="197" style="--accent:#22b8a6"/>
+      <use href="sprites.svg#doc" x="250" y="520" width="160" height="197" style="--accent:#22b8a6"/>
+      <use href="sprites.svg#doc" x="280" y="480" width="160" height="197" style="--accent:#22b8a6"/>
+    </g>
+    <use href="sprites.svg#check" x="400" y="420" width="100" height="100"/>
+    <text x="640" y="660" text-anchor="middle" font-size="110" font-weight="900" fill="#1d2340">&gt;</text>
+    <g opacity=".85">
+      <use href="sprites.svg#doc" x="780" y="600" width="110" height="135" style="--accent:#8a93b0"/>
+      <use href="sprites.svg#doc" x="840" y="520" width="110" height="135" style="--accent:#8a93b0" transform="rotate(-8 895 590)"/>
+      <use href="sprites.svg#doc" x="900" y="610" width="110" height="135" style="--accent:#8a93b0"/>
+      <use href="sprites.svg#doc" x="960" y="500" width="110" height="135" style="--accent:#8a93b0" transform="rotate(10 1015 570)"/>
+      <use href="sprites.svg#doc" x="1020" y="620" width="110" height="135" style="--accent:#8a93b0"/>
+      <use href="sprites.svg#doc" x="1080" y="530" width="110" height="135" style="--accent:#8a93b0" transform="rotate(-6 1135 600)"/>
+      <use href="sprites.svg#doc" x="1140" y="610" width="110" height="135" style="--accent:#8a93b0"/>
+      <use href="sprites.svg#doc" x="880" y="420" width="110" height="135" style="--accent:#8a93b0" transform="rotate(6 935 490)"/>
+      <use href="sprites.svg#doc" x="1030" y="410" width="110" height="135" style="--accent:#8a93b0"/>
+    </g>
+    <use href="sprites.svg#cross" x="1180" y="400" width="100" height="100"/>
+    <rect x="1380" y="400" width="400" height="400" rx="34" fill="#76b900"/>
+    <use href="sprites.svg#gpu" x="1460" y="440" width="240" height="156"/>
+    <g font-size="30" font-weight="900" fill="#fff" text-anchor="middle"><text x="1580" y="660">Filter · dedupe</text><text x="1580" y="710">· redact PII</text></g>
+  </svg>
+  <div class="lbl teal" style="left:330px; top:850px">1,000 clean</div>
+  <div class="lbl red" style="left:990px; top:850px">100,000 scraped</div>
+  <div class="lbl dark" style="left:1580px; top:870px">NeMo Curator</div>
+</section>
+
+<!-- 11 · catastrophic forgetting -->
+<section class="slide t-coral" style="--accent:#d6335a">
+  <div class="cap"><span class="eyebrow">Beware</span><h1><em>Catastrophic</em> forgetting</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#robot-sad" x="150" y="470" width="220" height="289" style="--body:#7c5cff"/>
+    <use href="sprites.svg#target" x="400" y="400" width="120" height="120"/>
+    <use href="sprites.svg#check" x="470" y="380" width="64" height="64"/>
+    <g>
+      <use href="sprites.svg#puzzle" x="430" y="580" width="100" height="100" style="--body:#ffcf4a" transform="rotate(-18 480 630)"/>
+      <use href="sprites.svg#puzzle" x="560" y="660" width="100" height="100" style="--body:#5cc8ff" transform="rotate(22 610 710)"/>
+      <use href="sprites.svg#puzzle" x="660" y="520" width="100" height="100" style="--body:#22b8a6" transform="rotate(-30 710 570)"/>
+    </g>
+    <use href="sprites.svg#cross" x="700" y="660" width="90" height="90"/>
+    <rect x="900" y="360" width="880" height="480" rx="34" fill="#fff"/>
+    <g font-size="40" font-weight="900" fill="#1d2340">
+      <text x="1050" y="470">Prefer LoRA</text>
+      <text x="1050" y="620">Mix in general data</text>
+      <text x="1050" y="770">Broad held-out eval suite</text>
+    </g>
+    <use href="sprites.svg#check" x="960" y="420" width="70" height="70"/>
+    <use href="sprites.svg#check" x="960" y="570" width="70" height="70"/>
+    <use href="sprites.svg#check" x="960" y="720" width="70" height="70"/>
+  </svg>
+  <div class="lbl dark" style="left:470px; top:880px">Unrelated skills break</div>
+</section>
+
+<!-- 12 · the data flywheel -->
+<section class="slide t-ocean" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">NVIDIA data flywheel</span><h1>A loop that <em>shrinks the model</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <circle cx="640" cy="640" r="230" fill="none" stroke="#7fd0ff" stroke-width="10" stroke-dasharray="20 14"/>
+    <g fill="#fff">
+      <circle cx="640" cy="410" r="60"/><circle cx="859" cy="569" r="60"/><circle cx="775" cy="826" r="60"/><circle cx="505" cy="826" r="60"/><circle cx="421" cy="569" r="60"/>
+    </g>
+    <use href="sprites.svg#eye" x="595" y="381" width="90" height="58"/>
+    <use href="sprites.svg#magnifier" x="824" y="534" width="70" height="70"/>
+    <use href="sprites.svg#gear" x="740" y="791" width="70" height="70" style="--body:#7c5cff"/>
+    <use href="sprites.svg#chart-bar" x="465" y="796" width="80" height="60"/>
+    <use href="sprites.svg#shield" x="391" y="534" width="60" height="69"/>
+    <g font-size="30" font-weight="900" fill="#fff">
+      <text x="640" y="330" text-anchor="middle">Capture</text>
+      <text x="940" y="580">Curate</text>
+      <text x="850" y="905">Customize</text>
+      <text x="430" y="905" text-anchor="end">Evaluate</text>
+      <text x="340" y="580" text-anchor="end">Deploy</text>
+    </g>
+    <use href="sprites.svg#robot" x="585" y="580" width="110" height="144" style="--body:#22b8a6"/>
+    <use href="sprites.svg#robot" x="1180" y="450" width="120" height="158" style="--body:#22b8a6"/>
+    <text x="1350" y="560" text-anchor="middle" font-size="64" font-weight="900" fill="#fff">≈</text>
+    <use href="sprites.svg#robot" x="1420" y="370" width="220" height="289" style="--body:#7c5cff"/>
+    <use href="sprites.svg#coin" x="1220" y="700" width="70" height="70"/>
+    <use href="sprites.svg#coins" x="1450" y="680" width="170" height="150"/>
+  </svg>
+  <div class="lbl teal" style="left:1430px; top:880px">Big-model accuracy, fraction of the cost</div>
+</section>
+
+<!-- 13 · the classic trap -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">The classic trap</span><h1>Outdated prices? <em>Don't fine-tune</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#ticket" x="140" y="430" width="340" height="156" style="--accent:#ff5d73"/>
+    <text x="310" y="660" text-anchor="middle" font-size="60" font-weight="900" fill="#1d2340"><tspan text-decoration="line-through" fill="#8a93b0">$49</tspan> → $59</text>
+    <rect x="580" y="370" width="560" height="460" rx="34" fill="#fff"/>
+    <use href="sprites.svg#gear" x="640" y="420" width="150" height="150" style="--body:#7c5cff"/>
+    <use href="sprites.svg#cross" x="1010" y="400" width="100" height="100"/>
+    <text x="640" y="660" font-size="40" font-weight="900" fill="#1d2340">Fine-tuning</text>
+    <text x="640" y="730" font-size="34" font-weight="800" fill="#6a45e8">teaches how to answer</text>
+    <rect x="1220" y="370" width="560" height="460" rx="34" fill="#fff"/>
+    <use href="sprites.svg#database" x="1280" y="410" width="140" height="159" style="--body:#22b8a6"/>
+    <use href="sprites.svg#check" x="1650" y="400" width="100" height="100"/>
+    <text x="1280" y="660" font-size="40" font-weight="900" fill="#1d2340">Retrieval</text>
+    <text x="1280" y="730" font-size="34" font-weight="800" fill="#0b7f75">supplies what's true now</text>
+  </svg>
+  <div class="lbl red" style="left:860px; top:890px">Retrain on every price change?</div>
+  <div class="lbl green" style="left:1500px; top:890px">Live catalog</div>
+</section>
+
+<!-- 14 · wrap-up -->
+<section class="slide t-mint" style="--accent:#128c5e">
+  <div class="cap"><span class="eyebrow">Exam tip</span><h1>One rule wins <em>the top question</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#target" x="160" y="420" width="320" height="320"/>
+    <use href="sprites.svg#check" x="400" y="380" width="120" height="120"/>
+    <rect x="620" y="370" width="1160" height="460" rx="34" fill="#fff"/>
+    <g font-size="48" font-weight="900" fill="#1d2340">
+      <text x="700" y="480">Knowledge</text><text x="1150" y="480" fill="#7c5cff">→ RAG</text>
+      <text x="700" y="610">Behavior</text><text x="1150" y="610" fill="#128c5e">→ fine-tuning</text>
+      <text x="700" y="740">The rest</text><text x="1150" y="740" fill="#ff7a59">→ prompting</text>
+    </g>
+  </svg>
+  <div class="lbl dark" style="left:1200px; top:900px">Read on: the full decision table</div>
+</section>
+
+</body>
+</html>

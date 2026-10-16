@@ -1,0 +1,134 @@
+{
+  "module": "platform",
+  "title": "Module 7 · Lesson 1 — The NVIDIA agentic stack, mapped",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Module Seven, Lesson One: the NVIDIA agentic stack, mapped.",
+        "Here's who does what."
+      ],
+      "say": {
+        "0": "Module Seven, Lesson One: the en-vidia agentic stack, mapped."
+      }
+    },
+    {
+      "lines": [
+        "Picture Leo, a new architect at a furniture retailer, in his first design review.",
+        "Colleagues say NIM, Triton, Curator and Customizer; he can't tell them apart."
+      ],
+      "say": {
+        "1": "Colleagues say nim, Triton, Curator and Customizer; he can't tell them apart."
+      }
+    },
+    {
+      "lines": [
+        "The fix is to learn each piece's one-line job, layer by layer.",
+        "On top sit Blueprints, then the agent layer: the NeMo Agent Toolkit plus frameworks like LangGraph."
+      ],
+      "say": {
+        "1": "On top sit Blueprints, then the agent layer: the Neemo Agent Toolkit plus frameworks like Lang Graph."
+      }
+    },
+    {
+      "lines": [
+        "Then NIM serves models, and NeMo microservices run the model lifecycle.",
+        "At the base: the serving runtime and Kubernetes infrastructure."
+      ],
+      "say": {
+        "0": "Then nim serves models, and Neemo microservices run the model lifecycle."
+      }
+    },
+    {
+      "lines": [
+        "NIM itself is a prebuilt, GPU-optimised model container.",
+        "The NIM Operator manages those services on Kubernetes."
+      ],
+      "say": {
+        "0": "Nim itself is a prebuilt, G P U optimised model container.",
+        "1": "The nim Operator manages those services on Kubernetes."
+      }
+    },
+    {
+      "lines": [
+        "NeMo Retriever does extraction, embedding and reranking for RAG.",
+        "NeMo Guardrails enforces programmable safety rails at runtime."
+      ],
+      "say": {
+        "0": "Neemo Retriever does extraction, embedding and reranking for rag.",
+        "1": "Neemo Guardrails enforces programmable safety rails at runtime."
+      }
+    },
+    {
+      "lines": [
+        "Curator prepares data, Customizer fine-tunes, and Evaluator runs benchmarks.",
+        "The Data and Entity Stores hold artefacts and metadata."
+      ]
+    },
+    {
+      "lines": [
+        "The NeMo Agent Toolkit composes agents across frameworks, adding profiling and tracing.",
+        "Triton is a multi-backend inference server; Dynamo spreads inference across a datacentre."
+      ],
+      "say": {
+        "0": "The Neemo Agent Toolkit composes agents across frameworks, adding profiling and tracing."
+      }
+    },
+    {
+      "lines": [
+        "Four boundaries trip people up.",
+        "NIM is a packaged, model-specific service, while Triton is a general server you configure yourself."
+      ],
+      "say": {
+        "1": "Nim is a packaged, model-specific service, while Triton is a general server you configure yourself."
+      }
+    },
+    {
+      "lines": [
+        "Curator prepares the data, and Customizer trains on it.",
+        "Evaluator measures quality offline, while Guardrails enforce policy on live traffic."
+      ],
+      "say": {
+        "1": "Evaluator measures quality offline, while Guardrails in-force policy on live traffic."
+      }
+    },
+    {
+      "lines": [
+        "And the Agent Toolkit instruments agents built in frameworks like LangGraph.",
+        "It composes them; it doesn't replace them."
+      ],
+      "say": {
+        "0": "And the Agent Toolkit instruments agents built in frameworks like Lang Graph."
+      }
+    },
+    {
+      "lines": [
+        "So why is NIM fast?",
+        "Its TensorRT-LLM engine brings in-flight batching, a paged KV cache, quantisation, prefix caching and speculative decoding."
+      ],
+      "say": {
+        "0": "So why is nim fast?",
+        "1": "Its tensor R T, L L M engine brings in-flight batching, a paged K V cache, quantisation, prefix caching and speculative decoding."
+      }
+    },
+    {
+      "lines": [
+        "With an OpenAI-compatible API, switching from a hosted endpoint to NIM is usually a base-URL change.",
+        "So agent code doesn't need rewriting."
+      ],
+      "say": {
+        "0": "With an open A-I compatible A-P-I, switching from a hosted endpoint to nim is usually a base U R L change."
+      }
+    },
+    {
+      "lines": [
+        "Exam trap: asked why NIM beats a naive Hugging Face server, name those mechanisms, not “it's optimised”.",
+        "Read on for the full table."
+      ],
+      "say": {
+        "0": "Exam trap: asked why nim beats a naive Hugging Face server, name those mechanisms, not, it's optimised."
+      }
+    }
+  ]
+}

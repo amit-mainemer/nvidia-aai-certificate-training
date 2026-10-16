@@ -1,0 +1,107 @@
+{
+  "module": "operations",
+  "title": "Module 8 · Lesson 2 — Drift, regression and the maintenance loop",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module Eight, Lesson Two: drift, regression, and the maintenance loop.",
+        "Agents degrade even when nobody touches them."
+      ]
+    },
+    {
+      "lines": [
+        "Picture CampusDesk, a university helpdesk agent that answers student questions.",
+        "All summer, nobody changes a line of its code."
+      ],
+      "say": {
+        "0": "Picture Campus Desk, a university help desk agent that answers student questions."
+      }
+    },
+    {
+      "lines": [
+        "By September, its answers are noticeably worse.",
+        "The world around it changed, and that's drift."
+      ]
+    },
+    {
+      "lines": [
+        "Input drift: students ask new things, in new ways.",
+        "Spot it by tracking query topics and embeddings over time."
+      ]
+    },
+    {
+      "lines": [
+        "Corpus drift: the wiki was reorganised, so retrieval quality moved.",
+        "Re-run retrieval evaluation on a fixed set of queries to catch it."
+      ]
+    },
+    {
+      "lines": [
+        "Model drift: the provider silently updated its hosted model.",
+        "Pin versions to prevent it, and run a golden set continuously to detect it."
+      ]
+    },
+    {
+      "lines": [
+        "Tool drift: the enrollment system's API changed its schema.",
+        "Scheduled contract tests against every tool catch that."
+      ],
+      "say": {
+        "0": "Tool drift: the enrollment system's A P I changed its schema."
+      }
+    },
+    {
+      "lines": [
+        "So run the golden set against production on a schedule, not only in CI.",
+        "That catches drift that no code change caused."
+      ],
+      "say": {
+        "0": "So run the golden set against production on a schedule, not only in C I."
+      }
+    },
+    {
+      "lines": [
+        "Sample live traffic for automated scoring, and send uncertain cases to a small human queue.",
+        "Track every metric against a baseline."
+      ]
+    },
+    {
+      "lines": [
+        "When an incident hits, first contain it with a previous version or a safe fallback.",
+        "A degraded answer beats a confidently wrong one."
+      ]
+    },
+    {
+      "lines": [
+        "Next, diagnose from traces: pull the failing runs and find the common span.",
+        "Then fix the right layer, whether prompt, schema, tool, retrieval, or model version."
+      ]
+    },
+    {
+      "lines": [
+        "Add the failing case to the golden set, or you'll ship it again.",
+        "Then ask what guard would have caught it sooner."
+      ]
+    },
+    {
+      "lines": [
+        "Version prompts, tool schemas, retrieval settings, models, and guardrails together.",
+        "Record that version on every trace, so any output can be reproduced."
+      ]
+    },
+    {
+      "lines": [
+        "Gate changes on the golden set, then roll out through shadow and canary, with a tested rollback.",
+        "Even a one-word prompt edit is a production change."
+      ]
+    },
+    {
+      "lines": [
+        "On the exam, an agent that degrades with no deployment means something upstream changed.",
+        "The fix is pinned versions, a golden set, and contract tests, so read on for the full loop."
+      ]
+    }
+  ]
+}

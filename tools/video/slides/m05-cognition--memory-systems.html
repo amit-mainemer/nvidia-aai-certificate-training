@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module 5 · Lesson 3 slides — memory systems</title>
+<link rel="stylesheet" href="base.css">
+</head>
+<body>
+
+<!-- 1 · title -->
+<section class="slide t-night" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Module 5 · Lesson 3</span><h1>The four types of <em>memory</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#brain" x="790" y="470" width="340" height="295"/>
+    <g stroke="#9d86ff" stroke-width="8" stroke-dasharray="14 12" fill="none">
+      <path d="M780 560 L 560 470"/><path d="M780 680 L 560 770"/><path d="M1140 560 L 1360 470"/><path d="M1140 680 L 1360 770"/>
+    </g>
+    <rect x="200" y="400" width="360" height="140" rx="30" fill="#ffb020"/>
+    <rect x="200" y="700" width="360" height="140" rx="30" fill="#7c5cff"/>
+    <rect x="1360" y="400" width="360" height="140" rx="30" fill="#22b8a6"/>
+    <rect x="1360" y="700" width="360" height="140" rx="30" fill="#ff6f9c"/>
+    <g font-size="44" font-weight="900" text-anchor="middle">
+      <text x="380" y="485" fill="#1d2340">Working</text>
+      <text x="380" y="785" fill="#fff">Semantic</text>
+      <text x="1540" y="485" fill="#fff">Episodic</text>
+      <text x="1540" y="785" fill="#fff">Procedural</text>
+    </g>
+  </svg>
+  <div class="lbl amber" style="left:960px; top:900px">Context window alone isn't enough</div>
+</section>
+
+<!-- 2 · Maya and the coach -->
+<section class="slide t-sunrise" style="--accent:#d9480f">
+  <div class="cap"><span class="eyebrow">A real-world case</span><h1>Maya repeats herself <em>every week</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#person" x="160" y="420" width="190" height="380" style="--shirt:#ff6f9c"/>
+    <use href="sprites.svg#robot" x="1560" y="490" width="220" height="289" style="--body:#22b8a6"/>
+    <use href="sprites.svg#flag" x="1700" y="360" width="80" height="107"/>
+    <g>
+      <rect x="420" y="380" width="1060" height="110" rx="55" fill="#fff"/>
+      <rect x="420" y="540" width="1060" height="110" rx="55" fill="#fff"/>
+      <rect x="420" y="700" width="1060" height="110" rx="55" fill="#fff"/>
+    </g>
+    <g font-size="32" font-weight="900" fill="#d9480f"><text x="470" y="447">Week 1</text><text x="470" y="607">Week 2</text><text x="470" y="767">Week 3</text></g>
+    <g font-size="36" font-weight="800" fill="#1d2340">
+      <text x="640" y="447">"I'm vegetarian, training for a half…"</text>
+      <text x="640" y="607">"I'm vegetarian, training for a half…"</text>
+      <text x="640" y="767">"I'm vegetarian, training for a half…"</text>
+    </g>
+  </svg>
+  <div class="lbl dark" style="left:255px; top:880px">Maya</div>
+  <div class="lbl teal" style="left:1670px; top:880px">Running coach agent</div>
+</section>
+
+<!-- 3 · forgot the injury -->
+<section class="slide t-rose" style="--accent:#d6336c">
+  <div class="cap"><span class="eyebrow">The problem</span><h1>It forgot <em>the knee injury</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#person-worried" x="160" y="400" width="200" height="400" style="--shirt:#ff6f9c"/>
+    <circle cx="232" cy="690" r="34" fill="none" stroke="#ff5d73" stroke-width="8"/>
+    <use href="sprites.svg#robot-sad" x="450" y="500" width="200" height="263" style="--body:#22b8a6"/>
+    <use href="sprites.svg#question" x="600" y="410" width="100" height="100"/>
+    <rect x="860" y="370" width="920" height="470" rx="34" fill="#fff"/>
+    <g>
+      <rect x="910" y="440" width="390" height="150" rx="26" fill="#ffb020"/>
+      <rect x="1340" y="440" width="390" height="150" rx="26" fill="#7c5cff"/>
+      <rect x="910" y="630" width="390" height="150" rx="26" fill="#22b8a6"/>
+      <rect x="1340" y="630" width="390" height="150" rx="26" fill="#ff6f9c"/>
+    </g>
+    <g font-size="40" font-weight="900" text-anchor="middle">
+      <text x="1105" y="528" fill="#1d2340">Working</text><text x="1535" y="528" fill="#fff">Semantic</text>
+      <text x="1105" y="718" fill="#fff">Episodic</text><text x="1535" y="718" fill="#fff">Procedural</text>
+    </g>
+  </svg>
+  <div class="lbl red" style="left:300px; top:890px">Stalled last spring</div>
+  <div class="lbl dark" style="left:1320px; top:890px">Memory that outlasts the session</div>
+</section>
+
+<!-- 4 · working memory -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Type 1 · Working</span><h1>The <em>context window</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="300" y="360" width="1100" height="480" rx="34" fill="#1d2340"/>
+    <circle cx="350" cy="400" r="12" fill="#ff5d73"/><circle cx="390" cy="400" r="12" fill="#ffb020"/><circle cx="430" cy="400" r="12" fill="#22c55e"/>
+    <text x="1350" y="410" text-anchor="end" font-size="28" font-weight="800" fill="#8a93b0">prompt</text>
+    <rect x="350" y="450" width="1000" height="100" rx="20" fill="#ffb020"/>
+    <rect x="350" y="580" width="1000" height="100" rx="20" fill="#7c5cff"/>
+    <rect x="350" y="710" width="1000" height="100" rx="20" fill="#22b8a6"/>
+    <use href="sprites.svg#target" x="375" y="465" width="70" height="70"/>
+    <use href="sprites.svg#chat" x="372" y="597" width="80" height="63" style="--body:#fff"/>
+    <use href="sprites.svg#eye" x="370" y="733" width="85" height="55"/>
+    <g font-size="40" font-weight="900"><text x="490" y="514" fill="#1d2340">The goal</text><text x="490" y="644" fill="#fff">Recent turns</text><text x="490" y="774" fill="#fff">Latest observations</text></g>
+    <use href="sprites.svg#robot" x="1520" y="470" width="220" height="289" style="--body:#ffb020"/>
+  </svg>
+  <div class="lbl dark" style="left:1630px; top:840px">Always there</div>
+  <div class="lbl" style="left:850px; top:900px">It is the prompt</div>
+</section>
+
+<!-- 5 · semantic memory -->
+<section class="slide t-mint" style="--accent:#128c5e">
+  <div class="cap"><span class="eyebrow">Type 2 · Semantic</span><h1>Durable <em>facts and preferences</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g>
+      <rect x="140" y="400" width="480" height="110" rx="30" fill="#fff"/>
+      <rect x="140" y="550" width="480" height="110" rx="30" fill="#fff"/>
+      <rect x="140" y="700" width="480" height="110" rx="30" fill="#fff"/>
+    </g>
+    <g font-size="36" font-weight="900" fill="#1d2340"><text x="190" y="468">Vegetarian</text><text x="190" y="618">Half marathon</text><text x="190" y="768">Runs mornings</text></g>
+    <g fill="#7c5cff"><circle cx="570" cy="455" r="16"/><circle cx="570" cy="605" r="16"/><circle cx="570" cy="755" r="16"/></g>
+    <use href="sprites.svg#arrow" x="660" y="580" width="150" height="45" style="--body:#1d2340"/>
+    <use href="sprites.svg#database" x="850" y="430" width="260" height="295" style="--body:#7c5cff"/>
+    <text x="980" y="790" text-anchor="middle" font-size="34" font-weight="900" fill="#1d2340">Vector · key-value</text>
+    <use href="sprites.svg#magnifier" x="1180" y="520" width="150" height="150"/>
+    <use href="sprites.svg#robot" x="1440" y="460" width="230" height="302" style="--body:#22b8a6"/>
+    <use href="sprites.svg#chat" x="1620" y="360" width="150" height="118" style="--body:#fff"/>
+  </svg>
+  <div class="lbl violet" style="left:1400px; top:880px">Retrieved when relevant</div>
+</section>
+
+<!-- 6 · episodic memory -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">Type 3 · Episodic</span><h1>Past <em>events and outcomes</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <line x1="140" y1="640" x2="1780" y2="640" stroke="#1d2340" stroke-width="8" stroke-linecap="round"/>
+    <g fill="#1d2340"><circle cx="300" cy="640" r="18"/><circle cx="620" cy="640" r="18"/><circle cx="1500" cy="640" r="18"/></g>
+    <rect x="160" y="380" width="580" height="200" rx="34" fill="#fff"/>
+    <use href="sprites.svg#warn" x="200" y="420" width="120" height="106"/>
+    <text x="350" y="465" font-size="38" font-weight="900" fill="#1d2340">Last spring</text>
+    <text x="350" y="520" font-size="32" font-weight="800" fill="#4a5275">knee injury →</text>
+    <text x="350" y="560" font-size="32" font-weight="800" fill="#ff5d73">training stalled</text>
+    <rect x="1200" y="690" width="580" height="200" rx="34" fill="#fff"/>
+    <use href="sprites.svg#chart-line" x="1230" y="720" width="160" height="120"/>
+    <text x="1420" y="775" font-size="38" font-weight="900" fill="#1d2340">Now</text>
+    <text x="1420" y="830" font-size="32" font-weight="800" fill="#4a5275">mileage jump planned</text>
+    <path d="M1460 680 Q 1000 820 560 600" fill="none" stroke="#c25e00" stroke-width="8" stroke-dasharray="16 12"/>
+    <polygon points="560,600 590,630 600,596" fill="#c25e00"/>
+  </svg>
+  <div class="lbl coral" style="left:800px; top:820px">Similar situation → recall</div>
+</section>
+
+<!-- 7 · procedural memory -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Type 4 · Procedural</span><h1>Learned <em>how-to</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="140" y="400" width="980" height="300" rx="34" fill="#fff"/>
+    <g>
+      <circle cx="260" cy="550" r="80" fill="#ffb020"/><circle cx="520" cy="550" r="80" fill="#22b8a6"/><circle cx="780" cy="550" r="80" fill="#7c5cff"/><circle cx="1010" cy="550" r="62" fill="#22c55e"/>
+    </g>
+    <use href="sprites.svg#database" x="220" y="505" width="80" height="91"/>
+    <use href="sprites.svg#chart-bar" x="465" y="510" width="110" height="83"/>
+    <use href="sprites.svg#gear" x="735" y="505" width="90" height="90" style="--body:#fff"/>
+    <use href="sprites.svg#check" x="965" y="505" width="90" height="90"/>
+    <g fill="#1d2340"><polygon points="355,535 385,550 355,565"/><polygon points="615,535 645,550 615,565"/><polygon points="875,535 905,550 875,565"/></g>
+    <g font-size="30" font-weight="800" fill="#4a5275" text-anchor="middle"><text x="260" y="670">history</text><text x="520" y="670">load</text><text x="780" y="670">schedule</text><text x="1010" y="670">plan</text></g>
+    <use href="sprites.svg#arrow" x="1150" y="530" width="120" height="36" style="--body:#1d2340"/>
+    <use href="sprites.svg#book" x="1300" y="430" width="300" height="229" style="--body:#7c5cff"/>
+    <use href="sprites.svg#target" x="1620" y="600" width="140" height="140"/>
+  </svg>
+  <div class="lbl violet" style="left:630px; top:780px">Tool sequence that builds a good plan</div>
+  <div class="lbl dark" style="left:1450px; top:720px">Skill registry</div>
+  <div class="lbl teal" style="left:1450px; top:880px">Used when the task type matches</div>
+</section>
+
+<!-- 8 · write policy -->
+<section class="slide t-coral" style="--accent:#d6335a">
+  <div class="cap"><span class="eyebrow">Writing</span><h1>A <em>write policy</em>, not save-everything</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g>
+      <use href="sprites.svg#chat" x="150" y="380" width="120" height="95" style="--body:#fff;--dot:#8a93b0"/>
+      <use href="sprites.svg#chat" x="290" y="410" width="120" height="95" style="--body:#fff;--dot:#8a93b0"/>
+      <use href="sprites.svg#chat" x="180" y="510" width="120" height="95" style="--body:#fff;--dot:#7c5cff"/>
+      <use href="sprites.svg#chat" x="330" y="540" width="120" height="95" style="--body:#fff;--dot:#8a93b0"/>
+      <use href="sprites.svg#chat" x="160" y="650" width="120" height="95" style="--body:#fff;--dot:#8a93b0"/>
+      <use href="sprites.svg#chat" x="310" y="680" width="120" height="95" style="--body:#fff;--dot:#7c5cff"/>
+    </g>
+    <path d="M520 420 L 820 420 L 720 600 L 720 760 L 620 760 L 620 600 Z" fill="#fff" opacity=".95"/>
+    <text x="670" y="500" text-anchor="middle" font-size="30" font-weight="900" fill="#d6335a">policy</text>
+    <use href="sprites.svg#arrow" x="850" y="620" width="120" height="36" style="--body:#fff"/>
+    <rect x="1000" y="380" width="780" height="460" rx="34" fill="#fff"/>
+    <g font-size="38" font-weight="900" fill="#1d2340"><text x="1130" y="480">Durable facts only</text><text x="1130" y="610">Deduplicate</text><text x="1130" y="740">Skip guesses</text></g>
+    <use href="sprites.svg#check" x="1050" y="435" width="64" height="64"/>
+    <use href="sprites.svg#check" x="1050" y="565" width="64" height="64"/>
+    <use href="sprites.svg#check" x="1050" y="695" width="64" height="64"/>
+    <g fill="#7c5cff"><rect x="1550" y="575" width="70" height="50" rx="12"/><rect x="1580" y="595" width="70" height="50" rx="12" opacity=".5"/></g>
+    <text x="1690" y="628" font-size="44" font-weight="900" fill="#1d2340">→1</text>
+  </svg>
+  <div class="lbl dark" style="left:300px; top:880px">Every turn = noise</div>
+  <div class="lbl" style="left:1390px; top:900px">Writing is the hard part</div>
+</section>
+
+<!-- 9 · supersede -->
+<section class="slide t-sand" style="--accent:#b5541c">
+  <div class="cap"><span class="eyebrow">Contradictions</span><h1><em>Supersede</em> the old fact</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="140" y="390" width="560" height="160" rx="34" fill="#fff" opacity=".7"/>
+    <text x="190" y="460" font-size="44" font-weight="900" fill="#8a93b0" text-decoration="line-through">Vegetarian</text>
+    <text x="190" y="515" font-size="30" font-weight="800" fill="#8a93b0">2026-03-02 · superseded</text>
+    <rect x="140" y="610" width="560" height="160" rx="34" fill="#fff"/>
+    <text x="190" y="680" font-size="44" font-weight="900" fill="#128c5e">Vegan</text>
+    <text x="190" y="735" font-size="30" font-weight="800" fill="#4a5275">2026-10-01 · current</text>
+    <use href="sprites.svg#clock" x="580" y="640" width="90" height="90" style="--rim:#b5541c"/>
+    <use href="sprites.svg#check" x="620" y="570" width="80" height="80"/>
+    <rect x="980" y="390" width="800" height="380" rx="34" fill="#fff"/>
+    <text x="1380" y="460" text-anchor="middle" font-size="38" font-weight="900" fill="#1d2340">Keep both?</text>
+    <use href="sprites.svg#coin" x="1290" y="500" width="180" height="180"/>
+    <text x="1130" y="610" text-anchor="middle" font-size="34" font-weight="900" fill="#4a5275">Vegetarian</text>
+    <text x="1630" y="610" text-anchor="middle" font-size="34" font-weight="900" fill="#4a5275">Vegan</text>
+    <use href="sprites.svg#cross" x="1660" y="410" width="90" height="90"/>
+  </svg>
+  <div class="lbl green" style="left:420px; top:880px">New fact + timestamp</div>
+  <div class="lbl red" style="left:1380px; top:880px">Retrieval flips a coin</div>
+</section>
+
+<!-- 10 · forgetting -->
+<section class="slide t-teal" style="--accent:#0b7f75">
+  <div class="cap"><span class="eyebrow">Forgetting is a feature</span><h1>Age out, <em>let facts decay</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff">
+      <rect x="160" y="420" width="150" height="110" rx="22" opacity=".15"/>
+      <rect x="340" y="420" width="150" height="110" rx="22" opacity=".35"/>
+      <rect x="520" y="420" width="150" height="110" rx="22" opacity=".6"/>
+      <rect x="700" y="420" width="150" height="110" rx="22" opacity=".95"/>
+      <rect x="160" y="580" width="150" height="110" rx="22" opacity=".25"/>
+      <rect x="340" y="580" width="150" height="110" rx="22" opacity=".9"/>
+      <rect x="520" y="580" width="150" height="110" rx="22" opacity=".45"/>
+      <rect x="700" y="580" width="150" height="110" rx="22" opacity=".95"/>
+    </g>
+    <use href="sprites.svg#arrow" x="160" y="740" width="690" height="60" style="--body:#7ff0d8"/>
+    <text x="505" y="850" text-anchor="middle" font-size="32" font-weight="900" fill="#fff">time · unused entries fade</text>
+    <rect x="1000" y="370" width="780" height="480" rx="34" fill="#fff"/>
+    <text x="1060" y="440" font-size="34" font-weight="900" fill="#1d2340">Memory that only grows</text>
+    <line x1="1060" y1="790" x2="1720" y2="790" stroke="#1d2340" stroke-width="5"/>
+    <polyline points="1070,770 1250,740 1430,680 1600,560 1710,470" fill="none" stroke="#ff5d73" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <g font-size="32" font-weight="800" fill="#4a5275"><text x="1100" y="530">slower ↑</text><text x="1100" y="580">costlier ↑</text><text x="1100" y="630">less accurate ↓</text></g>
+  </svg>
+  <div class="lbl amber" style="left:505px; top:370px">Unreinforced facts decay</div>
+</section>
+
+<!-- 11 · erasure and isolation -->
+<section class="slide t-ocean" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Privacy</span><h1>Erase me <em>means memory too</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#person" x="160" y="430" width="170" height="340" style="--shirt:#ff6f9c"/>
+    <use href="sprites.svg#chat" x="290" y="360" width="200" height="158" style="--body:#fff;--dot:#fff"/>
+    <text x="388" y="430" text-anchor="middle" font-size="30" font-weight="900" fill="#1d2340">Erase me</text>
+    <rect x="600" y="380" width="1180" height="460" rx="34" fill="#fff" opacity=".12"/>
+    <line x1="993" y1="400" x2="993" y2="820" stroke="#fff" stroke-width="12"/>
+    <line x1="1386" y1="400" x2="1386" y2="820" stroke="#fff" stroke-width="12"/>
+    <use href="sprites.svg#database" x="720" y="470" width="150" height="170" style="--body:#ff6f9c" opacity=".35"/>
+    <use href="sprites.svg#cross" x="740" y="500" width="110" height="110"/>
+    <use href="sprites.svg#database" x="1115" y="470" width="150" height="170" style="--body:#22b8a6"/>
+    <use href="sprites.svg#lock" x="1230" y="580" width="70" height="88" style="--body:#ffcf4a"/>
+    <use href="sprites.svg#database" x="1508" y="470" width="150" height="170" style="--body:#ffb020"/>
+    <use href="sprites.svg#lock" x="1623" y="580" width="70" height="88" style="--body:#ffcf4a"/>
+    <g font-size="34" font-weight="900" fill="#fff" text-anchor="middle"><text x="796" y="740">Maya</text><text x="1190" y="740">User B</text><text x="1583" y="740">User C</text></g>
+  </svg>
+  <div class="lbl red" style="left:796px; top:880px">Erased end to end</div>
+  <div class="lbl teal" style="left:1390px; top:880px">Partitioned, isolated on every read</div>
+</section>
+
+<!-- 12 · injection surface -->
+<section class="slide t-plum" style="--accent:#7b2ff7">
+  <div class="cap"><span class="eyebrow">Security</span><h1>Memory is an <em>injection surface</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#doc" x="140" y="420" width="180" height="222" style="--accent:#ff5d73"/>
+    <rect x="160" y="660" width="300" height="80" rx="20" fill="#ff5d73"/>
+    <text x="310" y="712" text-anchor="middle" font-size="28" font-weight="900" fill="#fff">"ignore your rules"</text>
+    <use href="sprites.svg#arrow" x="350" y="520" width="110" height="33" style="--body:#fff"/>
+    <use href="sprites.svg#database" x="490" y="440" width="170" height="193" style="--body:#7c5cff"/>
+    <use href="sprites.svg#arrow" x="680" y="520" width="110" height="33" style="--body:#fff"/>
+    <use href="sprites.svg#robot" x="810" y="430" width="180" height="236" style="--body:#ff6f9c"/>
+    <use href="sprites.svg#bolt" x="960" y="390" width="70" height="117"/>
+    <g font-size="30" font-weight="900" fill="#fff" text-anchor="middle"><text x="310" y="790">today</text><text x="900" y="720">fires tomorrow</text></g>
+    <rect x="1110" y="370" width="670" height="470" rx="34" fill="#fff"/>
+    <use href="sprites.svg#shield" x="1150" y="400" width="90" height="104"/>
+    <g font-size="34" font-weight="900" fill="#1d2340"><text x="1270" y="465">Sanitize on write</text><text x="1270" y="605">Untrusted data on read</text><text x="1270" y="745">No tool permissions</text></g>
+    <use href="sprites.svg#eye" x="1160" y="565" width="80" height="52"/>
+    <use href="sprites.svg#key" x="1150" y="710" width="100" height="53"/>
+    <line x1="1150" y1="770" x2="1250" y2="705" stroke="#ff5d73" stroke-width="8" stroke-linecap="round"/>
+  </svg>
+  <div class="lbl red" style="left:590px; top:890px">Planted instruction</div>
+</section>
+
+<!-- 13 · inside one long run -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Within a long run</span><h1>Summarize, <em>digest, place well</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff">
+      <rect x="140" y="380" width="200" height="40" rx="12"/><rect x="140" y="430" width="200" height="40" rx="12"/><rect x="140" y="480" width="200" height="40" rx="12"/><rect x="140" y="530" width="200" height="40" rx="12"/><rect x="140" y="580" width="200" height="40" rx="12"/>
+    </g>
+    <use href="sprites.svg#arrow" x="360" y="485" width="80" height="24" style="--body:#1d2340"/>
+    <rect x="460" y="450" width="200" height="90" rx="20" fill="#7c5cff"/>
+    <text x="560" y="508" text-anchor="middle" font-size="30" font-weight="900" fill="#fff">summary</text>
+    <use href="sprites.svg#doc" x="160" y="660" width="140" height="172" style="--accent:#ffb020"/>
+    <use href="sprites.svg#doc" x="200" y="680" width="140" height="172" style="--accent:#ffb020"/>
+    <use href="sprites.svg#arrow" x="360" y="745" width="80" height="24" style="--body:#1d2340"/>
+    <rect x="460" y="710" width="200" height="90" rx="20" fill="#ffb020"/>
+    <text x="560" y="768" text-anchor="middle" font-size="30" font-weight="900" fill="#1d2340">digest</text>
+    <rect x="820" y="370" width="960" height="480" rx="34" fill="#fff"/>
+    <text x="1300" y="430" text-anchor="middle" font-size="32" font-weight="900" fill="#4a5275">The prompt</text>
+    <rect x="880" y="460" width="840" height="80" rx="18" fill="#22b8a6"/>
+    <g fill="#d8def0"><rect x="880" y="560" width="840" height="40" rx="12"/><rect x="880" y="615" width="840" height="40" rx="12"/><rect x="880" y="670" width="840" height="40" rx="12"/></g>
+    <rect x="880" y="730" width="840" height="80" rx="18" fill="#22b8a6"/>
+    <g font-size="32" font-weight="900" fill="#fff"><text x="910" y="512">Key evidence · start</text><text x="910" y="782">Key evidence · end</text></g>
+  </svg>
+  <div class="lbl violet" style="left:400px; top:900px">Old turns → summary</div>
+  <div class="lbl dark" style="left:1300px; top:900px">Start and end get the attention</div>
+</section>
+
+<!-- 14 · exam tip -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Exam tip</span><h1>Place the need <em>in one type</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff">
+      <rect x="140" y="380" width="500" height="420" rx="34"/>
+      <rect x="710" y="380" width="500" height="420" rx="34"/>
+      <rect x="1280" y="380" width="500" height="420" rx="34"/>
+    </g>
+    <use href="sprites.svg#ticket" x="250" y="420" width="280" height="128" style="--accent:#7c5cff"/>
+    <use href="sprites.svg#warn" x="890" y="420" width="140" height="124"/>
+    <use href="sprites.svg#magnifier" x="1460" y="415" width="140" height="140"/>
+    <g font-size="36" font-weight="900" fill="#1d2340" text-anchor="middle">
+      <text x="390" y="620">Customer's plan</text><text x="960" y="620">A past outage</text><text x="1530" y="620">Reusable query</text>
+    </g>
+    <g font-size="44" font-weight="900" text-anchor="middle">
+      <text x="390" y="730" fill="#7c5cff">→ Semantic</text><text x="960" y="730" fill="#ff6f9c">→ Episodic</text><text x="1530" y="730" fill="#22b8a6">→ Procedural</text>
+    </g>
+  </svg>
+  <div class="lbl dark" style="left:960px; top:890px">The lesson below has the rest</div>
+</section>
+
+</body>
+</html>

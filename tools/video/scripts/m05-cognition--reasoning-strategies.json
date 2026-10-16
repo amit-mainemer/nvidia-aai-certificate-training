@@ -1,0 +1,92 @@
+{
+  "module": "cognition",
+  "title": "Module 5 · Lesson 1 — Reasoning strategies and what each one costs",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Module Five, Lesson One: reasoning strategies.",
+        "Six techniques, each with a price tag and a phrase that gives it away."
+      ]
+    },
+    {
+      "lines": [
+        "Picture an HR help bot at a company of two thousand people.",
+        "To make it smarter, the team sends every question through Tree of Thoughts."
+      ]
+    },
+    {
+      "lines": [
+        "Now a question about vacation days takes thirty seconds.",
+        "The bill grows tenfold, and the answers are no better."
+      ]
+    },
+    {
+      "lines": [
+        "Chain of thought is the cheapest: one linear reasoning path before the answer.",
+        "It costs one to two times the baseline, and the phrase is: think step by step."
+      ]
+    },
+    {
+      "lines": [
+        "Self-consistency samples several chains and takes a majority vote.",
+        "Sample five chains, and you pay five times."
+      ]
+    },
+    {
+      "lines": [
+        "Tree of Thoughts branches, scores partial solutions, searches, and backtracks.",
+        "At five to twenty times the baseline, it is the priciest of the six."
+      ]
+    },
+    {
+      "lines": [
+        "It fits only when exploring branches helps, and the model can score partial states.",
+        "Without that score there is nothing to search on, so never use it for a quick lookup."
+      ]
+    },
+    {
+      "lines": [
+        "Chain of Verification drafts an answer, asks itself checking questions, then revises.",
+        "It costs three to four times, and it targets factual errors."
+      ]
+    },
+    {
+      "lines": [
+        "Reflexion writes a self-critique after a failure and keeps it for the next attempt.",
+        "Debate has agents argue positions while a judge decides."
+      ]
+    },
+    {
+      "lines": [
+        "Modern reasoning models already think internally.",
+        "Adding a step by step prompt duplicates that work, so a simple lookup needs no scaffold at all."
+      ]
+    },
+    {
+      "lines": [
+        "Treat reasoning effort as a routed decision, not a constant.",
+        "Easy requests get a direct answer, medium ones get chain of thought, and only hard ones get voting or search."
+      ]
+    },
+    {
+      "lines": [
+        "A confidence estimate or a small classifier picks the lane.",
+        "It is the same routing idea used to choose models."
+      ]
+    },
+    {
+      "lines": [
+        "And the HR bot still gets the new parental leave policy wrong.",
+        "Reasoning cannot invent a fact the model never had, so the fix is retrieval."
+      ]
+    },
+    {
+      "lines": [
+        "On the exam, match the phrase to the technique, and distrust expensive reasoning offered for a knowledge gap.",
+        "The full cost table is waiting in the lesson below."
+      ]
+    }
+  ]
+}

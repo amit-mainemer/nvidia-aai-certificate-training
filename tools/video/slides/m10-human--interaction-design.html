@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module 10 · Lesson 2 slides — interaction design</title>
+<link rel="stylesheet" href="base.css">
+</head>
+<body>
+
+<!-- local symbols -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="stamp" viewBox="0 0 140 170">
+      <rect x="50" y="6" width="40" height="70" rx="18" fill="var(--handle,#8a5a3c)"/>
+      <rect x="20" y="70" width="100" height="40" rx="12" fill="var(--body,#4a5275)"/>
+      <rect x="6" y="106" width="128" height="34" rx="10" fill="var(--ink2,#ff5d73)"/>
+      <rect x="10" y="150" width="120" height="14" rx="7" fill="var(--ink2,#ff5d73)" opacity=".35"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- 1 · title: rubber-stamping -->
+<section class="slide t-night" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Module 10 · Lesson 2</span><h1>Designing against <em>automation bias</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <ellipse cx="960" cy="870" rx="620" ry="30" fill="#fff" opacity=".1"/>
+    <use href="sprites.svg#robot" x="200" y="520" width="230" height="302" style="--body:#7c5cff"/>
+    <use href="sprites.svg#arrow" x="450" y="640" width="150" height="45" style="--body:#9d86ff"/>
+    <g>
+      <use href="sprites.svg#doc" x="640" y="560" width="160" height="197"/>
+      <use href="sprites.svg#doc" x="680" y="520" width="160" height="197"/>
+      <use href="sprites.svg#doc" x="720" y="480" width="160" height="197"/>
+    </g>
+    <g font-size="30" font-weight="900" fill="#ff5d73" text-anchor="middle">
+      <text x="800" y="640" transform="rotate(-14 800 640)">APPROVED</text>
+    </g>
+    <use href="#stamp" x="920" y="420" width="160" height="194"/>
+    <use href="sprites.svg#person-desk" x="1120" y="520" width="380" height="326" style="--shirt:#22b8a6"/>
+    <use href="sprites.svg#cross" x="1560" y="440" width="130" height="130"/>
+    <use href="sprites.svg#eye" x="1540" y="620" width="170" height="110"/>
+  </svg>
+  <div class="lbl red" style="left:1300px; top:930px">Rubber-stamped = no oversight</div>
+</section>
+
+<!-- 2 · the law firm -->
+<section class="slide t-sand" style="--accent:#b5541c">
+  <div class="cap"><span class="eyebrow">A real-world case</span><h1>An AI <em>reviews contracts</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#building" x="130" y="420" width="250" height="303"/>
+    <use href="sprites.svg#robot" x="470" y="480" width="210" height="276" style="--body:#7c5cff"/>
+    <rect x="740" y="380" width="460" height="470" rx="34" fill="#fff"/>
+    <text x="790" y="450" font-size="30" font-weight="900" fill="#b5541c">CONTRACT</text>
+    <g fill="#c7cde0">
+      <rect x="790" y="490" width="260" height="22" rx="11"/><rect x="790" y="580" width="260" height="22" rx="11"/>
+      <rect x="790" y="670" width="260" height="22" rx="11"/><rect x="790" y="760" width="260" height="22" rx="11"/>
+    </g>
+    <use href="sprites.svg#check" x="1080" y="470" width="64" height="64"/>
+    <use href="sprites.svg#check" x="1080" y="560" width="64" height="64"/>
+    <use href="sprites.svg#check" x="1080" y="650" width="64" height="64"/>
+    <use href="sprites.svg#check" x="1080" y="740" width="64" height="64"/>
+    <use href="sprites.svg#person" x="1310" y="430" width="170" height="340" style="--shirt:#1f6fbf"/>
+    <g font-size="34" font-weight="900" fill="#22b8a6"><text x="1540" y="500">✓ Right</text><text x="1540" y="570">✓ Right</text><text x="1540" y="640">✓ Right</text><text x="1540" y="710">✓ Right…</text></g>
+  </svg>
+  <div class="lbl dark" style="left:575px; top:830px">AI assistant</div>
+  <div class="lbl" style="left:1395px; top:840px">Sam, paralegal</div>
+  <div class="lbl amber" style="left:1640px; top:790px">For months</div>
+</section>
+
+<!-- 3 · the clause slips through -->
+<section class="slide t-coral" style="--accent:#d6335a">
+  <div class="cap"><span class="eyebrow">What went wrong</span><h1>Sam <em>just clicks accept</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#person-desk" x="120" y="460" width="420" height="360" style="--shirt:#1f6fbf"/>
+    <rect x="580" y="380" width="540" height="420" rx="34" fill="#fff"/>
+    <text x="630" y="450" font-size="30" font-weight="900" fill="#4a5275">CLAUSE 14 · RENEWAL</text>
+    <g fill="#c7cde0"><rect x="630" y="490" width="420" height="20" rx="10"/><rect x="630" y="540" width="360" height="20" rx="10"/><rect x="630" y="590" width="400" height="20" rx="10"/></g>
+    <rect x="630" y="660" width="440" height="90" rx="45" fill="#22c55e"/>
+    <text x="850" y="720" text-anchor="middle" font-size="40" font-weight="900" fill="#fff">Accept ✓</text>
+    <!-- the risky clause slipping through -->
+    <path d="M1130 600 Q 1350 520 1480 640" fill="none" stroke="#fff" stroke-width="8" stroke-dasharray="14 12"/>
+    <use href="sprites.svg#doc" x="1480" y="560" width="190" height="234"/>
+    <use href="sprites.svg#warn" x="1600" y="500" width="140" height="124"/>
+  </svg>
+  <div class="lbl dark" style="left:850px; top:870px">Confident all-clear</div>
+  <div class="lbl" style="left:1590px; top:860px">Risky auto-renewal</div>
+</section>
+
+<!-- 4 · automation bias defined -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">The name for it</span><h1><em>Automation bias</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="130" y="360" width="1060" height="520" rx="34" fill="#fff"/>
+    <line x1="230" y1="800" x2="1120" y2="800" stroke="#1d2340" stroke-width="6"/>
+    <line x1="230" y1="800" x2="230" y2="420" stroke="#1d2340" stroke-width="6"/>
+    <path d="M240 740 C 500 700 700 520 1100 450" fill="none" stroke="#7c5cff" stroke-width="12" stroke-linecap="round"/>
+    <path d="M240 470 C 500 500 700 700 1100 760" fill="none" stroke="#ff5d73" stroke-width="12" stroke-linecap="round"/>
+    <text x="675" y="850" text-anchor="middle" font-size="30" font-weight="800" fill="#4a5275">System gets better →</text>
+    <!-- fix lives in the design -->
+    <use href="sprites.svg#gear" x="1310" y="400" width="200" height="200" style="--body:#7c5cff"/>
+    <use href="sprites.svg#bulb" x="1560" y="400" width="140" height="204"/>
+    <use href="sprites.svg#monitor" x="1380" y="620" width="260" height="225"/>
+  </svg>
+  <div class="lbl violet" style="left:1020px; top:410px">Trust</div>
+  <div class="lbl red" style="left:1000px; top:660px">Checking</div>
+  <div class="lbl dark" style="left:1510px; top:910px">Fix it in the design</div>
+</section>
+
+<!-- 5 · evidence and uncertainty -->
+<section class="slide t-mint" style="--accent:#128c5e">
+  <div class="cap"><span class="eyebrow">Countermeasures 1 &amp; 2</span><h1>Show evidence, <em>surface doubt</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- evidence card -->
+    <rect x="130" y="370" width="780" height="480" rx="34" fill="#fff"/>
+    <text x="180" y="445" font-size="30" font-weight="900" fill="#128c5e">CLAUSE 8 · FINE</text>
+    <g fill="#c7cde0"><rect x="180" y="480" width="380" height="20" rx="10"/><rect x="180" y="525" width="320" height="20" rx="10"/></g>
+    <use href="sprites.svg#doc" x="180" y="590" width="110" height="135"/>
+    <use href="sprites.svg#doc" x="310" y="590" width="110" height="135"/>
+    <use href="sprites.svg#brain" x="450" y="600" width="130" height="113"/>
+    <text x="180" y="800" font-size="32" font-weight="800" fill="#4a5275">Sources + reasoning shown</text>
+    <use href="sprites.svg#magnifier" x="700" y="560" width="160" height="160"/>
+    <!-- low-confidence card -->
+    <rect x="1000" y="370" width="790" height="480" rx="34" fill="#fff8e1" stroke="#ffb020" stroke-width="12"/>
+    <text x="1050" y="445" font-size="30" font-weight="900" fill="#c25e00">CLAUSE 14 · LOW CONFIDENCE</text>
+    <g fill="#e8d7a8"><rect x="1050" y="480" width="420" height="20" rx="10"/><rect x="1050" y="525" width="360" height="20" rx="10"/><rect x="1050" y="570" width="400" height="20" rx="10"/></g>
+    <use href="sprites.svg#warn" x="1550" y="460" width="190" height="168"/>
+    <rect x="1050" y="660" width="420" height="110" rx="24" fill="#ffb020"/>
+    <text x="1260" y="730" text-anchor="middle" font-size="36" font-weight="900" fill="#1d2340">Read this one</text>
+  </svg>
+  <div class="lbl teal" style="left:520px; top:910px">Review becomes real</div>
+  <div class="lbl amber" style="left:1395px; top:910px">Looks different, demands attention</div>
+</section>
+
+<!-- 6 · active decision, trained reviewers -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">Countermeasures 3 &amp; 4</span><h1>An <em>active decision</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="130" y="370" width="860" height="480" rx="34" fill="#fff"/>
+    <g font-size="38" font-weight="900" text-anchor="middle">
+      <rect x="190" y="430" width="350" height="100" rx="50" fill="none" stroke="#22c55e" stroke-width="6"/><text x="365" y="494" fill="#22a04d">Accept</text>
+      <rect x="580" y="430" width="350" height="100" rx="50" fill="none" stroke="#ff5d73" stroke-width="6"/><text x="755" y="494" fill="#ff5d73">Override</text>
+    </g>
+    <text x="190" y="610" font-size="30" font-weight="900" fill="#4a5275">REASON FOR OVERRIDE</text>
+    <rect x="190" y="640" width="740" height="140" rx="20" fill="#f3efe6" stroke="#c7cde0" stroke-width="4"/>
+    <rect x="220" y="672" width="6" height="50" fill="#1d2340"/>
+    <!-- rotate & train -->
+    <use href="sprites.svg#group" x="1080" y="430" width="380" height="304"/>
+    <path d="M1150 400 A 150 60 0 0 1 1390 400" fill="none" stroke="#c25e00" stroke-width="8"/>
+    <polygon points="1390,400 1365,380 1370,410" fill="#c25e00"/>
+    <use href="sprites.svg#book" x="1510" y="420" width="230" height="176" style="--body:#ff5d73"/>
+    <use href="sprites.svg#warn" x="1570" y="610" width="110" height="97"/>
+  </svg>
+  <div class="lbl dark" style="left:560px; top:910px">Nothing pre-selected</div>
+  <div class="lbl" style="left:1270px; top:810px">Rotate reviewers</div>
+  <div class="lbl coral" style="left:1625px; top:780px">Known failures</div>
+</section>
+
+<!-- 7 · audit + override rate -->
+<section class="slide t-ocean" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Countermeasure 5</span><h1>Measure the <em>override rate</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g>
+      <use href="sprites.svg#doc" x="160" y="500" width="150" height="185"/>
+      <use href="sprites.svg#doc" x="200" y="460" width="150" height="185"/>
+      <use href="sprites.svg#doc" x="240" y="420" width="150" height="185"/>
+      <use href="sprites.svg#doc" x="280" y="380" width="150" height="185"/>
+    </g>
+    <use href="sprites.svg#magnifier" x="360" y="520" width="220" height="220"/>
+    <rect x="740" y="370" width="1040" height="480" rx="34" fill="#fff" opacity=".95"/>
+    <text x="800" y="450" font-size="30" font-weight="900" fill="#4a5275">OVERRIDES · LAST 5,000 REVIEWS</text>
+    <rect x="800" y="490" width="920" height="70" rx="35" fill="#22c55e"/>
+    <rect x="800" y="490" width="10" height="70" fill="#ff5d73"/>
+    <text x="1060" y="720" text-anchor="middle" font-size="120" font-weight="900" fill="#ff5d73">0.1%</text>
+    <use href="sprites.svg#warn" x="1350" y="610" width="140" height="124"/>
+    <text x="1520" y="690" font-size="38" font-weight="900" fill="#1d2340">Not</text>
+    <text x="1520" y="740" font-size="38" font-weight="900" fill="#1d2340">perfection</text>
+  </svg>
+  <div class="lbl teal" style="left:330px; top:820px">Sample-audit approvals</div>
+  <div class="lbl red lg" style="left:1260px; top:920px">Rubber-stamping</div>
+</section>
+
+<!-- 8 · fake precision -->
+<section class="slide t-rose" style="--accent:#d6336c">
+  <div class="cap"><span class="eyebrow">Confidence</span><h1>No <em>fake precision</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#robot" x="160" y="470" width="230" height="302" style="--body:#ff6f9c"/>
+    <rect x="480" y="380" width="760" height="420" rx="34" fill="#fff"/>
+    <text x="860" y="500" text-anchor="middle" font-size="34" font-weight="900" fill="#4a5275">MODEL PROBABILITY</text>
+    <text x="860" y="680" text-anchor="middle" font-size="190" font-weight="900" fill="#1d2340">87.3%</text>
+    <line x1="530" y1="740" x2="1190" y2="460" stroke="#ff5d73" stroke-width="20" stroke-linecap="round"/>
+    <!-- calibration plot -->
+    <rect x="1340" y="380" width="440" height="420" rx="34" fill="#fff"/>
+    <line x1="1400" y1="740" x2="1720" y2="440" stroke="#c7cde0" stroke-width="6" stroke-dasharray="12 10"/>
+    <path d="M1400 740 C 1460 720 1500 700 1560 690 S 1680 660 1720 600" fill="none" stroke="#d6336c" stroke-width="10" stroke-linecap="round"/>
+    <line x1="1400" y1="740" x2="1720" y2="740" stroke="#1d2340" stroke-width="5"/>
+    <line x1="1400" y1="740" x2="1400" y2="430" stroke="#1d2340" stroke-width="5"/>
+  </svg>
+  <div class="lbl red" style="left:1560px; top:870px">Poorly calibrated</div>
+  <div class="lbl dark" style="left:860px; top:870px">Never show a precise %</div>
+</section>
+
+<!-- 9 · better signals, simple bands -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Better signals</span><h1>Simple, <em>calibrated bands</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g>
+      <rect x="130" y="370" width="340" height="300" rx="30" fill="#fff"/>
+      <rect x="500" y="370" width="340" height="300" rx="30" fill="#fff"/>
+      <rect x="870" y="370" width="340" height="300" rx="30" fill="#fff"/>
+    </g>
+    <use href="sprites.svg#chart-bar" x="200" y="400" width="200" height="150"/>
+    <use href="sprites.svg#doc" x="560" y="400" width="110" height="135"/>
+    <use href="sprites.svg#doc" x="680" y="400" width="110" height="135"/>
+    <use href="sprites.svg#check" x="625" y="490" width="80" height="80"/>
+    <use href="sprites.svg#chat" x="900" y="410" width="110" height="87" style="--dot:#22b8a6"/>
+    <use href="sprites.svg#chat" x="1020" y="410" width="110" height="87" style="--dot:#22b8a6"/>
+    <use href="sprites.svg#chat" x="960" y="500" width="110" height="87" style="--dot:#22b8a6"/>
+    <g font-size="30" font-weight="900" fill="#1d2340" text-anchor="middle">
+      <text x="300" y="630">Retrieval score</text><text x="670" y="630">Sources agree</text><text x="1040" y="630">Self-consistency</text>
+    </g>
+    <use href="sprites.svg#arrow" x="580" y="720" width="200" height="60" style="--body:#1d2340" transform="rotate(90 680 750)"/>
+    <!-- bands -->
+    <rect x="1290" y="370" width="500" height="160" rx="30" fill="#22c55e"/>
+    <rect x="1290" y="555" width="500" height="160" rx="30" fill="#ffb020"/>
+    <rect x="1290" y="740" width="500" height="160" rx="30" fill="#ff5d73"/>
+    <g font-size="52" font-weight="900" text-anchor="middle">
+      <text x="1540" y="468" fill="#fff">High</text><text x="1540" y="653" fill="#1d2340">Medium</text><text x="1540" y="838" fill="#fff">Low</text>
+    </g>
+    <line x1="1250" y1="727" x2="1830" y2="727" stroke="#1d2340" stroke-width="6" stroke-dasharray="14 10"/>
+  </svg>
+  <div class="lbl dark" style="left:670px; top:880px">Combine the signals</div>
+  <div class="lbl sm" style="left:1160px; top:727px">Threshold</div>
+</section>
+
+<!-- 10 · overconfident language -->
+<section class="slide t-plum" style="--accent:#7b2ff7">
+  <div class="cap"><span class="eyebrow">Design defect</span><h1>Fluent <em>isn't the same as right</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- bad -->
+    <rect x="130" y="370" width="780" height="480" rx="34" fill="#fff" opacity=".12"/>
+    <use href="sprites.svg#robot" x="180" y="470" width="190" height="249" style="--body:#ff7a59"/>
+    <rect x="400" y="420" width="470" height="150" rx="30" fill="#fff"/>
+    <text x="635" y="512" text-anchor="middle" font-size="40" font-weight="900" fill="#1d2340">"Definitely 30 days!"</text>
+    <use href="sprites.svg#cross" x="580" y="620" width="120" height="120"/>
+    <!-- good -->
+    <rect x="1010" y="370" width="780" height="480" rx="34" fill="#fff" opacity=".12"/>
+    <use href="sprites.svg#robot" x="1050" y="470" width="190" height="249" style="--body:#22b8a6"/>
+    <rect x="1270" y="420" width="480" height="190" rx="30" fill="#fff"/>
+    <text x="1300" y="495" font-size="32" font-weight="900" fill="#1d2340">"I couldn't find this.</text>
+    <text x="1300" y="550" font-size="32" font-weight="900" fill="#1d2340">Here's who can help."</text>
+    <use href="sprites.svg#person" x="1440" y="630" width="90" height="180" style="--shirt:#ffb020"/>
+    <use href="sprites.svg#check" x="1580" y="660" width="110" height="110"/>
+  </svg>
+  <div class="lbl red" style="left:520px; top:910px">Overconfident</div>
+  <div class="lbl green" style="left:1400px; top:910px">Honest, with a next step</div>
+</section>
+
+<!-- 11 · transparency -->
+<section class="slide t-teal" style="--accent:#0b7f75">
+  <div class="cap"><span class="eyebrow">Transparency</span><h1>Say it's AI, <em>cite, explain limits</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#phone" x="140" y="380" width="270" height="478" style="--screen:#e8fbf7"/>
+    <rect x="620" y="370" width="1170" height="480" rx="34" fill="#fff"/>
+    <g font-size="38" font-weight="900" fill="#1d2340">
+      <text x="760" y="455">You're talking to an AI assistant</text>
+      <text x="760" y="560">Sources cited for every claim</text>
+      <text x="760" y="665">What it can and can't do</text>
+    </g>
+    <use href="sprites.svg#robot-head" x="670" y="410" width="70" height="55" style="--body:#22b8a6"/>
+    <use href="sprites.svg#doc" x="675" y="510" width="55" height="68"/>
+    <use href="sprites.svg#warn" x="670" y="625" width="66" height="58"/>
+    <rect x="760" y="720" width="460" height="90" rx="45" fill="#0b7f75"/>
+    <text x="990" y="780" text-anchor="middle" font-size="36" font-weight="900" fill="#fff">Talk to a human</text>
+    <use href="sprites.svg#person" x="1270" y="690" width="70" height="140" style="--shirt:#ffb020"/>
+    <use href="sprites.svg#shield" x="1600" y="680" width="130" height="150"/>
+  </svg>
+  <div class="lbl amber" style="left:275px; top:910px">Regulators expect it</div>
+  <div class="lbl dark" style="left:1200px; top:910px">Good design, too</div>
+</section>
+
+<!-- 12 · appeal and override path -->
+<section class="slide t-sunrise" style="--accent:#d9480f">
+  <div class="cap"><span class="eyebrow">Consequential decisions</span><h1>A documented <em>appeal path</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="130" y="400" width="340" height="400" rx="34" fill="#fff"/>
+    <text x="300" y="480" text-anchor="middle" font-size="32" font-weight="900" fill="#4a5275">DECISION</text>
+    <text x="300" y="580" text-anchor="middle" font-size="56" font-weight="900" fill="#ff5d73">Denied</text>
+    <use href="sprites.svg#robot-head" x="230" y="620" width="140" height="110" style="--body:#7c5cff"/>
+    <use href="sprites.svg#arrow" x="500" y="580" width="150" height="45" style="--body:#1d2340"/>
+    <use href="sprites.svg#person-worried" x="680" y="430" width="160" height="320" style="--shirt:#1f6fbf"/>
+    <use href="sprites.svg#flag" x="840" y="420" width="100" height="133"/>
+    <use href="sprites.svg#arrow" x="960" y="580" width="150" height="45" style="--body:#1d2340"/>
+    <use href="sprites.svg#person" x="1150" y="420" width="160" height="320" style="--shirt:#1d2340"/>
+    <use href="sprites.svg#key" x="1300" y="520" width="140" height="74"/>
+    <use href="sprites.svg#arrow" x="1460" y="580" width="120" height="36" style="--body:#1d2340"/>
+    <rect x="1600" y="450" width="190" height="230" rx="30" fill="#fff"/>
+    <use href="sprites.svg#check" x="1635" y="500" width="120" height="120"/>
+  </svg>
+  <div class="lbl coral" style="left:760px; top:830px">Contest the outcome</div>
+  <div class="lbl dark" style="left:1240px; top:830px">Someone with authority</div>
+  <div class="lbl green sm" style="left:1695px; top:740px">Changed</div>
+</section>
+
+<!-- 13 · cheap, specific feedback -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Feedback</span><h1>Make it <em>cheap and specific</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="130" y="380" width="560" height="460" rx="34" fill="#fff"/>
+    <g transform="rotate(180 330 600)"><use href="sprites.svg#thumbs-up" x="240" y="510" width="180" height="180"/></g>
+    <use href="sprites.svg#question" x="490" y="440" width="140" height="140"/>
+    <text x="410" y="800" text-anchor="middle" font-size="34" font-weight="900" fill="#4a5275">Tells you almost nothing</text>
+    <text x="790" y="640" text-anchor="middle" font-size="44" font-weight="900" fill="#4a5275">vs</text>
+    <rect x="890" y="380" width="900" height="460" rx="34" fill="#fff"/>
+    <rect x="950" y="440" width="780" height="150" rx="30" fill="#efe2ff"/>
+    <text x="1340" y="510" text-anchor="middle" font-size="38" font-weight="900" fill="#1d2340">"Quoted an outdated</text>
+    <text x="1340" y="560" text-anchor="middle" font-size="38" font-weight="900" fill="#1d2340">contract version"</text>
+    <use href="sprites.svg#target" x="960" y="630" width="160" height="160"/>
+    <text x="1150" y="700" font-size="34" font-weight="900" fill="#1d2340">Pinpoints the failure:</text>
+    <text x="1150" y="750" font-size="34" font-weight="900" fill="#6a45e8">retrieval / versioning</text>
+  </svg>
+</section>
+
+<!-- 14 · trace ID and data flywheel -->
+<section class="slide t-mint" style="--accent:#128c5e">
+  <div class="cap"><span class="eyebrow">Close the loop</span><h1>Into the <em>data flywheel</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#ticket" x="130" y="440" width="380" height="174" style="--accent:#7c5cff"/>
+    <text x="320" y="680" text-anchor="middle" font-size="36" font-weight="900" fill="#1d2340">trace_9c2e…</text>
+    <use href="sprites.svg#envelope" x="230" y="720" width="180" height="130"/>
+    <use href="sprites.svg#arrow" x="560" y="560" width="160" height="48" style="--body:#1d2340"/>
+    <!-- flywheel -->
+    <circle cx="1100" cy="610" r="240" fill="none" stroke="#128c5e" stroke-width="14" stroke-dasharray="40 22"/>
+    <polygon points="1340,590 1360,640 1320,640" fill="#128c5e"/>
+    <polygon points="860,630 840,580 880,580" fill="#128c5e"/>
+    <use href="sprites.svg#gear" x="1020" y="530" width="160" height="160" style="--body:#22b8a6"/>
+    <use href="sprites.svg#doc" x="1050" y="330" width="100" height="123"/>
+    <use href="sprites.svg#database" x="1300" y="660" width="110" height="125"/>
+    <use href="sprites.svg#chart-line" x="790" y="680" width="140" height="105"/>
+    <use href="sprites.svg#sparkle" x="1530" y="430" width="90" height="90"/>
+    <use href="sprites.svg#sparkle" x="1620" y="540" width="60" height="60"/>
+  </svg>
+  <div class="lbl" style="left:320px; top:900px">User told what changed</div>
+  <div class="lbl teal" style="left:1600px; top:680px">Training data</div>
+  <div class="lbl violet" style="left:1600px; top:770px">Eval data</div>
+  <div class="lbl dark" style="left:1100px; top:920px">Best data you'll ever get</div>
+</section>
+
+<!-- 15 · exam tip -->
+<section class="slide t-coral" style="--accent:#d6335a">
+  <div class="cap"><span class="eyebrow">Exam tip</span><h1>Abstain <em>beats invent</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="130" y="370" width="1030" height="500" rx="34" fill="#fff"/>
+    <g font-size="40" font-weight="900" fill="#1d2340">
+      <text x="270" y="480">Override rate near zero</text>
+      <text x="270" y="630">Option that always answers</text>
+      <text x="270" y="780">Honest abstention</text>
+    </g>
+    <g font-size="30" font-weight="800" fill="#4a5275">
+      <text x="270" y="525">= rubber-stamping</text>
+      <text x="270" y="675">= wrong answer</text>
+      <text x="270" y="825">= right answer</text>
+    </g>
+    <use href="sprites.svg#warn" x="170" y="430" width="80" height="71"/>
+    <use href="sprites.svg#cross" x="170" y="570" width="80" height="80"/>
+    <use href="sprites.svg#check" x="170" y="720" width="80" height="80"/>
+    <use href="sprites.svg#robot" x="1300" y="470" width="210" height="276" style="--body:#22b8a6"/>
+    <use href="sprites.svg#book" x="1540" y="560" width="230" height="176"/>
+  </svg>
+  <div class="lbl dark" style="left:1540px; top:840px">Read on: all countermeasures</div>
+</section>
+
+</body>
+</html>
