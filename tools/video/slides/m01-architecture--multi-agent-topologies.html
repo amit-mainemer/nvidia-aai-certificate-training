@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module 1 · Lesson 4 slides — multi-agent topologies</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .trk { position: absolute; right: 90px; top: 110px; z-index: 3; display: flex; gap: 14px; }
+  .trk i { width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,.9); color: #1d2340; font: 900 30px/64px var(--font); text-align: center; font-style: normal; opacity: .55; }
+  .trk i.on { background: var(--accent); color: #fff; opacity: 1; transform: scale(1.18); box-shadow: 0 10px 26px -10px rgba(20,20,60,.6); }
+</style>
+</head>
+<body>
+
+<!-- shared local defs -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="plane" viewBox="0 0 200 120">
+      <path d="M95 52 L58 6 H82 L135 52Z" fill="var(--wing, #2c3350)"/>
+      <path d="M95 68 L58 114 H82 L135 68Z" fill="var(--wing, #2c3350)"/>
+      <path d="M32 52 L14 20 H32 L56 52Z" fill="var(--wing, #2c3350)"/>
+      <path d="M18 60 Q18 47 36 47 H150 Q192 50 196 60 Q192 70 150 73 H36 Q18 73 18 60Z" fill="var(--body, #5cc8ff)"/>
+      <g fill="#fff"><circle cx="120" cy="58" r="5"/><circle cx="104" cy="58" r="5"/><circle cx="88" cy="58" r="5"/><circle cx="72" cy="58" r="5"/></g>
+    </symbol>
+    <marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10Z" fill="context-stroke"/></marker>
+  </defs>
+</svg>
+
+<!-- 1 · the scenario -->
+<section class="slide t-sunrise" style="--accent:#d9412a">
+  <div class="cap"><span class="eyebrow">Module 1 · Lesson 4</span><h1>Planning a trip <em>to Japan</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <circle cx="720" cy="560" r="105" fill="#ff5d73"/>
+    <path d="M60 960 L400 600 Q470 548 540 600 L880 960Z" fill="#6f7fcf"/>
+    <path d="M400 600 Q470 548 540 600 L596 660 L552 640 L512 672 L470 640 L428 672 L388 640 L344 660Z" fill="#fff"/>
+    <use href="sprites.svg#person" x="130" y="640" width="150" height="300" style="--shirt:#22b8a6"/>
+    <use href="sprites.svg#chat" x="170" y="320" width="420" height="332" style="--dot:transparent"/>
+    <text x="385" y="430" text-anchor="middle" font-size="42" font-weight="900" fill="#1d2340">Two weeks</text>
+    <text x="385" y="482" text-anchor="middle" font-size="42" font-weight="900" fill="#1d2340">in Japan, please!</text>
+    <!-- four sub-tasks -->
+    <g fill="#fff">
+      <rect x="990" y="300" width="380" height="290" rx="32"/><rect x="1420" y="300" width="380" height="290" rx="32"/>
+      <rect x="990" y="630" width="380" height="290" rx="32"/><rect x="1420" y="630" width="380" height="290" rx="32"/>
+    </g>
+    <use href="#plane" x="1080" y="350" width="200" height="120"/>
+    <use href="sprites.svg#building" x="1552" y="330" width="116" height="140" style="--body:#ff7a59"/>
+    <use href="sprites.svg#ticket" x="1060" y="690" width="240" height="110" style="--accent:#22b8a6;--paper:#e3fbe9"/>
+    <use href="sprites.svg#doc" x="1560" y="660" width="100" height="123" style="--accent:#7c5cff"/>
+    <g transform="rotate(-14 1672 772)"><circle cx="1672" cy="772" r="40" fill="#fff" stroke="#ff5d73" stroke-width="8"/><text x="1672" y="784" text-anchor="middle" font-size="26" font-weight="900" fill="#ff5d73">OK</text></g>
+    <g font-size="42" font-weight="900" fill="#1d2340" text-anchor="middle">
+      <text x="1180" y="545">Flights</text><text x="1610" y="545">Hotels</text>
+      <text x="1180" y="875">Rail pass</text><text x="1610" y="875">Visa rules</text>
+    </g>
+  </svg>
+</section>
+
+<!-- 2 · one agent, every tool -->
+<section class="slide t-night" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Version one</span><h1>One agent, <em>every tool</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#robot" x="200" y="430" width="260" height="341" style="--body:#ffb020"/>
+    <use href="sprites.svg#wrench" x="90" y="330" width="110" height="110"/>
+    <use href="sprites.svg#magnifier" x="470" y="320" width="110" height="110"/>
+    <use href="sprites.svg#globe" x="70" y="640" width="110" height="110"/>
+    <use href="sprites.svg#database" x="500" y="660" width="100" height="113"/>
+    <use href="#plane" x="470" y="480" width="150" height="90" style="--wing:#9aa6c8"/>
+    <use href="sprites.svg#arrow" x="640" y="585" width="200" height="60" style="--body:#ffb020"/>
+    <!-- context window overflowing -->
+    <rect x="880" y="330" width="520" height="600" rx="30" fill="#1b2742" stroke="#7ff0d8" stroke-width="6" stroke-dasharray="18 12"/>
+    <g>
+      <rect x="870" y="262" width="420" height="62" rx="14" fill="#5cc8ff" transform="rotate(-6 1080 293)"/>
+      <rect x="1000" y="222" width="400" height="62" rx="14" fill="#ff7a59" transform="rotate(5 1200 253)"/>
+      <rect x="910" y="360" width="460" height="62" rx="14" fill="#7c5cff"/>
+      <rect x="910" y="436" width="460" height="62" rx="14" fill="#22b8a6"/>
+      <rect x="910" y="512" width="460" height="62" rx="14" fill="#ff6f9c"/>
+      <rect x="910" y="588" width="460" height="62" rx="14" fill="#5cc8ff"/>
+      <rect x="910" y="664" width="460" height="62" rx="14" fill="#ff7a59"/>
+      <rect x="910" y="740" width="460" height="62" rx="14" fill="#7c5cff"/>
+      <g fill="#fff" opacity=".85">
+        <rect x="936" y="382" width="36" height="20" rx="4"/><rect x="990" y="384" width="240" height="14" rx="7"/>
+        <rect x="936" y="458" width="36" height="20" rx="4"/><rect x="990" y="460" width="200" height="14" rx="7"/>
+        <rect x="936" y="534" width="36" height="20" rx="4"/><rect x="990" y="536" width="260" height="14" rx="7"/>
+        <rect x="936" y="610" width="36" height="20" rx="4"/><rect x="990" y="612" width="220" height="14" rx="7"/>
+        <rect x="936" y="686" width="36" height="20" rx="4"/><rect x="990" y="688" width="250" height="14" rx="7"/>
+        <rect x="936" y="762" width="36" height="20" rx="4"/><rect x="990" y="764" width="190" height="14" rx="7"/>
+      </g>
+      <g opacity=".45" transform="rotate(-7 1000 860)">
+        <rect x="820" y="826" width="360" height="72" rx="16" fill="#ffcf4a" stroke="#fff" stroke-width="4" stroke-dasharray="10 8"/>
+        <text x="1000" y="874" text-anchor="middle" font-size="34" font-weight="900" fill="#1d2340">Budget: $3,000</text>
+      </g>
+    </g>
+    <!-- the traveller -->
+    <use href="sprites.svg#person-worried" x="1590" y="600" width="150" height="300" style="--shirt:#22b8a6"/>
+    <use href="sprites.svg#chat" x="1470" y="330" width="360" height="284" style="--dot:transparent"/>
+    <text x="1650" y="430" text-anchor="middle" font-size="40" font-weight="900" fill="#d9412a">Way over</text>
+    <text x="1650" y="480" text-anchor="middle" font-size="40" font-weight="900" fill="#d9412a">my budget!</text>
+  </svg>
+  <div class="lbl sm" style="left:1140px; top:180px">Hotel listings pile up</div>
+  <div class="lbl violet sm" style="left:330px; top:850px">All tools, one prompt</div>
+</section>
+
+<!-- 3 · reason 1: specialisation -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Why split? · Reason 1</span><h1>Three reasons: <em>specialise</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="90" y="300" width="1160" height="630" rx="36" fill="#fff"/>
+    <text x="140" y="372" font-size="44" font-weight="900" fill="#6a45e8">1 · Specialisation</text>
+    <path d="M670 420 V880" stroke="#d7c2ff" stroke-width="6" stroke-dasharray="14 12"/>
+    <use href="sprites.svg#robot" x="190" y="430" width="200" height="262" style="--body:#22b8a6"/>
+    <use href="sprites.svg#doc" x="430" y="420" width="80" height="98" style="--accent:#22b8a6"/>
+    <use href="#plane" x="410" y="550" width="150" height="90"/>
+    <use href="sprites.svg#gpu" x="415" y="665" width="140" height="91"/>
+    <use href="sprites.svg#robot" x="740" y="430" width="200" height="262" style="--body:#ff7a59"/>
+    <use href="sprites.svg#doc" x="985" y="420" width="80" height="98" style="--accent:#ff7a59"/>
+    <use href="sprites.svg#shield" x="980" y="540" width="92" height="106"/>
+    <use href="sprites.svg#key" x="960" y="680" width="140" height="74"/>
+    <!-- faded reasons 2 & 3 -->
+    <g opacity=".6">
+      <rect x="1300" y="300" width="530" height="300" rx="32" fill="#fff"/>
+      <rect x="1300" y="630" width="530" height="300" rx="32" fill="#fff"/>
+      <use href="sprites.svg#folder" x="1340" y="360" width="130" height="99"/>
+      <use href="sprites.svg#folder" x="1480" y="360" width="130" height="99" style="--body:#7c5cff;--top:#a58bff"/>
+      <g stroke="#7c5cff" stroke-width="12" stroke-linecap="round"><path d="M1350 700 H1560 M1350 760 H1620 M1350 820 H1500"/></g>
+      <g font-size="38" font-weight="900" fill="#1d2340"><text x="1340" y="545">2 · Context isolation</text><text x="1340" y="885">3 · Parallelism</text></g>
+    </g>
+  </svg>
+  <div class="lbl teal" style="left:290px; top:760px">Flights agent</div>
+  <div class="lbl coral" style="left:840px; top:760px">Visa agent</div>
+  <div class="lbl dark sm" style="left:670px; top:870px">Own prompt · tools · model · permissions</div>
+</section>
+
+<!-- 4 · reasons 2 & 3 -->
+<section class="slide t-mint" style="--accent:#0f7f72">
+  <div class="cap"><span class="eyebrow">Why split? · Reasons 2 and 3</span><h1>Isolate context, <em>run in parallel</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <path d="M1010 330 V930" stroke="#fff" stroke-width="6" stroke-dasharray="16 14"/>
+    <!-- document mountain -->
+    <g>
+      <use href="sprites.svg#doc" x="110" y="760" width="90" height="111" style="--accent:#ff7a59"/>
+      <use href="sprites.svg#doc" x="190" y="770" width="90" height="111" style="--accent:#7c5cff"/>
+      <use href="sprites.svg#doc" x="270" y="760" width="90" height="111" style="--accent:#22b8a6"/>
+      <use href="sprites.svg#doc" x="150" y="670" width="90" height="111" style="--accent:#ffb020"/>
+      <use href="sprites.svg#doc" x="230" y="660" width="90" height="111" style="--accent:#ff5d73"/>
+      <use href="sprites.svg#doc" x="190" y="570" width="90" height="111" style="--accent:#5cc8ff"/>
+    </g>
+    <use href="sprites.svg#robot" x="380" y="630" width="150" height="197" style="--body:#7c5cff"/>
+    <use href="sprites.svg#arrow" x="545" y="700" width="120" height="36" style="--body:#1d2340"/>
+    <use href="sprites.svg#doc" x="680" y="660" width="70" height="86" style="--accent:#22c55e"/>
+    <use href="sprites.svg#arrow" x="760" y="700" width="100" height="30" style="--body:#1d2340"/>
+    <use href="sprites.svg#robot" x="870" y="650" width="120" height="158" style="--body:#ffb020"/>
+    <!-- parallel lanes -->
+    <use href="sprites.svg#robot" x="1070" y="420" width="100" height="131" style="--body:#ff7a59"/>
+    <use href="sprites.svg#robot" x="1070" y="590" width="100" height="131" style="--body:#5cc8ff"/>
+    <use href="sprites.svg#robot" x="1070" y="760" width="100" height="131" style="--body:#7c5cff"/>
+    <rect x="1200" y="460" width="360" height="54" rx="27" fill="#ff7a59"/>
+    <rect x="1200" y="630" width="520" height="54" rx="27" fill="#5cc8ff"/>
+    <rect x="1200" y="800" width="280" height="54" rx="27" fill="#7c5cff"/>
+    <path d="M1720 420 V890" stroke="#1d2340" stroke-width="6" stroke-dasharray="12 10"/>
+    <use href="sprites.svg#clock" x="1740" y="480" width="90" height="90"/>
+  </svg>
+  <div class="lbl teal" style="left:500px; top:350px">2 · Context isolation</div>
+  <div class="lbl teal" style="left:1420px; top:350px">3 · Parallelism</div>
+  <div class="lbl red sm" style="left:235px; top:530px">Mountain of sources</div>
+  <div class="lbl green sm" style="left:715px; top:610px">Short brief</div>
+  <div class="lbl dark sm" style="left:1600px; top:905px">Wait = slowest branch</div>
+</section>
+
+<!-- 5 · the price -->
+<section class="slide t-coral" style="--accent:#d9412a">
+  <div class="cap"><span class="eyebrow">The costs you accept</span><h1>Every split has <em>a price</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="90" y="300" width="420" height="270" rx="32"/><rect x="545" y="300" width="420" height="270" rx="32"/><rect x="1000" y="300" width="420" height="270" rx="32"/></g>
+    <use href="sprites.svg#hourglass" x="255" y="325" width="90" height="131"/>
+    <use href="sprites.svg#doc" x="665" y="330" width="90" height="111" style="--accent:#ff7a59"/>
+    <use href="sprites.svg#doc" x="700" y="345" width="90" height="111" style="--accent:#ff7a59"/>
+    <use href="sprites.svg#doc" x="735" y="360" width="90" height="111" style="--accent:#ff7a59"/>
+    <use href="sprites.svg#magnifier" x="1130" y="330" width="120" height="120"/>
+    <use href="sprites.svg#question" x="1230" y="340" width="70" height="70"/>
+    <g font-size="36" font-weight="900" fill="#1d2340" text-anchor="middle"><text x="300" y="528">Handoff latency</text><text x="755" y="528">Duplicated tokens</text><text x="1210" y="528">Harder debugging</text></g>
+    <!-- compounding -->
+    <use href="sprites.svg#robot" x="120" y="640" width="130" height="171" style="--body:#22b8a6"/>
+    <use href="sprites.svg#robot" x="390" y="640" width="130" height="171" style="--body:#5cc8ff"/>
+    <use href="sprites.svg#robot" x="660" y="640" width="130" height="171" style="--body:#7c5cff"/>
+    <use href="sprites.svg#robot" x="930" y="640" width="130" height="171" style="--body:#ffb020"/>
+    <g font-size="60" font-weight="900" fill="#fff" text-anchor="middle"><text x="320" y="740">×</text><text x="590" y="740">×</text><text x="860" y="740">×</text><text x="1150" y="740">=</text></g>
+  </svg>
+  <div class="lbl sm" style="left:185px; top:860px">90%</div>
+  <div class="lbl sm" style="left:455px; top:860px">90%</div>
+  <div class="lbl sm" style="left:725px; top:860px">90%</div>
+  <div class="lbl sm" style="left:995px; top:860px">90%</div>
+  <div class="stat" style="left:1480px; top:720px; color:#fff"><b>≈66%</b><span>end to end</span></div>
+</section>
+
+<!-- 6 · supervisor -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Topology 1 of 5</span><h1>The <em>supervisor</em></h1></div>
+  <div class="trk"><i class="on">1</i><i>2</i><i>3</i><i>4</i><i>5</i></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g stroke="#1f6fbf" stroke-width="10" fill="none" stroke-linecap="round" marker-end="url(#ah)">
+      <path d="M960 580 Q700 600 420 690"/><path d="M960 580 V680"/><path d="M960 580 Q1220 600 1500 690"/>
+    </g>
+    <use href="sprites.svg#robot" x="860" y="310" width="200" height="262" style="--body:#ffb020;--accent:#7c5cff"/>
+    <use href="sprites.svg#globe" x="1080" y="430" width="90" height="90"/>
+    <use href="sprites.svg#robot" x="320" y="700" width="140" height="184" style="--body:#5cc8ff"/>
+    <use href="sprites.svg#robot" x="890" y="700" width="140" height="184" style="--body:#22b8a6"/>
+    <use href="sprites.svg#robot" x="1440" y="700" width="140" height="184" style="--body:#ff6f9c"/>
+    <use href="#plane" x="480" y="740" width="150" height="90"/>
+    <use href="sprites.svg#building" x="1050" y="720" width="96" height="116" style="--body:#ff7a59"/>
+    <use href="sprites.svg#doc" x="1600" y="730" width="84" height="103" style="--accent:#7c5cff"/>
+  </svg>
+  <div class="lbl dark" style="left:680px; top:380px">Supervisor</div>
+  <div class="lbl green sm" style="left:680px; top:450px">Owns the trip</div>
+  <div class="lbl sm" style="left:390px; top:925px">Flights</div>
+  <div class="lbl sm" style="left:960px; top:925px">Hotels</div>
+  <div class="lbl sm" style="left:1510px; top:925px">Visas</div>
+</section>
+
+<!-- 7 · supervisor trade-offs -->
+<section class="slide t-sand" style="--accent:#b4531f">
+  <div class="cap"><span class="eyebrow">Supervisor · trade-offs</span><h1>Clean traces, <em>one bottleneck</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="90" y="300" width="830" height="630" rx="36" fill="#fff"/>
+    <rect x="970" y="300" width="860" height="630" rx="36" fill="#fff"/>
+    <!-- left: accountability -->
+    <g stroke="#b8c2de" stroke-width="8" stroke-linecap="round"><path d="M505 540 L245 630 M505 540 V630 M505 540 L765 630"/></g>
+    <g stroke="#ff5d73" stroke-width="6" stroke-dasharray="10 10"><path d="M310 710 H440 M570 710 H700"/></g>
+    <use href="sprites.svg#robot" x="435" y="330" width="140" height="184" style="--body:#ffb020"/>
+    <use href="sprites.svg#shield" x="580" y="350" width="90" height="104"/>
+    <use href="sprites.svg#robot" x="190" y="630" width="110" height="144" style="--body:#5cc8ff"/>
+    <use href="sprites.svg#robot" x="450" y="630" width="110" height="144" style="--body:#22b8a6"/>
+    <use href="sprites.svg#robot" x="710" y="630" width="110" height="144" style="--body:#ff6f9c"/>
+    <use href="sprites.svg#cross" x="350" y="685" width="50" height="50"/>
+    <use href="sprites.svg#cross" x="610" y="685" width="50" height="50"/>
+    <!-- right: bottleneck -->
+    <use href="sprites.svg#robot" x="1010" y="340" width="90" height="118" style="--body:#5cc8ff"/>
+    <use href="sprites.svg#robot" x="1010" y="530" width="90" height="118" style="--body:#22b8a6"/>
+    <use href="sprites.svg#robot" x="1010" y="720" width="90" height="118" style="--body:#ff6f9c"/>
+    <g stroke="#b8c2de" stroke-width="8" stroke-linecap="round" fill="none"><path d="M1110 400 Q1250 420 1330 580 M1110 590 H1330 M1110 780 Q1250 760 1330 600"/></g>
+    <use href="sprites.svg#doc" x="1160" y="380" width="50" height="62" style="--accent:#5cc8ff"/>
+    <use href="sprites.svg#doc" x="1220" y="420" width="50" height="62" style="--accent:#5cc8ff"/>
+    <use href="sprites.svg#doc" x="1170" y="560" width="50" height="62" style="--accent:#22b8a6"/>
+    <use href="sprites.svg#doc" x="1240" y="560" width="50" height="62" style="--accent:#22b8a6"/>
+    <use href="sprites.svg#doc" x="1180" y="720" width="50" height="62" style="--accent:#ff6f9c"/>
+    <use href="sprites.svg#doc" x="1240" y="690" width="50" height="62" style="--accent:#ff6f9c"/>
+    <use href="sprites.svg#robot-sad" x="1330" y="480" width="170" height="223" style="--body:#ffb020"/>
+    <use href="sprites.svg#hourglass" x="1380" y="330" width="70" height="102"/>
+    <use href="sprites.svg#warn" x="1600" y="520" width="170" height="151"/>
+  </svg>
+  <div class="lbl green sm" style="left:300px; top:870px">✓ Clean traces</div>
+  <div class="lbl green sm" style="left:690px; top:870px">✓ One policy point</div>
+  <div class="lbl red" style="left:1415px; top:770px">Bottleneck</div>
+  <div class="lbl red sm" style="left:1500px; top:870px">Single point of failure</div>
+</section>
+
+<!-- 8 · swarm -->
+<section class="slide t-plum" style="--accent:#7b2ff7">
+  <div class="cap"><span class="eyebrow">Topology 2 of 5</span><h1>Swarm: <em>peer-to-peer</em></h1></div>
+  <div class="trk"><i>1</i><i class="on">2</i><i>3</i><i>4</i><i>5</i></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <ellipse cx="960" cy="640" rx="380" ry="220" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="4"/>
+    <g stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round" marker-end="url(#ah)">
+      <path d="M1060 440 Q1250 470 1300 540"/>
+      <path d="M1300 740 Q1250 820 1070 855"/>
+      <path d="M660 540 Q700 460 860 440"/>
+      <path d="M1250 620 H700"/>
+    </g>
+    <g stroke="#ff5d73" stroke-width="10" fill="none" stroke-linecap="round" marker-end="url(#ah)">
+      <path d="M850 870 Q680 870 610 750"/>
+      <path d="M650 720 Q780 720 880 820"/>
+    </g>
+    <use href="sprites.svg#robot" x="895" y="335" width="130" height="171" style="--body:#5cc8ff"/>
+    <use href="sprites.svg#robot" x="1275" y="555" width="130" height="171" style="--body:#22b8a6"/>
+    <use href="sprites.svg#robot" x="895" y="775" width="130" height="171" style="--body:#ffb020"/>
+    <use href="sprites.svg#robot" x="515" y="555" width="130" height="171" style="--body:#ff6f9c"/>
+  </svg>
+  <div class="lbl sm" style="left:960px; top:590px">Direct handoff · no coordinator</div>
+  <div class="lbl red" style="left:520px; top:880px">↺ Handoff loop</div>
+  <div class="lbl green lg" style="left:1620px; top:420px">Faster</div>
+  <div class="lbl red lg" style="left:1620px; top:840px">Hard to trace</div>
+</section>
+
+<!-- 9 · pipeline -->
+<section class="slide t-amber" style="--accent:#b35300">
+  <div class="cap"><span class="eyebrow">Topology 3 of 5</span><h1>Pipeline: a <em>fixed order</em></h1></div>
+  <div class="trk"><i>1</i><i>2</i><i class="on">3</i><i>4</i><i>5</i></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="110" y="740" width="1700" height="44" rx="22" fill="#2c3350"/>
+    <g fill="#9aa6c8"><circle cx="160" cy="762" r="12"/><circle cx="560" cy="762" r="12"/><circle cx="960" cy="762" r="12"/><circle cx="1360" cy="762" r="12"/><circle cx="1760" cy="762" r="12"/></g>
+    <use href="sprites.svg#robot" x="200" y="520" width="170" height="223" style="--body:#22b8a6"/>
+    <use href="sprites.svg#robot" x="620" y="520" width="170" height="223" style="--body:#5cc8ff"/>
+    <use href="sprites.svg#robot-sad" x="1040" y="520" width="170" height="223" style="--body:#ff5d73"/>
+    <g opacity=".45"><use href="sprites.svg#robot" x="1460" y="520" width="170" height="223" style="--body:#7c5cff"/></g>
+    <use href="sprites.svg#arrow" x="390" y="600" width="200" height="60" style="--body:#1d2340"/>
+    <use href="sprites.svg#arrow" x="810" y="600" width="200" height="60" style="--body:#1d2340"/>
+    <g opacity=".35"><use href="sprites.svg#arrow" x="1230" y="600" width="200" height="60" style="--body:#1d2340"/></g>
+    <use href="sprites.svg#doc" x="440" y="500" width="70" height="86" style="--accent:#22b8a6"/>
+    <use href="sprites.svg#doc" x="880" y="490" width="60" height="74" style="--accent:#5cc8ff"/>
+    <use href="sprites.svg#doc" x="920" y="470" width="60" height="74" style="--accent:#5cc8ff"/>
+    <use href="sprites.svg#doc" x="960" y="450" width="60" height="74" style="--accent:#5cc8ff"/>
+    <use href="sprites.svg#cross" x="1170" y="440" width="80" height="80"/>
+    <use href="sprites.svg#hourglass" x="1600" y="420" width="70" height="102"/>
+  </svg>
+  <div class="lbl dark" style="left:285px; top:450px">Extract</div>
+  <div class="lbl dark" style="left:705px; top:410px">Analyse</div>
+  <div class="lbl red" style="left:1125px; top:380px">Draft</div>
+  <div class="lbl dark" style="left:1545px; top:380px">Review</div>
+  <div class="lbl green" style="left:450px; top:880px">✓ Simple · traceable</div>
+  <div class="lbl red" style="left:1330px; top:880px">✗ One failure stalls the chain</div>
+</section>
+
+<!-- 10 · blackboard -->
+<section class="slide t-teal" style="--accent:#0f7f72">
+  <div class="cap"><span class="eyebrow">Topology 4 of 5</span><h1>Blackboard: a <em>shared board</em></h1></div>
+  <div class="trk"><i>1</i><i>2</i><i>3</i><i class="on">4</i><i>5</i></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="560" y="320" width="800" height="520" rx="26" fill="#fff" stroke="#2c3350" stroke-width="14"/>
+    <text x="960" y="392" text-anchor="middle" font-size="42" font-weight="900" fill="#1d2340">Incident timeline</text>
+    <path d="M660 440 V790" stroke="#b8c2de" stroke-width="8" stroke-linecap="round"/>
+    <g font-size="34" font-weight="800" fill="#1d2340">
+      <circle cx="660" cy="465" r="18" fill="#ffb020"/><text x="700" y="477">09:02  Alert fires</text>
+      <circle cx="660" cy="570" r="18" fill="#5cc8ff"/><text x="700" y="582">09:05  Database slow</text>
+      <circle cx="660" cy="675" r="18" fill="#ff6f9c"/><text x="700" y="687">09:11  Bad deploy found</text>
+      <circle cx="660" cy="775" r="18" fill="#7c5cff"/><text x="700" y="787">09:14  Rolled back</text>
+    </g>
+    <g stroke="#fff" stroke-width="8" stroke-dasharray="4 16" stroke-linecap="round" fill="none">
+      <path d="M320 440 H550"/><path d="M320 700 H550"/><path d="M1600 440 H1370"/><path d="M1600 700 H1370"/>
+    </g>
+    <use href="sprites.svg#robot" x="170" y="340" width="140" height="184" style="--body:#ffb020"/>
+    <use href="sprites.svg#robot" x="170" y="600" width="140" height="184" style="--body:#5cc8ff"/>
+    <use href="sprites.svg#robot" x="1610" y="340" width="140" height="184" style="--body:#ff6f9c"/>
+    <use href="sprites.svg#robot" x="1610" y="600" width="140" height="184" style="--body:#7c5cff"/>
+  </svg>
+  <div class="lbl sm" style="left:240px; top:550px">Monitoring</div>
+  <div class="lbl sm" style="left:240px; top:810px">Database</div>
+  <div class="lbl sm" style="left:1680px; top:550px">Deploys</div>
+  <div class="lbl sm" style="left:1680px; top:810px">Comms</div>
+  <div class="lbl amber" style="left:960px; top:905px">Anyone adds when they can help</div>
+</section>
+
+<!-- 11 · debate -->
+<section class="slide t-rose" style="--accent:#c92a62">
+  <div class="cap"><span class="eyebrow">Topology 5 of 5</span><h1>Debate: argue, <em>then judge</em></h1></div>
+  <div class="trk"><i>1</i><i>2</i><i>3</i><i>4</i><i class="on">5</i></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="810" y="560" width="300" height="320" rx="20" fill="#2c3350"/>
+    <rect x="780" y="540" width="360" height="40" rx="14" fill="#1d2340"/>
+    <use href="sprites.svg#robot" x="880" y="330" width="160" height="210" style="--body:#ffb020;--accent:#7c5cff"/>
+    <!-- gavel -->
+    <g transform="rotate(-30 1180 470)"><rect x="1150" y="420" width="90" height="46" rx="10" fill="#8a5a3c"/><rect x="1188" y="462" width="16" height="100" rx="8" fill="#b07a55"/></g>
+    <use href="sprites.svg#robot" x="260" y="600" width="200" height="262" style="--body:#5cc8ff"/>
+    <use href="sprites.svg#chat" x="170" y="330" width="330" height="260" style="--dot:transparent"/>
+    <text x="335" y="455" text-anchor="middle" font-size="46" font-weight="900" fill="#1d2340">Option A</text>
+    <use href="sprites.svg#robot" x="1460" y="600" width="200" height="262" style="--body:#22b8a6"/>
+    <use href="sprites.svg#chat" x="1400" y="330" width="330" height="260" style="--dot:transparent"/>
+    <text x="1565" y="455" text-anchor="middle" font-size="46" font-weight="900" fill="#1d2340">Option B</text>
+    <use href="sprites.svg#check" x="1700" y="310" width="90" height="90"/>
+    <use href="sprites.svg#coins" x="1700" y="780" width="130" height="115"/>
+  </svg>
+  <div class="lbl dark" style="left:960px; top:720px">Judge</div>
+  <div class="lbl violet" style="left:960px; top:920px">Round 1 → 2 → 3</div>
+  <div class="lbl coral sm" style="left:1560px; top:920px">Several × the cost</div>
+</section>
+
+<!-- 12 · communication -->
+<section class="slide t-ocean" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Communication</span><h1>Pass <em>artefacts</em>, not transcripts</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <path d="M960 320 V930" stroke="rgba(255,255,255,.35)" stroke-width="6" stroke-dasharray="16 14"/>
+    <!-- raw transcript -->
+    <use href="sprites.svg#robot" x="100" y="560" width="160" height="210" style="--body:#ff7a59"/>
+    <use href="sprites.svg#robot" x="700" y="560" width="160" height="210" style="--body:#ffb020"/>
+    <rect x="300" y="330" width="360" height="560" rx="18" fill="#fff" transform="rotate(-3 480 610)"/>
+    <g stroke="#b8c2de" stroke-width="12" stroke-linecap="round" transform="rotate(-3 480 610)">
+      <path d="M340 380 H620 M340 415 H580 M340 450 H610 M340 485 H540 M340 520 H620 M340 555 H600 M340 590 H560 M340 625 H620 M340 660 H590 M340 695 H540 M340 730 H610 M340 765 H580 M340 800 H620 M340 835 H560"/>
+    </g>
+    <use href="sprites.svg#cross" x="600" y="300" width="100" height="100"/>
+    <!-- structured artefact -->
+    <use href="sprites.svg#robot" x="1040" y="560" width="160" height="210" style="--body:#22b8a6"/>
+    <use href="sprites.svg#robot" x="1660" y="560" width="160" height="210" style="--body:#7c5cff"/>
+    <rect x="1230" y="420" width="400" height="340" rx="26" fill="#fff"/>
+    <g font-size="34" font-weight="900">
+      <text x="1265" y="490" fill="#1f6fbf">goal</text><rect x="1420" y="468" width="170" height="26" rx="13" fill="#bfe6ff"/>
+      <text x="1265" y="560" fill="#1f6fbf">findings</text><rect x="1420" y="538" width="170" height="26" rx="13" fill="#bfe6ff"/>
+      <text x="1265" y="630" fill="#1f6fbf">sources</text><rect x="1420" y="608" width="130" height="26" rx="13" fill="#bfe6ff"/>
+      <text x="1265" y="700" fill="#1f6fbf">tried</text><rect x="1420" y="678" width="150" height="26" rx="13" fill="#bfe6ff"/>
+    </g>
+    <use href="sprites.svg#check" x="1580" y="370" width="100" height="100"/>
+  </svg>
+  <div class="lbl red" style="left:480px; top:915px">Raw transcript</div>
+  <div class="lbl green" style="left:1430px; top:830px">Typed artefact</div>
+  <div class="lbl sm" style="left:1430px; top:910px">Cheap · verifiable</div>
+</section>
+
+<!-- 13 · failure modes -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">When multi-agent goes wrong</span><h1>Guard the <em>failure modes</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="90" y="300" width="560" height="630" rx="34"/><rect x="680" y="300" width="560" height="630" rx="34"/><rect x="1270" y="300" width="560" height="630" rx="34"/></g>
+    <!-- loops -->
+    <use href="sprites.svg#robot" x="150" y="380" width="130" height="171" style="--body:#5cc8ff"/>
+    <use href="sprites.svg#robot" x="460" y="380" width="130" height="171" style="--body:#ff6f9c"/>
+    <g stroke="#ff5d73" stroke-width="10" fill="none" stroke-linecap="round" marker-end="url(#ah)">
+      <path d="M290 420 Q370 360 450 420"/><path d="M450 520 Q370 580 290 520"/>
+    </g>
+    <!-- lost context -->
+    <use href="sprites.svg#robot" x="730" y="380" width="130" height="171" style="--body:#22b8a6"/>
+    <use href="sprites.svg#robot" x="1060" y="380" width="130" height="171" style="--body:#ffb020"/>
+    <use href="sprites.svg#envelope" x="895" y="445" width="130" height="94" style="--paper:#ffe89c;--lines:#e59a00"/>
+    <use href="sprites.svg#question" x="925" y="350" width="70" height="70"/>
+    <!-- runaway cost -->
+    <use href="sprites.svg#coins" x="1370" y="400" width="190" height="168"/>
+    <use href="sprites.svg#fire" x="1580" y="380" width="120" height="164"/>
+    <g font-size="44" font-weight="900" fill="#d63a52" text-anchor="middle"><text x="370" y="680">Handoff loops</text><text x="960" y="680">Lost context</text><text x="1550" y="680">Runaway cost</text></g>
+    <g font-size="34" font-weight="800" fill="#8a8fa8" text-anchor="middle"><text x="370" y="760">fix</text><text x="960" y="760">fix</text><text x="1550" y="760">fix</text></g>
+  </svg>
+  <div class="lbl green" style="left:370px; top:840px">Global step budget</div>
+  <div class="lbl green" style="left:960px; top:840px">Structured handoff</div>
+  <div class="lbl green" style="left:1550px; top:840px">One shared budget</div>
+</section>
+
+<!-- 14 · exam tip -->
+<section class="slide t-night" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">On the exam</span><h1>MCP for tools, <em>A2A</em> for agents</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="rgba(255,255,255,.08)"><rect x="90" y="300" width="850" height="500" rx="36"/><rect x="980" y="300" width="850" height="500" rx="36"/></g>
+    <!-- MCP -->
+    <use href="sprites.svg#robot" x="150" y="420" width="170" height="223" style="--body:#22b8a6"/>
+    <g stroke="#7ff0d8" stroke-width="8" fill="none" stroke-linecap="round"><path d="M330 530 H470 M560 530 Q620 530 650 400 M560 530 H660 M560 530 Q620 530 650 670"/></g>
+    <use href="sprites.svg#wrench" x="660" y="330" width="110" height="110"/>
+    <use href="sprites.svg#database" x="670" y="475" width="95" height="108"/>
+    <use href="sprites.svg#globe" x="665" y="620" width="105" height="105"/>
+    <!-- A2A -->
+    <use href="sprites.svg#robot" x="1040" y="420" width="170" height="223" style="--body:#22b8a6"/>
+    <g stroke="#ffcf4a" stroke-width="8" fill="none" stroke-linecap="round"><path d="M1220 530 H1330 M1470 530 H1580"/></g>
+    <use href="sprites.svg#robot" x="1600" y="420" width="170" height="223" style="--body:#ff6f9c"/>
+    <rect x="1530" y="660" width="290" height="100" rx="18" fill="#fff"/>
+    <rect x="1550" y="680" width="56" height="60" rx="10" fill="#ff6f9c"/>
+    <text x="1622" y="722" font-size="30" font-weight="900" fill="#1d2340">Agent Card</text>
+  </svg>
+  <div class="lbl teal lg" style="left:515px; top:530px">MCP</div>
+  <div class="lbl amber lg" style="left:1400px; top:530px">A2A</div>
+  <div class="lbl sm" style="left:515px; top:760px">Agent → tools</div>
+  <div class="lbl sm" style="left:1300px; top:760px">Agent → agent</div>
+  <div class="lbl violet" style="left:760px; top:890px">Researcher + Coder + Reviewer → Supervisor</div>
+  <div class="lbl" style="left:1600px; top:890px">Read on ↓</div>
+</section>
+
+</body>
+</html>

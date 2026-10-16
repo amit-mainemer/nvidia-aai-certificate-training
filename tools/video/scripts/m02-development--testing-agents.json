@@ -1,0 +1,103 @@
+{
+  "module": "development",
+  "title": "Module 2 · Lesson 5 — Testing and debugging non-deterministic systems",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Picture a vet clinic's booking agent at its launch demo.",
+        "The developer runs it once, the right appointment appears, and everyone applauds."
+      ]
+    },
+    {
+      "lines": [
+        "A week later, one booking in three lands on the wrong day.",
+        "The same request, sent twice, takes two different paths."
+      ]
+    },
+    {
+      "lines": [
+        "Normal tests assume the same input gives the same output.",
+        "Agents break that assumption, so the testing pyramid changes shape."
+      ]
+    },
+    {
+      "lines": [
+        "At the base, unit tests check tools, parsers, validators, and routing, with no model at all.",
+        "Above them, component tests replay recorded model responses, so they stay fast and repeatable."
+      ]
+    },
+    {
+      "lines": [
+        "Next, a small integration set runs the real model, with tolerant assertions.",
+        "At the top, statistical evaluation scores a golden dataset and gates releases."
+      ]
+    },
+    {
+      "lines": [
+        "Push as much logic as you can down the pyramid.",
+        "Save the expensive layer for what truly depends on model judgement."
+      ]
+    },
+    {
+      "lines": [
+        "Never assert exact output text, because a harmless prompt tweak will break it.",
+        "Assert on properties: the right tool, valid arguments, a cited source, and staying within budget."
+      ]
+    },
+    {
+      "lines": [
+        "Then run each case several times.",
+        "Hard rules must hold on every run, and the success rate must clear a threshold."
+      ]
+    },
+    {
+      "lines": [
+        "pass@k asks whether at least one of k runs succeeded: a capability measure.",
+        "pass^k asks whether all k succeeded: a reliability measure."
+      ],
+      "say": {
+        "0": "Pass at K asks whether at least one of K runs succeeded: a capability measure.",
+        "1": "Pass hat K asks whether all K succeeded: a reliability measure."
+      }
+    },
+    {
+      "lines": [
+        "The clinic's demo was a pass@k result.",
+        "Production agents are judged on pass^k, which would have caught the problem before launch."
+      ],
+      "say": {
+        "0": "The clinic's demo was a pass at K result.",
+        "1": "Production agents are judged on pass hat K, which would have caught the problem before launch."
+      }
+    },
+    {
+      "lines": [
+        "When an answer is wrong, the trace shows which stage failed, and each stage has its own fix.",
+        "A wrong tool calls for sharper descriptions, and wrong arguments call for a tighter schema."
+      ]
+    },
+    {
+      "lines": [
+        "The clinic's trace showed the right call returning a bad result, from a calendar tool with the wrong time zone.",
+        "So the fix belonged in the tool, not the prompt."
+      ]
+    },
+    {
+      "lines": [
+        "Your golden set needs the cases that break things, not just the happy path.",
+        "Add ambiguous requests, injected instructions, timeouts, and questions with no answer."
+      ]
+    },
+    {
+      "lines": [
+        "Exam tip: never assert exact strings, and judge production agents on pass^k, not pass@k.",
+        "Read on to build the pyramid, layer by layer."
+      ],
+      "say": {
+        "0": "Exam tip: never assert exact strings, and judge production agents on pass hat K, not pass at K."
+      }
+    }
+  ]
+}

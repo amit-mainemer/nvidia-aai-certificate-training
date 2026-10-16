@@ -1,0 +1,101 @@
+{
+  "module": "development",
+  "title": "Module 2 · Lesson 3 — The framework landscape and NeMo Agent Toolkit",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Lesson three maps the agent frameworks and NVIDIA's NeMo Agent Toolkit.",
+        "The exam asks which tool fits a need, not how to write it from memory."
+      ],
+      "say": {
+        "0": "Lesson three maps the agent frameworks and Nvidia's NeMo Agent Toolkit."
+      }
+    },
+    {
+      "lines": [
+        "Picture a logistics company with three agent teams on three frameworks.",
+        "Routing uses LangGraph, customer email uses CrewAI, and invoicing uses AutoGen."
+      ]
+    },
+    {
+      "lines": [
+        "The finance chief asks which agent costs the most per task, and which is most accurate.",
+        "Every team measures differently, so nobody can answer."
+      ]
+    },
+    {
+      "lines": [
+        "LangChain brings the broadest integrations, and LlamaIndex centres on retrieval.",
+        "CrewAI declares role-based teams, while AutoGen and Semantic Kernel focus on multi-agent conversation."
+      ]
+    },
+    {
+      "lines": [
+        "LangGraph models an agent as a graph over typed state.",
+        "Nodes update it, and conditional edges choose what runs next."
+      ]
+    },
+    {
+      "lines": [
+        "A checkpointer saves the state after every node.",
+        "So a run can resume after a crash, be replayed for debugging, or pause for human approval."
+      ]
+    },
+    {
+      "lines": [
+        "The step budget lives in the routing function, not in a hopeful prompt.",
+        "And an interrupt before tools makes human approval a built-in feature."
+      ]
+    },
+    {
+      "lines": [
+        "NeMo Agent Toolkit, formerly AgentIQ, is NVIDIA's framework-agnostic layer.",
+        "It assumes you already have agents, and adds a consistent way to compose, profile, evaluate, and observe them."
+      ],
+      "say": {
+        "0": "NeMo Agent Toolkit, formerly AgentIQ, is Nvidia's framework-agnostic layer."
+      }
+    },
+    {
+      "lines": [
+        "In the toolkit, everything is a typed function: tools, model calls, even whole agents.",
+        "So one team's entire agent can become a tool for another."
+      ]
+    },
+    {
+      "lines": [
+        "Workflows are wired in YAML, so swapping a model is a config edit, not a code change.",
+        "Built-in agent types include ReAct, ReWOO, and router agents."
+      ]
+    },
+    {
+      "lines": [
+        "A profiler attributes tokens, latency, and cost to each step, and an evaluation harness runs datasets in CI.",
+        "OpenTelemetry traces flow to Phoenix, Langfuse, or any collector."
+      ],
+      "say": {
+        "0": "A profiler attributes tokens, latency, and cost to each step, and an evaluation harness runs datasets in C I."
+      }
+    },
+    {
+      "lines": [
+        "It also speaks MCP both ways: it can use MCP servers, and expose its own functions as one.",
+        "Now all three logistics agents report cost and accuracy the same way."
+      ]
+    },
+    {
+      "lines": [
+        "A plain loop over an OpenAI-compatible client is fine for a simple, single-purpose agent.",
+        "Reach for a framework when you need durable state, branching, human approval, or multi-agent coordination."
+      ]
+    },
+    {
+      "lines": [
+        "On the exam, agents in several frameworks with no consistent measurement points to NeMo Agent Toolkit.",
+        "It composes frameworks rather than replacing them, so read on for the full comparison."
+      ]
+    }
+  ]
+}

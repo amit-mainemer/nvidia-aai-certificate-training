@@ -1,0 +1,92 @@
+{
+  "module": "architecture",
+  "title": "Module 1 · Lesson 1 — Workflows vs. agents: the agency spectrum",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module One, Lesson One: workflows versus agents.",
+        "It's the judgement behind most architecture questions on the exam."
+      ]
+    },
+    {
+      "lines": [
+        "Picture Maya, an engineer at a bike-sharing company, with two jobs to automate.",
+        "Her manager's advice is one word: agents."
+      ]
+    },
+    {
+      "lines": [
+        "Job one turns damage reports into repair tickets: extract, classify, price, file.",
+        "Job two asks why a bike's tracker went silent: one check, or fifteen."
+      ]
+    },
+    {
+      "lines": [
+        "The deciding question is simple: who chooses what happens next?",
+        "In a workflow, your code owns the control flow, and the model fills in slots."
+      ]
+    },
+    {
+      "lines": [
+        "In an agent, the model picks each next step at runtime, from what it just observed.",
+        "Every system sits somewhere on that line, called the agency spectrum."
+      ]
+    },
+    {
+      "lines": [
+        "The bottom rung is a fixed chain, fully deterministic.",
+        "Next comes a router: the model classifies the request, and code picks the branch."
+      ]
+    },
+    {
+      "lines": [
+        "Then a tool-calling loop, where the model picks tools until it decides it's done.",
+        "At the top sit multi-agent systems, where specialised agents delegate and hand off."
+      ]
+    },
+    {
+      "lines": [
+        "Each step up buys flexibility, and costs latency, tokens, variance, and debuggability.",
+        "Without caps, a tool loop's cost is unbounded."
+      ]
+    },
+    {
+      "lines": [
+        "Agents earn that price when the step count is unknown, or the next action depends on an observation.",
+        "Or when inputs vary widely, or recovering from failures matters."
+      ]
+    },
+    {
+      "lines": [
+        "Stay deterministic when the process is regulated or must answer in under a second.",
+        "The same goes when outputs must be reproducible, or cost known in advance."
+      ]
+    },
+    {
+      "lines": [
+        "So Maya's damage reports become a fixed chain.",
+        "The silent tracker gets one agent with tools, since its path depends on what it finds."
+      ]
+    },
+    {
+      "lines": [
+        "Most real systems are hybrids: fixed stages for intake, validation, and policy checks.",
+        "A bounded agent loop runs only in the step that must improvise."
+      ]
+    },
+    {
+      "lines": [
+        "On the exam, choose the least agency that meets the requirement.",
+        "Multi-agent is justified by separation of concerns or parallelism, never because it sounds advanced."
+      ]
+    },
+    {
+      "lines": [
+        "Read constraints before capabilities: words like audited or sub-second push you down the spectrum.",
+        "Now read on for the full lesson."
+      ]
+    }
+  ]
+}

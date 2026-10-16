@@ -1,0 +1,92 @@
+{
+  "module": "deployment",
+  "title": "Module 4 · Lesson 3 — Resilience: keeping agents alive when things break",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to lesson three: keeping agents alive when things break.",
+        "An agent relies on a model, tools, and data stores, and any of them can fail."
+      ]
+    },
+    {
+      "lines": [
+        "Picture a travel agent rebooking passengers after a storm cancels hundreds of flights.",
+        "Then the airline's seat-availability service slows to a crawl."
+      ]
+    },
+    {
+      "lines": [
+        "Every rebooking hangs on that one service, until no workers are left.",
+        "Now even passengers who only wanted a hotel get nothing."
+      ]
+    },
+    {
+      "lines": [
+        "The first pattern is a timeout on every external call, shorter than the caller's budget.",
+        "A tool with no timeout can hang an agent run forever."
+      ]
+    },
+    {
+      "lines": [
+        "The second is bounded retries: backoff with jitter, capped attempts, and only for transient errors.",
+        "Never retry a four-hundred-class error, because wrong arguments stay wrong."
+      ]
+    },
+    {
+      "lines": [
+        "The third is a circuit breaker: after repeated failures, stop calling and fail fast for a cool-down.",
+        "That way, one slow service can't swallow every worker."
+      ]
+    },
+    {
+      "lines": [
+        "The fourth is bulkheads: a separate connection pool for each dependency.",
+        "If the seat service fills its pool, hotel and baggage requests still flow."
+      ]
+    },
+    {
+      "lines": [
+        "Beware the retry storm, where the agent retries while its HTTP client retries too.",
+        "Let one layer own retries, make side-effecting tools idempotent, and always add jitter."
+      ]
+    },
+    {
+      "lines": [
+        "When the seat service is down, degrade gracefully instead of erroring or making something up.",
+        "Serve cached seats with their age shown, or fall back to a smaller model."
+      ]
+    },
+    {
+      "lines": [
+        "Failing that, answer a narrower question, queue the request, or hand off to a human.",
+        "The one unacceptable behavior is answering as if nothing were wrong."
+      ]
+    },
+    {
+      "lines": [
+        "Keep session state in Redis or Postgres, so any replica can serve any request.",
+        "That beats sticky sessions, which break when pods scale down."
+      ]
+    },
+    {
+      "lines": [
+        "Checkpoint after each significant step, so a crashed run resumes instead of restarting.",
+        "And give every run a durable ID, so a complaint traces to its exact path."
+      ]
+    },
+    {
+      "lines": [
+        "For high availability, run inference in two regions and keep a backup model provider.",
+        "Replicate the vector index, and test failover, because untested failover is just a hypothesis."
+      ]
+    },
+    {
+      "lines": [
+        "On the exam, the complete answer names a timeout, bounded retries with jitter, a circuit breaker, and a fallback.",
+        "Retries alone are the trap, so read on for the details."
+      ]
+    }
+  ]
+}

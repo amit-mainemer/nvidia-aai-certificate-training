@@ -1,7 +1,11 @@
-# Module intro videos
+# Module and lesson videos
 
-Each module gets a ~2 minute narrated intro: a real-world story plus a tour of the module, with one
-illustrated slide per two sentences, local neural TTS (Kokoro), and English subtitles.
+Every module and every lesson gets a ~2 minute narrated video: a real-world story plus a tour of the
+ideas, with one illustrated slide per two sentences, local neural TTS (Kokoro), and English subtitles.
+
+- Module intros — stem `mNN-<moduleId>` (e.g. `m01-architecture`): module page + roadmap tile.
+- Lesson videos — stem `mNN-<moduleId>--<lessonId>` (e.g. `m01-architecture--agency-spectrum`): top of the
+  lesson page. They get a slightly lighter encode (CRF 27) to keep the repo small.
 
 ```
 scripts/<name>.json      narration — one scene per slide, exactly 2 sentences each; optional "say" overrides
@@ -16,7 +20,7 @@ sync-videos.mjs          regenerates src/data/videos.js from public/videos/
 ```
 
 Output lands in `public/videos/<name>.{mp4,vtt,jpg}`. After building, run `node tools/video/sync-videos.mjs`
-so the site picks it up (module page, first lesson, and the roadmap tile).
+so the site picks it up.
 
 ## One-time setup (macOS)
 
@@ -42,4 +46,4 @@ node tools/video/sync-videos.mjs
 
 Timing comes from the audio: ~320 words over 16 scenes ≈ 2:15. Each line is voiced separately, so subtitle
 cues match the speech exactly. If a word is mispronounced, add `"say": { "<line index>": "phonetic spelling" }`
-to the scene — the subtitle keeps the original text. Builds take a lock, so several can be started at once.
+to the scene — the subtitle keeps the original text. Builds share a two-slot lock, so many can be started at once.

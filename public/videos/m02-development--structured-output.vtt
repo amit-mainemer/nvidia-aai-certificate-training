@@ -1,0 +1,153 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:03.663
+Lesson two is structured output and constrained decoding.
+
+2
+00:00:03.993 --> 00:00:07.869
+Agents need values that always parse, not prose that usually does.
+
+3
+00:00:08.669 --> 00:00:12.352
+Picture an expense bot that files receipts into a finance system.
+
+4
+00:00:12.682 --> 00:00:16.301
+That system accepts exactly twelve categories, and nothing else.
+
+5
+00:00:17.101 --> 00:00:21.041
+Now and then, the bot invents a thirteenth category, like team vibes.
+
+6
+00:00:21.371 --> 00:00:23.902
+The import rejects it, and the whole batch fails.
+
+7
+00:00:24.702 --> 00:00:27.703
+Asking for JSON in the prompt guarantees nothing.
+
+8
+00:00:28.033 --> 00:00:31.064
+Validating and retrying usually works eventually,
+
+9
+00:00:31.114 --> 00:00:34.020
+but costs extra round trips and can still fail.
+
+10
+00:00:34.820 --> 00:00:38.695
+Provider JSON or schema mode is the common production default.
+
+11
+00:00:39.025 --> 00:00:43.007
+It returns valid JSON matching your schema, at no extra cost.
+
+12
+00:00:43.807 --> 00:00:46.531
+Constrained decoding goes further: at every step,
+
+13
+00:00:46.581 --> 00:00:49.475
+it masks out any token that would break the grammar.
+
+14
+00:00:49.805 --> 00:00:53.189
+Invalid output becomes impossible, not just unlikely.
+
+15
+00:00:53.989 --> 00:00:59.213
+NVIDIA's stack supports this as guided decoding in TensorRT-LLM and NIM,
+
+16
+00:00:59.263 --> 00:01:02.217
+with backends like XGrammar and Outlines.
+
+17
+00:01:02.547 --> 00:01:06.123
+With an enum of the twelve categories, a thirteenth can never appear.
+
+18
+00:01:06.923 --> 00:01:08.865
+Next, schema-first development:
+
+19
+00:01:08.915 --> 00:01:12.463
+define the output once, for example as a Pydantic model.
+
+20
+00:01:12.793 --> 00:01:15.872
+That one definition produces the schema for the model,
+
+21
+00:01:15.922 --> 00:01:19.292
+validates what comes back, and types everything downstream.
+
+22
+00:01:20.092 --> 00:01:24.245
+Make escalation a field the model fills in, like requires human review.
+
+23
+00:01:24.575 --> 00:01:26.765
+A true or false beats string-matching prose.
+
+24
+00:01:27.565 --> 00:01:30.843
+Field order matters too: put the rationale before the verdict.
+
+25
+00:01:31.173 --> 00:01:33.893
+Then the model reasons first and decides second,
+
+26
+00:01:33.943 --> 00:01:36.605
+instead of justifying a choice it already made.
+
+27
+00:01:37.405 --> 00:01:39.814
+Use enums for anything you'll branch on,
+
+28
+00:01:39.864 --> 00:01:44.609
+and include an explicit unsure option, or the schema forces a confident guess.
+
+29
+00:01:44.939 --> 00:01:48.601
+And keep schemas shallow, because deep nesting raises the error rate.
+
+30
+00:01:49.401 --> 00:01:52.593
+Remember, structured output constrains form, not truth.
+
+31
+00:01:52.923 --> 00:01:56.982
+A perfectly valid record can still file a taxi ride as catering,
+
+32
+00:01:57.032 --> 00:01:59.935
+so correctness needs grounding and evaluation.
+
+33
+00:02:00.735 --> 00:02:02.199
+A classic exam question:
+
+34
+00:02:02.249 --> 00:02:06.615
+an agent must pick one of fifty tool names, and sometimes invents one.
+
+35
+00:02:06.945 --> 00:02:10.882
+Retries, lower temperature, and better prompts only reduce that;
+
+36
+00:02:10.932 --> 00:02:13.871
+constrained decoding over an enum eliminates it.
+
+37
+00:02:14.671 --> 00:02:18.184
+Unlikely versus impossible is the distinction to remember.
+
+38
+00:02:18.514 --> 00:02:22.261
+Read on for the full comparison table and the schema design rules.

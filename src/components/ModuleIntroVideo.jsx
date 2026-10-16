@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { moduleVideo } from '../data/videos.js'
+import { moduleVideo, lessonVideo } from '../data/videos.js'
 
 /**
- * Narrated intro for a module. English subtitles are drawn in a bar under the
+ * Narrated intro for a module or lesson. English subtitles are drawn in a bar under the
  * video (readable on phones, never covering the slide); in fullscreen the
  * browser's own caption rendering takes over.
  *
@@ -10,7 +10,17 @@ import { moduleVideo } from '../data/videos.js'
  * player (used on the roadmap, where ten full players would be too heavy).
  */
 export default function ModuleIntroVideo({ mod, compact = false }) {
-  const v = moduleVideo(mod.id)
+  return <IntroVideo v={moduleVideo(mod.id)} label="Module intro" compact={compact}
+    blurb="A real-world case for why this module matters" />
+}
+
+/** Short narrated intro at the top of a lesson. */
+export function LessonIntroVideo({ mod, lesson }) {
+  return <IntroVideo v={lessonVideo(mod.id, lesson.id)} label="Lesson intro"
+    blurb="A real-world example, then this lesson's key ideas" />
+}
+
+function IntroVideo({ v, label, blurb, compact = false }) {
   const [open, setOpen] = useState(!compact)
   if (!v) return null
 
@@ -21,16 +31,16 @@ export default function ModuleIntroVideo({ mod, compact = false }) {
           <span className="intro-play" aria-hidden="true" />
         </span>
         <span className="intro-tile-text">
-          <b>Watch the module intro</b>
+          <b>Watch the {label.toLowerCase()}</b>
           <span>{v.length} · narrated · subtitles</span>
         </span>
       </button>
     )
   }
-  return <Player v={v} autoPlay={compact} />
+  return <Player v={v} label={label} blurb={blurb} autoPlay={compact} />
 }
 
-function Player({ v, autoPlay }) {
+function Player({ v, label, blurb, autoPlay }) {
   const videoRef = useRef(null)
   const [cue, setCue] = useState('')
   const [cc, setCc] = useState(true)
@@ -66,8 +76,8 @@ function Player({ v, autoPlay }) {
       </video>
       {cc && <div className="intro-cc" aria-live="off">{cue}</div>}
       <figcaption>
-        <span className="pill pill-nv">Module intro</span>
-        <span className="intro-meta">A real-world case for why this module matters · {v.length}</span>
+        <span className="pill pill-nv">{label}</span>
+        <span className="intro-meta">{blurb} · {v.length}</span>
         <button className={`cc-btn ${cc ? 'on' : ''}`} onClick={() => setCc((c) => !c)} aria-pressed={cc} title="Subtitles">
           CC
         </button>

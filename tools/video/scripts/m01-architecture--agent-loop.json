@@ -1,0 +1,98 @@
+{
+  "module": "architecture",
+  "title": "Module 1 · Lesson 2 — The agent loop and its control policies",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to Module One, Lesson Two: the agent loop and its control policies.",
+        "Every agent, in every framework, runs the same loop."
+      ]
+    },
+    {
+      "lines": [
+        "Picture TripWise, a travel startup whose agent books trips overnight.",
+        "One morning, the team wakes up to an eighteen-hundred-dollar bill."
+      ],
+      "say": {
+        "0": "Picture Trip Wise, a travel startup whose agent books trips overnight."
+      }
+    },
+    {
+      "lines": [
+        "A flight-search tool had returned the same error since midnight.",
+        "The agent kept calling it, and nothing told it to stop."
+      ]
+    },
+    {
+      "lines": [
+        "Start with the loop: perceive, reason, act, observe.",
+        "Gather the state, let the model pick a step, run the tool, and append the result."
+      ]
+    },
+    {
+      "lines": [
+        "Notice that the model only proposes a tool name and arguments.",
+        "Your runtime checks the call and runs it, so every security control lives in code."
+      ]
+    },
+    {
+      "lines": [
+        "When a tool fails, don't crash: return the error as an observation, so the model can re-plan.",
+        "But bound the retries, because the same failing call three times means escalate."
+      ]
+    },
+    {
+      "lines": [
+        "A complete design names five control policies.",
+        "Termination, tool exposure, state management, error handling, and escalation."
+      ]
+    },
+    {
+      "lines": [
+        "Termination says when the loop stops, and tool exposure says which tools the model sees.",
+        "State management decides what carries forward."
+      ]
+    },
+    {
+      "lines": [
+        "Error handling chooses to retry, fall back, or degrade gracefully.",
+        "Escalation hands over to a human, say after repeated failure or before an irreversible action."
+      ]
+    },
+    {
+      "lines": [
+        "TripWise had no termination policy, and budgets are not optional.",
+        "Every loop needs a step cap, a cost cap, and a timeout, checked before each model call."
+      ],
+      "say": {
+        "0": "Trip Wise had no termination policy, and budgets are not optional."
+      }
+    },
+    {
+      "lines": [
+        "Hitting a cap must fire an alert, never fail silently.",
+        "Add loop detection for repeated identical calls, and require each iteration to change the state."
+      ]
+    },
+    {
+      "lines": [
+        "Then a second problem: on long trips, the agent forgot its earlier bookings.",
+        "A raw message list collapses by step fifty, as the context window fills."
+      ]
+    },
+    {
+      "lines": [
+        "The fix is structured state: goal, plan, findings, and completed steps as typed fields.",
+        "Summarise older turns, and store big tool outputs by reference."
+      ]
+    },
+    {
+      "lines": [
+        "On the exam, an agent that works on short tasks but degrades on long ones needs context management.",
+        "It's not a bigger model or more retries, so read on for the full lesson."
+      ]
+    }
+  ]
+}

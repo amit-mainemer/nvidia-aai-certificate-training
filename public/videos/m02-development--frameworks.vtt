@@ -1,0 +1,165 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:05.093
+Lesson three maps the agent frameworks and NVIDIA's NeMo Agent Toolkit.
+
+2
+00:00:05.423 --> 00:00:09.383
+The exam asks which tool fits a need, not how to write it from memory.
+
+3
+00:00:10.183 --> 00:00:14.357
+Picture a logistics company with three agent teams on three frameworks.
+
+4
+00:00:14.687 --> 00:00:20.419
+Routing uses LangGraph, customer email uses CrewAI, and invoicing uses AutoGen.
+
+5
+00:00:21.219 --> 00:00:24.623
+The finance chief asks which agent costs the most per task,
+
+6
+00:00:24.673 --> 00:00:26.203
+and which is most accurate.
+
+7
+00:00:26.533 --> 00:00:29.385
+Every team measures differently, so nobody can answer.
+
+8
+00:00:30.185 --> 00:00:34.913
+LangChain brings the broadest integrations, and LlamaIndex centres on retrieval.
+
+9
+00:00:35.243 --> 00:00:37.584
+CrewAI declares role-based teams,
+
+10
+00:00:37.634 --> 00:00:42.511
+while AutoGen and Semantic Kernel focus on multi-agent conversation.
+
+11
+00:00:43.311 --> 00:00:46.653
+LangGraph models an agent as a graph over typed state.
+
+12
+00:00:46.983 --> 00:00:50.495
+Nodes update it, and conditional edges choose what runs next.
+
+13
+00:00:51.295 --> 00:00:53.997
+A checkpointer saves the state after every node.
+
+14
+00:00:54.327 --> 00:00:56.331
+So a run can resume after a crash,
+
+15
+00:00:56.381 --> 00:00:59.653
+be replayed for debugging, or pause for human approval.
+
+16
+00:01:00.453 --> 00:01:04.393
+The step budget lives in the routing function, not in a hopeful prompt.
+
+17
+00:01:04.723 --> 00:01:08.470
+And an interrupt before tools makes human approval a built-in feature.
+
+18
+00:01:09.270 --> 00:01:14.873
+NeMo Agent Toolkit, formerly AgentIQ, is NVIDIA's framework-agnostic layer.
+
+19
+00:01:15.203 --> 00:01:17.249
+It assumes you already have agents,
+
+20
+00:01:17.299 --> 00:01:21.681
+and adds a consistent way to compose, profile, evaluate, and observe them.
+
+21
+00:01:22.481 --> 00:01:25.333
+In the toolkit, everything is a typed function:
+
+22
+00:01:25.383 --> 00:01:27.679
+tools, model calls, even whole agents.
+
+23
+00:01:28.009 --> 00:01:31.458
+So one team's entire agent can become a tool for another.
+
+24
+00:01:32.258 --> 00:01:33.964
+Workflows are wired in YAML,
+
+25
+00:01:34.014 --> 00:01:37.477
+so swapping a model is a config edit, not a code change.
+
+26
+00:01:37.807 --> 00:01:41.704
+Built-in agent types include ReAct, ReWOO, and router agents.
+
+27
+00:01:42.504 --> 00:01:46.796
+A profiler attributes tokens, latency, and cost to each step,
+
+28
+00:01:46.846 --> 00:01:50.070
+and an evaluation harness runs datasets in CI.
+
+29
+00:01:50.400 --> 00:01:54.638
+OpenTelemetry traces flow to Phoenix, Langfuse, or any collector.
+
+30
+00:01:55.438 --> 00:01:59.288
+It also speaks MCP both ways: it can use MCP servers,
+
+31
+00:01:59.338 --> 00:02:01.937
+and expose its own functions as one.
+
+32
+00:02:02.267 --> 00:02:06.804
+Now all three logistics agents report cost and accuracy the same way.
+
+33
+00:02:07.604 --> 00:02:12.183
+A plain loop over an OpenAI-compatible client is fine for a simple,
+
+34
+00:02:12.233 --> 00:02:13.634
+single-purpose agent.
+
+35
+00:02:13.964 --> 00:02:17.002
+Reach for a framework when you need durable state,
+
+36
+00:02:17.052 --> 00:02:20.399
+branching, human approval, or multi-agent coordination.
+
+37
+00:02:21.199 --> 00:02:21.897
+On the exam,
+
+38
+00:02:21.947 --> 00:02:24.825
+agents in several frameworks with no consistent
+
+39
+00:02:24.875 --> 00:02:27.379
+measurement points to NeMo Agent Toolkit.
+
+40
+00:02:27.709 --> 00:02:30.545
+It composes frameworks rather than replacing them,
+
+41
+00:02:30.595 --> 00:02:32.565
+so read on for the full comparison.

@@ -1,0 +1,129 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:02.833
+Picture a travel startup building an assistant
+
+2
+00:00:02.883 --> 00:00:05.135
+that plans a two-week trip through Japan.
+
+3
+00:00:05.465 --> 00:00:09.341
+Flights, hotels, rail passes, and visas each need their own tools.
+
+4
+00:00:10.141 --> 00:00:13.141
+Version one is a single agent holding every tool.
+
+5
+00:00:13.471 --> 00:00:17.731
+Its context fills with hotel listings, and it forgets the traveller's budget.
+
+6
+00:00:18.531 --> 00:00:22.086
+Splitting into several agents helps, but only for three reasons.
+
+7
+00:00:22.416 --> 00:00:26.462
+First, specialisation: different prompts, tools, models, or permissions.
+
+8
+00:00:27.262 --> 00:00:28.899
+Second, context isolation:
+
+9
+00:00:28.949 --> 00:00:33.441
+a researcher reads a mountain of sources and hands back a short brief.
+
+10
+00:00:33.771 --> 00:00:37.241
+Third, parallelism: independent questions run at once.
+
+11
+00:00:38.041 --> 00:00:42.365
+The price is handoff latency, duplicated tokens, and harder debugging.
+
+12
+00:00:42.695 --> 00:00:43.823
+And errors compound:
+
+13
+00:00:43.873 --> 00:00:48.063
+four agents at ninety percent each are about sixty-six percent together.
+
+14
+00:00:48.863 --> 00:00:52.760
+The travel team picks the first of five topologies: a supervisor.
+
+15
+00:00:53.090 --> 00:00:57.477
+It owns the trip and routes flights, hotels, and visas to specialist workers.
+
+16
+00:00:58.277 --> 00:01:03.219
+Workers never talk to each other, so traces are clean and policy lives in one place.
+
+17
+00:01:03.549 --> 00:01:07.617
+The catch: the supervisor is a bottleneck and a single point of failure.
+
+18
+00:01:08.417 --> 00:01:12.847
+In a swarm, agents hand control straight to each other, with no coordinator.
+
+19
+00:01:13.177 --> 00:01:17.308
+It's faster, but harder to trace, and two agents can bounce a task forever.
+
+20
+00:01:18.108 --> 00:01:22.943
+A pipeline runs agents in a fixed order: extract, analyse, draft, review.
+
+21
+00:01:23.273 --> 00:01:26.701
+Simple and traceable, but one failed stage stalls the chain.
+
+22
+00:01:27.501 --> 00:01:31.269
+A blackboard gives agents a shared workspace instead of messages.
+
+23
+00:01:31.599 --> 00:01:36.029
+Specialists build one evolving artefact together, like an incident timeline.
+
+24
+00:01:36.829 --> 00:01:40.747
+In a debate, agents argue across rounds, and a judge picks the winner.
+
+25
+00:01:41.077 --> 00:01:44.547
+It helps on hard judgement calls, at several times the cost.
+
+26
+00:01:45.347 --> 00:01:47.687
+How agents talk matters as much as the shape.
+
+27
+00:01:48.017 --> 00:01:51.444
+Hand over typed, structured artefacts, not raw transcripts.
+
+28
+00:01:52.244 --> 00:01:55.479
+Watch for handoff loops, lost context, and runaway cost.
+
+29
+00:01:55.809 --> 00:01:59.599
+Fix them with a global step budget and a structured handoff object.
+
+30
+00:02:00.399 --> 00:02:06.280
+On the exam, MCP connects agents to tools, and A2A connects agents to other agents.
+
+31
+00:02:06.610 --> 00:02:09.121
+For a researcher, coder, and reviewer team,
+
+32
+00:02:09.171 --> 00:02:12.576
+pick the supervisor, then read on for the full comparison.

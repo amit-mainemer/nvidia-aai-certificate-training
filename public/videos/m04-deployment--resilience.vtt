@@ -1,0 +1,153 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:03.898
+Welcome to lesson three: keeping agents alive when things break.
+
+2
+00:00:04.228 --> 00:00:08.765
+An agent relies on a model, tools, and data stores, and any of them can fail.
+
+3
+00:00:09.565 --> 00:00:12.170
+Picture a travel agent rebooking passengers
+
+4
+00:00:12.220 --> 00:00:14.763
+after a storm cancels hundreds of flights.
+
+5
+00:00:15.093 --> 00:00:18.392
+Then the airline's seat-availability service slows to a crawl.
+
+6
+00:00:19.192 --> 00:00:23.003
+Every rebooking hangs on that one service, until no workers are left.
+
+7
+00:00:23.333 --> 00:00:26.782
+Now even passengers who only wanted a hotel get nothing.
+
+8
+00:00:27.582 --> 00:00:30.405
+The first pattern is a timeout on every external call,
+
+9
+00:00:30.455 --> 00:00:32.161
+shorter than the caller's budget.
+
+10
+00:00:32.491 --> 00:00:35.620
+A tool with no timeout can hang an agent run forever.
+
+11
+00:00:36.420 --> 00:00:39.401
+The second is bounded retries: backoff with jitter,
+
+12
+00:00:39.451 --> 00:00:42.194
+capped attempts, and only for transient errors.
+
+13
+00:00:42.524 --> 00:00:46.719
+Never retry a four-hundred-class error, because wrong arguments stay wrong.
+
+14
+00:00:47.519 --> 00:00:50.836
+The third is a circuit breaker: after repeated failures,
+
+15
+00:00:50.886 --> 00:00:53.421
+stop calling and fail fast for a cool-down.
+
+16
+00:00:53.751 --> 00:00:56.539
+That way, one slow service can't swallow every worker.
+
+17
+00:00:57.339 --> 00:01:01.449
+The fourth is bulkheads: a separate connection pool for each dependency.
+
+18
+00:01:01.779 --> 00:01:05.846
+If the seat service fills its pool, hotel and baggage requests still flow.
+
+19
+00:01:06.646 --> 00:01:11.972
+Beware the retry storm, where the agent retries while its HTTP client retries too.
+
+20
+00:01:12.302 --> 00:01:13.877
+Let one layer own retries,
+
+21
+00:01:13.927 --> 00:01:17.628
+make side-effecting tools idempotent, and always add jitter.
+
+22
+00:01:18.428 --> 00:01:20.041
+When the seat service is down,
+
+23
+00:01:20.091 --> 00:01:23.477
+degrade gracefully instead of erroring or making something up.
+
+24
+00:01:23.807 --> 00:01:27.575
+Serve cached seats with their age shown, or fall back to a smaller model.
+
+25
+00:01:28.375 --> 00:01:32.912
+Failing that, answer a narrower question, queue the request, or hand off to a human.
+
+26
+00:01:33.242 --> 00:01:37.053
+The one unacceptable behavior is answering as if nothing were wrong.
+
+27
+00:01:37.853 --> 00:01:42.497
+Keep session state in Redis or Postgres, so any replica can serve any request.
+
+28
+00:01:42.827 --> 00:01:45.955
+That beats sticky sessions, which break when pods scale down.
+
+29
+00:01:46.755 --> 00:01:49.027
+Checkpoint after each significant step,
+
+30
+00:01:49.077 --> 00:01:51.825
+so a crashed run resumes instead of restarting.
+
+31
+00:01:52.155 --> 00:01:56.671
+And give every run a durable ID, so a complaint traces to its exact path.
+
+32
+00:01:57.471 --> 00:01:58.762
+For high availability,
+
+33
+00:01:58.812 --> 00:02:02.541
+run inference in two regions and keep a backup model provider.
+
+34
+00:02:02.871 --> 00:02:05.839
+Replicate the vector index, and test failover,
+
+35
+00:02:05.889 --> 00:02:08.922
+because untested failover is just a hypothesis.
+
+36
+00:02:09.722 --> 00:02:12.463
+On the exam, the complete answer names a timeout,
+
+37
+00:02:12.513 --> 00:02:16.051
+bounded retries with jitter, a circuit breaker, and a fallback.
+
+38
+00:02:16.381 --> 00:02:19.616
+Retries alone are the trap, so read on for the details.

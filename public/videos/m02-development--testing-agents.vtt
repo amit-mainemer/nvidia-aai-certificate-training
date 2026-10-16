@@ -1,0 +1,149 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:03.301
+Picture a vet clinic's booking agent at its launch demo.
+
+2
+00:00:03.631 --> 00:00:07.805
+The developer runs it once, the right appointment appears, and everyone applauds.
+
+3
+00:00:08.605 --> 00:00:11.520
+A week later, one booking in three lands on the wrong day.
+
+4
+00:00:11.850 --> 00:00:14.680
+The same request, sent twice, takes two different paths.
+
+5
+00:00:15.480 --> 00:00:18.886
+Normal tests assume the same input gives the same output.
+
+6
+00:00:19.216 --> 00:00:22.814
+Agents break that assumption, so the testing pyramid changes shape.
+
+7
+00:00:23.614 --> 00:00:26.339
+At the base, unit tests check tools, parsers,
+
+8
+00:00:26.389 --> 00:00:29.175
+validators, and routing, with no model at all.
+
+9
+00:00:29.505 --> 00:00:33.130
+Above them, component tests replay recorded model responses,
+
+10
+00:00:33.180 --> 00:00:35.151
+so they stay fast and repeatable.
+
+11
+00:00:35.951 --> 00:00:40.530
+Next, a small integration set runs the real model, with tolerant assertions.
+
+12
+00:00:40.860 --> 00:00:45.887
+At the top, statistical evaluation scores a golden dataset and gates releases.
+
+13
+00:00:46.687 --> 00:00:49.432
+Push as much logic as you can down the pyramid.
+
+14
+00:00:49.762 --> 00:00:53.467
+Save the expensive layer for what truly depends on model judgement.
+
+15
+00:00:54.267 --> 00:00:58.654
+Never assert exact output text, because a harmless prompt tweak will break it.
+
+16
+00:00:58.984 --> 00:01:02.078
+Assert on properties: the right tool, valid arguments,
+
+17
+00:01:02.128 --> 00:01:04.523
+a cited source, and staying within budget.
+
+18
+00:01:05.323 --> 00:01:07.087
+Then run each case several times.
+
+19
+00:01:07.417 --> 00:01:11.889
+Hard rules must hold on every run, and the success rate must clear a threshold.
+
+20
+00:01:12.689 --> 00:01:17.397
+pass@k asks whether at least one of k runs succeeded: a capability measure.
+
+21
+00:01:17.727 --> 00:01:21.730
+pass^k asks whether all k succeeded: a reliability measure.
+
+22
+00:01:22.530 --> 00:01:24.912
+The clinic's demo was a pass@k result.
+
+23
+00:01:25.242 --> 00:01:27.314
+Production agents are judged on pass^k,
+
+24
+00:01:27.364 --> 00:01:30.035
+which would have caught the problem before launch.
+
+25
+00:01:30.835 --> 00:01:34.118
+When an answer is wrong, the trace shows which stage failed,
+
+26
+00:01:34.168 --> 00:01:35.841
+and each stage has its own fix.
+
+27
+00:01:36.171 --> 00:01:38.530
+A wrong tool calls for sharper descriptions,
+
+28
+00:01:38.580 --> 00:01:41.049
+and wrong arguments call for a tighter schema.
+
+29
+00:01:41.849 --> 00:01:45.423
+The clinic's trace showed the right call returning a bad result,
+
+30
+00:01:45.473 --> 00:01:48.028
+from a calendar tool with the wrong time zone.
+
+31
+00:01:48.358 --> 00:01:50.889
+So the fix belonged in the tool, not the prompt.
+
+32
+00:01:51.689 --> 00:01:55.906
+Your golden set needs the cases that break things, not just the happy path.
+
+33
+00:01:56.236 --> 00:01:59.095
+Add ambiguous requests, injected instructions,
+
+34
+00:01:59.145 --> 00:02:01.562
+timeouts, and questions with no answer.
+
+35
+00:02:02.362 --> 00:02:04.988
+Exam tip: never assert exact strings,
+
+36
+00:02:05.038 --> 00:02:08.605
+and judge production agents on pass^k, not pass@k.
+
+37
+00:02:08.935 --> 00:02:11.445
+Read on to build the pyramid, layer by layer.

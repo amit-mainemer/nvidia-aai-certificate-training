@@ -1,0 +1,145 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:01.893
+Lesson one is tool design.
+
+2
+00:00:02.223 --> 00:00:05.245
+It's the contract between a model and the system it drives.
+
+3
+00:00:06.045 --> 00:00:10.560
+Picture a plant shop whose support agent has two tools, both described as search.
+
+4
+00:00:10.890 --> 00:00:15.235
+A customer asks where her fern is, and the agent searches the product catalogue.
+
+5
+00:00:16.035 --> 00:00:17.585
+The team wants a bigger model.
+
+6
+00:00:17.915 --> 00:00:21.065
+But a vague tool is far more often the cause than a weak model.
+
+7
+00:00:21.865 --> 00:00:23.820
+The model never runs anything itself.
+
+8
+00:00:24.150 --> 00:00:29.327
+It emits a request: a tool name, plus JSON arguments matching a declared schema.
+
+9
+00:00:30.127 --> 00:00:33.160
+Your runtime validates, authorises, and runs it,
+
+10
+00:00:33.210 --> 00:00:35.858
+then returns the result as an observation.
+
+11
+00:00:36.188 --> 00:00:39.295
+That split underpins every security control in an agent.
+
+12
+00:00:40.095 --> 00:00:44.845
+A strict JSON Schema lets code reject a malformed call before it runs.
+
+13
+00:00:45.175 --> 00:00:48.197
+The error goes back to the model, which can correct itself.
+
+14
+00:00:48.997 --> 00:00:52.063
+The schema also lets providers constrain decoding,
+
+15
+00:00:52.113 --> 00:00:54.494
+so arguments are valid by construction.
+
+16
+00:00:54.824 --> 00:00:59.041
+And enums, limits, and formats describe valid values better than prose.
+
+17
+00:00:59.841 --> 00:01:03.332
+The description is a prompt, read just as the model picks a tool.
+
+18
+00:01:03.662 --> 00:01:07.089
+Say what it does, when to use it, when not to, and what it returns.
+
+19
+00:01:07.889 --> 00:01:12.213
+So the shop adds negative scope: order lookup is for a customer's own orders.
+
+20
+00:01:12.543 --> 00:01:15.522
+Do not use it for products; use product search instead.
+
+21
+00:01:16.322 --> 00:01:18.519
+Too many similar tools blur together,
+
+22
+00:01:18.569 --> 00:01:23.376
+yet one giant tool with a mode switch just moves the confusion into an argument.
+
+23
+00:01:23.706 --> 00:01:26.130
+So climb a ladder: sharper descriptions,
+
+24
+00:01:26.180 --> 00:01:29.160
+merge or split, group, retrieve, then sub-agents.
+
+25
+00:01:29.960 --> 00:01:34.326
+Then a refund call times out after the refund went through, and the agent retries.
+
+26
+00:01:34.656 --> 00:01:38.082
+An idempotency key, which the server deduplicates on,
+
+27
+00:01:38.132 --> 00:01:40.771
+means the customer is refunded only once.
+
+28
+00:01:41.571 --> 00:01:45.895
+Separate read and write tools, and put destructive ones behind human approval.
+
+29
+00:01:46.225 --> 00:01:51.351
+And make errors actionable: "expected YYYY-MM-DD" lets the model fix itself,
+
+30
+00:01:51.401 --> 00:01:53.599
+while "400 Bad Request" does not.
+
+31
+00:01:54.399 --> 00:01:57.890
+Authorisation belongs in the tool, never in the system prompt.
+
+32
+00:01:58.220 --> 00:02:00.630
+Check the user's permissions on every call,
+
+33
+00:02:00.680 --> 00:02:03.375
+the only defence that survives prompt injection.
+
+34
+00:02:04.175 --> 00:02:07.764
+Exam trap: strict typing does not eliminate hallucination,
+
+35
+00:02:07.814 --> 00:02:11.528
+because it guarantees a well-formed call, not the right one.
+
+36
+00:02:11.858 --> 00:02:14.048
+Read on for the full tool-design checklist.

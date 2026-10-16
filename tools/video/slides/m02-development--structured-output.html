@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module 2 · Lesson 2 — Structured output</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  svg .mono, svg .mono text, svg text.mono { font-family: 'SF Mono', Menlo, Consolas, monospace; white-space: pre; }
+</style>
+</head>
+<body>
+
+<!-- local symbols -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="receipt" viewBox="0 0 140 200">
+      <path d="M10 0 H130 V190 L115 180 L100 190 L85 180 L70 190 L55 180 L40 190 L25 180 L10 190 Z" fill="var(--paper, #fff)"/>
+      <rect x="30" y="24" width="80" height="12" rx="6" fill="var(--accent, #ff7a59)"/>
+      <g fill="var(--lines, #c3cbe0)"><rect x="24" y="56" width="60" height="8" rx="4"/><rect x="24" y="76" width="70" height="8" rx="4"/><rect x="24" y="96" width="50" height="8" rx="4"/></g>
+      <g fill="var(--lines, #c3cbe0)"><rect x="98" y="56" width="20" height="8" rx="4"/><rect x="98" y="76" width="20" height="8" rx="4"/><rect x="98" y="96" width="20" height="8" rx="4"/></g>
+      <rect x="24" y="126" width="94" height="4" fill="var(--lines, #c3cbe0)"/>
+      <rect x="24" y="142" width="40" height="12" rx="6" fill="var(--ink, #1d2340)"/><rect x="84" y="142" width="34" height="12" rx="6" fill="var(--ink, #1d2340)"/>
+    </symbol>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#ff5d73"/></marker>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#16a34a"/></marker>
+    <marker id="ah-white" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#ffffff"/></marker>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1d2340"/></marker>
+    <marker id="ah-violet" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#7c5cff"/></marker>
+    <marker id="ah-amber" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#c25e00"/></marker>
+  </defs>
+</svg>
+
+<!-- 1 · output that always parses -->
+<section class="slide t-teal" style="--accent:#0b7f75">
+  <div class="cap"><span class="eyebrow">Module 2 · Lesson 2</span><h1>Output that <em>always parses</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#robot" x="130" y="440" width="290" height="381" style="--body:#7c5cff"/>
+    <path d="M430 620 H 560" stroke="#fff" stroke-width="10" stroke-dasharray="6 18" stroke-linecap="round" marker-end="url(#ah-white)"/>
+    <rect x="590" y="360" width="720" height="480" rx="32" fill="#1d2340"/>
+    <circle cx="635" cy="402" r="11" fill="#ff5d73"/><circle cx="670" cy="402" r="11" fill="#ffb020"/><circle cx="705" cy="402" r="11" fill="#22b8a6"/>
+    <g class="mono" font-size="42" font-weight="700" fill="#e8eefc">
+      <text x="640" y="495">{ <tspan fill="#7ff0d8">"category"</tspan>: <tspan fill="#ffcf4a">"Taxi"</tspan>,</text>
+      <text x="640" y="570">  <tspan fill="#7ff0d8">"amount"</tspan>: <tspan fill="#ff9fb5">23.40</tspan>,</text>
+      <text x="640" y="645">  <tspan fill="#7ff0d8">"currency"</tspan>: <tspan fill="#ffcf4a">"EUR"</tspan>,</text>
+      <text x="640" y="720">  <tspan fill="#7ff0d8">"review"</tspan>: <tspan fill="#ff9fb5">false</tspan> }</text>
+    </g>
+    <path d="M1320 600 H 1450" stroke="#fff" stroke-width="10" stroke-dasharray="6 18" stroke-linecap="round" marker-end="url(#ah-white)"/>
+    <use href="sprites.svg#gear" x="1480" y="440" width="230" height="230" style="--body:#ffcf4a"/>
+    <use href="sprites.svg#gear" x="1660" y="620" width="130" height="130" style="--body:#7ff0d8"/>
+    <use href="sprites.svg#check" x="1240" y="300" width="110" height="110"/>
+    <use href="sprites.svg#sparkle" x="1600" y="190" width="80" height="80"/>
+  </svg>
+  <div class="lbl dark lg" style="left:1600px; top:830px">Your program</div>
+</section>
+
+<!-- 2 · the expense bot -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">A real-world case</span><h1>An <em>expense bot</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="#receipt" x="110" y="400" width="160" height="229" transform="rotate(-10 190 515)" style="--accent:#ff7a59"/>
+    <use href="#receipt" x="220" y="480" width="160" height="229" transform="rotate(8 300 595)" style="--accent:#7c5cff"/>
+    <use href="#receipt" x="150" y="600" width="160" height="229" transform="rotate(-4 230 715)" style="--accent:#22b8a6"/>
+    <path d="M400 640 H 480" stroke="#1d2340" stroke-width="10" stroke-linecap="round" marker-end="url(#ah-ink)"/>
+    <use href="sprites.svg#robot" x="500" y="480" width="250" height="328" style="--body:#22b8a6"/>
+    <path d="M770 640 H 850" stroke="#1d2340" stroke-width="10" stroke-linecap="round" marker-end="url(#ah-ink)"/>
+    <!-- finance system with 12 slots -->
+    <rect x="880" y="330" width="920" height="560" rx="36" fill="#fff"/>
+    <text x="930" y="405" font-size="40" font-weight="900" fill="#1d2340">Finance system · categories</text>
+    <g font-size="28" font-weight="800" fill="#1d2340" text-anchor="middle">
+      <g fill="#fff3d6"><rect x="930" y="440" width="190" height="80" rx="18"/><rect x="1140" y="440" width="190" height="80" rx="18"/><rect x="1350" y="440" width="190" height="80" rx="18"/><rect x="1560" y="440" width="190" height="80" rx="18"/>
+      <rect x="930" y="545" width="190" height="80" rx="18"/><rect x="1140" y="545" width="190" height="80" rx="18"/><rect x="1350" y="545" width="190" height="80" rx="18"/><rect x="1560" y="545" width="190" height="80" rx="18"/>
+      <rect x="930" y="650" width="190" height="80" rx="18"/><rect x="1140" y="650" width="190" height="80" rx="18"/><rect x="1350" y="650" width="190" height="80" rx="18"/><rect x="1560" y="650" width="190" height="80" rx="18"/></g>
+      <text x="1025" y="490">Taxi</text><text x="1235" y="490">Hotel</text><text x="1445" y="490">Flights</text><text x="1655" y="490">Meals</text>
+      <text x="1025" y="595">Catering</text><text x="1235" y="595">Software</text><text x="1445" y="595">Office</text><text x="1655" y="595">Training</text>
+      <text x="1025" y="700">Phone</text><text x="1235" y="700">Parking</text><text x="1445" y="700">Postage</text><text x="1655" y="700">Other</text>
+    </g>
+    <use href="sprites.svg#lock" x="1650" y="760" width="80" height="100"/>
+    <text x="930" y="820" font-size="32" font-weight="800" fill="#c25e00">exactly 12 — nothing else</text>
+  </svg>
+</section>
+
+<!-- 3 · a thirteenth category -->
+<section class="slide t-rose" style="--accent:#d6336c">
+  <div class="cap"><span class="eyebrow">What goes wrong</span><h1>A <em>thirteenth</em> category</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#robot" x="110" y="470" width="250" height="328" style="--body:#22b8a6"/>
+    <rect x="420" y="380" width="780" height="330" rx="32" fill="#fff"/>
+    <g class="mono" font-size="44" font-weight="700" fill="#1d2340">
+      <text x="470" y="470">{ <tspan fill="#1f6fbf">"category"</tspan>:</text>
+      <text x="520" y="555" fill="#e11d48">"team vibes"</text>
+      <text x="470" y="640">  <tspan fill="#1f6fbf">"amount"</tspan>: 86.00 }</text>
+    </g>
+    <rect x="505" y="505" width="340" height="72" rx="16" fill="none" stroke="#ff5d73" stroke-width="6"/>
+    <use href="sprites.svg#arrow" x="1220" y="520" width="150" height="45" style="--body:#d6336c"/>
+    <!-- rejected batch -->
+    <use href="#receipt" x="1420" y="380" width="160" height="229" transform="rotate(-8 1500 495)" style="--accent:#ff7a59"/>
+    <use href="#receipt" x="1520" y="400" width="160" height="229" transform="rotate(6 1600 515)" style="--accent:#7c5cff"/>
+    <use href="#receipt" x="1620" y="380" width="160" height="229" transform="rotate(-3 1700 495)" style="--accent:#22b8a6"/>
+    <use href="sprites.svg#cross" x="1530" y="560" width="170" height="170"/>
+  </svg>
+  <div class="lbl amber" style="left:810px; top:780px">Not one of the 12</div>
+  <div class="lbl red lg" style="left:1600px; top:830px">Whole batch fails</div>
+</section>
+
+<!-- 4 · prompt-and-hope, validate-and-retry -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Weakest guarantees</span><h1>Ask, then <em>hope</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- lane 1 -->
+    <rect x="110" y="340" width="800" height="530" rx="34" fill="#fff"/>
+    <text x="160" y="415" font-size="30" font-weight="900" fill="#1f6fbf" letter-spacing="2">1 · PROMPT AND HOPE</text>
+    <use href="sprites.svg#chat" x="160" y="450" width="330" height="260" style="--dot:#fff; --body:#eef4ff"/>
+    <g font-size="38" font-weight="800" fill="#1d2340" text-anchor="middle"><text x="325" y="540">“Reply in</text><text x="325" y="590">JSON, please”</text></g>
+    <use href="sprites.svg#question" x="600" y="480" width="170" height="170"/>
+    <text x="510" y="800" text-anchor="middle" font-size="36" font-weight="800" fill="#4a5275">Prototyping only</text>
+    <!-- lane 2 -->
+    <rect x="970" y="340" width="840" height="530" rx="34" fill="#fff"/>
+    <text x="1020" y="415" font-size="30" font-weight="900" fill="#1f6fbf" letter-spacing="2">2 · VALIDATE AND RETRY</text>
+    <use href="sprites.svg#robot-head" x="1030" y="490" width="170" height="134" style="--body:#7c5cff"/>
+    <use href="sprites.svg#checklist" x="1480" y="460" width="140" height="168"/>
+    <path d="M1215 520 C 1300 450, 1400 450, 1465 520" fill="none" stroke="#1f6fbf" stroke-width="9" stroke-linecap="round" marker-end="url(#ah-ink)"/>
+    <path d="M1465 620 C 1400 690, 1300 690, 1215 620" fill="none" stroke="#ff5d73" stroke-width="9" stroke-dasharray="4 14" stroke-linecap="round" marker-end="url(#ah-red)"/>
+    <text x="1340" y="720" text-anchor="middle" class="mono" font-size="30" font-weight="800" fill="#e11d48">retry 3…</text>
+    <use href="sprites.svg#hourglass" x="1680" y="470" width="90" height="131"/>
+    <text x="1390" y="800" text-anchor="middle" font-size="36" font-weight="800" fill="#4a5275">Eventually, usually</text>
+  </svg>
+  <div class="lbl red" style="left:510px; top:870px">No guarantee</div>
+  <div class="lbl amber" style="left:1390px; top:870px">Extra round trips</div>
+</section>
+
+<!-- 5 · schema mode -->
+<section class="slide t-night" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Production default</span><h1>Provider <em>schema mode</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#doc" x="140" y="400" width="250" height="308" style="--accent:#7c5cff"/>
+    <text x="265" y="640" text-anchor="middle" class="mono" font-size="60" font-weight="900" fill="#7c5cff">{ }</text>
+    <text x="265" y="770" text-anchor="middle" font-size="34" font-weight="900" fill="#fff">your schema</text>
+    <path d="M410 560 H 540" stroke="#b9a8ff" stroke-width="10" stroke-linecap="round" marker-end="url(#ah-violet)"/>
+    <use href="sprites.svg#cloud" x="560" y="400" width="480" height="284" style="--body:#e8eefc"/>
+    <text x="800" y="580" text-anchor="middle" font-size="46" font-weight="900" fill="#1d2340">LLM API</text>
+    <rect x="690" y="600" width="220" height="56" rx="28" fill="#7c5cff"/>
+    <text x="800" y="638" text-anchor="middle" font-size="26" font-weight="800" fill="#fff">schema mode on</text>
+    <path d="M1060 560 H 1190" stroke="#b9a8ff" stroke-width="10" stroke-linecap="round" marker-end="url(#ah-violet)"/>
+    <rect x="1210" y="380" width="580" height="360" rx="30" fill="#fff"/>
+    <g class="mono" font-size="38" font-weight="700" fill="#1d2340">
+      <text x="1250" y="470">{ <tspan fill="#1f6fbf">"category"</tspan>:</text>
+      <text x="1300" y="535" fill="#16a34a">"Parking"</text>
+      <text x="1250" y="600">  <tspan fill="#1f6fbf">"amount"</tspan>: 12.00 }</text>
+    </g>
+    <use href="sprites.svg#check" x="1700" y="330" width="110" height="110"/>
+    <use href="sprites.svg#coin" x="1270" y="630" width="80" height="80"/>
+    <text x="1370" y="685" font-size="32" font-weight="800" fill="#4a5275">no extra cost</text>
+  </svg>
+  <div class="lbl green lg" style="left:1500px; top:830px">Valid JSON, matches schema</div>
+</section>
+
+<!-- 6 · constrained decoding masks tokens -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Constrained decoding</span><h1>Mask the <em>invalid tokens</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#robot-head" x="120" y="440" width="260" height="204" style="--body:#7c5cff"/>
+    <text x="250" y="720" text-anchor="middle" font-size="32" font-weight="800" fill="#1d2340">next token?</text>
+    <rect x="470" y="340" width="1310" height="540" rx="34" fill="#fff"/>
+    <text x="520" y="410" class="mono" font-size="36" font-weight="800" fill="#4a5275">"category": ▮</text>
+    <!-- bars -->
+    <g font-size="36" font-weight="800" class="mono">
+      <text x="520" y="492" fill="#1d2340">"Taxi"</text>
+      <text x="520" y="582" fill="#1d2340">"Meals"</text>
+      <text x="520" y="672" fill="#9aa3bf">"team vibes"</text>
+      <text x="520" y="762" fill="#9aa3bf">"Snacks"</text>
+      <text x="520" y="852" fill="#1d2340">"Parking"</text>
+    </g>
+    <rect x="840" y="455" width="520" height="50" rx="12" fill="#7c5cff"/>
+    <rect x="840" y="545" width="300" height="50" rx="12" fill="#7c5cff"/>
+    <rect x="840" y="635" width="440" height="50" rx="12" fill="#e3e6f0"/>
+    <rect x="840" y="725" width="200" height="50" rx="12" fill="#e3e6f0"/>
+    <rect x="840" y="815" width="160" height="50" rx="12" fill="#7c5cff"/>
+    <g stroke="#ff5d73" stroke-width="7" stroke-linecap="round"><path d="M515 660 H 800"/><path d="M515 750 H 700"/></g>
+    <use href="sprites.svg#lock" x="1320" y="610" width="70" height="88"/>
+    <use href="sprites.svg#lock" x="1080" y="700" width="70" height="88"/>
+    <text x="1440" y="490" font-size="30" font-weight="900" fill="#16a34a">allowed</text>
+    <text x="1440" y="700" font-size="30" font-weight="900" fill="#e11d48">masked</text>
+  </svg>
+  <div class="lbl violet lg" style="left:1125px; top:935px">Impossible, not unlikely</div>
+</section>
+
+<!-- 7 · guided decoding on NVIDIA -->
+<section class="slide t-plum" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">On the NVIDIA stack</span><h1><em>Guided decoding</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- stack -->
+    <rect x="130" y="370" width="700" height="130" rx="28" fill="#76b900"/>
+    <text x="480" y="452" text-anchor="middle" font-size="52" font-weight="900" fill="#fff">NIM</text>
+    <rect x="130" y="520" width="700" height="130" rx="28" fill="#fff"/>
+    <text x="480" y="602" text-anchor="middle" font-size="48" font-weight="900" fill="#1d2340">TensorRT-LLM</text>
+    <g><rect x="130" y="670" width="340" height="110" rx="26" fill="#ffcf4a"/><rect x="490" y="670" width="340" height="110" rx="26" fill="#ffcf4a"/></g>
+    <g font-size="38" font-weight="900" fill="#1d2340" text-anchor="middle"><text x="300" y="738">XGrammar</text><text x="660" y="738">Outlines</text></g>
+    <path d="M860 575 H 990" stroke="#fff" stroke-width="10" stroke-linecap="round" marker-end="url(#ah-white)"/>
+    <!-- enum -->
+    <rect x="1010" y="360" width="800" height="440" rx="32" fill="#fff"/>
+    <text x="1050" y="430" class="mono" font-size="36" font-weight="800" fill="#1f6fbf">"category": enum of 12</text>
+    <g font-size="26" font-weight="800" fill="#1d2340" text-anchor="middle">
+      <g fill="#efe7ff"><rect x="1050" y="465" width="170" height="64" rx="16"/><rect x="1235" y="465" width="170" height="64" rx="16"/><rect x="1420" y="465" width="170" height="64" rx="16"/><rect x="1605" y="465" width="170" height="64" rx="16"/>
+      <rect x="1050" y="545" width="170" height="64" rx="16"/><rect x="1235" y="545" width="170" height="64" rx="16"/><rect x="1420" y="545" width="170" height="64" rx="16"/><rect x="1605" y="545" width="170" height="64" rx="16"/>
+      <rect x="1050" y="625" width="170" height="64" rx="16"/><rect x="1235" y="625" width="170" height="64" rx="16"/><rect x="1420" y="625" width="170" height="64" rx="16"/><rect x="1605" y="625" width="170" height="64" rx="16"/></g>
+      <text x="1135" y="507">Taxi</text><text x="1320" y="507">Hotel</text><text x="1505" y="507">Flights</text><text x="1690" y="507">Meals</text>
+      <text x="1135" y="587">Catering</text><text x="1320" y="587">Software</text><text x="1505" y="587">Office</text><text x="1690" y="587">Training</text>
+      <text x="1135" y="667">Phone</text><text x="1320" y="667">Parking</text><text x="1505" y="667">Postage</text><text x="1690" y="667">Other</text>
+    </g>
+    <text x="1050" y="760" font-size="32" font-weight="800" fill="#e11d48"><tspan text-decoration="line-through">"team vibes"</tspan>  can't be generated</text>
+    <use href="sprites.svg#shield" x="1720" y="290" width="110" height="127"/>
+  </svg>
+  <div class="lbl dark" style="left:480px; top:870px">Backends</div>
+  <div class="lbl green lg" style="left:1410px; top:870px">13th can never appear</div>
+</section>
+
+<!-- 8 · schema-first -->
+<section class="slide t-mint" style="--accent:#128c7e">
+  <div class="cap"><span class="eyebrow">Schema-first development</span><h1>One model, <em>three jobs</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="110" y="330" width="900" height="540" rx="32" fill="#1d2340"/>
+    <circle cx="155" cy="372" r="11" fill="#ff5d73"/><circle cx="190" cy="372" r="11" fill="#ffb020"/><circle cx="225" cy="372" r="11" fill="#22b8a6"/>
+    <g class="mono" font-size="34" font-weight="700" fill="#e8eefc">
+      <text x="150" y="450"><tspan fill="#b9a8ff">class</tspan> <tspan fill="#7ff0d8">Expense</tspan>(BaseModel):</text>
+      <text x="150" y="515">  category: <tspan fill="#ffcf4a">Literal[</tspan>"Taxi", …<tspan fill="#ffcf4a">]</tspan></text>
+      <text x="150" y="580">  amount: float = <tspan fill="#ffcf4a">Field(ge=0)</tspan></text>
+      <text x="150" y="645">  rationale: str</text>
+      <text x="150" y="710">  requires_human_review: bool</text>
+    </g>
+    <text x="150" y="820" font-size="30" font-weight="800" fill="#7ff0d8">Pydantic · single source of truth</text>
+    <g stroke="#128c7e" stroke-width="9" stroke-linecap="round" fill="none">
+      <path d="M1020 500 C 1100 500, 1100 410, 1170 410"/><path d="M1020 600 H 1170"/><path d="M1020 700 C 1100 700, 1100 790, 1170 790"/>
+    </g>
+    <g fill="#fff"><rect x="1190" y="340" width="610" height="140" rx="28"/><rect x="1190" y="530" width="610" height="140" rx="28"/><rect x="1190" y="720" width="610" height="140" rx="28"/></g>
+    <use href="sprites.svg#robot-head" x="1215" y="365" width="110" height="86" style="--body:#7c5cff"/>
+    <use href="sprites.svg#check" x="1225" y="555" width="90" height="90"/>
+    <use href="sprites.svg#puzzle" x="1225" y="745" width="90" height="90" style="--body:#22b8a6"/>
+    <g font-size="36" font-weight="900" fill="#1d2340"><text x="1350" y="400">JSON Schema</text><text x="1350" y="590">Validation</text><text x="1350" y="780">Static types</text></g>
+    <g font-size="28" font-weight="700" fill="#4a5275"><text x="1350" y="445">sent to the LLM</text><text x="1350" y="635">of what comes back</text><text x="1350" y="825">for downstream code</text></g>
+  </svg>
+</section>
+
+<!-- 9 · escalation as a field -->
+<section class="slide t-sunrise" style="--accent:#d9480f">
+  <div class="cap"><span class="eyebrow">A detail worth stealing</span><h1>Escalation is a <em>field</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- fragile string match -->
+    <rect x="110" y="360" width="620" height="220" rx="28" fill="#fff" opacity=".75"/>
+    <g class="mono" font-size="32" font-weight="700" fill="#9aa3bf"><text x="150" y="440">if "not sure" in reply:</text><text x="190" y="500">escalate()</text></g>
+    <line x1="140" y1="470" x2="700" y2="470" stroke="#ff5d73" stroke-width="8" stroke-linecap="round"/>
+    <use href="sprites.svg#cross" x="650" y="320" width="100" height="100"/>
+    <text x="420" y="640" text-anchor="middle" font-size="32" font-weight="800" fill="#1d2340">fragile prose match</text>
+    <!-- field -->
+    <rect x="110" y="690" width="880" height="160" rx="28" fill="#1d2340"/>
+    <g class="mono" font-size="38" font-weight="700" fill="#e8eefc"><text x="150" y="765"><tspan fill="#7ff0d8">"requires_human_review"</tspan>:</text><text x="580" y="820" fill="#ffcf4a">true</text></g>
+    <path d="M1000 770 H 1180" stroke="#d9480f" stroke-width="10" stroke-linecap="round" marker-end="url(#ah-ink)"/>
+    <use href="sprites.svg#person-desk" x="1200" y="480" width="560" height="480" style="--shirt:#7c5cff"/>
+    <use href="sprites.svg#flag" x="1640" y="300" width="110" height="147"/>
+  </svg>
+  <div class="lbl green" style="left:1480px; top:390px">Human reviews it</div>
+  <div class="lbl dark" style="left:550px; top:910px">Part of the contract</div>
+</section>
+
+<!-- 10 · reason then decide -->
+<section class="slide t-ocean" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Schemas shape reasoning</span><h1>Reason, <em>then decide</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- good order -->
+    <rect x="130" y="350" width="760" height="410" rx="32" fill="#fff"/>
+    <g font-size="30" font-weight="900" fill="#16a34a" letter-spacing="2"><text x="180" y="420">GOOD ORDER</text></g>
+    <rect x="180" y="450" width="660" height="120" rx="20" fill="#e3fbe9"/>
+    <rect x="180" y="600" width="660" height="120" rx="20" fill="#eef4ff"/>
+    <g class="mono" font-size="38" font-weight="800" fill="#1d2340"><text x="215" y="525">1  "rationale"</text><text x="215" y="675">2  "category"</text></g>
+    <use href="sprites.svg#brain" x="720" y="470" width="100" height="87"/>
+    <use href="sprites.svg#check" x="810" y="310" width="100" height="100"/>
+    <!-- bad order -->
+    <rect x="1030" y="350" width="760" height="410" rx="32" fill="#fff" opacity=".9"/>
+    <g font-size="30" font-weight="900" fill="#e11d48" letter-spacing="2"><text x="1080" y="420">REVERSED</text></g>
+    <rect x="1080" y="450" width="660" height="120" rx="20" fill="#ffe0e5"/>
+    <rect x="1080" y="600" width="660" height="120" rx="20" fill="#f3f4f8"/>
+    <g class="mono" font-size="38" font-weight="800" fill="#1d2340"><text x="1115" y="525">1  "category"</text><text x="1115" y="675">2  "rationale"</text></g>
+    <use href="sprites.svg#cross" x="1710" y="310" width="100" height="100"/>
+  </svg>
+  <div class="lbl green lg" style="left:510px; top:830px">Thinks, then commits</div>
+  <div class="lbl red lg" style="left:1410px; top:830px">Justifies a guess</div>
+</section>
+
+<!-- 11 · enums, abstain, shallow -->
+<section class="slide t-sand" style="--accent:#e2533a">
+  <div class="cap"><span class="eyebrow">Schema design rules</span><h1>Enums, unsure, <em>shallow</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="110" y="340" width="540" height="520" rx="32"/><rect x="690" y="340" width="540" height="520" rx="32"/><rect x="1270" y="340" width="540" height="520" rx="32"/></g>
+    <g font-size="30" font-weight="900" fill="#e2533a" letter-spacing="2"><text x="150" y="405">ENUMS</text><text x="730" y="405">ABSTAIN</text><text x="1310" y="405">FLAT</text></g>
+    <!-- enum chips -->
+    <g font-size="30" font-weight="800" fill="#1d2340" text-anchor="middle">
+      <rect x="150" y="440" width="210" height="70" rx="35" fill="#ffe9d6"/><text x="255" y="486">approve</text>
+      <rect x="380" y="440" width="230" height="70" rx="35" fill="#ffe9d6"/><text x="495" y="486">reject</text>
+      <rect x="150" y="530" width="240" height="70" rx="35" fill="#ffe9d6"/><text x="270" y="576">escalate</text>
+    </g>
+    <text x="150" y="680" font-size="30" font-weight="700" fill="#4a5275">anything you</text>
+    <text x="150" y="720" font-size="30" font-weight="700" fill="#4a5275">branch on</text>
+    <use href="sprites.svg#target" x="480" y="650" width="130" height="130"/>
+    <!-- abstain -->
+    <g font-size="30" font-weight="800" text-anchor="middle">
+      <rect x="730" y="440" width="200" height="70" rx="35" fill="#e3fbe9"/><text x="830" y="486" fill="#1d2340">Taxi</text>
+      <rect x="950" y="440" width="240" height="70" rx="35" fill="#e3fbe9"/><text x="1070" y="486" fill="#1d2340">Meals</text>
+      <rect x="730" y="530" width="300" height="70" rx="35" fill="#7c5cff"/><text x="880" y="576" fill="#fff">unsure</text>
+    </g>
+    <text x="730" y="680" font-size="30" font-weight="700" fill="#4a5275">“I don't know”</text>
+    <text x="730" y="720" font-size="30" font-weight="700" fill="#4a5275">is representable</text>
+    <use href="sprites.svg#question" x="1080" y="640" width="110" height="110"/>
+    <!-- flat vs nested -->
+    <g stroke="#c3cbe0" stroke-width="6" fill="none"><path d="M1340 460 V 560 H 1400 M1400 560 V 640 H 1460 M1460 640 V 720 H 1520"/></g>
+    <g fill="#ffe0e5"><rect x="1310" y="440" width="70" height="40" rx="10"/><rect x="1400" y="540" width="70" height="40" rx="10"/><rect x="1460" y="620" width="70" height="40" rx="10"/><rect x="1520" y="700" width="70" height="40" rx="10"/></g>
+    <use href="sprites.svg#cross" x="1480" y="430" width="60" height="60"/>
+    <g fill="#e3fbe9"><rect x="1620" y="450" width="150" height="40" rx="10"/><rect x="1620" y="510" width="150" height="40" rx="10"/><rect x="1620" y="570" width="150" height="40" rx="10"/><rect x="1620" y="630" width="150" height="40" rx="10"/></g>
+    <use href="sprites.svg#check" x="1665" y="690" width="60" height="60"/>
+    <text x="1310" y="800" font-size="30" font-weight="700" fill="#4a5275">deep nesting → errors</text>
+  </svg>
+</section>
+
+<!-- 12 · form, not truth -->
+<section class="slide t-coral" style="--accent:#e2533a">
+  <div class="cap"><span class="eyebrow">The limit</span><h1>Form, <em>not truth</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="#receipt" x="150" y="360" width="280" height="400" transform="rotate(-6 290 560)" style="--accent:#1d2340"/>
+    <rect x="170" y="400" width="200" height="64" rx="14" fill="#ffcf4a" transform="rotate(-6 290 560)"/>
+    <text x="270" y="446" text-anchor="middle" font-size="36" font-weight="900" fill="#1d2340" transform="rotate(-6 290 560)">TAXI</text>
+    <path d="M480 560 H 600" stroke="#fff" stroke-width="10" stroke-linecap="round" marker-end="url(#ah-white)"/>
+    <rect x="630" y="360" width="760" height="400" rx="32" fill="#fff"/>
+    <g class="mono" font-size="42" font-weight="700" fill="#1d2340">
+      <text x="680" y="455">{ <tspan fill="#1f6fbf">"category"</tspan>:</text>
+      <text x="730" y="530" fill="#e11d48">"Catering"</text>
+      <text x="680" y="605">  <tspan fill="#1f6fbf">"amount"</tspan>: 38.50 }</text>
+    </g>
+    <use href="sprites.svg#magnifier" x="1300" y="500" width="220" height="220"/>
+    <use href="sprites.svg#person-worried" x="1600" y="420" width="190" height="380" style="--shirt:#7c5cff"/>
+  </svg>
+  <div class="lbl green lg" style="left:830px; top:830px">✓ Schema-valid</div>
+  <div class="lbl dark lg" style="left:1270px; top:830px">✗ Wrong</div>
+  <div class="lbl sm" style="left:1010px; top:915px">Needs grounding and evaluation</div>
+</section>
+
+<!-- 13 · exam: 50 tool names -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">The canonical question</span><h1>Fifty tools, <em>one valid</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- grid of 50 tools -->
+    <g fill="#fff">
+      <rect x="120" y="340" width="600" height="400" rx="28"/>
+    </g>
+    <g fill="#ffe9b8">
+      <rect x="150" y="370" width="46" height="46" rx="10"/><rect x="206" y="370" width="46" height="46" rx="10"/><rect x="262" y="370" width="46" height="46" rx="10"/><rect x="318" y="370" width="46" height="46" rx="10"/><rect x="374" y="370" width="46" height="46" rx="10"/><rect x="430" y="370" width="46" height="46" rx="10"/><rect x="486" y="370" width="46" height="46" rx="10"/><rect x="542" y="370" width="46" height="46" rx="10"/><rect x="598" y="370" width="46" height="46" rx="10"/><rect x="654" y="370" width="46" height="46" rx="10"/>
+      <rect x="150" y="426" width="46" height="46" rx="10"/><rect x="206" y="426" width="46" height="46" rx="10"/><rect x="262" y="426" width="46" height="46" rx="10"/><rect x="318" y="426" width="46" height="46" rx="10"/><rect x="374" y="426" width="46" height="46" rx="10"/><rect x="430" y="426" width="46" height="46" rx="10"/><rect x="486" y="426" width="46" height="46" rx="10"/><rect x="542" y="426" width="46" height="46" rx="10"/><rect x="598" y="426" width="46" height="46" rx="10"/><rect x="654" y="426" width="46" height="46" rx="10"/>
+      <rect x="150" y="482" width="46" height="46" rx="10"/><rect x="206" y="482" width="46" height="46" rx="10"/><rect x="262" y="482" width="46" height="46" rx="10"/><rect x="318" y="482" width="46" height="46" rx="10"/><rect x="374" y="482" width="46" height="46" rx="10"/><rect x="430" y="482" width="46" height="46" rx="10"/><rect x="486" y="482" width="46" height="46" rx="10"/><rect x="542" y="482" width="46" height="46" rx="10"/><rect x="598" y="482" width="46" height="46" rx="10"/><rect x="654" y="482" width="46" height="46" rx="10"/>
+      <rect x="150" y="538" width="46" height="46" rx="10"/><rect x="206" y="538" width="46" height="46" rx="10"/><rect x="262" y="538" width="46" height="46" rx="10"/><rect x="318" y="538" width="46" height="46" rx="10"/><rect x="374" y="538" width="46" height="46" rx="10"/><rect x="430" y="538" width="46" height="46" rx="10"/><rect x="486" y="538" width="46" height="46" rx="10"/><rect x="542" y="538" width="46" height="46" rx="10"/><rect x="598" y="538" width="46" height="46" rx="10"/><rect x="654" y="538" width="46" height="46" rx="10"/>
+      <rect x="150" y="594" width="46" height="46" rx="10"/><rect x="206" y="594" width="46" height="46" rx="10"/><rect x="262" y="594" width="46" height="46" rx="10"/><rect x="318" y="594" width="46" height="46" rx="10"/><rect x="374" y="594" width="46" height="46" rx="10"/><rect x="430" y="594" width="46" height="46" rx="10"/><rect x="486" y="594" width="46" height="46" rx="10"/><rect x="542" y="594" width="46" height="46" rx="10"/><rect x="598" y="594" width="46" height="46" rx="10"/><rect x="654" y="594" width="46" height="46" rx="10"/>
+    </g>
+    <text x="420" y="705" text-anchor="middle" font-size="34" font-weight="900" fill="#1d2340">50 registered tools</text>
+    <rect x="120" y="770" width="600" height="90" rx="24" fill="#1d2340"/>
+    <text x="150" y="828" class="mono" font-size="34" font-weight="800" fill="#ff9fb5">"send_emial" ← invented</text>
+    <!-- bars: reduce vs eliminate -->
+    <rect x="800" y="340" width="1000" height="520" rx="32" fill="#fff"/>
+    <g font-size="32" font-weight="800" fill="#1d2340">
+      <text x="840" y="425">Retry loop</text><text x="840" y="525">Lower temperature</text><text x="840" y="625">Better prompt</text><text x="840" y="745" font-weight="900" fill="#16a34a">Constrained</text><text x="840" y="785" font-weight="900" fill="#16a34a">decoding (enum)</text>
+    </g>
+    <g fill="#ffb4a6"><rect x="1180" y="395" width="300" height="42" rx="12"/><rect x="1180" y="495" width="360" height="42" rx="12"/><rect x="1180" y="595" width="260" height="42" rx="12"/></g>
+    <rect x="1180" y="740" width="12" height="42" rx="6" fill="#16a34a"/>
+    <g font-size="28" font-weight="800" fill="#c25e00"><text x="1500" y="426">reduces</text><text x="1560" y="526">reduces</text><text x="1460" y="626">reduces</text></g>
+    <text x="1215" y="772" font-size="34" font-weight="900" fill="#16a34a">0% → eliminates</text>
+    <text x="1180" y="820" font-size="24" font-weight="700" fill="#4a5275">invalid names per run</text>
+  </svg>
+</section>
+
+<!-- 14 · unlikely vs impossible -->
+<section class="slide t-mint" style="--accent:#128c7e">
+  <div class="cap"><span class="eyebrow">Remember this</span><h1>Unlikely vs <em>impossible</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- unlikely gauge -->
+    <rect x="160" y="350" width="720" height="460" rx="36" fill="#fff"/>
+    <path d="M300 690 A 220 220 0 0 1 740 690" fill="none" stroke="#e3e6f0" stroke-width="50"/>
+    <path d="M300 690 A 220 220 0 0 1 340 564" fill="none" stroke="#ff5d73" stroke-width="50"/>
+    <line x1="520" y1="690" x2="340" y2="600" stroke="#1d2340" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="520" cy="690" r="20" fill="#1d2340"/>
+    <text x="520" y="775" text-anchor="middle" font-size="40" font-weight="900" fill="#e11d48">Unlikely</text>
+    <text x="520" y="430" text-anchor="middle" font-size="30" font-weight="800" fill="#4a5275">prompts · retries · temperature</text>
+    <!-- impossible -->
+    <rect x="1040" y="350" width="720" height="460" rx="36" fill="#fff"/>
+    <use href="sprites.svg#lock" x="1320" y="460" width="160" height="200"/>
+    <text x="1400" y="775" text-anchor="middle" font-size="40" font-weight="900" fill="#16a34a">Impossible</text>
+    <text x="1400" y="430" text-anchor="middle" font-size="30" font-weight="800" fill="#4a5275">constrained decoding</text>
+    <use href="sprites.svg#sparkle" x="1680" y="200" width="80" height="80"/>
+  </svg>
+  <div class="lbl dark" style="left:960px; top:900px">Next · read the full comparison table →</div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:03.599
+Welcome to lesson two: scaling agents on Kubernetes.
+
+2
+00:00:03.929 --> 00:00:06.418
+Agent systems scale as two separate tiers,
+
+3
+00:00:06.468 --> 00:00:08.957
+and confusing them is the classic mistake.
+
+4
+00:00:09.757 --> 00:00:12.971
+At ten a.m., tickets for a stadium tour go on sale.
+
+5
+00:00:13.301 --> 00:00:17.283
+The venue's help agent gets forty thousand questions in the first minute.
+
+6
+00:00:18.083 --> 00:00:22.043
+The autoscaler watches CPU, and CPU sits at twenty percent.
+
+7
+00:00:22.373 --> 00:00:24.427
+Meanwhile the GPUs are saturated,
+
+8
+00:00:24.477 --> 00:00:27.678
+requests queue, and fans wait a minute for a reply.
+
+9
+00:00:28.478 --> 00:00:31.785
+The first tier is agent orchestration: CPU-bound,
+
+10
+00:00:31.835 --> 00:00:34.593
+mostly waiting on I/O, and cheap to copy.
+
+11
+00:00:34.923 --> 00:00:38.265
+Keep it stateless, and scale it on request rate and concurrency.
+
+12
+00:00:39.065 --> 00:00:42.103
+The second tier is model inference: GPU-bound,
+
+13
+00:00:42.153 --> 00:00:44.989
+expensive, and usually the real bottleneck.
+
+14
+00:00:45.319 --> 00:00:50.111
+Scale it on queue depth, batch occupancy, or a latency target, typically with KEDA.
+
+15
+00:00:50.911 --> 00:00:55.085
+Even on the right signal, a new GPU replica can take minutes to start.
+
+16
+00:00:55.415 --> 00:01:00.187
+It must pull a huge image, load weights into GPU memory, and load the engine.
+
+17
+00:01:00.987 --> 00:01:05.737
+So pre-cache the model with the NIM Operator's NIMCache, so pods skip the download.
+
+18
+00:01:06.067 --> 00:01:08.057
+And keep a warm floor of replicas,
+
+19
+00:01:08.107 --> 00:01:11.777
+because scale-to-zero is wrong for latency-sensitive services.
+
+20
+00:01:12.577 --> 00:01:16.729
+Trigger scale-up at sixty to seventy percent capacity, not ninety-five.
+
+21
+00:01:17.059 --> 00:01:20.231
+Then the new replica is ready before the rush, not after it.
+
+22
+00:01:21.031 --> 00:01:23.797
+Sometimes one GPU must serve several workloads.
+
+23
+00:01:24.127 --> 00:01:28.188
+MIG slices it in hardware, with dedicated compute and memory,
+
+24
+00:01:28.238 --> 00:01:30.413
+for hard multi-tenant guarantees.
+
+25
+00:01:31.213 --> 00:01:35.003
+Time-slicing has no isolation, so keep it for dev and test.
+
+26
+00:01:35.333 --> 00:01:41.597
+MPS offers partial isolation, and latency-critical inference gets a dedicated GPU.
+
+27
+00:01:42.397 --> 00:01:46.699
+After the sale comes the bill, and the biggest saving is routing by difficulty.
+
+28
+00:01:47.029 --> 00:01:50.486
+A small classifier sends easy questions to a small model,
+
+29
+00:01:50.536 --> 00:01:52.270
+and hard ones to a large one.
+
+30
+00:01:53.070 --> 00:01:56.284
+Next, cache repeated answers and the shared system prompt.
+
+31
+00:01:56.614 --> 00:01:58.084
+Then shrink the agent loop,
+
+32
+00:01:58.134 --> 00:02:02.025
+distill a small model from production traces, and batch what can wait.
+
+33
+00:02:02.825 --> 00:02:06.701
+Measure cost per successfully completed task, not cost per token.
+
+34
+00:02:07.031 --> 00:02:09.605
+A cheaper model that fails and needs extra
+
+35
+00:02:09.655 --> 00:02:12.229
+steps can cost more per resolved question.
+
+36
+00:02:13.029 --> 00:02:17.757
+On the exam, never autoscale GPU inference on CPU utilization.
+
+37
+00:02:18.087 --> 00:02:22.709
+Scale on queue depth or latency with a warm floor, then read on for the details.

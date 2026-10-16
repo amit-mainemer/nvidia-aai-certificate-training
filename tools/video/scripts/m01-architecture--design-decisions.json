@@ -1,0 +1,101 @@
+{
+  "module": "architecture",
+  "title": "Module 1 · Lesson 5 — Choosing an architecture under real constraints",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Picture Maya, the only AI architect at an insurer, with three requests on Monday.",
+        "Automate claims, brief strategy on competitors, and add a website chat assistant."
+      ]
+    },
+    {
+      "lines": [
+        "A vendor pitches one autonomous agent for all three.",
+        "Maya runs a five-step decision procedure instead, and gets three different answers."
+      ]
+    },
+    {
+      "lines": [
+        "Step one: extract the hard constraints first.",
+        "Latency, cost, data residency, auditability, and accuracy floor eliminate options early."
+      ]
+    },
+    {
+      "lines": [
+        "Step two: is the sequence of steps known in advance?",
+        "Yes means a pipeline or Plan and Execute; no means a tool-calling loop."
+      ]
+    },
+    {
+      "lines": [
+        "Step three: are sub-tasks independent enough to run in parallel?",
+        "Step four: do privileges, context, or models need isolating into separate agents?"
+      ]
+    },
+    {
+      "lines": [
+        "Step five: name the termination and escalation policy.",
+        "Without a stop condition and a human handoff rule, the design is incomplete."
+      ]
+    },
+    {
+      "lines": [
+        "Claims follow fixed, regulated steps, fifty thousand a day, all auditable.",
+        "So: a deterministic pipeline with LLM components inside the stages, not an agent."
+      ]
+    },
+    {
+      "lines": [
+        "Every stage is versioned, evaluated, and written to an audit trail.",
+        "Low-confidence fraud flags escalate to a human adjuster."
+      ]
+    },
+    {
+      "lines": [
+        "The competitor brief splits into four independent threads: funding, launches, hiring, and sentiment.",
+        "Ten minutes is fine, so a supervisor runs four research workers in parallel."
+      ]
+    },
+    {
+      "lines": [
+        "Each worker has its own context window and returns a cited summary.",
+        "A single ReAct agent would work one thread at a time and drown in context."
+      ],
+      "say": {
+        "1": "A single react agent would work one thread at a time and drown in context."
+      }
+    },
+    {
+      "lines": [
+        "The chat widget must answer in under two seconds, at five hundred sessions.",
+        "Loops won't fit, so it's RAG with a router and a confidence gate."
+      ],
+      "say": {
+        "1": "Loops won't fit, so it's rag, with a router and a confidence gate."
+      }
+    },
+    {
+      "lines": [
+        "When grounding looks weak, it hands off to a human with the full conversation.",
+        "Prefix caching on the system prompt keeps time to first token low."
+      ]
+    },
+    {
+      "lines": [
+        "A full design also covers state, failure containment, tracing, and a golden test set in CI.",
+        "And it shows exactly where a human sits in the loop."
+      ],
+      "say": {
+        "0": "A full design also covers state, failure containment, tracing, and a golden test set in C I."
+      }
+    },
+    {
+      "lines": [
+        "On the exam, sub-second means no loops, and regulated means deterministic, logged stages.",
+        "Happy-path-only answers are usually distractors, so read on and practise the procedure."
+      ]
+    }
+  ]
+}

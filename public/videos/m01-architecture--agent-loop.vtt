@@ -1,0 +1,145 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:04.794
+Welcome to Module One, Lesson Two: the agent loop and its control policies.
+
+2
+00:00:05.124 --> 00:00:07.954
+Every agent, in every framework, runs the same loop.
+
+3
+00:00:08.754 --> 00:00:12.715
+Picture TripWise, a travel startup whose agent books trips overnight.
+
+4
+00:00:13.045 --> 00:00:16.387
+One morning, the team wakes up to an eighteen-hundred-dollar bill.
+
+5
+00:00:17.187 --> 00:00:20.422
+A flight-search tool had returned the same error since midnight.
+
+6
+00:00:20.752 --> 00:00:23.753
+The agent kept calling it, and nothing told it to stop.
+
+7
+00:00:24.553 --> 00:00:27.447
+Start with the loop: perceive, reason, act, observe.
+
+8
+00:00:27.777 --> 00:00:31.865
+Gather the state, let the model pick a step, run the tool, and append the result.
+
+9
+00:00:32.665 --> 00:00:36.413
+Notice that the model only proposes a tool name and arguments.
+
+10
+00:00:36.743 --> 00:00:41.557
+Your runtime checks the call and runs it, so every security control lives in code.
+
+11
+00:00:42.357 --> 00:00:44.118
+When a tool fails, don't crash:
+
+12
+00:00:44.168 --> 00:00:47.683
+return the error as an observation, so the model can re-plan.
+
+13
+00:00:48.013 --> 00:00:52.464
+But bound the retries, because the same failing call three times means escalate.
+
+14
+00:00:53.264 --> 00:00:56.030
+A complete design names five control policies.
+
+15
+00:00:56.360 --> 00:01:00.939
+Termination, tool exposure, state management, error handling, and escalation.
+
+16
+00:01:01.739 --> 00:01:03.803
+Termination says when the loop stops,
+
+17
+00:01:03.853 --> 00:01:06.660
+and tool exposure says which tools the model sees.
+
+18
+00:01:06.990 --> 00:01:09.457
+State management decides what carries forward.
+
+19
+00:01:10.257 --> 00:01:14.026
+Error handling chooses to retry, fall back, or degrade gracefully.
+
+20
+00:01:14.356 --> 00:01:16.463
+Escalation hands over to a human,
+
+21
+00:01:16.513 --> 00:01:20.386
+say after repeated failure or before an irreversible action.
+
+22
+00:01:21.186 --> 00:01:25.083
+TripWise had no termination policy, and budgets are not optional.
+
+23
+00:01:25.413 --> 00:01:27.754
+Every loop needs a step cap, a cost cap,
+
+24
+00:01:27.804 --> 00:01:30.504
+and a timeout, checked before each model call.
+
+25
+00:01:31.304 --> 00:01:34.454
+Hitting a cap must fire an alert, never fail silently.
+
+26
+00:01:34.784 --> 00:01:37.666
+Add loop detection for repeated identical calls,
+
+27
+00:01:37.716 --> 00:01:40.537
+and require each iteration to change the state.
+
+28
+00:01:41.337 --> 00:01:45.660
+Then a second problem: on long trips, the agent forgot its earlier bookings.
+
+29
+00:01:45.990 --> 00:01:50.569
+A raw message list collapses by step fifty, as the context window fills.
+
+30
+00:01:51.369 --> 00:01:53.820
+The fix is structured state: goal, plan,
+
+31
+00:01:53.870 --> 00:01:56.695
+findings, and completed steps as typed fields.
+
+32
+00:01:57.025 --> 00:02:00.901
+Summarise older turns, and store big tool outputs by reference.
+
+33
+00:02:01.701 --> 00:02:02.424
+On the exam,
+
+34
+00:02:02.474 --> 00:02:05.453
+an agent that works on short tasks but degrades
+
+35
+00:02:05.503 --> 00:02:07.901
+on long ones needs context management.
+
+36
+00:02:08.231 --> 00:02:12.405
+It's not a bigger model or more retries, so read on for the full lesson.

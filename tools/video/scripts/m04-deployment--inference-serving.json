@@ -1,0 +1,110 @@
+{
+  "module": "deployment",
+  "title": "Module 4 · Lesson 1 — How LLM inference actually consumes a GPU",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to lesson one: how LLM inference actually consumes a GPU.",
+        "Every scaling answer in this domain starts here."
+      ]
+    },
+    {
+      "lines": [
+        "Picture a lawyer pasting a sixty-page contract into an assistant, asking for the risky clauses.",
+        "The screen sits blank for eight seconds, then the answer streams out smoothly."
+      ]
+    },
+    {
+      "lines": [
+        "That pause and that stream are two phases with different bottlenecks.",
+        "Prefill reads the whole prompt in parallel, saturating the GPU's compute."
+      ],
+      "say": {
+        "1": "Pree-fill reads the whole prompt in parallel, saturating the GPU's compute."
+      }
+    },
+    {
+      "lines": [
+        "Prefill sets the time to first token, and its cost grows with prompt length.",
+        "So a long contract, or a long agent transcript, means a long wait."
+      ],
+      "say": {
+        "0": "Pree-fill sets the time to first token, and its cost grows with prompt length."
+      }
+    },
+    {
+      "lines": [
+        "Decode then writes one token at a time, limited by memory bandwidth.",
+        "It sets the gap between tokens, while GPU compute sits mostly idle."
+      ]
+    },
+    {
+      "lines": [
+        "Because the phases stress different resources, NVIDIA Dynamo runs them on separate GPU pools.",
+        "Each pool is sized on its own, and the KV cache is passed between them."
+      ],
+      "say": {
+        "1": "Each pool is sized on its own, and the kay-vee cache is passed between them."
+      }
+    },
+    {
+      "lines": [
+        "Now fifty lawyers log in, and the GPU runs out of memory, though the weights fit.",
+        "The culprit is the KV cache, which stores keys and values for every token already processed."
+      ],
+      "say": {
+        "1": "The culprit is the kay-vee cache, which stores keys and values for every token already processed."
+      }
+    },
+    {
+      "lines": [
+        "It grows with batch size, sequence length, layers, and hidden size.",
+        "So the cache, not the weights, limits how many requests fit."
+      ]
+    },
+    {
+      "lines": [
+        "Agents hurt here, because a forty-step run is one very long sequence.",
+        "The fixes are paged attention, FP8 cache quantization, prefix caching, and compaction."
+      ]
+    },
+    {
+      "lines": [
+        "Static batching waits for a full batch, then stalls on the longest sequence.",
+        "Continuous batching hands each finished slot to a queued request, for a multi-fold throughput gain."
+      ]
+    },
+    {
+      "lines": [
+        "Batch size is the dial between throughput and latency.",
+        "Bigger batches raise total tokens per second, but slow each request."
+      ]
+    },
+    {
+      "lines": [
+        "NIM gives you continuous batching, prefix caching, and quantization out of the box.",
+        "But quantization is never free, so re-run your own evaluation first."
+      ],
+      "say": {
+        "0": "Nim gives you continuous batching, prefix caching, and quantization out of the box."
+      }
+    },
+    {
+      "lines": [
+        "Self-host NIM for data residency or steady volume; use a hosted API for spiky traffic.",
+        "Both are OpenAI-compatible, so switching is usually a base URL change."
+      ],
+      "say": {
+        "0": "Self-host nim for data residency or steady volume; use a hosted API for spiky traffic."
+      }
+    },
+    {
+      "lines": [
+        "On the exam, to hit a strict latency target, cap the batch size and add replicas.",
+        "Now read on for the details."
+      ]
+    }
+  ]
+}

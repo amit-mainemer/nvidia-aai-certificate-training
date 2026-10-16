@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module 2 · Lesson 3 — Frameworks</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  svg .mono, svg .mono text, svg text.mono { font-family: 'SF Mono', Menlo, Consolas, monospace; white-space: pre; }
+</style>
+</head>
+<body>
+
+<!-- local symbols -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="truck" viewBox="0 0 260 150">
+      <ellipse cx="130" cy="144" rx="120" ry="6" fill="#000" opacity=".12"/>
+      <rect x="6" y="20" width="160" height="96" rx="12" fill="var(--body, #ffb020)"/>
+      <path d="M166 50 H214 L246 84 V116 H166 Z" fill="var(--cab, #ff7a59)"/>
+      <path d="M180 60 H210 L230 84 H180 Z" fill="#cfe9ff"/>
+      <circle cx="54" cy="118" r="20" fill="#1d2340"/><circle cx="54" cy="118" r="8" fill="#c9cfdf"/>
+      <circle cx="206" cy="118" r="20" fill="#1d2340"/><circle cx="206" cy="118" r="8" fill="#c9cfdf"/>
+      <rect x="24" y="40" width="120" height="14" rx="7" fill="#fff" opacity=".7"/>
+    </symbol>
+    <symbol id="chain" viewBox="0 0 160 80">
+      <rect x="6" y="14" width="86" height="52" rx="26" fill="none" stroke="var(--body, #22b8a6)" stroke-width="14"/>
+      <rect x="68" y="14" width="86" height="52" rx="26" fill="none" stroke="var(--body, #22b8a6)" stroke-width="14"/>
+    </symbol>
+    <marker id="ah-red" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#ff5d73"/></marker>
+    <marker id="ah-green" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#16a34a"/></marker>
+    <marker id="ah-white" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#ffffff"/></marker>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#1d2340"/></marker>
+    <marker id="ah-violet" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#7c5cff"/></marker>
+    <marker id="ah-amber" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#c25e00"/></marker>
+  </defs>
+</svg>
+
+<!-- 1 · which framework fits -->
+<section class="slide t-night" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Module 2 · Lesson 3</span><h1>Which framework <em>fits?</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff">
+      <rect x="130" y="350" width="370" height="120" rx="28"/><rect x="540" y="350" width="370" height="120" rx="28"/><rect x="950" y="350" width="370" height="120" rx="28"/>
+      <rect x="130" y="500" width="370" height="120" rx="28"/><rect x="540" y="500" width="370" height="120" rx="28"/>
+    </g>
+    <use href="#chain" x="155" y="385" width="100" height="50"/>
+    <g fill="#7c5cff"><circle cx="590" cy="410" r="14"/><circle cx="640" cy="385" r="14"/><circle cx="640" cy="435" r="14"/></g>
+    <g stroke="#7c5cff" stroke-width="6"><path d="M590 410 L640 385 M590 410 L640 435"/></g>
+    <use href="sprites.svg#database" x="985" y="370" width="70" height="80"/>
+    <use href="sprites.svg#group" x="150" y="515" width="110" height="88"/>
+    <use href="sprites.svg#chat" x="565" y="520" width="100" height="79" style="--body:#5cc8ff; --dot:#fff"/>
+    <g font-size="40" font-weight="900" fill="#1d2340"><text x="280" y="425">LangChain</text><text x="680" y="425">LangGraph</text><text x="1080" y="425">LlamaIndex</text><text x="280" y="575">CrewAI</text><text x="690" y="575">AutoGen</text></g>
+    <rect x="130" y="660" width="1190" height="170" rx="34" fill="#76b900"/>
+    <text x="725" y="765" text-anchor="middle" font-size="54" font-weight="900" fill="#fff">NeMo Agent Toolkit</text>
+    <use href="sprites.svg#robot" x="1420" y="400" width="310" height="407" style="--body:#22b8a6"/>
+    <use href="sprites.svg#question" x="1680" y="300" width="130" height="130"/>
+  </svg>
+  <div class="lbl violet" style="left:1575px; top:880px">Fit the need</div>
+</section>
+
+<!-- 2 · logistics company -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">A real-world case</span><h1>Three teams, <em>three frameworks</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="#truck" x="1450" y="120" width="360" height="208"/>
+    <g fill="#fff"><rect x="120" y="380" width="530" height="470" rx="34"/><rect x="695" y="380" width="530" height="470" rx="34"/><rect x="1270" y="380" width="530" height="470" rx="34"/></g>
+    <use href="sprites.svg#robot" x="170" y="440" width="170" height="223" style="--body:#7c5cff"/>
+    <use href="sprites.svg#robot" x="745" y="440" width="170" height="223" style="--body:#ff7a59"/>
+    <use href="sprites.svg#robot" x="1320" y="440" width="170" height="223" style="--body:#22b8a6"/>
+    <use href="sprites.svg#globe" x="400" y="470" width="180" height="180"/>
+    <use href="sprites.svg#envelope" x="960" y="490" width="210" height="152"/>
+    <use href="sprites.svg#doc" x="1560" y="460" width="150" height="185" style="--accent:#22b8a6"/>
+    <g font-size="44" font-weight="900" fill="#1d2340" text-anchor="middle"><text x="385" y="730">Routing</text><text x="960" y="730">Email</text><text x="1535" y="730">Invoicing</text></g>
+    <g font-size="34" font-weight="800" text-anchor="middle"><text x="385" y="795" fill="#7c5cff">LangGraph</text><text x="960" y="795" fill="#e2533a">CrewAI</text><text x="1535" y="795" fill="#0b7f75">AutoGen</text></g>
+  </svg>
+</section>
+
+<!-- 3 · nobody can compare -->
+<section class="slide t-sand" style="--accent:#e2533a">
+  <div class="cap"><span class="eyebrow">The problem</span><h1>Nobody can <em>compare</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#person-worried" x="120" y="480" width="200" height="400" style="--shirt:#1f6fbf"/>
+    <use href="sprites.svg#chat" x="260" y="320" width="440" height="330" style="--dot:#fff"/>
+    <g font-size="38" font-weight="900" fill="#1d2340" text-anchor="middle"><text x="480" y="420">Cost per task?</text><text x="480" y="480">Accuracy?</text></g>
+    <g fill="#fff"><rect x="780" y="360" width="320" height="400" rx="30"/><rect x="1130" y="360" width="320" height="400" rx="30"/><rect x="1480" y="360" width="320" height="400" rx="30"/></g>
+    <g font-size="30" font-weight="900" text-anchor="middle"><text x="940" y="420" fill="#7c5cff">Routing</text><text x="1290" y="420" fill="#e2533a">Email</text><text x="1640" y="420" fill="#0b7f75">Invoicing</text></g>
+    <use href="sprites.svg#chart-line" x="840" y="450" width="200" height="150"/>
+    <use href="sprites.svg#chart-bar" x="1190" y="450" width="200" height="150"/>
+    <use href="sprites.svg#question" x="1580" y="460" width="120" height="120"/>
+    <g font-size="30" font-weight="800" fill="#4a5275" text-anchor="middle"><text x="940" y="670">$ per month</text><text x="1290" y="670">tokens per day</text><text x="1640" y="670">not tracked</text></g>
+    <g font-size="26" font-weight="700" fill="#9aa3bf" text-anchor="middle"><text x="940" y="715">own logs</text><text x="1290" y="715">own script</text><text x="1640" y="715">—</text></g>
+  </svg>
+  <div class="lbl red lg" style="left:1290px; top:840px">No common yardstick</div>
+</section>
+
+<!-- 4 · what each is for -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">The landscape</span><h1>What each is <em>for</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="110" y="340" width="400" height="500" rx="34"/><rect x="545" y="340" width="400" height="500" rx="34"/><rect x="980" y="340" width="400" height="500" rx="34"/><rect x="1415" y="340" width="400" height="500" rx="34"/></g>
+    <use href="#chain" x="210" y="400" width="200" height="100"/>
+    <use href="sprites.svg#database" x="660" y="385" width="110" height="125"/>
+    <use href="sprites.svg#magnifier" x="740" y="430" width="100" height="100"/>
+    <use href="sprites.svg#group" x="1075" y="385" width="210" height="168"/>
+    <use href="sprites.svg#chat" x="1470" y="390" width="160" height="126" style="--body:#5cc8ff; --dot:#fff"/>
+    <use href="sprites.svg#chat" x="1610" y="440" width="150" height="118" style="--body:#ff6f9c; --dot:#fff"/>
+    <g font-size="42" font-weight="900" fill="#1d2340" text-anchor="middle"><text x="310" y="620">LangChain</text><text x="745" y="620">LlamaIndex</text><text x="1180" y="620">CrewAI</text><text x="1615" y="620">AutoGen · SK</text></g>
+    <g font-size="30" font-weight="700" fill="#4a5275" text-anchor="middle">
+      <text x="310" y="690">Broadest</text><text x="310" y="732">integrations</text>
+      <text x="745" y="690">Data ingestion</text><text x="745" y="732">and retrieval</text>
+      <text x="1180" y="690">Role-based</text><text x="1180" y="732">teams</text>
+      <text x="1615" y="690">Multi-agent</text><text x="1615" y="732">conversation</text>
+    </g>
+    <g font-size="24" font-weight="800" fill="#6a45e8" text-anchor="middle"><text x="310" y="800">fast prototyping</text><text x="745" y="800">retrieval-centric</text><text x="1180" y="800">declarative</text><text x="1615" y="800">enterprise .NET</text></g>
+  </svg>
+</section>
+
+<!-- 5 · langgraph as graph -->
+<section class="slide t-ocean" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">LangGraph</span><h1>An agent as a <em>graph</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- state object -->
+    <rect x="120" y="360" width="420" height="330" rx="30" fill="#1d2340"/>
+    <text x="160" y="430" font-size="30" font-weight="900" fill="#7ff0d8" letter-spacing="2">TYPED STATE</text>
+    <g class="mono" font-size="34" font-weight="700" fill="#e8eefc"><text x="160" y="505">messages: list</text><text x="160" y="565">steps: int</text><text x="160" y="625">route: str</text></g>
+    <path d="M550 520 H 640" stroke="#fff" stroke-width="8" stroke-dasharray="4 14" stroke-linecap="round"/>
+    <!-- graph -->
+    <g stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round">
+      <path d="M880 520 H 1120" marker-end="url(#ah-white)"/>
+      <path d="M1250 440 C 1250 360, 830 360, 800 430" marker-end="url(#ah-white)"/>
+      <path d="M880 560 C 960 700, 1100 740, 1180 760" marker-end="url(#ah-white)"/>
+      <path d="M880 480 C 1000 300, 1400 300, 1520 440" stroke="#ffcf4a" marker-end="url(#ah-amber)"/>
+    </g>
+    <circle cx="790" cy="520" r="100" fill="#7c5cff"/>
+    <text x="790" y="535" text-anchor="middle" font-size="40" font-weight="900" fill="#fff">agent</text>
+    <circle cx="1250" cy="520" r="100" fill="#22b8a6"/>
+    <text x="1250" y="535" text-anchor="middle" font-size="40" font-weight="900" fill="#fff">tools</text>
+    <rect x="1190" y="720" width="220" height="100" rx="50" fill="#fff"/>
+    <text x="1300" y="785" text-anchor="middle" font-size="36" font-weight="900" fill="#1d2340">END</text>
+    <rect x="1480" y="450" width="300" height="110" rx="30" fill="#ff7a59"/>
+    <text x="1630" y="518" text-anchor="middle" font-size="38" font-weight="900" fill="#fff">give_up</text>
+  </svg>
+  <div class="lbl amber" style="left:1200px; top:305px">conditional edge</div>
+  <div class="lbl sm" style="left:790px; top:660px">node updates state</div>
+</section>
+
+<!-- 6 · checkpointer -->
+<section class="slide t-mint" style="--accent:#128c7e">
+  <div class="cap"><span class="eyebrow">Durable execution</span><h1>Save <em>after every node</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- timeline of nodes -->
+    <line x1="160" y1="450" x2="1760" y2="450" stroke="#1d2340" stroke-width="8" stroke-linecap="round" opacity=".3"/>
+    <g>
+      <circle cx="260" cy="450" r="60" fill="#7c5cff"/><circle cx="600" cy="450" r="60" fill="#22b8a6"/><circle cx="940" cy="450" r="60" fill="#7c5cff"/><circle cx="1280" cy="450" r="60" fill="#22b8a6"/><circle cx="1620" cy="450" r="60" fill="#c9cfdf"/>
+    </g>
+    <g font-size="30" font-weight="900" fill="#fff" text-anchor="middle"><text x="260" y="461">1</text><text x="600" y="461">2</text><text x="940" y="461">3</text><text x="1280" y="461">4</text><text x="1620" y="461">5</text></g>
+    <use href="sprites.svg#database" x="400" y="370" width="70" height="80"/>
+    <use href="sprites.svg#database" x="740" y="370" width="70" height="80"/>
+    <use href="sprites.svg#database" x="1080" y="370" width="70" height="80"/>
+    <use href="sprites.svg#database" x="1420" y="370" width="70" height="80"/>
+    <!-- three outcomes -->
+    <g fill="#fff"><rect x="160" y="580" width="500" height="280" rx="30"/><rect x="710" y="580" width="500" height="280" rx="30"/><rect x="1260" y="580" width="500" height="280" rx="30"/></g>
+    <use href="sprites.svg#fire" x="200" y="620" width="90" height="123"/>
+    <path d="M310 690 L 380 690" stroke="#1d2340" stroke-width="8" stroke-linecap="round" marker-end="url(#ah-ink)"/>
+    <path d="M420 640 L 500 690 L 420 740 Z" fill="#16a34a"/>
+    <use href="sprites.svg#clock" x="780" y="620" width="130" height="130"/>
+    <path d="M990 650 A 45 45 0 1 0 1030 700" fill="none" stroke="#1d2340" stroke-width="9" stroke-linecap="round" marker-end="url(#ah-ink)"/>
+    <use href="sprites.svg#person" x="1320" y="600" width="80" height="160" style="--shirt:#ffb020"/>
+    <rect x="1440" y="640" width="36" height="100" rx="8" fill="#1d2340"/><rect x="1500" y="640" width="36" height="100" rx="8" fill="#1d2340"/>
+    <g font-size="36" font-weight="900" fill="#1d2340" text-anchor="middle"><text x="410" y="820">Resume</text><text x="960" y="820">Replay</text><text x="1510" y="820">Pause</text></g>
+    <g font-size="26" font-weight="700" fill="#4a5275" text-anchor="middle"><text x="560" y="780" text-anchor="end">after a crash</text><text x="1150" y="690">debug</text><text x="1650" y="700">approval</text></g>
+  </svg>
+  <div class="lbl teal" style="left:960px; top:360px">Checkpointer</div>
+</section>
+
+<!-- 7 · budget + interrupt in the graph -->
+<section class="slide t-amber" style="--accent:#c25e00">
+  <div class="cap"><span class="eyebrow">Architecture, not hope</span><h1>Built into <em>the graph</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g transform="rotate(-5 330 560)">
+      <rect x="120" y="420" width="420" height="260" rx="16" fill="#fff3b0"/>
+      <g font-size="34" font-weight="700" fill="#4a5275" font-style="italic"><text x="160" y="505">“Please don't</text><text x="160" y="555">loop forever”</text></g>
+      <text x="160" y="630" font-size="26" font-weight="800" fill="#9aa3bf">in the prompt</text>
+    </g>
+    <use href="sprites.svg#cross" x="460" y="360" width="110" height="110"/>
+    <rect x="660" y="340" width="1140" height="520" rx="30" fill="#1d2340"/>
+    <circle cx="705" cy="382" r="11" fill="#ff5d73"/><circle cx="740" cy="382" r="11" fill="#ffb020"/><circle cx="775" cy="382" r="11" fill="#22b8a6"/>
+    <g class="mono" font-size="36" font-weight="700" fill="#e8eefc">
+      <text x="710" y="465"><tspan fill="#b9a8ff">def</tspan> route(s):</text>
+      <text x="710" y="525">  <tspan fill="#b9a8ff">if</tspan> s[<tspan fill="#ffcf4a">"steps"</tspan>] &gt;= <tspan fill="#ff9fb5">12</tspan>:</text>
+      <text x="710" y="585">    <tspan fill="#b9a8ff">return</tspan> <tspan fill="#ffcf4a">"give_up"</tspan></text>
+      <text x="710" y="700">g.compile(checkpointer=…,</text>
+      <text x="710" y="760">  interrupt_before=[<tspan fill="#ffcf4a">"tools"</tspan>])</text>
+    </g>
+    <rect x="695" y="490" width="760" height="112" rx="14" fill="none" stroke="#ffcf4a" stroke-width="5"/>
+    <rect x="695" y="720" width="820" height="62" rx="14" fill="none" stroke="#7ff0d8" stroke-width="5"/>
+    <use href="sprites.svg#hourglass" x="1600" y="450" width="90" height="131"/>
+    <use href="sprites.svg#person" x="1640" y="620" width="90" height="180" style="--shirt:#22b8a6"/>
+  </svg>
+  <div class="lbl amber" style="left:1100px; top:900px">Hard step budget · human approval</div>
+</section>
+
+<!-- 8 · NeMo Agent Toolkit -->
+<section class="slide t-teal" style="--accent:#0b7f75">
+  <div class="cap"><span class="eyebrow">NVIDIA · formerly AgentIQ</span><h1>NeMo <em>Agent Toolkit</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- toolkit band -->
+    <rect x="130" y="340" width="1660" height="200" rx="40" fill="#76b900"/>
+    <g fill="#fff"><rect x="170" y="420" width="370" height="90" rx="45"/><rect x="580" y="420" width="370" height="90" rx="45"/><rect x="990" y="420" width="370" height="90" rx="45"/><rect x="1400" y="420" width="350" height="90" rx="45"/></g>
+    <text x="170" y="398" font-size="34" font-weight="900" fill="#fff">A consistent layer for…</text>
+    <g font-size="38" font-weight="900" fill="#1d2340" text-anchor="middle"><text x="355" y="479">Compose</text><text x="765" y="479">Profile</text><text x="1175" y="479">Evaluate</text><text x="1575" y="479">Observe</text></g>
+    <!-- existing agents below -->
+    <g stroke="#fff" stroke-width="6" stroke-dasharray="4 14" stroke-linecap="round"><path d="M430 560 V 620"/><path d="M960 560 V 620"/><path d="M1490 560 V 620"/></g>
+    <g fill="#fff" opacity=".95"><rect x="230" y="630" width="400" height="230" rx="30"/><rect x="760" y="630" width="400" height="230" rx="30"/><rect x="1290" y="630" width="400" height="230" rx="30"/></g>
+    <use href="sprites.svg#robot" x="260" y="650" width="130" height="171" style="--body:#7c5cff"/>
+    <use href="sprites.svg#robot" x="790" y="650" width="130" height="171" style="--body:#ff7a59"/>
+    <use href="sprites.svg#robot" x="1320" y="650" width="130" height="171" style="--body:#22b8a6"/>
+    <g font-size="36" font-weight="900" fill="#1d2340"><text x="410" y="755">LangGraph</text><text x="940" y="755">CrewAI</text><text x="1470" y="755">AutoGen</text></g>
+  </svg>
+  <div class="lbl dark lg" style="left:960px; top:920px">Wraps what you already have</div>
+</section>
+
+<!-- 9 · everything is a function -->
+<section class="slide t-rose" style="--accent:#d6336c">
+  <div class="cap"><span class="eyebrow">Core idea</span><h1>Everything is a <em>function</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- three typed functions -->
+    <g fill="#fff"><rect x="120" y="350" width="520" height="130" rx="26"/><rect x="120" y="510" width="520" height="130" rx="26"/><rect x="120" y="670" width="520" height="130" rx="26"/></g>
+    <use href="sprites.svg#wrench" x="150" y="370" width="90" height="90" style="--body:#ffb020"/>
+    <use href="sprites.svg#brain" x="150" y="535" width="95" height="82"/>
+    <use href="sprites.svg#robot-head" x="150" y="695" width="100" height="79" style="--body:#ff7a59"/>
+    <g class="mono" font-size="34" font-weight="800" fill="#1d2340"><text x="270" y="430">tool(in) → out</text><text x="270" y="590">llm(in) → out</text><text x="270" y="750">agent(in) → out</text></g>
+    <path d="M650 735 C 800 735, 800 620, 930 620" fill="none" stroke="#d6336c" stroke-width="10" stroke-linecap="round" marker-end="url(#ah-red)"/>
+    <!-- agent B with tools list -->
+    <rect x="960" y="340" width="840" height="520" rx="34" fill="#fff"/>
+    <use href="sprites.svg#robot" x="1000" y="400" width="200" height="263" style="--body:#7c5cff"/>
+    <text x="1240" y="420" font-size="34" font-weight="900" fill="#1d2340">Email agent · tools</text>
+    <g fill="#f3f4f8"><rect x="1240" y="450" width="520" height="80" rx="18"/><rect x="1240" y="550" width="520" height="80" rx="18"/></g>
+    <rect x="1240" y="650" width="520" height="100" rx="18" fill="#ffe3ec" stroke="#d6336c" stroke-width="5"/>
+    <g class="mono" font-size="32" font-weight="700" fill="#1d2340"><text x="1270" y="502">lookup_shipment</text><text x="1270" y="602">send_email</text></g>
+    <use href="sprites.svg#robot-head" x="1265" y="668" width="80" height="63" style="--body:#ff7a59"/>
+    <text x="1365" y="712" class="mono" font-size="32" font-weight="800" fill="#d6336c">routing_agent</text>
+    <text x="1000" y="820" font-size="28" font-weight="700" fill="#4a5275">a whole agent, exposed as a tool</text>
+  </svg>
+</section>
+
+<!-- 10 · YAML workflows -->
+<section class="slide t-night" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Declarative workflows</span><h1>Swap by <em>config</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="120" y="340" width="980" height="560" rx="30" fill="#fff"/>
+    <text x="160" y="400" font-size="26" font-weight="900" fill="#6a45e8" letter-spacing="2">WORKFLOW.YAML</text>
+    <g class="mono" font-size="34" font-weight="700" fill="#1d2340">
+      <text x="160" y="465"><tspan fill="#6a45e8">llms:</tspan></text>
+      <text x="160" y="520">  main: { _type: nim,</text>
+      <text x="160" y="575">    model_name: <tspan fill="#e11d48" text-decoration="line-through">llama-3.3-70b</tspan></text>
+      <text x="160" y="630">                <tspan fill="#16a34a">llama-3.1-8b</tspan> }</text>
+      <text x="160" y="705"><tspan fill="#6a45e8">workflow:</tspan></text>
+      <text x="160" y="760">  _type: <tspan fill="#c25e00">react_agent</tspan></text>
+      <text x="160" y="815">  tool_names: [search, tickets]</text>
+    </g>
+    <rect x="150" y="535" width="900" height="115" rx="14" fill="none" stroke="#16a34a" stroke-width="5"/>
+    <!-- agent type chips -->
+    <text x="1180" y="400" font-size="32" font-weight="900" fill="#fff">Built-in agent types</text>
+    <g font-size="36" font-weight="900" text-anchor="middle">
+      <rect x="1180" y="440" width="290" height="90" rx="45" fill="#7c5cff"/><text x="1325" y="499" fill="#fff">ReAct</text>
+      <rect x="1500" y="440" width="290" height="90" rx="45" fill="#22b8a6"/><text x="1645" y="499" fill="#fff">ReWOO</text>
+      <rect x="1180" y="560" width="290" height="90" rx="45" fill="#ff7a59"/><text x="1325" y="619" fill="#fff">Router</text>
+      <rect x="1500" y="560" width="290" height="90" rx="45" fill="#ffb020"/><text x="1645" y="619" fill="#1d2340">Reasoning</text>
+      <rect x="1180" y="680" width="610" height="90" rx="45" fill="#5cc8ff"/><text x="1485" y="739" fill="#1d2340">Tool-calling</text>
+    </g>
+  </svg>
+  <div class="lbl green" style="left:1485px; top:850px">Config edit, not code</div>
+</section>
+
+<!-- 11 · profiler, eval, OTel -->
+<section class="slide t-sunrise" style="--accent:#d9480f">
+  <div class="cap"><span class="eyebrow">Instrumentation</span><h1>Profile, evaluate, <em>trace</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- profiler waterfall -->
+    <rect x="110" y="340" width="700" height="520" rx="30" fill="#fff"/>
+    <text x="150" y="405" font-size="30" font-weight="900" fill="#d9480f" letter-spacing="2">PROFILER</text>
+    <g font-size="26" font-weight="800" fill="#1d2340"><text x="150" y="475">plan</text><text x="150" y="545">search</text><text x="150" y="615">llm call</text><text x="150" y="685">rerank</text><text x="150" y="755">answer</text></g>
+    <rect x="290" y="450" width="120" height="36" rx="10" fill="#7c5cff"/>
+    <rect x="400" y="520" width="170" height="36" rx="10" fill="#22b8a6"/>
+    <rect x="560" y="590" width="220" height="36" rx="10" fill="#ff5d73"/>
+    <rect x="600" y="660" width="60" height="36" rx="10" fill="#22b8a6"/>
+    <rect x="650" y="730" width="110" height="36" rx="10" fill="#7c5cff"/>
+    <text x="150" y="825" font-size="26" font-weight="700" fill="#4a5275">tokens · latency · cost per step</text>
+    <use href="sprites.svg#fire" x="720" y="545" width="60" height="82"/>
+    <!-- eval -->
+    <rect x="850" y="340" width="440" height="520" rx="30" fill="#fff"/>
+    <text x="890" y="405" font-size="30" font-weight="900" fill="#d9480f" letter-spacing="2">EVALUATION</text>
+    <use href="sprites.svg#checklist" x="990" y="440" width="160" height="192"/>
+    <text x="1070" y="700" text-anchor="middle" font-size="30" font-weight="800" fill="#1d2340">dataset-driven</text>
+    <rect x="990" y="730" width="160" height="60" rx="30" fill="#1d2340"/>
+    <text x="1070" y="770" text-anchor="middle" font-size="28" font-weight="900" fill="#7ff0d8">runs in CI</text>
+    <!-- otel -->
+    <rect x="1330" y="340" width="480" height="520" rx="30" fill="#fff"/>
+    <text x="1370" y="405" font-size="30" font-weight="900" fill="#d9480f" letter-spacing="2">OPENTELEMETRY</text>
+    <g fill="#ffe9d6"><rect x="1370" y="450" width="400" height="30" rx="8"/><rect x="1410" y="495" width="300" height="30" rx="8"/><rect x="1450" y="540" width="140" height="30" rx="8"/></g>
+    <path d="M1570 590 V 640" stroke="#1d2340" stroke-width="7" stroke-linecap="round" marker-end="url(#ah-ink)"/>
+    <g font-size="28" font-weight="800" fill="#fff" text-anchor="middle">
+      <rect x="1370" y="670" width="190" height="60" rx="30" fill="#7c5cff"/><text x="1465" y="710">Phoenix</text>
+      <rect x="1580" y="670" width="190" height="60" rx="30" fill="#22b8a6"/><text x="1675" y="710">Langfuse</text>
+      <rect x="1420" y="750" width="300" height="60" rx="30" fill="#1d2340"/><text x="1570" y="790">any collector</text>
+    </g>
+  </svg>
+  <div class="lbl dark" style="left:780px; top:540px">bottleneck</div>
+</section>
+
+<!-- 12 · MCP both ways + comparable dashboard -->
+<section class="slide t-plum" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">MCP · and the payoff</span><h1>Now they <em>compare</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- MCP both ways -->
+    <rect x="120" y="360" width="200" height="200" rx="30" fill="#fff"/>
+    <text x="220" y="475" text-anchor="middle" font-size="40" font-weight="900" fill="#1d2340">MCP</text>
+    <rect x="480" y="360" width="200" height="200" rx="30" fill="#76b900"/>
+    <text x="580" y="455" text-anchor="middle" font-size="30" font-weight="900" fill="#fff">Toolkit</text>
+    <text x="580" y="495" text-anchor="middle" font-size="24" font-weight="800" fill="#fff">functions</text>
+    <path d="M330 420 H 465" stroke="#fff" stroke-width="9" stroke-linecap="round" marker-end="url(#ah-white)"/>
+    <path d="M470 500 H 340" stroke="#ffcf4a" stroke-width="9" stroke-linecap="round" marker-end="url(#ah-amber)"/>
+    <g font-size="26" font-weight="800" fill="#fff"><text x="120" y="610">use MCP servers</text><text x="120" y="650" fill="#ffcf4a">expose as a server</text></g>
+    <!-- dashboard -->
+    <rect x="780" y="330" width="1020" height="540" rx="34" fill="#fff"/>
+    <text x="830" y="400" font-size="32" font-weight="900" fill="#6a45e8" letter-spacing="2">ONE DASHBOARD</text>
+    <g font-size="28" font-weight="800" fill="#9aa3bf"><text x="1180" y="460">cost / task</text><text x="1480" y="460">accuracy</text></g>
+    <line x1="830" y1="485" x2="1750" y2="485" stroke="#e3e6f0" stroke-width="4"/>
+    <g font-size="38" font-weight="900" fill="#1d2340">
+      <text x="830" y="560" fill="#7c5cff">Routing</text><text x="1180" y="560">$0.04</text><text x="1480" y="560">91%</text>
+      <text x="830" y="670" fill="#e2533a">Email</text><text x="1180" y="670">$0.02</text><text x="1480" y="670">88%</text>
+      <text x="830" y="780" fill="#0b7f75">Invoicing</text><text x="1180" y="780">$0.11</text><text x="1480" y="780">95%</text>
+    </g>
+    <g fill="#efe7ff"><rect x="1600" y="530" width="80" height="36" rx="8"/><rect x="1600" y="640" width="60" height="36" rx="8"/><rect x="1600" y="750" width="100" height="36" rx="8"/></g>
+    <use href="sprites.svg#person" x="330" y="690" width="100" height="200" style="--shirt:#1f6fbf"/>
+    <use href="sprites.svg#thumbs-up" x="440" y="720" width="110" height="110"/>
+  </svg>
+</section>
+
+<!-- 13 · framework or plain loop -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">Choosing</span><h1>Plain loop or <em>framework?</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="110" y="340" width="720" height="520" rx="32" fill="#1d2340"/>
+    <text x="150" y="405" font-size="28" font-weight="900" fill="#7ff0d8" letter-spacing="2">SIMPLE, SINGLE-PURPOSE</text>
+    <g class="mono" font-size="32" font-weight="700" fill="#e8eefc">
+      <text x="150" y="480"><tspan fill="#b9a8ff">while</tspan> <tspan fill="#ffcf4a">True</tspan>:</text>
+      <text x="150" y="535">  r = client.chat(msgs,</text>
+      <text x="150" y="590">        tools=TOOLS)</text>
+      <text x="150" y="645">  <tspan fill="#b9a8ff">if</tspan> <tspan fill="#b9a8ff">not</tspan> r.tool_calls:</text>
+      <text x="150" y="700">    <tspan fill="#b9a8ff">break</tspan></text>
+      <text x="150" y="755">  run(r.tool_calls)</text>
+    </g>
+    <text x="150" y="825" font-size="28" font-weight="800" fill="#7ff0d8">OpenAI-compatible · full prompt visibility</text>
+    <rect x="890" y="340" width="920" height="520" rx="32" fill="#fff"/>
+    <text x="930" y="405" font-size="28" font-weight="900" fill="#6a45e8" letter-spacing="2">REACH FOR A FRAMEWORK WHEN YOU NEED</text>
+    <g fill="#f3f0ff"><rect x="930" y="440" width="420" height="180" rx="24"/><rect x="1370" y="440" width="400" height="180" rx="24"/><rect x="930" y="640" width="420" height="180" rx="24"/><rect x="1370" y="640" width="400" height="180" rx="24"/></g>
+    <use href="sprites.svg#database" x="960" y="470" width="90" height="102"/>
+    <g fill="#7c5cff"><circle cx="1420" cy="530" r="18"/><circle cx="1490" cy="485" r="18"/><circle cx="1490" cy="575" r="18"/></g>
+    <g stroke="#7c5cff" stroke-width="6"><path d="M1420 530 L1490 485 M1420 530 L1490 575"/></g>
+    <use href="sprites.svg#person" x="965" y="655" width="75" height="150" style="--shirt:#ffb020"/>
+    <use href="sprites.svg#group" x="1390" y="670" width="140" height="112"/>
+    <g font-size="32" font-weight="900" fill="#1d2340"><text x="1080" y="515">Durable</text><text x="1080" y="555">state</text><text x="1540" y="515">Cycles and</text><text x="1540" y="555">branching</text><text x="1080" y="715">Human</text><text x="1080" y="755">approval</text><text x="1550" y="715">Multi-agent</text><text x="1550" y="755">teams</text></g>
+  </svg>
+</section>
+
+<!-- 14 · exam -->
+<section class="slide t-mint" style="--accent:#128c7e">
+  <div class="cap"><span class="eyebrow">On the exam</span><h1>Compose, don't <em>replace</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <rect x="110" y="340" width="820" height="440" rx="32" fill="#fff"/>
+    <text x="150" y="405" font-size="28" font-weight="900" fill="#128c7e" letter-spacing="2">IF THE STEM SAYS…</text>
+    <g font-size="40" font-weight="800" fill="#1d2340"><text x="150" y="480">Agents in three frameworks,</text><text x="150" y="535">no consistent way to</text><text x="150" y="590">measure cost, latency,</text><text x="150" y="645">or accuracy</text></g>
+    <g font-size="28" font-weight="900" fill="#fff" text-anchor="middle">
+      <rect x="150" y="680" width="200" height="60" rx="30" fill="#7c5cff"/><text x="250" y="720">LangChain</text>
+      <rect x="370" y="680" width="170" height="60" rx="30" fill="#ff7a59"/><text x="455" y="720">CrewAI</text>
+      <rect x="560" y="680" width="180" height="60" rx="30" fill="#22b8a6"/><text x="650" y="720">AutoGen</text>
+    </g>
+    <use href="sprites.svg#arrow" x="960" y="530" width="180" height="54" style="--body:#128c7e"/>
+    <rect x="1170" y="340" width="640" height="440" rx="32" fill="#76b900"/>
+    <text x="1210" y="405" font-size="28" font-weight="900" fill="#fff" letter-spacing="2">…THE ANSWER IS</text>
+    <text x="1490" y="500" text-anchor="middle" font-size="54" font-weight="900" fill="#fff">NeMo Agent</text>
+    <text x="1490" y="565" text-anchor="middle" font-size="54" font-weight="900" fill="#fff">Toolkit</text>
+    <g font-size="28" font-weight="800" fill="#1d2340" text-anchor="middle">
+      <rect x="1210" y="620" width="180" height="56" rx="28" fill="#fff"/><text x="1300" y="658">profiler</text>
+      <rect x="1405" y="620" width="170" height="56" rx="28" fill="#fff"/><text x="1490" y="658">evals</text>
+      <rect x="1590" y="620" width="180" height="56" rx="28" fill="#fff"/><text x="1680" y="658">OTel</text>
+    </g>
+    <use href="sprites.svg#check" x="1730" y="290" width="110" height="110"/>
+  </svg>
+  <div class="lbl dark" style="left:960px; top:880px">Next · read the full framework comparison →</div>
+</section>
+
+</body>
+</html>

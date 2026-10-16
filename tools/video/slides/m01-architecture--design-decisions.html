@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Module 1 · Lesson 5 slides — design decisions</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .trk { position: absolute; right: 90px; top: 110px; z-index: 3; display: flex; gap: 14px; }
+  .trk i { width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,.9); color: #1d2340; font: 900 30px/64px var(--font); text-align: center; font-style: normal; opacity: .55; }
+  .trk i.on { background: var(--accent); color: #fff; opacity: 1; transform: scale(1.18); box-shadow: 0 10px 26px -10px rgba(20,20,60,.6); }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10Z" fill="context-stroke"/></marker>
+  </defs>
+</svg>
+
+<!-- 1 · Maya's Monday -->
+<section class="slide t-sky" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Module 1 · Lesson 5</span><h1>Three requests, <em>one Monday</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#person-desk" x="100" y="470" width="540" height="463" style="--shirt:#7c5cff;--hair:#5a3a2a"/>
+    <!-- coffee -->
+    <rect x="560" y="610" width="56" height="64" rx="10" fill="#ff7a59"/><path d="M616 624 Q640 628 640 642 Q640 656 616 660" stroke="#ff7a59" stroke-width="8" fill="none"/>
+    <path d="M578 594 Q570 580 580 566 M598 594 Q590 580 600 566" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <g>
+      <g transform="rotate(-2 1340 385)"><rect x="880" y="300" width="920" height="170" rx="30" fill="#fff"/>
+        <use href="sprites.svg#checklist" x="920" y="318" width="112" height="134"/>
+        <text x="1080" y="405" font-size="54" font-weight="900" fill="#1d2340">Automate claims</text></g>
+      <g transform="rotate(1.5 1340 585)"><rect x="880" y="500" width="920" height="170" rx="30" fill="#fff"/>
+        <use href="sprites.svg#chart-bar" x="915" y="530" width="140" height="105"/>
+        <text x="1080" y="605" font-size="54" font-weight="900" fill="#1d2340">Competitor brief</text></g>
+      <g transform="rotate(-1.5 1340 785)"><rect x="880" y="700" width="920" height="170" rx="30" fill="#fff"/>
+        <use href="sprites.svg#chat" x="920" y="730" width="130" height="103" style="--body:#5cc8ff;--dot:#fff"/>
+        <text x="1080" y="805" font-size="54" font-weight="900" fill="#1d2340">Website chat assistant</text></g>
+    </g>
+    <g fill="#1f6fbf" font-size="44" font-weight="900" text-anchor="middle"><text x="1740" y="410">1</text><text x="1740" y="610">2</text><text x="1740" y="810">3</text></g>
+  </svg>
+  <div class="lbl violet" style="left:370px; top:410px">Maya · AI architect</div>
+  <div class="lbl sm" style="left:370px; top:925px">Insurance group</div>
+</section>
+
+<!-- 2 · the tempting answer -->
+<section class="slide t-coral" style="--accent:#d9412a">
+  <div class="cap"><span class="eyebrow">The tempting answer</span><h1>One agent <em>for everything</em>?</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#person" x="100" y="580" width="140" height="280" style="--shirt:#2c3350;--hair:#8a8fa8"/>
+    <use href="sprites.svg#robot" x="270" y="540" width="240" height="315" style="--body:#ffb020;--accent:#7c5cff"/>
+    <use href="sprites.svg#chat" x="330" y="290" width="440" height="276" style="--dot:transparent"/>
+    <text x="560" y="385" text-anchor="middle" font-size="44" font-weight="900" fill="#1d2340">One agent</text>
+    <text x="560" y="440" text-anchor="middle" font-size="44" font-weight="900" fill="#1d2340">does it all!</text>
+    <use href="sprites.svg#cross" x="520" y="620" width="120" height="120"/>
+    <circle cx="880" cy="640" r="60" fill="#fff"/><text x="880" y="658" text-anchor="middle" font-size="48" font-weight="900" fill="#d9412a">vs</text>
+    <use href="sprites.svg#person" x="990" y="580" width="140" height="280" style="--shirt:#7c5cff;--hair:#5a3a2a"/>
+    <use href="sprites.svg#checklist" x="1140" y="520" width="150" height="180"/>
+    <g stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round" marker-end="url(#ah)">
+      <path d="M1310 600 Q1360 420 1440 410"/><path d="M1310 610 H1440"/><path d="M1310 620 Q1360 800 1440 810"/>
+    </g>
+  </svg>
+  <div class="lbl dark sm" style="left:170px; top:905px">Vendor</div>
+  <div class="lbl dark sm" style="left:1215px; top:480px">5-step procedure</div>
+  <div class="lbl teal" style="left:1620px; top:410px">Pipeline</div>
+  <div class="lbl amber" style="left:1620px; top:610px">Parallel workers</div>
+  <div class="lbl violet" style="left:1620px; top:810px">RAG + gate</div>
+  <div class="lbl sm" style="left:1060px; top:905px">Maya</div>
+</section>
+
+<!-- 3 · step 1 -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">The procedure · Step 1</span><h1>Hard <em>constraints</em> first</h1></div>
+  <div class="trk"><i class="on">1</i><i>2</i><i>3</i><i>4</i><i>5</i></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <!-- gates -->
+    <g fill="#fff"><rect x="467" y="420" width="26" height="400" rx="13"/><rect x="707" y="420" width="26" height="400" rx="13"/><rect x="947" y="420" width="26" height="400" rx="13"/><rect x="1187" y="420" width="26" height="400" rx="13"/><rect x="1427" y="420" width="26" height="400" rx="13"/></g>
+    <g fill="#fff"><circle cx="480" cy="350" r="62"/><circle cx="720" cy="350" r="62"/><circle cx="960" cy="350" r="62"/><circle cx="1200" cy="350" r="62"/><circle cx="1440" cy="350" r="62"/></g>
+    <use href="sprites.svg#clock" x="440" y="310" width="80" height="80"/>
+    <use href="sprites.svg#coin" x="680" y="310" width="80" height="80"/>
+    <use href="sprites.svg#globe" x="920" y="310" width="80" height="80"/>
+    <use href="sprites.svg#checklist" x="1168" y="306" width="64" height="77"/>
+    <use href="sprites.svg#target" x="1400" y="310" width="80" height="80"/>
+    <!-- options thinning out -->
+    <g>
+      <circle cx="260" cy="440" r="30" fill="#ff7a59"/><circle cx="260" cy="515" r="30" fill="#22b8a6"/><circle cx="260" cy="590" r="30" fill="#ffb020"/><circle cx="260" cy="665" r="30" fill="#ff6f9c"/><circle cx="260" cy="740" r="30" fill="#5cc8ff"/><circle cx="260" cy="815" r="30" fill="#7c5cff"/>
+      <circle cx="600" cy="515" r="30" fill="#22b8a6"/><circle cx="600" cy="590" r="30" fill="#ffb020"/><circle cx="600" cy="665" r="30" fill="#ff6f9c"/><circle cx="600" cy="740" r="30" fill="#5cc8ff"/>
+      <circle cx="840" cy="590" r="30" fill="#ffb020"/><circle cx="840" cy="665" r="30" fill="#ff6f9c"/><circle cx="840" cy="740" r="30" fill="#5cc8ff"/>
+      <circle cx="1080" cy="590" r="30" fill="#ffb020"/><circle cx="1080" cy="665" r="30" fill="#ff6f9c"/>
+      <circle cx="1320" cy="590" r="30" fill="#ffb020"/><circle cx="1320" cy="665" r="30" fill="#ff6f9c"/>
+      <circle cx="1620" cy="620" r="70" fill="#ffb020"/>
+    </g>
+    <g fill="#9aa6c8" opacity=".6"><circle cx="420" cy="440" r="22"/><circle cx="420" cy="815" r="22"/><circle cx="660" cy="515" r="22"/><circle cx="900" cy="740" r="22"/></g>
+    <use href="sprites.svg#check" x="1665" y="540" width="70" height="70"/>
+    <g font-size="30" font-weight="900" fill="#1d2340" text-anchor="middle"><text x="480" y="870">Latency</text><text x="720" y="870">Cost</text><text x="960" y="870">Residency</text><text x="1200" y="870">Audit</text><text x="1440" y="870">Accuracy</text></g>
+  </svg>
+  <div class="lbl sm" style="left:260px; top:900px">All options</div>
+  <div class="lbl green" style="left:1640px; top:760px">What survives</div>
+</section>
+
+<!-- 4 · step 2 -->
+<section class="slide t-mint" style="--accent:#0f7f72">
+  <div class="cap"><span class="eyebrow">The procedure · Step 2</span><h1>Is the path <em>known</em>?</h1></div>
+  <div class="trk"><i>1</i><i class="on">2</i><i>3</i><i>4</i><i>5</i></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <path d="M380 440 L560 620 L380 800 L200 620Z" fill="#fff"/>
+    <g font-size="34" font-weight="900" fill="#1d2340" text-anchor="middle"><text x="380" y="600">Steps</text><text x="380" y="640">known</text><text x="380" y="680">upfront?</text></g>
+    <g stroke="#1d2340" stroke-width="10" fill="none" stroke-linecap="round" marker-end="url(#ah)">
+      <path d="M560 600 Q620 420 760 420"/><path d="M560 640 Q620 790 760 790"/>
+    </g>
+    <!-- yes: pipeline -->
+    <g fill="#fff"><rect x="790" y="360" width="200" height="120" rx="22"/><rect x="1050" y="360" width="200" height="120" rx="22"/><rect x="1310" y="360" width="200" height="120" rx="22"/><rect x="1570" y="360" width="200" height="120" rx="22"/></g>
+    <g fill="#22b8a6"><rect x="820" y="395" width="140" height="18" rx="9"/><rect x="1080" y="395" width="140" height="18" rx="9"/><rect x="1340" y="395" width="140" height="18" rx="9"/><rect x="1600" y="395" width="140" height="18" rx="9"/></g>
+    <g fill="#b8c2de"><rect x="820" y="430" width="100" height="14" rx="7"/><rect x="1080" y="430" width="100" height="14" rx="7"/><rect x="1340" y="430" width="100" height="14" rx="7"/><rect x="1600" y="430" width="100" height="14" rx="7"/></g>
+    <g fill="#1d2340"><path d="M1000 405 L1036 420 L1000 435Z"/><path d="M1260 405 L1296 420 L1260 435Z"/><path d="M1520 405 L1556 420 L1520 435Z"/></g>
+    <!-- no: loop -->
+    <circle cx="1000" cy="790" r="120" fill="none" stroke="#fff" stroke-width="14" stroke-dasharray="560 190" marker-end="url(#ah)"/>
+    <use href="sprites.svg#robot" x="945" y="718" width="110" height="144" style="--body:#7c5cff"/>
+    <use href="sprites.svg#wrench" x="1150" y="660" width="90" height="90"/>
+    <use href="sprites.svg#magnifier" x="1160" y="790" width="90" height="90"/>
+  </svg>
+  <div class="lbl green" style="left:640px; top:450px">Yes</div>
+  <div class="lbl red" style="left:640px; top:780px">No</div>
+  <div class="lbl teal" style="left:1280px; top:545px">Pipeline or Plan-and-Execute</div>
+  <div class="lbl violet" style="left:1540px; top:790px">Tool-calling loop</div>
+</section>
+
+<!-- 5 · steps 3 & 4 -->
+<section class="slide t-amber" style="--accent:#b35300">
+  <div class="cap"><span class="eyebrow">The procedure · Steps 3 and 4</span><h1>Parallel? <em>Isolated?</em></h1></div>
+  <div class="trk"><i>1</i><i>2</i><i class="on">3</i><i class="on">4</i><i>5</i></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="90" y="300" width="820" height="630" rx="36"/><rect x="960" y="300" width="870" height="630" rx="36"/></g>
+    <g font-size="42" font-weight="900" fill="#b35300"><text x="140" y="372">3 · Independent sub-tasks?</text><text x="1010" y="372">4 · What must be isolated?</text></g>
+    <!-- parallel -->
+    <use href="sprites.svg#doc" x="140" y="530" width="110" height="135" style="--accent:#ff7a59"/>
+    <g stroke="#1d2340" stroke-width="9" fill="none" stroke-linecap="round" marker-end="url(#ah)"><path d="M270 600 Q360 470 520 460"/><path d="M270 600 H520"/><path d="M270 600 Q360 730 520 740"/></g>
+    <use href="sprites.svg#robot" x="560" y="400" width="92" height="121" style="--body:#22b8a6"/>
+    <use href="sprites.svg#robot" x="560" y="540" width="92" height="121" style="--body:#5cc8ff"/>
+    <use href="sprites.svg#robot" x="560" y="680" width="92" height="121" style="--body:#7c5cff"/>
+    <g><rect x="680" y="440" width="190" height="34" rx="17" fill="#22b8a6"/><rect x="680" y="580" width="170" height="34" rx="17" fill="#5cc8ff"/><rect x="680" y="720" width="200" height="34" rx="17" fill="#7c5cff"/></g>
+    <!-- isolation wall -->
+    <g fill="#e2a15a"><rect x="1375" y="420" width="50" height="420" rx="10"/></g>
+    <g stroke="#fff" stroke-width="4"><path d="M1375 480 H1425 M1375 540 H1425 M1375 600 H1425 M1375 660 H1425 M1375 720 H1425 M1375 780 H1425"/></g>
+    <use href="sprites.svg#robot" x="1040" y="460" width="150" height="197" style="--body:#22b8a6"/>
+    <use href="sprites.svg#robot" x="1610" y="460" width="150" height="197" style="--body:#ff6f9c"/>
+    <use href="sprites.svg#key" x="1200" y="440" width="120" height="64"/>
+    <use href="sprites.svg#folder" x="1210" y="540" width="110" height="84"/>
+    <use href="sprites.svg#lock" x="1470" y="430" width="80" height="100"/>
+    <use href="sprites.svg#gpu" x="1455" y="560" width="130" height="85"/>
+  </svg>
+  <div class="lbl green" style="left:500px; top:860px">Yes → run in parallel</div>
+  <div class="lbl sm" style="left:1110px; top:760px">Privileges</div>
+  <div class="lbl sm" style="left:1395px; top:760px">Context</div>
+  <div class="lbl sm" style="left:1680px; top:760px">Models</div>
+  <div class="lbl violet" style="left:1395px; top:860px">Differ → separate agents</div>
+</section>
+
+<!-- 6 · step 5 -->
+<section class="slide t-night" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">The procedure · Step 5</span><h1>Stop, <em>then escalate</em></h1></div>
+  <div class="trk"><i>1</i><i>2</i><i>3</i><i>4</i><i class="on">5</i></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <circle cx="460" cy="620" r="200" fill="none" stroke="#7c5cff" stroke-width="18" stroke-dasharray="1000 260" marker-end="url(#ah)"/>
+    <use href="sprites.svg#robot" x="385" y="520" width="150" height="197" style="--body:#22b8a6"/>
+    <g stroke="#fff" stroke-width="10" fill="none" stroke-linecap="round" marker-end="url(#ah)">
+      <path d="M680 560 Q780 440 900 440"/><path d="M680 700 Q900 800 1240 760"/>
+    </g>
+    <polygon points="1000,340 1080,340 1137,397 1137,477 1080,534 1000,534 943,477 943,397" fill="#ff5d73" stroke="#fff" stroke-width="10"/>
+    <text x="1040" y="455" text-anchor="middle" font-size="50" font-weight="900" fill="#fff">STOP</text>
+    <use href="sprites.svg#person" x="1320" y="560" width="150" height="300" style="--shirt:#ffb020"/>
+    <use href="sprites.svg#chat" x="1440" y="420" width="200" height="158" style="--dot:#7c5cff"/>
+    <use href="sprites.svg#checklist" x="1640" y="320" width="150" height="180"/>
+  </svg>
+  <div class="lbl" style="left:1040px; top:600px">Stop condition</div>
+  <div class="lbl sm amber" style="left:1040px; top:670px">steps · cost · time</div>
+  <div class="lbl violet" style="left:1400px; top:910px">Human handoff rule</div>
+  <div class="lbl red sm" style="left:460px; top:880px">No rule = incomplete</div>
+</section>
+
+<!-- 7 · claims -->
+<section class="slide t-sand" style="--accent:#b4531f">
+  <div class="cap"><span class="eyebrow">Request 1 · Claims</span><h1>A <em>deterministic</em> pipeline</h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="90" y="330" width="310" height="230" rx="28"/><rect x="440" y="330" width="310" height="230" rx="28"/><rect x="790" y="330" width="310" height="230" rx="28"/><rect x="1140" y="330" width="310" height="230" rx="28"/><rect x="1490" y="330" width="310" height="230" rx="28"/></g>
+    <g fill="#1d2340"><path d="M404 430 L436 445 L404 460Z"/><path d="M754 430 L786 445 L754 460Z"/><path d="M1104 430 L1136 445 L1104 460Z"/><path d="M1454 430 L1486 445 L1454 460Z"/></g>
+    <use href="sprites.svg#shield" x="195" y="350" width="100" height="115"/>
+    <use href="sprites.svg#doc" x="550" y="350" width="94" height="115" style="--accent:#22b8a6"/>
+    <use href="sprites.svg#magnifier" x="890" y="352" width="112" height="112"/>
+    <use href="sprites.svg#coin" x="1240" y="355" width="110" height="110"/>
+    <use href="sprites.svg#envelope" x="1575" y="370" width="140" height="101" style="--paper:#fdf6ec"/>
+    <g font-size="36" font-weight="900" fill="#1d2340" text-anchor="middle"><text x="245" y="520">Validate</text><text x="595" y="520">Coverage</text><text x="945" y="520">Fraud</text><text x="1295" y="520">Payout</text><text x="1645" y="520">Letter</text></g>
+    <!-- rejected agent -->
+    <g opacity=".55"><use href="sprites.svg#robot" x="1330" y="660" width="160" height="210" style="--body:#9aa6c8"/></g>
+    <use href="sprites.svg#cross" x="1450" y="650" width="100" height="100"/>
+  </svg>
+  <div class="lbl violet sm" style="left:1010px; top:330px">LLM inside</div>
+  <div class="lbl violet sm" style="left:1710px; top:330px">LLM inside</div>
+  <div class="stat" style="left:340px; top:760px; color:#b4531f"><b>50k</b><span>claims / day</span></div>
+  <div class="lbl dark" style="left:860px; top:720px">Fixed by regulation</div>
+  <div class="lbl dark" style="left:860px; top:810px">Auditor-ready</div>
+  <div class="lbl red" style="left:1620px; top:880px">✗ Agent decides per claim</div>
+</section>
+
+<!-- 8 · audit + escalation -->
+<section class="slide t-teal" style="--accent:#0f7f72">
+  <div class="cap"><span class="eyebrow">Request 1 · Claims</span><h1>Every stage <em>on the record</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="110" y="320" width="280" height="120" rx="24"/><rect x="450" y="320" width="280" height="120" rx="24"/><rect x="790" y="320" width="280" height="120" rx="24"/><rect x="1130" y="320" width="280" height="120" rx="24"/><rect x="1470" y="320" width="280" height="120" rx="24"/></g>
+    <g font-size="34" font-weight="900" fill="#1d2340" text-anchor="middle"><text x="250" y="392">Validate</text><text x="590" y="392">Coverage</text><text x="930" y="392">Fraud</text><text x="1270" y="392">Payout</text><text x="1610" y="392">Letter</text></g>
+    <g font-size="22" font-weight="900" fill="#fff"><rect x="320" y="300" width="60" height="34" rx="17" fill="#7c5cff"/><text x="332" y="325">v3</text><rect x="660" y="300" width="60" height="34" rx="17" fill="#7c5cff"/><text x="672" y="325">v5</text><rect x="1000" y="300" width="60" height="34" rx="17" fill="#7c5cff"/><text x="1012" y="325">v2</text><rect x="1340" y="300" width="60" height="34" rx="17" fill="#7c5cff"/><text x="1352" y="325">v4</text><rect x="1680" y="300" width="60" height="34" rx="17" fill="#7c5cff"/><text x="1692" y="325">v7</text></g>
+    <g stroke="#fff" stroke-width="7" stroke-dasharray="6 10" stroke-linecap="round"><path d="M250 450 V530 M590 450 V530 M1270 450 V530 M1610 450 V530 M930 450 V530"/></g>
+    <rect x="110" y="540" width="1640" height="90" rx="45" fill="#083a44"/>
+    <use href="sprites.svg#book" x="140" y="548" width="100" height="76"/>
+    <text x="270" y="600" font-size="36" font-weight="900" fill="#7ff0d8">Audit trail · every input and output</text>
+    <!-- escalation -->
+    <path d="M1070 400 Q1180 480 1150 660 Q1130 720 1250 760" stroke="#ffb020" stroke-width="10" fill="none" stroke-dasharray="20 14" stroke-linecap="round" marker-end="url(#ah)"/>
+    <use href="sprites.svg#warn" x="1020" y="670" width="110" height="97"/>
+    <use href="sprites.svg#person-desk" x="1280" y="650" width="330" height="283" style="--shirt:#ffb020"/>
+  </svg>
+  <div class="lbl amber" style="left:830px; top:730px">Low confidence</div>
+  <div class="lbl" style="left:1700px; top:700px">Human adjuster</div>
+  <div class="lbl teal sm" style="left:400px; top:840px">Versioned · evaluated</div>
+</section>
+
+<!-- 9 · competitor brief -->
+<section class="slide t-rose" style="--accent:#c92a62">
+  <div class="cap"><span class="eyebrow">Request 2 · Competitor brief</span><h1>Supervisor + <em>parallel workers</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#robot" x="130" y="480" width="200" height="262" style="--body:#ffb020;--accent:#7c5cff"/>
+    <g stroke="#c92a62" stroke-width="8" fill="none" stroke-linecap="round" marker-end="url(#ah)">
+      <path d="M340 600 Q480 390 620 380"/><path d="M340 610 Q500 520 620 530"/><path d="M340 620 Q500 690 620 680"/><path d="M340 630 Q480 830 620 830"/>
+    </g>
+    <use href="sprites.svg#robot" x="640" y="320" width="92" height="121" style="--body:#22b8a6"/>
+    <use href="sprites.svg#robot" x="640" y="470" width="92" height="121" style="--body:#5cc8ff"/>
+    <use href="sprites.svg#robot" x="640" y="620" width="92" height="121" style="--body:#7c5cff"/>
+    <use href="sprites.svg#robot" x="640" y="770" width="92" height="121" style="--body:#ff7a59"/>
+    <g><rect x="760" y="352" width="560" height="64" rx="32" fill="#22b8a6"/><rect x="760" y="502" width="500" height="64" rx="32" fill="#5cc8ff"/><rect x="760" y="652" width="600" height="64" rx="32" fill="#7c5cff"/><rect x="760" y="802" width="540" height="64" rx="32" fill="#ff7a59"/></g>
+    <g font-size="36" font-weight="900" fill="#fff"><text x="800" y="397">Funding</text><text x="800" y="547">Launches</text><text x="800" y="697">Hiring</text><text x="800" y="847">Sentiment</text></g>
+    <use href="sprites.svg#coins" x="1335" y="345" width="84" height="74"/>
+    <use href="sprites.svg#bolt" x="1280" y="490" width="52" height="87"/>
+    <use href="sprites.svg#group" x="1375" y="640" width="100" height="80"/>
+    <use href="sprites.svg#chat" x="1315" y="795" width="90" height="71" style="--dot:#ff7a59"/>
+    <use href="sprites.svg#clock" x="1560" y="400" width="220" height="220" style="--rim:#c92a62"/>
+  </svg>
+  <div class="lbl dark" style="left:230px; top:790px">Supervisor</div>
+  <div class="lbl lg" style="left:1670px; top:690px">10 min is fine</div>
+  <div class="lbl green sm" style="left:1670px; top:780px">Quality over speed</div>
+</section>
+
+<!-- 10 · why not one agent -->
+<section class="slide t-sunrise" style="--accent:#d9412a">
+  <div class="cap"><span class="eyebrow">Request 2 · Why workers</span><h1>Own context, <em>cited summaries</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="90" y="300" width="860" height="630" rx="36"/></g>
+    <g fill="#fff4ea" stroke="#ff7a59" stroke-width="5" stroke-dasharray="12 8">
+      <rect x="130" y="350" width="200" height="200" rx="20"/><rect x="350" y="350" width="200" height="200" rx="20"/>
+      <rect x="130" y="580" width="200" height="200" rx="20"/><rect x="350" y="580" width="200" height="200" rx="20"/>
+    </g>
+    <use href="sprites.svg#robot" x="180" y="380" width="100" height="131" style="--body:#22b8a6"/>
+    <use href="sprites.svg#robot" x="400" y="380" width="100" height="131" style="--body:#5cc8ff"/>
+    <use href="sprites.svg#robot" x="180" y="610" width="100" height="131" style="--body:#7c5cff"/>
+    <use href="sprites.svg#robot" x="400" y="610" width="100" height="131" style="--body:#ff7a59"/>
+    <g stroke="#1d2340" stroke-width="9" fill="none" stroke-linecap="round" marker-end="url(#ah)"><path d="M570 565 H660"/></g>
+    <rect x="690" y="400" width="220" height="330" rx="20" fill="#fdf6ec" stroke="#ead7c3" stroke-width="4"/>
+    <text x="800" y="460" text-anchor="middle" font-size="36" font-weight="900" fill="#1d2340">Brief</text>
+    <g fill="#b8c2de"><rect x="720" y="490" width="120" height="14" rx="7"/><rect x="720" y="550" width="110" height="14" rx="7"/><rect x="720" y="610" width="130" height="14" rx="7"/><rect x="720" y="670" width="100" height="14" rx="7"/></g>
+    <g font-size="22" font-weight="900" fill="#d9412a"><text x="850" y="505">[1]</text><text x="840" y="565">[2]</text><text x="858" y="625">[3]</text><text x="830" y="685">[4]</text></g>
+    <!-- drowning single agent -->
+    <use href="sprites.svg#robot-sad" x="1300" y="420" width="220" height="289" style="--body:#9aa6c8"/>
+    <g>
+      <use href="sprites.svg#doc" x="1080" y="700" width="110" height="135" style="--accent:#ff7a59"/>
+      <use href="sprites.svg#doc" x="1180" y="660" width="110" height="135" style="--accent:#22b8a6"/>
+      <use href="sprites.svg#doc" x="1280" y="620" width="110" height="135" style="--accent:#7c5cff"/>
+      <use href="sprites.svg#doc" x="1380" y="640" width="110" height="135" style="--accent:#ffb020"/>
+      <use href="sprites.svg#doc" x="1480" y="620" width="110" height="135" style="--accent:#5cc8ff"/>
+      <use href="sprites.svg#doc" x="1580" y="670" width="110" height="135" style="--accent:#ff6f9c"/>
+      <use href="sprites.svg#doc" x="1680" y="710" width="110" height="135" style="--accent:#22b8a6"/>
+      <use href="sprites.svg#doc" x="1130" y="760" width="110" height="135" style="--accent:#7c5cff"/>
+      <use href="sprites.svg#doc" x="1330" y="740" width="110" height="135" style="--accent:#ff7a59"/>
+      <use href="sprites.svg#doc" x="1530" y="750" width="110" height="135" style="--accent:#ffb020"/>
+    </g>
+  </svg>
+  <div class="lbl green" style="left:520px; top:870px">Parallel · focused</div>
+  <div class="lbl dark" style="left:1410px; top:360px">1 → 2 → 3 → 4</div>
+  <div class="lbl red" style="left:1440px; top:920px">One ReAct agent drowns</div>
+</section>
+
+<!-- 11 · real-time chat -->
+<section class="slide t-ocean" style="--accent:#1f6fbf">
+  <div class="cap"><span class="eyebrow">Request 3 · Website chat</span><h1>Under <em>two seconds</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <use href="sprites.svg#phone" x="130" y="310" width="140" height="248" style="--screen:#d9f1ff"/>
+    <use href="sprites.svg#gear" x="430" y="360" width="150" height="150" style="--body:#ffb020"/>
+    <use href="sprites.svg#database" x="760" y="350" width="140" height="159"/>
+    <use href="sprites.svg#shield" x="1080" y="355" width="130" height="150"/>
+    <use href="sprites.svg#chat" x="1370" y="355" width="200" height="158" style="--dot:#1f6fbf"/>
+    <g stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round" marker-end="url(#ah)"><path d="M290 435 H410"/><path d="M600 435 H740"/><path d="M920 435 H1060"/><path d="M1230 435 H1350"/></g>
+    <!-- no loops -->
+    <circle cx="1640" cy="800" r="80" fill="none" stroke="#fff" stroke-width="12" stroke-dasharray="380 120" marker-end="url(#ah)"/>
+    <use href="sprites.svg#cross" x="1680" y="700" width="80" height="80"/>
+  </svg>
+  <div class="lbl sm" style="left:200px; top:600px">Question</div>
+  <div class="lbl sm" style="left:505px; top:560px">Router</div>
+  <div class="lbl sm" style="left:830px; top:560px">Retrieve</div>
+  <div class="lbl amber sm" style="left:1145px; top:560px">Confidence gate</div>
+  <div class="lbl sm" style="left:1470px; top:560px">Answer</div>
+  <div class="stat" style="left:420px; top:790px; color:#fff"><b>&lt; 2 s</b><span>per answer</span></div>
+  <div class="stat" style="left:1010px; top:790px; color:#fff"><b>500</b><span>live sessions</span></div>
+  <div class="lbl red" style="left:1640px; top:930px">No loops</div>
+</section>
+
+<!-- 12 · handoff + prefix cache -->
+<section class="slide t-mint" style="--accent:#0f7f72">
+  <div class="cap"><span class="eyebrow">Request 3 · Website chat</span><h1>Unsure? <em>Hand off.</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="90" y="300" width="860" height="630" rx="36"/><rect x="990" y="300" width="840" height="630" rx="36"/></g>
+    <!-- gauge -->
+    <path d="M150 640 A170 170 0 0 1 235 493" stroke="#ff5d73" stroke-width="44" fill="none"/>
+    <path d="M235 493 A170 170 0 0 1 405 493" stroke="#ffb020" stroke-width="44" fill="none"/>
+    <path d="M405 493 A170 170 0 0 1 490 640" stroke="#22c55e" stroke-width="44" fill="none"/>
+    <line x1="320" y1="640" x2="200" y2="560" stroke="#1d2340" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="320" cy="640" r="24" fill="#1d2340"/>
+    <g stroke="#1d2340" stroke-width="9" fill="none" stroke-linecap="round" marker-end="url(#ah)"><path d="M510 600 H580"/></g>
+    <use href="sprites.svg#person-desk" x="590" y="440" width="330" height="283" style="--shirt:#22b8a6"/>
+    <use href="sprites.svg#doc" x="600" y="360" width="70" height="86" style="--accent:#22b8a6"/>
+    <use href="sprites.svg#doc" x="630" y="375" width="70" height="86" style="--accent:#22b8a6"/>
+    <!-- prefix cache -->
+    <g>
+      <rect x="1030" y="400" width="470" height="80" rx="18" fill="#22b8a6"/><rect x="1520" y="400" width="200" height="80" rx="18" fill="#ff7a59"/>
+      <rect x="1030" y="510" width="470" height="80" rx="18" fill="#22b8a6"/><rect x="1520" y="510" width="140" height="80" rx="18" fill="#7c5cff"/>
+      <rect x="1030" y="620" width="470" height="80" rx="18" fill="#22b8a6"/><rect x="1520" y="620" width="260" height="80" rx="18" fill="#ffb020"/>
+      <g font-size="32" font-weight="900" fill="#fff"><text x="1060" y="452">System prompt</text><text x="1060" y="562">System prompt</text><text x="1060" y="672">System prompt</text></g>
+      <path d="M1030 370 H1500" stroke="#0f7f72" stroke-width="6"/><path d="M1030 360 V380 M1500 360 V380" stroke="#0f7f72" stroke-width="6"/>
+    </g>
+    <use href="sprites.svg#bolt" x="1710" y="740" width="70" height="117"/>
+  </svg>
+  <div class="lbl red sm" style="left:320px; top:730px">Weak grounding</div>
+  <div class="lbl dark sm" style="left:740px; top:790px">Human + full chat</div>
+  <div class="lbl teal sm" style="left:1265px; top:340px">Cached prefix</div>
+  <div class="lbl sm" style="left:1650px; top:340px">Question</div>
+  <div class="lbl green" style="left:1410px; top:800px">Faster first token</div>
+</section>
+
+<!-- 13 · non-functional -->
+<section class="slide t-plum" style="--accent:#7b2ff7">
+  <div class="cap"><span class="eyebrow">Non-functional requirements</span><h1>Beyond the <em>happy path</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="90" y="320" width="325" height="520" rx="32"/><rect x="440" y="320" width="325" height="520" rx="32"/><rect x="790" y="320" width="325" height="520" rx="32"/><rect x="1140" y="320" width="325" height="520" rx="32"/><rect x="1490" y="320" width="325" height="520" rx="32"/></g>
+    <use href="sprites.svg#database" x="185" y="370" width="135" height="153"/>
+    <use href="sprites.svg#shield" x="540" y="370" width="130" height="150" style="--body:#ff7a59"/>
+    <use href="sprites.svg#eye" x="857" y="385" width="196" height="127" style="--white:#e8e0ff"/>
+    <use href="sprites.svg#checklist" x="1240" y="360" width="130" height="156"/>
+    <use href="sprites.svg#person" x="1600" y="350" width="100" height="200" style="--shirt:#22b8a6"/>
+    <g font-size="44" font-weight="900" fill="#1d2340" text-anchor="middle"><text x="252" y="630">State</text><text x="602" y="630">Failures</text><text x="952" y="630">Tracing</text><text x="1302" y="630">Evals</text><text x="1652" y="630">Human</text></g>
+    <g font-size="28" font-weight="700" fill="#4a5275" text-anchor="middle">
+      <text x="252" y="690">Where it lives</text><text x="252" y="730">stateless?</text>
+      <text x="602" y="690">Timeouts,</text><text x="602" y="730">circuit breakers</text>
+      <text x="952" y="690">Per-step</text><text x="952" y="730">traces</text>
+      <text x="1302" y="690">Golden set</text><text x="1302" y="730">in CI</text>
+      <text x="1652" y="690">In the loop,</text><text x="1652" y="730">clearly placed</text>
+    </g>
+  </svg>
+  <div class="lbl coral" style="left:960px; top:900px">A complete answer covers all five</div>
+</section>
+
+<!-- 14 · exam tip -->
+<section class="slide t-lilac" style="--accent:#6a45e8">
+  <div class="cap"><span class="eyebrow">On the exam</span><h1>Match the <em>constraint words</em></h1></div>
+  <svg class="art" viewBox="0 0 1920 1080">
+    <g fill="#fff"><rect x="90" y="310" width="1250" height="104" rx="52"/><rect x="90" y="440" width="1250" height="104" rx="52"/><rect x="90" y="570" width="1250" height="104" rx="52"/><rect x="90" y="700" width="1250" height="104" rx="52"/></g>
+    <g font-size="44" font-weight="900" fill="#1d2340"><text x="140" y="378">“Sub-second”</text><text x="140" y="508">“Regulated”</text><text x="140" y="638">“Unknown step count”</text><text x="140" y="768">“Independent + time”</text></g>
+    <g fill="#6a45e8"><path d="M640 347 L690 362 L640 377Z"/><path d="M640 477 L690 492 L640 507Z"/><path d="M640 607 L690 622 L640 637Z"/><path d="M640 737 L690 752 L640 767Z"/></g>
+    <!-- trap card -->
+    <rect x="1390" y="310" width="440" height="494" rx="36" fill="#fff"/>
+    <path d="M1450 620 Q1520 520 1610 600 Q1700 680 1770 560" stroke="#22c55e" stroke-width="14" fill="none" stroke-linecap="round"/>
+    <use href="sprites.svg#cross" x="1555" y="400" width="110" height="110"/>
+    <text x="1610" y="700" text-anchor="middle" font-size="36" font-weight="900" fill="#1d2340">Happy path only?</text>
+  </svg>
+  <div class="lbl green" style="left:1020px; top:362px">No loops</div>
+  <div class="lbl teal" style="left:1020px; top:492px">Deterministic + logged</div>
+  <div class="lbl violet" style="left:1020px; top:622px">ReAct</div>
+  <div class="lbl amber" style="left:1020px; top:752px">Parallel workers</div>
+  <div class="lbl red" style="left:1610px; top:760px">Distractor</div>
+  <div class="lbl dark" style="left:960px; top:890px">Read on and practise the procedure →</div>
+</section>
+
+</body>
+</html>

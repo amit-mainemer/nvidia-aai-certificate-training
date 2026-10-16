@@ -1,0 +1,92 @@
+{
+  "module": "development",
+  "title": "Module 2 · Lesson 4 — Prompt and context engineering for agents",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Picture an insurance claims agent that takes twenty steps per claim.",
+        "Every step re-sends the same long system prompt, plus everything seen so far."
+      ]
+    },
+    {
+      "lines": [
+        "One Monday, an engineer adds the current time to the prompt's first line.",
+        "By Friday, every step is slower, and the bill has jumped."
+      ]
+    },
+    {
+      "lines": [
+        "Worse, by step fifteen the agent forgets the policy number, buried under raw documents.",
+        "The model is fine; the problem is what it was handed."
+      ]
+    },
+    {
+      "lines": [
+        "A solid system prompt has six parts, from role and scope to termination.",
+        "It says what the agent won't do, when to escalate, and what done looks like."
+      ]
+    },
+    {
+      "lines": [
+        "Put everything static at the top, and everything dynamic at the bottom.",
+        "A byte-stable prefix lets prefix caching cut time to first token and cost on every step."
+      ]
+    },
+    {
+      "lines": [
+        "That timestamp on line one changed the prefix on every call.",
+        "It silently switched the cache off."
+      ]
+    },
+    {
+      "lines": [
+        "The bigger lever is context engineering.",
+        "It asks what belongs in the window at this step, and what doesn't."
+      ]
+    },
+    {
+      "lines": [
+        "Big tool results are stored in full, with just a digest and a reference in context.",
+        "And the agent sees only the tools for its current phase."
+      ]
+    },
+    {
+      "lines": [
+        "Old turns get replaced by a running summary.",
+        "Key facts, like the policy number, live in structured state, so they survive compaction."
+      ]
+    },
+    {
+      "lines": [
+        "Fetch a policy when it's needed, instead of hoping the model recalls it.",
+        "Put key evidence at the start and end, because the middle gets lost."
+      ]
+    },
+    {
+      "lines": [
+        "To teach an agent how to choose, examples beat rules.",
+        "Show a few full runs, including a tool failure it recovers from, and a moment to ask a question."
+      ]
+    },
+    {
+      "lines": [
+        "A prompt is not a security boundary.",
+        "Enforcement belongs in guardrails and tool-level authorisation."
+      ]
+    },
+    {
+      "lines": [
+        "Treat prompts like code: version them, and gate changes on a golden regression set.",
+        "A one-word edit can shift tool accuracy by several points."
+      ]
+    },
+    {
+      "lines": [
+        "Exam tip: keep the static prefix byte-identical, because a timestamp at the top quietly breaks prefix caching.",
+        "Read on for the full anatomy and every context technique."
+      ]
+    }
+  ]
+}

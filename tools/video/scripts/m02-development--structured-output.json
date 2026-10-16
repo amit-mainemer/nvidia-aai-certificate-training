@@ -1,0 +1,102 @@
+{
+  "module": "development",
+  "title": "Module 2 · Lesson 2 — Structured output and constrained decoding",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Lesson two is structured output and constrained decoding.",
+        "Agents need values that always parse, not prose that usually does."
+      ]
+    },
+    {
+      "lines": [
+        "Picture an expense bot that files receipts into a finance system.",
+        "That system accepts exactly twelve categories, and nothing else."
+      ]
+    },
+    {
+      "lines": [
+        "Now and then, the bot invents a thirteenth category, like team vibes.",
+        "The import rejects it, and the whole batch fails."
+      ]
+    },
+    {
+      "lines": [
+        "Asking for JSON in the prompt guarantees nothing.",
+        "Validating and retrying usually works eventually, but costs extra round trips and can still fail."
+      ]
+    },
+    {
+      "lines": [
+        "Provider JSON or schema mode is the common production default.",
+        "It returns valid JSON matching your schema, at no extra cost."
+      ]
+    },
+    {
+      "lines": [
+        "Constrained decoding goes further: at every step, it masks out any token that would break the grammar.",
+        "Invalid output becomes impossible, not just unlikely."
+      ]
+    },
+    {
+      "lines": [
+        "NVIDIA's stack supports this as guided decoding in TensorRT-LLM and NIM, with backends like XGrammar and Outlines.",
+        "With an enum of the twelve categories, a thirteenth can never appear."
+      ],
+      "say": {
+        "0": "Nvidia's stack supports this as guided decoding in TensorRT-LLM and NIM, with backends like XGrammar and Outlines.",
+        "1": "With an eenum of the twelve categories, a thirteenth can never appear."
+      }
+    },
+    {
+      "lines": [
+        "Next, schema-first development: define the output once, for example as a Pydantic model.",
+        "That one definition produces the schema for the model, validates what comes back, and types everything downstream."
+      ]
+    },
+    {
+      "lines": [
+        "Make escalation a field the model fills in, like requires human review.",
+        "A true or false beats string-matching prose."
+      ]
+    },
+    {
+      "lines": [
+        "Field order matters too: put the rationale before the verdict.",
+        "Then the model reasons first and decides second, instead of justifying a choice it already made."
+      ]
+    },
+    {
+      "lines": [
+        "Use enums for anything you'll branch on, and include an explicit unsure option, or the schema forces a confident guess.",
+        "And keep schemas shallow, because deep nesting raises the error rate."
+      ],
+      "say": {
+        "0": "Use eenums for anything you'll branch on, and include an explicit unsure option, or the schema forces a confident guess."
+      }
+    },
+    {
+      "lines": [
+        "Remember, structured output constrains form, not truth.",
+        "A perfectly valid record can still file a taxi ride as catering, so correctness needs grounding and evaluation."
+      ]
+    },
+    {
+      "lines": [
+        "A classic exam question: an agent must pick one of fifty tool names, and sometimes invents one.",
+        "Retries, lower temperature, and better prompts only reduce that; constrained decoding over an enum eliminates it."
+      ],
+      "say": {
+        "1": "Retries, lower temperature, and better prompts only reduce that; constrained decoding over an eenum eliminates it."
+      }
+    },
+    {
+      "lines": [
+        "Unlikely versus impossible is the distinction to remember.",
+        "Read on for the full comparison table and the schema design rules."
+      ]
+    }
+  ]
+}

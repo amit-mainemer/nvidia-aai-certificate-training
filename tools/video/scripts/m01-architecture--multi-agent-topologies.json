@@ -1,0 +1,95 @@
+{
+  "module": "architecture",
+  "title": "Module 1 · Lesson 4 — Multi-agent topologies and when each one wins",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Picture a travel startup building an assistant that plans a two-week trip through Japan.",
+        "Flights, hotels, rail passes, and visas each need their own tools."
+      ]
+    },
+    {
+      "lines": [
+        "Version one is a single agent holding every tool.",
+        "Its context fills with hotel listings, and it forgets the traveller's budget."
+      ]
+    },
+    {
+      "lines": [
+        "Splitting into several agents helps, but only for three reasons.",
+        "First, specialisation: different prompts, tools, models, or permissions."
+      ]
+    },
+    {
+      "lines": [
+        "Second, context isolation: a researcher reads a mountain of sources and hands back a short brief.",
+        "Third, parallelism: independent questions run at once."
+      ]
+    },
+    {
+      "lines": [
+        "The price is handoff latency, duplicated tokens, and harder debugging.",
+        "And errors compound: four agents at ninety percent each are about sixty-six percent together."
+      ]
+    },
+    {
+      "lines": [
+        "The travel team picks the first of five topologies: a supervisor.",
+        "It owns the trip and routes flights, hotels, and visas to specialist workers."
+      ]
+    },
+    {
+      "lines": [
+        "Workers never talk to each other, so traces are clean and policy lives in one place.",
+        "The catch: the supervisor is a bottleneck and a single point of failure."
+      ]
+    },
+    {
+      "lines": [
+        "In a swarm, agents hand control straight to each other, with no coordinator.",
+        "It's faster, but harder to trace, and two agents can bounce a task forever."
+      ]
+    },
+    {
+      "lines": [
+        "A pipeline runs agents in a fixed order: extract, analyse, draft, review.",
+        "Simple and traceable, but one failed stage stalls the chain."
+      ]
+    },
+    {
+      "lines": [
+        "A blackboard gives agents a shared workspace instead of messages.",
+        "Specialists build one evolving artefact together, like an incident timeline."
+      ]
+    },
+    {
+      "lines": [
+        "In a debate, agents argue across rounds, and a judge picks the winner.",
+        "It helps on hard judgement calls, at several times the cost."
+      ]
+    },
+    {
+      "lines": [
+        "How agents talk matters as much as the shape.",
+        "Hand over typed, structured artefacts, not raw transcripts."
+      ]
+    },
+    {
+      "lines": [
+        "Watch for handoff loops, lost context, and runaway cost.",
+        "Fix them with a global step budget and a structured handoff object."
+      ]
+    },
+    {
+      "lines": [
+        "On the exam, MCP connects agents to tools, and A2A connects agents to other agents.",
+        "For a researcher, coder, and reviewer team, pick the supervisor, then read on for the full comparison."
+      ],
+      "say": {
+        "0": "On the exam, M C P connects agents to tools, and A to A connects agents to other agents."
+      }
+    }
+  ]
+}

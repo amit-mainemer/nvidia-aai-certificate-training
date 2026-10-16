@@ -1,0 +1,107 @@
+{
+  "module": "deployment",
+  "title": "Module 4 · Lesson 2 — Scaling agents on Kubernetes",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Welcome to lesson two: scaling agents on Kubernetes.",
+        "Agent systems scale as two separate tiers, and confusing them is the classic mistake."
+      ]
+    },
+    {
+      "lines": [
+        "At ten a.m., tickets for a stadium tour go on sale.",
+        "The venue's help agent gets forty thousand questions in the first minute."
+      ]
+    },
+    {
+      "lines": [
+        "The autoscaler watches CPU, and CPU sits at twenty percent.",
+        "Meanwhile the GPUs are saturated, requests queue, and fans wait a minute for a reply."
+      ]
+    },
+    {
+      "lines": [
+        "The first tier is agent orchestration: CPU-bound, mostly waiting on I/O, and cheap to copy.",
+        "Keep it stateless, and scale it on request rate and concurrency."
+      ],
+      "say": {
+        "0": "The first tier is agent orchestration: CPU-bound, mostly waiting on I O, and cheap to copy."
+      }
+    },
+    {
+      "lines": [
+        "The second tier is model inference: GPU-bound, expensive, and usually the real bottleneck.",
+        "Scale it on queue depth, batch occupancy, or a latency target, typically with KEDA."
+      ],
+      "say": {
+        "1": "Scale it on queue depth, batch occupancy, or a latency target, typically with keda."
+      }
+    },
+    {
+      "lines": [
+        "Even on the right signal, a new GPU replica can take minutes to start.",
+        "It must pull a huge image, load weights into GPU memory, and load the engine."
+      ]
+    },
+    {
+      "lines": [
+        "So pre-cache the model with the NIM Operator's NIMCache, so pods skip the download.",
+        "And keep a warm floor of replicas, because scale-to-zero is wrong for latency-sensitive services."
+      ],
+      "say": {
+        "0": "So pre-cache the model with the nim Operator's nim cache, so pods skip the download."
+      }
+    },
+    {
+      "lines": [
+        "Trigger scale-up at sixty to seventy percent capacity, not ninety-five.",
+        "Then the new replica is ready before the rush, not after it."
+      ]
+    },
+    {
+      "lines": [
+        "Sometimes one GPU must serve several workloads.",
+        "MIG slices it in hardware, with dedicated compute and memory, for hard multi-tenant guarantees."
+      ],
+      "say": {
+        "1": "Mig slices it in hardware, with dedicated compute and memory, for hard multi-tenant guarantees."
+      }
+    },
+    {
+      "lines": [
+        "Time-slicing has no isolation, so keep it for dev and test.",
+        "MPS offers partial isolation, and latency-critical inference gets a dedicated GPU."
+      ],
+      "say": {
+        "1": "M P S offers partial isolation, and latency-critical inference gets a dedicated GPU."
+      }
+    },
+    {
+      "lines": [
+        "After the sale comes the bill, and the biggest saving is routing by difficulty.",
+        "A small classifier sends easy questions to a small model, and hard ones to a large one."
+      ]
+    },
+    {
+      "lines": [
+        "Next, cache repeated answers and the shared system prompt.",
+        "Then shrink the agent loop, distill a small model from production traces, and batch what can wait."
+      ]
+    },
+    {
+      "lines": [
+        "Measure cost per successfully completed task, not cost per token.",
+        "A cheaper model that fails and needs extra steps can cost more per resolved question."
+      ]
+    },
+    {
+      "lines": [
+        "On the exam, never autoscale GPU inference on CPU utilization.",
+        "Scale on queue depth or latency with a warm floor, then read on for the details."
+      ]
+    }
+  ]
+}

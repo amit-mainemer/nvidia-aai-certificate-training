@@ -1,0 +1,101 @@
+{
+  "module": "development",
+  "title": "Module 2 · Lesson 1 — Tool design: the contract between model and system",
+  "voice": "af_heart",
+  "speed": 1.05,
+  "scenes": [
+    {
+      "lines": [
+        "Lesson one is tool design.",
+        "It's the contract between a model and the system it drives."
+      ]
+    },
+    {
+      "lines": [
+        "Picture a plant shop whose support agent has two tools, both described as search.",
+        "A customer asks where her fern is, and the agent searches the product catalogue."
+      ]
+    },
+    {
+      "lines": [
+        "The team wants a bigger model.",
+        "But a vague tool is far more often the cause than a weak model."
+      ]
+    },
+    {
+      "lines": [
+        "The model never runs anything itself.",
+        "It emits a request: a tool name, plus JSON arguments matching a declared schema."
+      ]
+    },
+    {
+      "lines": [
+        "Your runtime validates, authorises, and runs it, then returns the result as an observation.",
+        "That split underpins every security control in an agent."
+      ]
+    },
+    {
+      "lines": [
+        "A strict JSON Schema lets code reject a malformed call before it runs.",
+        "The error goes back to the model, which can correct itself."
+      ]
+    },
+    {
+      "lines": [
+        "The schema also lets providers constrain decoding, so arguments are valid by construction.",
+        "And enums, limits, and formats describe valid values better than prose."
+      ],
+      "say": {
+        "1": "And eenums, limits, and formats describe valid values better than prose."
+      }
+    },
+    {
+      "lines": [
+        "The description is a prompt, read just as the model picks a tool.",
+        "Say what it does, when to use it, when not to, and what it returns."
+      ]
+    },
+    {
+      "lines": [
+        "So the shop adds negative scope: order lookup is for a customer's own orders.",
+        "Do not use it for products; use product search instead."
+      ]
+    },
+    {
+      "lines": [
+        "Too many similar tools blur together, yet one giant tool with a mode switch just moves the confusion into an argument.",
+        "So climb a ladder: sharper descriptions, merge or split, group, retrieve, then sub-agents."
+      ]
+    },
+    {
+      "lines": [
+        "Then a refund call times out after the refund went through, and the agent retries.",
+        "An idempotency key, which the server deduplicates on, means the customer is refunded only once."
+      ],
+      "say": {
+        "1": "An idem-potency key, which the server deduplicates on, means the customer is refunded only once."
+      }
+    },
+    {
+      "lines": [
+        "Separate read and write tools, and put destructive ones behind human approval.",
+        "And make errors actionable: \"expected YYYY-MM-DD\" lets the model fix itself, while \"400 Bad Request\" does not."
+      ],
+      "say": {
+        "1": "And make errors actionable: expected year, month, day, lets the model fix itself, while four hundred, bad request, does not."
+      }
+    },
+    {
+      "lines": [
+        "Authorisation belongs in the tool, never in the system prompt.",
+        "Check the user's permissions on every call, the only defence that survives prompt injection."
+      ]
+    },
+    {
+      "lines": [
+        "Exam trap: strict typing does not eliminate hallucination, because it guarantees a well-formed call, not the right one.",
+        "Read on for the full tool-design checklist."
+      ]
+    }
+  ]
+}

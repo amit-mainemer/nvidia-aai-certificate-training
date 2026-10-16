@@ -1,6 +1,7 @@
 """Build a module intro video: slides + Kokoro narration + WebVTT subtitles.
 
-usage:  tools/video/.venv/bin/python tools/video/build.py m01-architecture
+usage:  tools/video/.venv/bin/python tools/video/build.py m01-architecture                    (module intro)
+        tools/video/.venv/bin/python tools/video/build.py m01-architecture--agency-spectrum  (lesson video)
 
 Inputs   tools/video/scripts/<name>.json   narration, one scene per slide
          tools/video/slides/<name>.html    one <section class="slide"> per scene
@@ -55,23 +56,28 @@ def stamp(t):
 
 
 @contextmanager
-def build_lock():
-    """Serialise the heavy TTS + ffmpeg phase when several modules build at once."""
-    lock = HERE / "build" / ".lock"
-    lock.parent.mkdir(parents=True, exist_ok=True)
+def build_lock(slots=2):
+    """Cap concurrent TTS + ffmpeg builds when many videos are built at once."""
+    base = HERE / "build"
+    base.mkdir(parents=True, exist_ok=True)
     while True:
-        try:
-            os.mkdir(lock)
-            break
-        except FileExistsError:
-            if time.time() - lock.stat().st_mtime > 900:  # stale (crashed build)
-                os.rmdir(lock)
+        for i in range(slots):
+            lock = base / f".lock{i}"
+            try:
+                os.mkdir(lock)
+            except FileExistsError:
+                try:
+                    if time.time() - lock.stat().st_mtime > 900:  # stale (crashed build)
+                        os.rmdir(lock)
+                except FileNotFoundError:
+                    pass
                 continue
-            time.sleep(3)
-    try:
-        yield
-    finally:
-        os.rmdir(lock)
+            try:
+                yield
+            finally:
+                os.rmdir(lock)
+            return
+        time.sleep(3)
 
 
 def main(name):
@@ -156,11 +162,12 @@ def _main(name):
         prev = f"x{i}"
     filters.append(f"[{prev}]scale=1280:720:flags=lanczos[vout]")
 
+    is_lesson = "--" in name  # lesson videos (mNN-module--lesson-id) get a lighter encode
     mp4 = OUT / f"{name}.mp4"
     subprocess.run([
         "ffmpeg", "-y", "-loglevel", "error", "-stats", *inputs, "-i", str(wav),
         "-filter_complex", ";".join(filters), "-map", "[vout]", "-map", f"{len(slides)}:a",
-        "-c:v", "libx264", "-preset", "slow", "-crf", "24", "-pix_fmt", "yuv420p", "-r", str(FPS),
+        "-c:v", "libx264", "-preset", "slow", "-crf", "27" if is_lesson else "24", "-pix_fmt", "yuv420p", "-r", str(FPS),
         "-c:a", "aac", "-b:a", "96k", "-ac", "1", "-shortest", "-movflags", "+faststart", str(mp4),
     ], check=True)
 

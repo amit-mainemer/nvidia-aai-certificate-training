@@ -1,0 +1,133 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:05.242
+Picture Maya, the only AI architect at an insurer, with three requests on Monday.
+
+2
+00:00:05.572 --> 00:00:10.151
+Automate claims, brief strategy on competitors, and add a website chat assistant.
+
+3
+00:00:10.951 --> 00:00:13.931
+A vendor pitches one autonomous agent for all three.
+
+4
+00:00:14.261 --> 00:00:19.011
+Maya runs a five-step decision procedure instead, and gets three different answers.
+
+5
+00:00:19.811 --> 00:00:22.321
+Step one: extract the hard constraints first.
+
+6
+00:00:22.651 --> 00:00:25.503
+Latency, cost, data residency, auditability,
+
+7
+00:00:25.553 --> 00:00:28.339
+and accuracy floor eliminate options early.
+
+8
+00:00:29.139 --> 00:00:31.863
+Step two: is the sequence of steps known in advance?
+
+9
+00:00:32.193 --> 00:00:36.452
+Yes means a pipeline or Plan and Execute; no means a tool-calling loop.
+
+10
+00:00:37.252 --> 00:00:40.679
+Step three: are sub-tasks independent enough to run in parallel?
+
+11
+00:00:41.009 --> 00:00:46.250
+Step four: do privileges, context, or models need isolating into separate agents?
+
+12
+00:00:47.050 --> 00:00:50.264
+Step five: name the termination and escalation policy.
+
+13
+00:00:50.594 --> 00:00:54.939
+Without a stop condition and a human handoff rule, the design is incomplete.
+
+14
+00:00:55.739 --> 00:01:00.105
+Claims follow fixed, regulated steps, fifty thousand a day, all auditable.
+
+15
+00:01:00.435 --> 00:01:05.825
+So: a deterministic pipeline with LLM components inside the stages, not an agent.
+
+16
+00:01:06.625 --> 00:01:10.457
+Every stage is versioned, evaluated, and written to an audit trail.
+
+17
+00:01:10.787 --> 00:01:14.257
+Low-confidence fraud flags escalate to a human adjuster.
+
+18
+00:01:15.057 --> 00:01:18.507
+The competitor brief splits into four independent threads:
+
+19
+00:01:18.557 --> 00:01:20.981
+funding, launches, hiring, and sentiment.
+
+20
+00:01:21.311 --> 00:01:25.613
+Ten minutes is fine, so a supervisor runs four research workers in parallel.
+
+21
+00:01:26.413 --> 00:01:30.544
+Each worker has its own context window and returns a cited summary.
+
+22
+00:01:30.874 --> 00:01:35.368
+A single ReAct agent would work one thread at a time and drown in context.
+
+23
+00:01:36.168 --> 00:01:40.257
+The chat widget must answer in under two seconds, at five hundred sessions.
+
+24
+00:01:40.587 --> 00:01:44.249
+Loops won't fit, so it's RAG with a router and a confidence gate.
+
+25
+00:01:45.049 --> 00:01:48.988
+When grounding looks weak, it hands off to a human with the full conversation.
+
+26
+00:01:49.318 --> 00:01:53.065
+Prefix caching on the system prompt keeps time to first token low.
+
+27
+00:01:53.865 --> 00:01:57.383
+A full design also covers state, failure containment,
+
+28
+00:01:57.433 --> 00:01:59.874
+tracing, and a golden test set in CI.
+
+29
+00:02:00.204 --> 00:02:02.650
+And it shows exactly where a human sits in the loop.
+
+30
+00:02:03.450 --> 00:02:05.972
+On the exam, sub-second means no loops,
+
+31
+00:02:06.022 --> 00:02:09.203
+and regulated means deterministic, logged stages.
+
+32
+00:02:09.533 --> 00:02:12.448
+Happy-path-only answers are usually distractors,
+
+33
+00:02:12.498 --> 00:02:14.795
+so read on and practise the procedure.

@@ -1,0 +1,133 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:04.069
+Picture an insurance claims agent that takes twenty steps per claim.
+
+2
+00:00:04.399 --> 00:00:09.106
+Every step re-sends the same long system prompt, plus everything seen so far.
+
+3
+00:00:09.906 --> 00:00:13.675
+One Monday, an engineer adds the current time to the prompt's first line.
+
+4
+00:00:14.005 --> 00:00:17.069
+By Friday, every step is slower, and the bill has jumped.
+
+5
+00:00:17.869 --> 00:00:21.273
+Worse, by step fifteen the agent forgets the policy number,
+
+6
+00:00:21.323 --> 00:00:22.854
+buried under raw documents.
+
+7
+00:00:23.184 --> 00:00:26.014
+The model is fine; the problem is what it was handed.
+
+8
+00:00:26.814 --> 00:00:31.095
+A solid system prompt has six parts, from role and scope to termination.
+
+9
+00:00:31.425 --> 00:00:35.407
+It says what the agent won't do, when to escalate, and what done looks like.
+
+10
+00:00:36.207 --> 00:00:40.018
+Put everything static at the top, and everything dynamic at the bottom.
+
+11
+00:00:40.348 --> 00:00:43.276
+A byte-stable prefix lets prefix caching cut
+
+12
+00:00:43.326 --> 00:00:46.186
+time to first token and cost on every step.
+
+13
+00:00:46.986 --> 00:00:50.435
+That timestamp on line one changed the prefix on every call.
+
+14
+00:00:50.765 --> 00:00:52.421
+It silently switched the cache off.
+
+15
+00:00:53.221 --> 00:00:55.433
+The bigger lever is context engineering.
+
+16
+00:00:55.763 --> 00:00:59.041
+It asks what belongs in the window at this step, and what doesn't.
+
+17
+00:00:59.841 --> 00:01:04.868
+Big tool results are stored in full, with just a digest and a reference in context.
+
+18
+00:01:05.198 --> 00:01:07.943
+And the agent sees only the tools for its current phase.
+
+19
+00:01:08.743 --> 00:01:11.146
+Old turns get replaced by a running summary.
+
+20
+00:01:11.476 --> 00:01:13.410
+Key facts, like the policy number,
+
+21
+00:01:13.460 --> 00:01:16.503
+live in structured state, so they survive compaction.
+
+22
+00:01:17.303 --> 00:01:21.051
+Fetch a policy when it's needed, instead of hoping the model recalls it.
+
+23
+00:01:21.381 --> 00:01:24.872
+Put key evidence at the start and end, because the middle gets lost.
+
+24
+00:01:25.672 --> 00:01:28.801
+To teach an agent how to choose, examples beat rules.
+
+25
+00:01:29.131 --> 00:01:32.731
+Show a few full runs, including a tool failure it recovers from,
+
+26
+00:01:32.781 --> 00:01:34.499
+and a moment to ask a question.
+
+27
+00:01:35.299 --> 00:01:37.404
+A prompt is not a security boundary.
+
+28
+00:01:37.734 --> 00:01:41.524
+Enforcement belongs in guardrails and tool-level authorisation.
+
+29
+00:01:42.324 --> 00:01:47.159
+Treat prompts like code: version them, and gate changes on a golden regression set.
+
+30
+00:01:47.489 --> 00:01:51.045
+A one-word edit can shift tool accuracy by several points.
+
+31
+00:01:51.845 --> 00:01:54.792
+Exam tip: keep the static prefix byte-identical,
+
+32
+00:01:54.842 --> 00:01:58.600
+because a timestamp at the top quietly breaks prefix caching.
+
+33
+00:01:58.930 --> 00:02:02.208
+Read on for the full anatomy and every context technique.

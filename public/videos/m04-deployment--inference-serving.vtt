@@ -1,0 +1,137 @@
+WEBVTT
+
+1
+00:00:00.300 --> 00:00:04.858
+Welcome to lesson one: how LLM inference actually consumes a GPU.
+
+2
+00:00:05.188 --> 00:00:07.527
+Every scaling answer in this domain starts here.
+
+3
+00:00:08.327 --> 00:00:12.187
+Picture a lawyer pasting a sixty-page contract into an assistant,
+
+4
+00:00:12.237 --> 00:00:13.931
+asking for the risky clauses.
+
+5
+00:00:14.261 --> 00:00:18.221
+The screen sits blank for eight seconds, then the answer streams out smoothly.
+
+6
+00:00:19.021 --> 00:00:22.641
+That pause and that stream are two phases with different bottlenecks.
+
+7
+00:00:22.971 --> 00:00:27.401
+Prefill reads the whole prompt in parallel, saturating the GPU's compute.
+
+8
+00:00:28.201 --> 00:00:32.503
+Prefill sets the time to first token, and its cost grows with prompt length.
+
+9
+00:00:32.833 --> 00:00:36.836
+So a long contract, or a long agent transcript, means a long wait.
+
+10
+00:00:37.636 --> 00:00:41.725
+Decode then writes one token at a time, limited by memory bandwidth.
+
+11
+00:00:42.055 --> 00:00:46.399
+It sets the gap between tokens, while GPU compute sits mostly idle.
+
+12
+00:00:47.199 --> 00:00:50.104
+Because the phases stress different resources,
+
+13
+00:00:50.154 --> 00:00:53.059
+NVIDIA Dynamo runs them on separate GPU pools.
+
+14
+00:00:53.389 --> 00:00:57.477
+Each pool is sized on its own, and the KV cache is passed between them.
+
+15
+00:00:58.277 --> 00:01:02.899
+Now fifty lawyers log in, and the GPU runs out of memory, though the weights fit.
+
+16
+00:01:03.229 --> 00:01:04.860
+The culprit is the KV cache,
+
+17
+00:01:04.910 --> 00:01:08.641
+which stores keys and values for every token already processed.
+
+18
+00:01:09.441 --> 00:01:13.273
+It grows with batch size, sequence length, layers, and hidden size.
+
+19
+00:01:13.603 --> 00:01:16.711
+So the cache, not the weights, limits how many requests fit.
+
+20
+00:01:17.511 --> 00:01:21.471
+Agents hurt here, because a forty-step run is one very long sequence.
+
+21
+00:01:21.801 --> 00:01:23.799
+The fixes are paged attention,
+
+22
+00:01:23.849 --> 00:01:27.554
+FP8 cache quantization, prefix caching, and compaction.
+
+23
+00:01:28.354 --> 00:01:32.507
+Static batching waits for a full batch, then stalls on the longest sequence.
+
+24
+00:01:32.837 --> 00:01:36.522
+Continuous batching hands each finished slot to a queued request,
+
+25
+00:01:36.572 --> 00:01:38.419
+for a multi-fold throughput gain.
+
+26
+00:01:39.219 --> 00:01:42.241
+Batch size is the dial between throughput and latency.
+
+27
+00:01:42.571 --> 00:01:46.702
+Bigger batches raise total tokens per second, but slow each request.
+
+28
+00:01:47.502 --> 00:01:52.380
+NIM gives you continuous batching, prefix caching, and quantization out of the box.
+
+29
+00:01:52.710 --> 00:01:56.841
+But quantization is never free, so re-run your own evaluation first.
+
+30
+00:01:57.641 --> 00:02:01.168
+Self-host NIM for data residency or steady volume;
+
+31
+00:02:01.218 --> 00:02:03.671
+use a hosted API for spiky traffic.
+
+32
+00:02:04.001 --> 00:02:08.879
+Both are OpenAI-compatible, so switching is usually a base URL change.
+
+33
+00:02:09.679 --> 00:02:14.600
+On the exam, to hit a strict latency target, cap the batch size and add replicas.
+
+34
+00:02:14.930 --> 00:02:16.437
+Now read on for the details.
